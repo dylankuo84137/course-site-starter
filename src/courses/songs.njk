@@ -1,0 +1,29 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: coursesList
+  size: 1
+  alias: c
+permalink: "/courses/{{ c.slug }}/songs/index.html"
+---
+{% import "components/course_nav.njk" as cn %}
+{{ cn.nav(c, coursesList, 'songs') }}
+
+<h1 class="text-2xl md:text-3xl font-semibold mb-4">歌曲與音檔</h1>
+
+<ul class="space-y-6">
+  {% for s in c.files.songs %}
+    <li class="bg-white rounded-2xl shadow p-4">
+      <h3 class="font-semibold mb-2">{{ s.title }}</h3>
+      <audio controls class="w-full">
+        <source src="https://drive.google.com/uc?export=download&id={{ s.id }}">
+        你的瀏覽器不支援 audio 標籤。
+      </audio>
+      <div class="mt-2">
+        <a href="https://drive.google.com/uc?export=download&id={{ s.id }}" class="download-link">播放／下載</a>
+      </div>
+    </li>
+  {% else %}
+    <li class="text-stone-500">尚未抓到音檔。</li>
+  {% endfor %}
+</ul>

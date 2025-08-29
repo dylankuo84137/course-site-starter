@@ -1,0 +1,17 @@
+:root{
+  --primary: #065f46; /* emerald-800 */
+  --accent: #b45309; /* amber-700 */
+}
+.pill{display:inline-block;padding:.375rem .75rem;border-radius:9999px;background:#ecfdf5;color:#064e3b}
+.pill:hover{background:#d1fae5}
+.pill.active{background:#065f46;color:#fff}
+.filter-input{border:1px solid #d6d3d1;border-radius:.5rem;padding:.375rem .75rem;min-width:16rem}
+.download-link{display:inline-block;padding:.375rem .75rem;border-radius:.5rem;background:#fef3c7;color:#92400e;text-decoration:none}
+.download-link:hover{background:#fde68a}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;gap:1rem;z-index:1000}
+.lightbox.hidden{display:none}
+.lightbox-img{max-width:90vw;max-height:80vh;border-radius:1rem;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.lightbox-close,.lightbox-prev,.lightbox-next{position:absolute;background:rgba(255,255,255,.85);border:none;border-radius:.5rem;padding:.25rem .5rem;font-size:2rem;line-height:1;cursor:pointer}
+.lightbox-close{top:1rem;right:1rem}
+.lightbox-prev{left:1rem}
+.lightbox-next{right:1rem}

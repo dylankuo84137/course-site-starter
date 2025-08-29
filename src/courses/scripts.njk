@@ -1,0 +1,15 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: coursesList
+  size: 1
+  alias: c
+permalink: "/courses/{{ c.slug }}/scripts/index.html"
+---
+{% import "components/course_nav.njk" as cn %}
+{{ cn.nav(c, coursesList, 'scripts') }}
+
+<h1 class="text-2xl md:text-3xl font-semibold mb-4">劇本與演出</h1>
+
+{% import "components/drive.njk" as drive %}
+{{ drive.grid(c.files.scripts_photos) }}

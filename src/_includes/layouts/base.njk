@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or site.title }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/css/site.css" rel="stylesheet">
+  <script>
+    // 動態載入 Pagefind（本機存在則用本機，否則改用 CDN）
+    (function(){
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = "/pagefind/pagefind-ui.js";
+      const LOCAL_CSS = "/pagefind/pagefind-ui.css";
+
+      function loadCSS(href){
+        const l = document.createElement('link'); l.rel = "stylesheet"; l.href = href; document.head.appendChild(l);
+      }
+      function loadJS(src, onload){
+        const s = document.createElement('script'); s.src = src; s.defer = true; s.onload = onload; s.onerror = function(){
+          if (src !== CDN_JS) { loadCSS(CDN_CSS); loadJS(CDN_JS, onload); }
+        }; document.head.appendChild(s);
+      }
+      fetch(LOCAL_JS, { method: "HEAD" }).then(r => {
+        if (r.ok) { loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, function(){ if (window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else { loadCSS(CDN_CSS); loadJS(CDN_JS, function(){ if (window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(() => { loadCSS(CDN_CSS); loadJS(CDN_JS, function(){ if (window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body class="bg-stone-50 text-stone-800">
+  <header class="bg-white/90 backdrop-blur sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="font-semibold text-lg text-emerald-800">{{ site.title }}</a>
+      <nav class="flex-1">
+        <ul class="flex gap-4 justify-center">
+          <li><a class="hover:text-emerald-700" href="/">課程介紹</a></li>
+          <li><a class="hover:text-emerald-700" href="/courses/">所有課程</a></li>
+          <li><a class="hover:text-emerald-700" href="/reflections/">留言與交流</a></li>
+        </ul>
+      </nav>
+      <div></div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div id="search" class="mb-6"></div>
+    {{ content | safe }}
+  </main>
+
+  <footer class="mt-16 border-t bg-white/70">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-stone-600 flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
+      <p>{{ site.license_text }}</p>
+      <p>© {{ site.footer_org }}｜聯絡：<a class="text-emerald-800 underline" href="mailto:{{ site.footer_email }}">{{ site.footer_email }}</a></p>
+    </div>
+  </footer>
+
+  <script src="/js/gallery.js" defer></script>
+  <script>
+    window.__initPagefind = function(){
+      try { if (window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); } catch (e) {}
+    };
+    document.addEventListener('DOMContentLoaded', () => { if (window.setupGallery) window.setupGallery(); });
+  </script>
+</body>
+</html>

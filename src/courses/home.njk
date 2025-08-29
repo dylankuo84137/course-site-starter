@@ -1,0 +1,24 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: coursesList
+  size: 1
+  alias: c
+permalink: "/courses/{{ c.slug }}/index.html"
+---
+{% import "components/course_nav.njk" as cn %}
+{{ cn.nav(c, coursesList, 'home') }}
+
+<section class="space-y-6">
+  <header>
+    <h1 class="text-2xl md:text-3xl font-semibold">{{ c.title }}</h1>
+    <p class="text-stone-600">{{ c.grade }}・{{ c.semester }}｜{{ c.unit }}｜{{ c.domain }}</p>
+  </header>
+
+  <article class="prose prose-stone max-w-none">
+    <h2>課程簡介</h2>
+    <p>{{ c.overview or '（尚未填寫）' }}</p>
+    <h2>教師介紹</h2>
+    <p>{{ c.teacher or '（尚未填寫教師介紹）' }}</p>
+  </article>
+</section>

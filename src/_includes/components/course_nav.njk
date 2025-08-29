@@ -1,0 +1,20 @@
+{% macro nav(c, coursesList, current) %}
+  <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
+    <ul class="flex flex-wrap gap-2 text-sm">
+      <li><a class="pill {% if current == 'home' %}active{% endif %}" href="/courses/{{ c.slug }}/">課程主頁</a></li>
+      <li><a class="pill {% if current == 'workbook' %}active{% endif %}" href="/courses/{{ c.slug }}/workbook/">工作本</a></li>
+      <li><a class="pill {% if current == 'photos' %}active{% endif %}" href="/courses/{{ c.slug }}/photos/">照片集</a></li>
+      <li><a class="pill {% if current == 'blackboard' %}active{% endif %}" href="/courses/{{ c.slug }}/blackboard/">黑板畫</a></li>
+      <li><a class="pill {% if current == 'scripts' %}active{% endif %}" href="/courses/{{ c.slug }}/scripts/">劇本</a></li>
+      <li><a class="pill {% if current == 'songs' %}active{% endif %}" href="/courses/{{ c.slug }}/songs/">歌曲與音檔</a></li>
+    </ul>
+    <label class="text-sm text-stone-600 flex items-center gap-2">
+      切換課程
+      <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value">
+        {% for other in coursesList %}
+          <option value="/courses/{{ other.slug }}/{% if current != 'home' %}{{ current }}/{% endif %}" {% if other.slug == c.slug %}selected{% endif %}>{{ other.title }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+{% endmacro %}

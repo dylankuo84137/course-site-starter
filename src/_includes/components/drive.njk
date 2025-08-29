@@ -1,0 +1,46 @@
+{% macro thumb(raw, altFallback, idx) %}
+  {% set id = raw.id if raw.id else raw %}
+  {% set title = raw.name if raw.name else altFallback %}
+  {% set tags = (raw.tags | join(' ')) if raw.tags else '' %}
+  <a href="#" class="block group gallery-item"
+     data-index="{{ idx }}"
+     data-id="{{ id }}"
+     data-tags="{{ tags }}"
+     data-full="https://drive.google.com/thumbnail?id={{ id }}&sz=w2000"
+     data-title="{{ title }}" aria-haspopup="dialog">
+    <img
+      class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id={{ id }}&sz=w600"
+      alt="{{ title }}"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id={{ id }}&export=view';"
+    >
+  </a>
+{% endmacro %}
+
+{% macro grid(items) %}
+  <div class="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+    <p class="text-sm text-stone-600">點擊縮圖可放大，支援方向鍵切換與 ESC 關閉</p>
+    <input id="quick-filter" class="filter-input" placeholder="快速篩選（可輸入多個關鍵字或標籤）" />
+  </div>
+  {% if not items or (items | length) == 0 %}
+    <p class="text-stone-500">目前沒有可顯示的圖片。</p>
+  {% else %}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 gallery-grid">
+    {% for it in items %}
+      {{ thumb(it, "圖片 " ~ loop.index, loop.index0) }}
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro preview(id, height="420") %}
+  <div class="space-y-2">
+    <div class="aspect-video w-full">
+      <iframe src="https://drive.google.com/file/d/{{ id }}/preview" class="w-full" style="height: {{ height }}px;" allow="autoplay"></iframe>
+    </div>
+    <div class="text-sm">
+      <a class="download-link" href="https://drive.google.com/file/d/{{ id }}" target="_blank" rel="noopener">在新分頁開啟／下載</a>
+    </div>
+  </div>
+{% endmacro %}
