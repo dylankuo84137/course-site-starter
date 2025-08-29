@@ -18,27 +18,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
         run: npm install
+
+      # 只有在你有設置 secrets.GOOGLE_API_KEY 時才會執行同步
       - name: (Optional) Sync Google Drive
+        if: ${{ secrets.GOOGLE_API_KEY != '' }}
         env:
-           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-         run: npm run sync:drive
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: npm run sync:drive
+
       - name: Build and index
         run: npm run deploy
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
