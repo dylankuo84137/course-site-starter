@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: (Optional) Sync Google Drive
-         env:
+        env:
            GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
          run: npm run sync:drive
       - name: Build and index
