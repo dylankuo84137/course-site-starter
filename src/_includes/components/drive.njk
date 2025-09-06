@@ -8,13 +8,11 @@
      data-tags="{{ tags }}"
      data-full="https://drive.google.com/thumbnail?id={{ id }}&sz=w2000"
      data-title="{{ title }}" aria-haspopup="dialog">
-    <img
-      class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
       src="https://drive.google.com/thumbnail?id={{ id }}&sz=w600"
       alt="{{ title }}"
       loading="lazy"
-      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id={{ id }}&export=view';"
-    >
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id={{ id }}&export=view';">
   </a>
 {% endmacro %}
 
@@ -32,15 +30,4 @@
     {% endfor %}
   </div>
   {% endif %}
-{% endmacro %}
-
-{% macro preview(id, height="420") %}
-  <div class="space-y-2">
-    <div class="aspect-video w-full">
-      <iframe src="https://drive.google.com/file/d/{{ id }}/preview" class="w-full" style="height: {{ height }}px;" allow="autoplay"></iframe>
-    </div>
-    <div class="text-sm">
-      <a class="download-link" href="https://drive.google.com/file/d/{{ id }}" target="_blank" rel="noopener">在新分頁開啟／下載</a>
-    </div>
-  </div>
 {% endmacro %}

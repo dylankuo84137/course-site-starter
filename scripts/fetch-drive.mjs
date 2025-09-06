@@ -140,17 +140,14 @@ async function updateCourseJson(courseJsonPath) {
 }
 
 async function main() {
-  const files = fs.readdirSync(DATA_DIR).filter(n => n.startsWith("course_") && n.endsWith(".json"));
+  const files = fs.readdirSync(path.join(ROOT, "src", "_data")).filter(n => n.startsWith("course_") && n.endsWith(".json"));
   if (files.length === 0) {
     console.error("[fetch-drive] No course_*.json found in src/_data");
     process.exit(1);
   }
   for (const name of files) {
-    await updateCourseJson(path.join(DATA_DIR, name));
+    await updateCourseJson(path.join(ROOT, "src", "_data", name));
   }
 }
 
-main().catch(e => {
-  console.error(e);
-  process.exit(1);
-});
+main().catch(e => { console.error(e); process.exit(1); });

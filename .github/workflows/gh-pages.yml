@@ -4,7 +4,6 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-# 需要寫入權限，才能推到 gh-pages 分支
 permissions:
   contents: write
 
@@ -20,9 +19,9 @@ jobs:
       SHA: ${{ github.sha }}
       REF_NAME: ${{ github.ref_name }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BASE_PATH: /${{ github.event.repository.name }}/
 
     steps:
-      # 1) 取得原始碼（手動 checkout）
       - name: Checkout (manual)
         run: |
           set -e
@@ -32,7 +31,6 @@ jobs:
           git checkout --progress --force "${SHA}"
           git log -1 --oneline
 
-      # 2) 準備 Node（若 runner 版本過舊就安裝 Node 20）
       - name: Setup Node
         run: |
           set -e
@@ -48,29 +46,31 @@ jobs:
           node -v
           npm -v
 
-      # 3) 安裝依賴
       - name: Install dependencies
         run: |
           npm ci || npm install
 
-      # 4) （可選）Drive 同步：只有有金鑰才執行
       - name: (Optional) Sync Google Drive
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
           if [ -n "$GOOGLE_API_KEY" ]; then
+            set +e
             npm run sync:drive
+            code=$?
+            if [ $code -ne 0 ]; then
+              echo "::warning::Drive sync failed (code=$code). Continuing deployment with existing JSON."
+            fi
+            set -e
           else
             echo "GOOGLE_API_KEY not set; skipping Drive sync."
           fi
 
-      # 5) Build 11ty + Pagefind
       - name: Build site
         run: |
-          npm run build
+          ELEVENTY_BASE="$BASE_PATH" npm run build
           npx pagefind --site _site
 
-      # 6) 發佈到 gh-pages 分支（不依賴 deploy-pages）
       - name: Deploy to gh-pages
         run: |
           set -e

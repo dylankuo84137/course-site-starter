@@ -9,16 +9,16 @@ permalink: /courses/index.html
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
   {% for c in coursesList %}
   <article class="bg-white rounded-2xl shadow p-5 flex flex-col gap-3">
-    <h2 class="text-xl font-semibold"><a class="hover:text-emerald-700" href="/courses/{{ c.slug }}/">{{ c.title }}</a></h2>
+    <h2 class="text-xl font-semibold"><a class="hover:text-emerald-700" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ c.title }}</a></h2>
     <p class="text-sm text-stone-600">{{ c.grade }}・{{ c.semester }}｜{{ c.unit }}｜{{ c.domain }}</p>
     <p class="line-clamp-3">{{ c.overview or '' }}</p>
     <div class="flex gap-2 flex-wrap text-sm">
-      <a class="pill" href="/courses/{{ c.slug }}/">課程主頁</a>
-      <a class="pill" href="/courses/{{ c.slug }}/workbook/">工作本</a>
-      <a class="pill" href="/courses/{{ c.slug }}/photos/">照片集</a>
-      <a class="pill" href="/courses/{{ c.slug }}/blackboard/">黑板畫</a>
-      <a class="pill" href="/courses/{{ c.slug }}/scripts/">劇本</a>
-      <a class="pill" href="/courses/{{ c.slug }}/songs/">歌曲與音檔</a>
+      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/">課程主頁</a>
+      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">工作本</a>
+      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">照片集</a>
+      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">黑板畫</a>
+      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">劇本</a>
+      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">歌曲與音檔</a>
     </div>
   </article>
   {% endfor %}
