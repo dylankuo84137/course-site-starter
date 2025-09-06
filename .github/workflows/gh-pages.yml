@@ -1,33 +1,59 @@
-name: Deploy 11ty site to GitHub Pages
+name: Build & Deploy (no external actions)
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
+# 需要寫入權限，才能推到 gh-pages 分支
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
+  build_deploy:
     runs-on: ubuntu-latest
+    env:
+      REPO: ${{ github.repository }}
+      SHA: ${{ github.sha }}
+      REF_NAME: ${{ github.ref_name }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
-      - uses: actions/checkout@v4
+      # 1) 取得原始碼（手動 checkout）
+      - name: Checkout (manual)
+        run: |
+          set -e
+          git init .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git"
+          git fetch --no-tags --depth=1 origin "${SHA}"
+          git checkout --progress --force "${SHA}"
+          git log -1 --oneline
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
+      # 2) 準備 Node（若 runner 版本過舊就安裝 Node 20）
+      - name: Setup Node
+        run: |
+          set -e
+          if ! command -v node >/dev/null; then
+            curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+          fi
+          v=$(node -v | sed 's/v\([0-9]\+\).*/\1/')
+          if [ "$v" -lt 18 ]; then
+            curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+          fi
+          node -v
+          npm -v
 
+      # 3) 安裝依賴
       - name: Install dependencies
-        run: npm ci || npm install
+        run: |
+          npm ci || npm install
 
-      # 可選：有設 secrets.GOOGLE_API_KEY 才同步，否則跳過
+      # 4) （可選）Drive 同步：只有有金鑰才執行
       - name: (Optional) Sync Google Drive
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
@@ -38,26 +64,22 @@ jobs:
             echo "GOOGLE_API_KEY not set; skipping Drive sync."
           fi
 
-      - name: Build 11ty
-        run: npm run build
+      # 5) Build 11ty + Pagefind
+      - name: Build site
+        run: |
+          npm run build
+          npx pagefind --site _site
 
-      - name: Build Pagefind index
-        run: npx pagefind --site _site
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      # 6) 發佈到 gh-pages 分支（不依賴 deploy-pages）
+      - name: Deploy to gh-pages
+        run: |
+          set -e
+          cd _site
+          touch .nojekyll
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Deploy ${SHA} ($(date -u +'%Y-%m-%dT%H:%M:%SZ'))"
+          git branch -M gh-pages
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" gh-pages
