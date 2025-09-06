@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>留言與交流</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="flex-1">
+        <ul class="flex gap-8 justify-center">
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a></li>
+        </ul>
+      </nav>
+      <div></div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div id="search" class="mb-6"></div>
+    
+<h1 class="text-3xl font-bold mb-8" style="color: var(--text-primary);">留言與交流</h1>
+
+<!-- Submission Section -->
+<div class="section-card">
+  <h2>📝 內容投稿</h2>
+  <div class="mb-6">
+    <h3 class="text-lg font-semibold mb-3" style="color: var(--text-secondary);">投稿指引</h3>
+    <ol class="list-decimal list-inside space-y-2" style="color: var(--text-secondary);">
+      <li>請於文首註明：年級、學期、主題單元、課程領域（作為標籤）</li>
+      <li>如含學生人像，請確認已取得公開授權</li>
+      <li>內容授權：一律採用 CC BY-NC</li>
+      <li><strong>重要：請在下方表單中提供您的 Google Drive 檔案連結</strong></li>
+    </ol>
+  </div>
+</div>
+
+<!-- Embedded Google Form -->
+<div class="google-form-container">
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLSd_kcRcnzKG3BOq7jg6ZwuJfpc_XmPP0Cvlo8VwRsB-oLBphw/viewform?embedded=true" 
+    class="google-form-iframe"
+    frameborder="0" 
+    marginheight="0" 
+    marginwidth="0">
+    載入中…
+  </iframe>
+</div>
+
+<!-- Comments Section -->
+<div class="section-card">
+  <h2>💬 討論與交流</h2>
+  <p class="mb-6">歡迎在此與其他教師交流心得、分享經驗，或對課程內容提出建議。</p>
+  
+  <!-- CommentBox.io widget -->
+  <div class="commentbox" data-commentbox="5698158134820864-proj"></div>
+</div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC 授權；照片含學生已取得公開授權。</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script>
+    window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+  
+  <!-- CommentBox.io initialization for reflections page -->
+  
+  <script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+  <script>
+    commentBox('5698158134820864-proj');
+  </script>
+  
+</body>
+</html>

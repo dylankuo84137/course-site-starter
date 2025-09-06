@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>慈心課程織圖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="flex-1">
+        <ul class="flex gap-8 justify-center">
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a></li>
+        </ul>
+      </nav>
+      <div></div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div id="search" class="mb-6"></div>
+    
+
+  <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
+    <ul class="flex flex-wrap gap-2 text-sm">
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/">課程主頁</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/workbook/">工作本</a></li>
+      <li><a class="pill active" href="/course-site-starter/courses/2a-nenggao-113-summer/photos/">照片集</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/blackboard/">黑板畫</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/scripts/">劇本</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/songs/">歌曲與音檔</a></li>
+    </ul>
+    <label class="text-sm text-stone-600 flex items-center gap-2">
+      切換課程
+      <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value">
+        
+          <option value="/course-site-starter/courses/2a-nenggao-113-summer/photos/" selected>能高山（班級戲劇）</option>
+        
+      </select>
+    </label>
+  </div>
+
+
+
+<h1 class="text-2xl md:text-3xl font-semibold mb-4">照片集</h1>
+
+
+
+
+  <div class="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+    <p class="text-sm text-stone-600">點擊縮圖可放大，支援方向鍵切換與 ESC 關閉</p>
+    <input id="quick-filter" class="filter-input" placeholder="快速篩選（可輸入多個關鍵字或標籤）" />
+  </div>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 gallery-grid">
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="0"
+     data-id="1yFCm7xvvTNRJfxYykhtCtcmCi73qnOB7"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1yFCm7xvvTNRJfxYykhtCtcmCi73qnOB7&sz=w2000"
+     data-title="IMG_6599" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1yFCm7xvvTNRJfxYykhtCtcmCi73qnOB7&sz=w600"
+      alt="IMG_6599"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1yFCm7xvvTNRJfxYykhtCtcmCi73qnOB7&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="1"
+     data-id="1iMftnLOaLc17VxPel5L-5tJfJmw-wUzR"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1iMftnLOaLc17VxPel5L-5tJfJmw-wUzR&sz=w2000"
+     data-title="IMG_6614" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1iMftnLOaLc17VxPel5L-5tJfJmw-wUzR&sz=w600"
+      alt="IMG_6614"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1iMftnLOaLc17VxPel5L-5tJfJmw-wUzR&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="2"
+     data-id="1gNUYES2Vu6Hvw70OG_-AyjQEcX2DjWha"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1gNUYES2Vu6Hvw70OG_-AyjQEcX2DjWha&sz=w2000"
+     data-title="IMG_6621" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1gNUYES2Vu6Hvw70OG_-AyjQEcX2DjWha&sz=w600"
+      alt="IMG_6621"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1gNUYES2Vu6Hvw70OG_-AyjQEcX2DjWha&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="3"
+     data-id="1VxwSqcBdBRzdKOSg_jaouZ9KR9foWLXW"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1VxwSqcBdBRzdKOSg_jaouZ9KR9foWLXW&sz=w2000"
+     data-title="IMG_6623" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1VxwSqcBdBRzdKOSg_jaouZ9KR9foWLXW&sz=w600"
+      alt="IMG_6623"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1VxwSqcBdBRzdKOSg_jaouZ9KR9foWLXW&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="4"
+     data-id="1y58jqZLYL6q96bPYscD1g7nRYlwU2-46"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1y58jqZLYL6q96bPYscD1g7nRYlwU2-46&sz=w2000"
+     data-title="IMG_6629" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1y58jqZLYL6q96bPYscD1g7nRYlwU2-46&sz=w600"
+      alt="IMG_6629"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1y58jqZLYL6q96bPYscD1g7nRYlwU2-46&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="5"
+     data-id="1DnPWEaRFX4v6b8_Q7pino5qsB2rtUs78"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1DnPWEaRFX4v6b8_Q7pino5qsB2rtUs78&sz=w2000"
+     data-title="IMG_6630" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1DnPWEaRFX4v6b8_Q7pino5qsB2rtUs78&sz=w600"
+      alt="IMG_6630"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1DnPWEaRFX4v6b8_Q7pino5qsB2rtUs78&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="6"
+     data-id="1hnismJH1Bwdkd_8kA5YiI9WjTU-TFwt-"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1hnismJH1Bwdkd_8kA5YiI9WjTU-TFwt-&sz=w2000"
+     data-title="IMG_6631" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1hnismJH1Bwdkd_8kA5YiI9WjTU-TFwt-&sz=w600"
+      alt="IMG_6631"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1hnismJH1Bwdkd_8kA5YiI9WjTU-TFwt-&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="7"
+     data-id="1LQUThWHHQ9HFz1XO8u_m_QhuYbhgfqWv"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1LQUThWHHQ9HFz1XO8u_m_QhuYbhgfqWv&sz=w2000"
+     data-title="IMG_6632" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1LQUThWHHQ9HFz1XO8u_m_QhuYbhgfqWv&sz=w600"
+      alt="IMG_6632"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1LQUThWHHQ9HFz1XO8u_m_QhuYbhgfqWv&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="8"
+     data-id="1J72XSG3NryPJEd5mg0akv2I_PU4xUZXt"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1J72XSG3NryPJEd5mg0akv2I_PU4xUZXt&sz=w2000"
+     data-title="IMG_6667" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1J72XSG3NryPJEd5mg0akv2I_PU4xUZXt&sz=w600"
+      alt="IMG_6667"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1J72XSG3NryPJEd5mg0akv2I_PU4xUZXt&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="9"
+     data-id="182Hrcko5wmbJEIjgJGahsgIJZbL_oMjK"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=182Hrcko5wmbJEIjgJGahsgIJZbL_oMjK&sz=w2000"
+     data-title="IMG_6672" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=182Hrcko5wmbJEIjgJGahsgIJZbL_oMjK&sz=w600"
+      alt="IMG_6672"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=182Hrcko5wmbJEIjgJGahsgIJZbL_oMjK&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="10"
+     data-id="1GTEDhlafik2pU4UsE-0w40RYMrOEZVvp"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1GTEDhlafik2pU4UsE-0w40RYMrOEZVvp&sz=w2000"
+     data-title="IMG_6673" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1GTEDhlafik2pU4UsE-0w40RYMrOEZVvp&sz=w600"
+      alt="IMG_6673"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1GTEDhlafik2pU4UsE-0w40RYMrOEZVvp&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="11"
+     data-id="1wUbdSNh50s0spYmNsRzrzHyXAD7AgMOd"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1wUbdSNh50s0spYmNsRzrzHyXAD7AgMOd&sz=w2000"
+     data-title="IMG_6674" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1wUbdSNh50s0spYmNsRzrzHyXAD7AgMOd&sz=w600"
+      alt="IMG_6674"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1wUbdSNh50s0spYmNsRzrzHyXAD7AgMOd&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="12"
+     data-id="1cOCuMdsumZ7-TNAnSJCokOWmBMnM91HH"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1cOCuMdsumZ7-TNAnSJCokOWmBMnM91HH&sz=w2000"
+     data-title="IMG_6676" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1cOCuMdsumZ7-TNAnSJCokOWmBMnM91HH&sz=w600"
+      alt="IMG_6676"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1cOCuMdsumZ7-TNAnSJCokOWmBMnM91HH&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="13"
+     data-id="16gbf0Eo09PnoRL65WgBSTVJbvfWYNm4X"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=16gbf0Eo09PnoRL65WgBSTVJbvfWYNm4X&sz=w2000"
+     data-title="IMG_6678" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=16gbf0Eo09PnoRL65WgBSTVJbvfWYNm4X&sz=w600"
+      alt="IMG_6678"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=16gbf0Eo09PnoRL65WgBSTVJbvfWYNm4X&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="14"
+     data-id="1IeDkJvb_-0OeNWoJXdGj2XRIpRIv6pHm"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1IeDkJvb_-0OeNWoJXdGj2XRIpRIv6pHm&sz=w2000"
+     data-title="IMG_6679" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1IeDkJvb_-0OeNWoJXdGj2XRIpRIv6pHm&sz=w600"
+      alt="IMG_6679"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1IeDkJvb_-0OeNWoJXdGj2XRIpRIv6pHm&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="15"
+     data-id="1_kElDnUoX8ciuuc-TQRWWy5XrMe3vChV"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1_kElDnUoX8ciuuc-TQRWWy5XrMe3vChV&sz=w2000"
+     data-title="IMG_6680" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1_kElDnUoX8ciuuc-TQRWWy5XrMe3vChV&sz=w600"
+      alt="IMG_6680"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1_kElDnUoX8ciuuc-TQRWWy5XrMe3vChV&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="16"
+     data-id="1gqBmb6yU1XoNQ6HLSVN9KDRKa4LRLIoD"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1gqBmb6yU1XoNQ6HLSVN9KDRKa4LRLIoD&sz=w2000"
+     data-title="IMG_6681" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1gqBmb6yU1XoNQ6HLSVN9KDRKa4LRLIoD&sz=w600"
+      alt="IMG_6681"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1gqBmb6yU1XoNQ6HLSVN9KDRKa4LRLIoD&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="17"
+     data-id="1wpnyIM2GR_povI1nn4Uscd4kN5CHConY"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1wpnyIM2GR_povI1nn4Uscd4kN5CHConY&sz=w2000"
+     data-title="IMG_6682" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1wpnyIM2GR_povI1nn4Uscd4kN5CHConY&sz=w600"
+      alt="IMG_6682"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1wpnyIM2GR_povI1nn4Uscd4kN5CHConY&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="18"
+     data-id="1o4OpGX6TG-nqokhxcKcekzpYAPtXu06i"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1o4OpGX6TG-nqokhxcKcekzpYAPtXu06i&sz=w2000"
+     data-title="IMG_6683" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1o4OpGX6TG-nqokhxcKcekzpYAPtXu06i&sz=w600"
+      alt="IMG_6683"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1o4OpGX6TG-nqokhxcKcekzpYAPtXu06i&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="19"
+     data-id="1NrxT3E6P09mXPArcy1dBrXVBP7bbh6EM"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1NrxT3E6P09mXPArcy1dBrXVBP7bbh6EM&sz=w2000"
+     data-title="IMG_6684" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1NrxT3E6P09mXPArcy1dBrXVBP7bbh6EM&sz=w600"
+      alt="IMG_6684"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1NrxT3E6P09mXPArcy1dBrXVBP7bbh6EM&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="20"
+     data-id="1yMP_wphdGBuJKC3y3FB5b4ySJhjTC4vo"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1yMP_wphdGBuJKC3y3FB5b4ySJhjTC4vo&sz=w2000"
+     data-title="IMG_6685" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1yMP_wphdGBuJKC3y3FB5b4ySJhjTC4vo&sz=w600"
+      alt="IMG_6685"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1yMP_wphdGBuJKC3y3FB5b4ySJhjTC4vo&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="21"
+     data-id="1eAZvJBeWh5gHj91LYLfnZd-aTyeI3ptx"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1eAZvJBeWh5gHj91LYLfnZd-aTyeI3ptx&sz=w2000"
+     data-title="IMG_6686" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1eAZvJBeWh5gHj91LYLfnZd-aTyeI3ptx&sz=w600"
+      alt="IMG_6686"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1eAZvJBeWh5gHj91LYLfnZd-aTyeI3ptx&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="22"
+     data-id="1foVdvL1DQ92NTsu9zpX8Wcr8K89ZaMG8"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1foVdvL1DQ92NTsu9zpX8Wcr8K89ZaMG8&sz=w2000"
+     data-title="IMG_6687" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1foVdvL1DQ92NTsu9zpX8Wcr8K89ZaMG8&sz=w600"
+      alt="IMG_6687"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1foVdvL1DQ92NTsu9zpX8Wcr8K89ZaMG8&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="23"
+     data-id="1WqYQBl58ccsNGGn60Q49MCtmUuxKFjdj"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1WqYQBl58ccsNGGn60Q49MCtmUuxKFjdj&sz=w2000"
+     data-title="IMG_6688" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1WqYQBl58ccsNGGn60Q49MCtmUuxKFjdj&sz=w600"
+      alt="IMG_6688"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1WqYQBl58ccsNGGn60Q49MCtmUuxKFjdj&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="24"
+     data-id="1XQnUY8IkmFXTT3GoxX3t3rKHpK-eV7EM"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1XQnUY8IkmFXTT3GoxX3t3rKHpK-eV7EM&sz=w2000"
+     data-title="IMG_6879" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1XQnUY8IkmFXTT3GoxX3t3rKHpK-eV7EM&sz=w600"
+      alt="IMG_6879"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1XQnUY8IkmFXTT3GoxX3t3rKHpK-eV7EM&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="25"
+     data-id="1bLYL4po9UAGehdwYCRAUrULw44kGLiXm"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1bLYL4po9UAGehdwYCRAUrULw44kGLiXm&sz=w2000"
+     data-title="IMG_6880" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1bLYL4po9UAGehdwYCRAUrULw44kGLiXm&sz=w600"
+      alt="IMG_6880"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1bLYL4po9UAGehdwYCRAUrULw44kGLiXm&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="26"
+     data-id="1q2BapRFoPuRSlPnsdhgpBchNj6CG8rDr"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1q2BapRFoPuRSlPnsdhgpBchNj6CG8rDr&sz=w2000"
+     data-title="IMG_6883" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1q2BapRFoPuRSlPnsdhgpBchNj6CG8rDr&sz=w600"
+      alt="IMG_6883"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1q2BapRFoPuRSlPnsdhgpBchNj6CG8rDr&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="27"
+     data-id="1eFm2GroNJtQpFa7niCp9_RtY4oQXV8iR"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1eFm2GroNJtQpFa7niCp9_RtY4oQXV8iR&sz=w2000"
+     data-title="IMG_6884" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1eFm2GroNJtQpFa7niCp9_RtY4oQXV8iR&sz=w600"
+      alt="IMG_6884"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1eFm2GroNJtQpFa7niCp9_RtY4oQXV8iR&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="28"
+     data-id="1p5jO_HjHD23aw7W8AvjQ1RQOtNKoD-FW"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1p5jO_HjHD23aw7W8AvjQ1RQOtNKoD-FW&sz=w2000"
+     data-title="IMG_6886" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1p5jO_HjHD23aw7W8AvjQ1RQOtNKoD-FW&sz=w600"
+      alt="IMG_6886"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1p5jO_HjHD23aw7W8AvjQ1RQOtNKoD-FW&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="29"
+     data-id="1_0jKco9ywIE50voFVBVjPgb4zmdNcKpT"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1_0jKco9ywIE50voFVBVjPgb4zmdNcKpT&sz=w2000"
+     data-title="IMG_6887" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1_0jKco9ywIE50voFVBVjPgb4zmdNcKpT&sz=w600"
+      alt="IMG_6887"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1_0jKco9ywIE50voFVBVjPgb4zmdNcKpT&export=view';">
+  </a>
+
+    
+      
+  
+  
+  
+  <a href="#" class="block group gallery-item"
+     data-index="30"
+     data-id="1sJZJPY_nZ3NKc2juaEGB6ogb8rh9IuY0"
+     data-tags="二年級 2A 嶺光班 113 學年度 夏季 班級戲劇 自然主課"
+     data-full="https://drive.google.com/thumbnail?id=1sJZJPY_nZ3NKc2juaEGB6ogb8rh9IuY0&sz=w2000"
+     data-title="IMG_6889" aria-haspopup="dialog">
+    <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
+      src="https://drive.google.com/thumbnail?id=1sJZJPY_nZ3NKc2juaEGB6ogb8rh9IuY0&sz=w600"
+      alt="IMG_6889"
+      loading="lazy"
+      onerror="this.onerror=null;this.src='https://drive.google.com/uc?id=1sJZJPY_nZ3NKc2juaEGB6ogb8rh9IuY0&export=view';">
+  </a>
+
+    
+  </div>
+  
+
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC 授權；照片含學生已取得公開授權。</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script>
+    window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+  
+  <!-- CommentBox.io initialization for reflections page -->
+  
+</body>
+</html>

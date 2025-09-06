@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>慈心課程織圖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="flex-1">
+        <ul class="flex gap-8 justify-center">
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a></li>
+        </ul>
+      </nav>
+      <div></div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div id="search" class="mb-6"></div>
+    
+
+  <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
+    <ul class="flex flex-wrap gap-2 text-sm">
+      <li><a class="pill active" href="/course-site-starter/courses/2a-nenggao-113-summer/">課程主頁</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/workbook/">工作本</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/photos/">照片集</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/blackboard/">黑板畫</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/scripts/">劇本</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/songs/">歌曲與音檔</a></li>
+    </ul>
+    <label class="text-sm text-stone-600 flex items-center gap-2">
+      切換課程
+      <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value">
+        
+          <option value="/course-site-starter/courses/2a-nenggao-113-summer/" selected>能高山（班級戲劇）</option>
+        
+      </select>
+    </label>
+  </div>
+
+
+
+
+<section class="space-y-6">
+  <header>
+    <h1 class="text-2xl md:text-3xl font-semibold">能高山（班級戲劇）</h1>
+    <p class="text-stone-600">二年級 2A 嶺光班・113 學年度 夏季｜班級戲劇｜自然主課</p>
+  </header>
+
+  <article class="prose prose-stone max-w-none">
+    <h2>課程簡介</h2>
+    <p>琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。</p>
+    <h2>教師介紹</h2>
+    <p>王琬婷</p>
+  </article>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC 授權；照片含學生已取得公開授權。</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script>
+    window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+  
+  <!-- CommentBox.io initialization for reflections page -->
+  
+</body>
+</html>
