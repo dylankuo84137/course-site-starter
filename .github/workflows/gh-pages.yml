@@ -25,15 +25,18 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: |
-          npm ci || npm install
+        run: npm ci || npm install
 
-      # 可選：如果你在 repo Secrets 設了 GOOGLE_API_KEY，就會執行 Drive 同步
+      # 可選：有設 secrets.GOOGLE_API_KEY 才同步，否則跳過
       - name: (Optional) Sync Google Drive
-        if: ${{ secrets.GOOGLE_API_KEY != '' }}
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        run: npm run sync:drive
+        run: |
+          if [ -n "$GOOGLE_API_KEY" ]; then
+            npm run sync:drive
+          else
+            echo "GOOGLE_API_KEY not set; skipping Drive sync."
+          fi
 
       - name: Build 11ty
         run: npm run build
