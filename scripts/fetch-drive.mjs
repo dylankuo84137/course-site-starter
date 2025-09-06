@@ -140,7 +140,7 @@ async function updateCourseJson(courseJsonPath) {
 }
 
 async function main() {
-  const files = fs.readdirSync(path.join(ROOT, "src", "_data")).filter(n => n.startsWith("course_") && n.endsWith(".json"));
+  const files = fs.readdirSync(path.join(ROOT, "src", "_data")).filter(n => n.startsWith("course_") && n.endsWith(".json") && n !== "course_template.json");
   if (files.length === 0) {
     console.error("[fetch-drive] No course_*.json found in src/_data");
     process.exit(1);

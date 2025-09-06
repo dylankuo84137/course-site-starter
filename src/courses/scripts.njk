@@ -9,7 +9,16 @@ permalink: "/courses/{{ c.slug }}/scripts/index.html"
 {% import "components/course_nav.njk" as cn %}
 {{ cn.nav(c, coursesList, 'scripts') }}
 
+{% if c.hero_image %}
+<div class="section-hero">
+  <img class="section-hero-image" src="https://drive.google.com/thumbnail?id={{ c.hero_image }}&sz=w600" alt="{{ c.title }} banner" loading="lazy">
+  <div class="section-hero-overlay">
+    <h1 class="section-hero-title">劇本與演出</h1>
+  </div>
+</div>
+{% else %}
 <h1 class="text-2xl md:text-3xl font-semibold mb-4">劇本與演出</h1>
+{% endif %}
 
 {% import "components/drive.njk" as drive %}
 {{ drive.grid(c.files.scripts_photos) }}

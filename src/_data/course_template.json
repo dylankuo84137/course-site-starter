@@ -1,0 +1,29 @@
+{
+  "slug": "course-example",
+  "title": "Course Example Template",
+  "grade": "Year Level",
+  "semester": "Semester Info",
+  "unit": "Subject/Unit",
+  "domain": "Subject Domain",
+  "teacher": "Teacher Name",
+  "hero_image": "DRIVE_FILE_ID_FOR_HERO_IMAGE",
+  "tags": [
+    "tag1",
+    "tag2",
+    "tag3"
+  ],
+  "drive_folders": {
+    "workbook_photos": "FOLDER_ID_HERE",
+    "blackboard": "FOLDER_ID_HERE",
+    "photos": "FOLDER_ID_HERE",
+    "scripts_and_performance": "FOLDER_ID_HERE",
+    "songs_audio": "FOLDER_ID_HERE"
+  },
+  "files": {
+    "workbook_photos": [],
+    "blackboard": [],
+    "photos": [],
+    "scripts_photos": [],
+    "songs": []
+  }
+}

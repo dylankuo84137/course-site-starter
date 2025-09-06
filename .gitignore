@@ -3,3 +3,12 @@ _site/
 .DS_Store
 .env*
 npm-debug.log*
+
+# Google Drive sync backups
+*.bak
+
+# Ignore populated course data with Google Drive content
+# Keep only template and demo course files in git
+src/_data/course_*.json
+!src/_data/course_template.json
+!src/_data/course_2a_nenggao_113_summer.json

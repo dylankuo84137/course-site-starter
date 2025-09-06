@@ -22,15 +22,15 @@
     })();
   </script>
 </head>
-<body class="bg-stone-50 text-stone-800">
-  <header class="bg-white/90 backdrop-blur sticky top-0 z-50 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="{{ '/' | url }}" class="font-semibold text-lg text-emerald-800">{{ site.title }}</a>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="{{ '/' | url }}" class="font-bold text-xl" style="color: var(--primary);">{{ site.title }}</a>
       <nav class="flex-1">
-        <ul class="flex gap-4 justify-center">
-          <li><a class="hover:text-emerald-700" href="{{ '/' | url }}">課程介紹</a></li>
-          <li><a class="hover:text-emerald-700" href="{{ '/courses/' | url }}">所有課程</a></li>
-          <li><a class="hover:text-emerald-700" href="{{ '/reflections/' | url }}">留言與交流</a></li>
+        <ul class="flex gap-8 justify-center">
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/' | url }}">課程介紹</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/courses/' | url }}">所有課程</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/reflections/' | url }}">留言與交流</a></li>
         </ul>
       </nav>
       <div></div>
@@ -42,10 +42,18 @@
     {{ content | safe }}
   </main>
 
-  <footer class="mt-16 border-t bg-white/70">
-    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-stone-600 flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
-      <p>{{ site.license_text }}</p>
-      <p>© {{ site.footer_org }}｜聯絡：<a class="text-emerald-800 underline" href="mailto:{{ site.footer_email }}">{{ site.footer_email }}</a></p>
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">{{ site.title }}</h3>
+          <p class="footer-license">{{ site.license_text }}</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© {{ site.footer_org }}</p>
+          <a class="footer-email" href="mailto:{{ site.footer_email }}">{{ site.footer_email }}</a>
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -54,5 +62,13 @@
     window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
   </script>
+  
+  <!-- CommentBox.io initialization for reflections page -->
+  {% if title == '留言與交流' %}
+  <script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+  <script>
+    commentBox('5698158134820864-proj');
+  </script>
+  {% endif %}
 </body>
 </html>

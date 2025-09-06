@@ -1,0 +1,39 @@
+image: node:18
+
+cache:
+  paths:
+    - node_modules/
+
+variables:
+  ELEVENTY_BASE: "/$CI_PROJECT_NAME/"
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+    - npm run postbuild
+  artifacts:
+    paths:
+      - _site
+    expire_in: 1 hour
+  only:
+    - main
+
+pages:
+  stage: deploy
+  script:
+    - mkdir public
+    - cp -r _site/* public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+  dependencies:
+    - build
+  only:
+    - main

@@ -206,6 +206,90 @@ git subtree push --prefix _site origin gh-pages
 
 ---
 
+## 🔐 環境設定與 Git 工作流程
+
+### 環境變數設定
+
+建立 `.env` 檔案（不會被 git 追蹤）：
+
+```bash
+# Google Drive API Key for localhost development
+GOOGLE_API_KEY=your_google_api_key_here
+GOOGLE_FORM_ID=your_google_form_id_here
+
+# Environment settings
+NODE_ENV=development
+ELEVENTY_BASE=/
+```
+
+### Git 工作流程
+
+專案已設定適當的 `.gitignore`，會自動排除：
+- `.env*` - 環境變數檔案（包含 API 金鑰）
+- `_site/` - 建置輸出目錄
+- `src/_data/course_*.json` - 包含 Google Drive 內容的課程檔案
+- `*.bak` - 同步腳本的備份檔案
+
+**提交變更的正確流程：**
+
+1. 開發完成後，先同步 Google Drive 內容（供本地測試）：
+```bash
+npm run sync:drive
+```
+
+2. 檢查 git 狀態，確認不會提交敏感資料：
+```bash
+git status
+```
+
+3. 提交代碼變更（不包含 Google Drive 內容）：
+```bash
+git add .
+git commit -m "your commit message"
+git push
+```
+
+4. **部署時**在伺服器上設定環境變數並同步內容：
+```bash
+# 在部署環境設定 API 金鑰
+export GOOGLE_API_KEY=your_api_key
+npm run sync:drive
+npm run deploy
+```
+
+### 課程檔案模板
+
+使用 `src/_data/course_template.json` 作為新課程的起始模板：
+
+```json
+{
+  "slug": "course-example",
+  "title": "Course Example Template",
+  "grade": "Year Level",
+  "semester": "Semester Info",
+  "unit": "Subject/Unit",
+  "domain": "Subject Domain",
+  "teacher": "Teacher Name",
+  "tags": ["tag1", "tag2", "tag3"],
+  "drive_folders": {
+    "workbook_photos": "FOLDER_ID_HERE",
+    "blackboard": "FOLDER_ID_HERE",
+    "photos": "FOLDER_ID_HERE",
+    "scripts_and_performance": "FOLDER_ID_HERE",
+    "songs_audio": "FOLDER_ID_HERE"
+  },
+  "files": {
+    "workbook_photos": [],
+    "blackboard": [],
+    "photos": [],
+    "scripts_photos": [],
+    "songs": []
+  }
+}
+```
+
+---
+
 ## 🧩 新增一門課
 
 1. 複製 `src/_data/course_2a_nenggao_113_summer.json` 為新檔，修改：  

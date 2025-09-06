@@ -9,21 +9,143 @@ permalink: "/courses/{{ c.slug }}/songs/index.html"
 {% import "components/course_nav.njk" as cn %}
 {{ cn.nav(c, coursesList, 'songs') }}
 
-<h1 class="text-2xl md:text-3xl font-semibold mb-4">歌曲與音檔</h1>
+{% if c.hero_image %}
+<div class="section-hero">
+  <img class="section-hero-image" src="https://drive.google.com/thumbnail?id={{ c.hero_image }}&sz=w600" alt="{{ c.title }} banner" loading="lazy">
+  <div class="section-hero-overlay">
+    <h1 class="section-hero-title">歌曲與音檔</h1>
+  </div>
+</div>
+{% else %}
+<h1 class="text-2xl md:text-3xl font-semibold mb-6" style="color: var(--primary);">歌曲與音檔</h1>
+{% endif %}
 
-<ul class="space-y-6">
+{% if c.files.songs and c.files.songs.length > 0 %}
+<div class="playlist-container">
+  <h2 class="playlist-title">播放列表</h2>
+  <div class="current-track">
+    <div class="current-track-name" id="currentTrackName">選擇一首歌曲開始播放</div>
+  </div>
+  <div id="playerContainer">
+    <audio id="mainPlayer" class="audio-player" controls preload="metadata">
+      你的瀏覽器不支援 audio 播放。
+    </audio>
+    <iframe id="drivePlayer" class="drive-player" style="display: none;" allowfullscreen></iframe>
+  </div>
+</div>
+
+<div class="space-y-4">
   {% for s in c.files.songs %}
-    <li class="bg-white rounded-2xl shadow p-4">
-      <h3 class="font-semibold mb-2">{{ s.title }}</h3>
-      <audio controls class="w-full">
-        <source src="https://drive.google.com/uc?export=download&id={{ s.id }}">
-        你的瀏覽器不支援 audio 標籤。
-      </audio>
-      <div class="mt-2">
-        <a href="https://drive.google.com/uc?export=download&id={{ s.id }}" class="download-link">播放／下載</a>
+    <div class="audio-card" data-track-id="{{ loop.index0 }}" data-title="{{ s.title }}" data-src="https://drive.google.com/uc?export=download&id={{ s.id }}">
+      <div class="flex justify-between items-start mb-3">
+        <h3 class="audio-title flex-1">{{ s.title }}</h3>
+        <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">{{ loop.index }}</span>
       </div>
-    </li>
-  {% else %}
-    <li class="text-stone-500">尚未抓到音檔。</li>
+      <div class="audio-controls">
+        <button class="play-btn px-4 py-2 rounded-lg font-medium transition-all hover:opacity-80" style="background: var(--primary); color: var(--warm-cream);" onclick="playTrack({{ loop.index0 }})">
+          ▶ 播放
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id={{ s.id }}" class="download-link" download>
+          📥 下載
+        </a>
+      </div>
+    </div>
   {% endfor %}
-</ul>
+</div>
+
+<script>
+let currentTrackIndex = 0;
+const tracks = [
+  {% for s in c.files.songs %}
+  {
+    title: "{{ s.title }}",
+    id: "{{ s.id }}",
+    src: "https://drive.google.com/uc?export=download&id={{ s.id }}",
+    streamUrl: "https://docs.google.com/uc?export=download&id={{ s.id }}",
+    fallbackUrl: "https://drive.google.com/file/d/{{ s.id }}/preview"
+  }{% if not loop.last %},{% endif %}
+  {% endfor %}
+];
+
+async function playTrack(index) {
+  const audioPlayer = document.getElementById('mainPlayer');
+  const drivePlayer = document.getElementById('drivePlayer');
+  const trackName = document.getElementById('currentTrackName');
+  const track = tracks[index];
+  
+  if (!track) return;
+
+  trackName.textContent = track.title;
+  currentTrackIndex = index;
+  
+  // Update UI immediately
+  updatePlayButtonsUI();
+  const currentBtn = document.querySelector(`[data-track-id="${index}"] .play-btn`);
+  if (currentBtn) {
+    currentBtn.textContent = '⏳ 載入中';
+    currentBtn.style.background = 'var(--accent)';
+  }
+
+  // Try audio first, then fallback to embedded Drive player
+  try {
+    const audioUrl = `https://drive.google.com/uc?export=download&id=${track.id}`;
+    audioPlayer.src = audioUrl;
+    await audioPlayer.load();
+    await audioPlayer.play();
+    
+    // Success - show audio player, hide iframe
+    audioPlayer.style.display = 'block';
+    drivePlayer.style.display = 'none';
+    
+    if (currentBtn) {
+      currentBtn.textContent = '⏸ 播放中';
+      currentBtn.style.background = 'var(--accent)';
+    }
+    
+    console.log(`Successfully playing: ${track.title} via audio element`);
+    
+  } catch (error) {
+    console.log(`Audio playback failed for ${track.title}, using embedded player`);
+    
+    // Use embedded Google Drive player
+    const embedUrl = `https://drive.google.com/file/d/${track.id}/preview`;
+    drivePlayer.src = embedUrl;
+    
+    // Show iframe, hide audio player
+    audioPlayer.style.display = 'none';
+    drivePlayer.style.display = 'block';
+    
+    if (currentBtn) {
+      currentBtn.textContent = '🎵 播放中 (內嵌)';
+      currentBtn.style.background = 'var(--accent)';
+    }
+  }
+}
+
+function updatePlayButtonsUI() {
+  document.querySelectorAll('.play-btn').forEach(btn => {
+    btn.textContent = '▶ 播放';
+    btn.style.background = 'var(--primary)';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const audioPlayer = document.getElementById('mainPlayer');
+  const drivePlayer = document.getElementById('drivePlayer');
+  
+  audioPlayer.addEventListener('ended', function() {
+    const nextIndex = (currentTrackIndex + 1) % tracks.length;
+    playTrack(nextIndex);
+  });
+  
+  audioPlayer.addEventListener('pause', function() {
+    updatePlayButtonsUI();
+  });
+});
+</script>
+
+{% else %}
+<div class="text-center py-12">
+  <p style="color: var(--text-muted);" class="text-lg">尚未抓到音檔。</p>
+</div>
+{% endif %}
