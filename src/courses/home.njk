@@ -23,9 +23,25 @@ permalink: "/courses/{{ c.slug }}/index.html"
   </header>
 
   <article class="prose prose-stone max-w-none">
-    <h2>課程簡介</h2>
-    <p>{{ c.overview or '（尚未填寫）' }}</p>
-    <h2>教師介紹</h2>
-    <p>{{ c.teacher or '（尚未填寫教師介紹）' }}</p>
+    <div class="mb-8">
+      <h2>課程簡介</h2>
+      {% if c.docs and c.docs.course_description and c.docs.course_description.content %}
+        {% if c.docs.course_description.mimeType == 'application/vnd.google-apps.document' or c.docs.course_description.mimeType.startsWith('text/') %}
+          <div class="course-description">{{ c.docs.course_description.content | formatGoogleDoc | safe }}</div>
+        {% else %}
+          <div class="whitespace-pre-wrap">{{ c.docs.course_description.content }}</div>
+          <a href="{{ c.docs.course_description.downloadUrl }}" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors mt-3">
+            <span>開啟完整文件</span>
+          </a>
+        {% endif %}
+      {% else %}
+        <p>{{ c.overview or '（尚未填寫）' }}</p>
+      {% endif %}
+    </div>
+    
+    <div class="border-t border-stone-200 pt-6">
+      <h2>教師介紹</h2>
+      <p>{{ c.teacher or '（尚未填寫教師介紹）' }}</p>
+    </div>
   </article>
 </section>

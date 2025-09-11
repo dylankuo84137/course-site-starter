@@ -46,6 +46,18 @@
 .lightbox-prev{left:1rem}
 .lightbox-next{right:1rem}
 
+/* Course description formatting */
+.course-description p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+.course-description p:last-child {
+  margin-bottom: 0;
+}
+.course-description br + br {
+  display: none;
+}
+
 /* Clean audio player styling */
 .audio-card {
   background: var(--bg-primary);

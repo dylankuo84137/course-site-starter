@@ -19,6 +19,60 @@ const FOLDER_TO_OUTPUT = {
   songs_audio: "songs",
 };
 
+async function fetchGoogleDoc(docId) {
+  if (!docId) return null;
+  
+  try {
+    // First check file metadata to determine type
+    const metaUrl = `https://www.googleapis.com/drive/v3/files/${docId}?key=${API_KEY}&fields=id,name,mimeType`;
+    const metaRes = await fetch(metaUrl);
+    if (!metaRes.ok) {
+      console.warn(`[fetch-drive] Failed to get metadata for doc ${docId}: ${metaRes.status} ${metaRes.statusText}`);
+      return null;
+    }
+    const metadata = await metaRes.json();
+    
+    let contentUrl;
+    let isGoogleDoc = false;
+    
+    if (metadata.mimeType === 'application/vnd.google-apps.document') {
+      // Native Google Doc - use export API
+      contentUrl = `https://www.googleapis.com/drive/v3/files/${docId}/export?mimeType=text/plain&key=${API_KEY}`;
+      isGoogleDoc = true;
+    } else {
+      // Other file types (docx, pdf, etc.) - download directly
+      contentUrl = `https://www.googleapis.com/drive/v3/files/${docId}?alt=media&key=${API_KEY}`;
+    }
+    
+    const res = await fetch(contentUrl);
+    if (!res.ok) {
+      console.warn(`[fetch-drive] Failed to fetch doc ${docId}: ${res.status} ${res.statusText}`);
+      return null;
+    }
+    
+    let content;
+    if (isGoogleDoc || metadata.mimeType.startsWith('text/')) {
+      content = await res.text();
+    } else {
+      // For binary files like docx, we can't extract text easily
+      // Return a placeholder with download info
+      content = `文件類型: ${metadata.name}\n檔案格式: ${metadata.mimeType}\n\n此檔案需要下載檢視，無法直接顯示文字內容。\n下載連結: https://drive.google.com/file/d/${docId}/view`;
+    }
+    
+    return {
+      id: docId,
+      name: metadata.name,
+      mimeType: metadata.mimeType,
+      content: content.trim(),
+      lastUpdated: new Date().toISOString(),
+      downloadUrl: `https://drive.google.com/file/d/${docId}/view`
+    };
+  } catch (err) {
+    console.warn(`[fetch-drive] Error fetching doc ${docId}:`, err.message);
+    return null;
+  }
+}
+
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 async function listFolderFiles(folderId) {
@@ -128,6 +182,20 @@ async function updateCourseJson(courseJsonPath) {
     }
   }
 
+  // Fetch Google Docs content
+  const googleDocs = course.google_docs || {};
+  const docsOut = {};
+  
+  for (const [docKey, docId] of Object.entries(googleDocs)) {
+    if (docId) {
+      console.log(`[fetch-drive] Fetching Google Doc: ${docKey} (${docId}) ...`);
+      const docContent = await fetchGoogleDoc(docId);
+      docsOut[docKey] = docContent;
+    } else {
+      docsOut[docKey] = null;
+    }
+  }
+
   fs.writeFileSync(courseJsonPath + ".bak", fs.readFileSync(courseJsonPath));
   course.files = course.files || {};
   course.files.workbook_photos = out.workbook_photos;
@@ -135,6 +203,7 @@ async function updateCourseJson(courseJsonPath) {
   course.files.photos = out.photos;
   course.files.scripts_photos = out.scripts_photos;
   course.files.songs = out.songs;
+  course.docs = docsOut;
   fs.writeFileSync(courseJsonPath, JSON.stringify(course, null, 2), "utf-8");
   console.log(`[fetch-drive] Updated ${path.basename(courseJsonPath)}`);
 }
