@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>慈心課程織圖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="flex-1">
+        <ul class="flex gap-8 justify-center">
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a></li>
+        </ul>
+      </nav>
+      <div></div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div id="search" class="mb-6"></div>
+    
+
+  <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
+    <ul class="flex flex-wrap gap-2 text-sm">
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/">課程主頁</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/play-script/">劇本內容</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/workbook/">工作本</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/photos/">照片集</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/blackboard/">黑板畫</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/scripts/">劇本</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/songs/">歌曲與音檔</a></li>
+    </ul>
+    <label class="text-sm text-stone-600 flex items-center gap-2">
+      切換課程
+      <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value">
+        
+          <option value="/course-site-starter/courses/2a-nenggao-113-summer/description/" selected>能高山（班級戲劇）</option>
+        
+      </select>
+    </label>
+  </div>
+
+
+<section class="space-y-6">
+  <header>
+    <h1 class="text-2xl md:text-3xl font-semibold">能高山（班級戲劇） - 課程說明</h1>
+    <p class="text-stone-600">二年級 2A 嶺光班・113 學年度 夏季｜班級戲劇｜自然主課</p>
+  </header>
+
+  <article class="prose prose-stone max-w-none">
+    
+      
+        113學年度2A嶺光班夏季班級戲劇 能高山<br><br><br>「能高山」戲劇的課程設計<br><br><br>課程主軸與靈感來源：<br><br><br>琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。<br><br><br>故事內容的豐富與改編： <br>由於繪本《能高山》的故事篇幅太短，若要處理三週的主課，琬婷老師自行加入內容。她從原住民的短篇故事中取材，例如布農族的神話。在「能高山」的主軸故事中，她融入了許多布農族關於動物的故事，例如台灣黑熊胸前為何有白毛。她也加入了創世的元素，作為三年級將教授東方和西方創世神話的鋪墊。 琬婷老師自己為故事的主角取名「那布」，使其更接近布農族的名字。在故事進展到「那布」帶著大家逃到山上後，她停下來描繪部落生活，然後開始講述部落裡的動物故事，如百步蛇、黑熊的故事，再將主線故事接回。<br><br><br>戲劇的創作過程與形式： <br>戲劇創作是邊講故事邊編寫的。原定三週完成，但因場地問題延長到第七週，中間曾一度卡關，但後來慶幸有更多時間處理。她根據孩子們的狀況進行重複情節的編排，原本是為了拉長時間，但後來發現重複其實有助於讓情節更連貫。她也鼓勵孩子進行自由書寫，戲劇中的一些口白就是孩子們寫出來的句子，例如「那布的身體變成了能高山」。她會讓孩子運用注音符號和會寫的字來自由書寫，並輔導他們將口語轉化為書面語。<br><br><br>戲劇演出形式： <br>「能高山」戲劇採用了圓圈形式進行，這是琬婷老師九年前在演出《法蘭西》時也使用過的形式。她認為這種形式非常適合低年級的孩子，因為它讓孩子們身處群體中，不必直接面對觀眾，大大減輕了他們上台的恐懼。雖然故事有時間性，圓圈形式削弱了線性時間感，但也清晰地表達故事內容。這次演出，由於孩子們表達能力強，有些台詞是由個別孩子講述，而非完全群體講述，孩子們甚至自己選擇角色並設計表演動作。她將每年的戲劇設定為學習的整合活動。<br><br><br>音樂與排練： <br>琬婷老師從網路上尋找原住民歌曲，有些會找到有拼音歌詞的影片。她也會根據戲劇需要對歌曲進行改編，例如只取歌曲重複的前半段，或將歌詞變得簡單重複。排練幾乎是每天晨圈進行的，有時會先練習歌曲，因為有些歌曲不是孩子們熟悉的語言，需要多次練習。她也會簡單解釋歌詞的意義。<br><br><br>自然課與語文課的教學理念<br><br><br>自然課的在地化與深度探究： <br>琬婷老師認為，在準備自然主課時，除了文本內容，老師更應該深入閱讀相關書籍，甚至親身去旅行，感受當地的文化和自然環境，例如閱讀關於台灣黑熊的研究，了解布農族與山林的關係。她強調，老師內在的「圖像與姿態」非常重要，這比收集大量前人的教學檔案更有效，因為它能讓故事更有靈魂，讓老師自己也能享受其中的學習過程。她自己九年前認為自然主題的無國界性，但經過這幾年的爬山、戶外挑戰等經驗，現在更傾向於融入本土的、台灣的內容。例如:她將颱風等台灣特有的自然現象融入故事，預備未來相關課程的銜接。<br><br><br>語文課的教學重點與自由書寫： <br>語文課的重點仍放在低年級的識字和注音符號教學。她會讓自然課有更多機會進行自由書寫，因為故事能讓孩子練習敘述事件或人物。她發現孩子們學會注音後，會有強烈的表達慾望，會自己寫卡片或日記。她鼓勵孩子們運用注音和國字進行自由書寫，不會的字可以畫圈，老師會協助補上或確認。她也嘗試過提供大量閱讀材料（例如類似羅北兒的簡單讀物），讓孩子們透過閱讀來熟悉文字，並理解注音的功用。琬婷老師也強調，她不再堅持每天寫工作本，如果當天進行自由書寫草稿，工作本可以隔天再寫。<br><br><br>教學與個人成長<br><br><br>琬婷老師發現，當她嘗試新的東西時，會感到教學活力和創造力。她不再預先設定非常詳細的計畫，而是抱持著好奇心，廣泛涉獵書籍、影片等，避免教學內容過於枯燥。<br><br><br>她認為，即使有經驗的老師，也需要勇於捨棄舊有模式，歸零重來，才能有新的動力。<br><br><br>她的班級的孩子們表達能力很強，幾乎每個人都能清晰地說話。她會順著孩子們的進度，例如注音學得差不多了，就會讓他們摸字典，了解注音的用途。<br><br><br>琬婷老師希望未來能更著重書寫的「結構性」，根據孩子的能力，逐步加入不同的寫作能力元素。<br><br><br>展望與建議 <br>詩閔老師建議琬婷老師可以將一、二年級學生的工作本和草稿本收集起來，作為未來討論寫作進程的資料。未來可以安排老師們分享各自在回顧和自由書寫方面的做法，以促進交流和看到不同做法的效果。她們都認同，像戲劇這樣具備整合性的學習活動，對孩子的學習記憶和表達能力有著強大的助益。
+      
+      <div class="mt-6 text-sm text-stone-500">
+        最後更新：2025-09-11 15:35
+      </div>
+    
+  </article>
+</section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC 授權；照片含學生已取得公開授權。</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script>
+    window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+  
+  <!-- CommentBox.io initialization for reflections page -->
+  
+</body>
+</html>

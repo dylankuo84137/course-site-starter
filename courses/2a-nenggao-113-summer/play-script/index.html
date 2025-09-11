@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>慈心課程織圖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="flex-1">
+        <ul class="flex gap-8 justify-center">
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a></li>
+        </ul>
+      </nav>
+      <div></div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div id="search" class="mb-6"></div>
+    
+
+  <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
+    <ul class="flex flex-wrap gap-2 text-sm">
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/">課程主頁</a></li>
+      <li><a class="pill active" href="/course-site-starter/courses/2a-nenggao-113-summer/play-script/">劇本內容</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/workbook/">工作本</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/photos/">照片集</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/blackboard/">黑板畫</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/scripts/">劇本</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/songs/">歌曲與音檔</a></li>
+    </ul>
+    <label class="text-sm text-stone-600 flex items-center gap-2">
+      切換課程
+      <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value">
+        
+          <option value="/course-site-starter/courses/2a-nenggao-113-summer/play-script/" selected>能高山（班級戲劇）</option>
+        
+      </select>
+    </label>
+  </div>
+
+
+<section class="space-y-6">
+  <header>
+    <h1 class="text-2xl md:text-3xl font-semibold">能高山（班級戲劇） - 劇本內容</h1>
+    <p class="text-stone-600">二年級 2A 嶺光班・113 學年度 夏季｜班級戲劇｜自然主課</p>
+  </header>
+
+  <article class="prose prose-stone max-w-none">
+    
+      
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+          <h3 class="text-amber-800 font-medium mb-2">📖 劇本內容</h3>
+          <p class="text-amber-700 text-sm">以下內容來自 Google 文件，保持原始格式</p>
+        </div>
+        <div class="whitespace-pre-wrap font-mono text-sm leading-relaxed bg-white border rounded-lg p-6">嶺光班二年級戲劇 –〈能高山〉                                                         編寫：琬婷
+
+
+角色
+那布
+村民1
+村民2
+大頭目
+山豬
+大風怪
+樹
+螢火蟲
+塔琳
+魚
+海神
+螞蟻
+山
+________________________
+
+
+開場（小銅鈸）
+
+
+歌曲：太陽出來了
+kula vali
+bata nausang
+dagi nitu
+vava suwu
+ho gu
+
+
+在一個多山的島上，有一個叫作那布的年輕人，他長得很高大，又很熱心勤奮。每天，當太陽升起的時候，山頂就傳來好大的吼聲：「唷吼~」大家知道：那是那布起床了。
+
+
+（小銅鈸）
+村民1：立柱子，架橫樑，蓋房子，真辛苦，誰來好心幫幫忙？
+那布：我可以！
+村民和那布：立柱子，架橫樑，蓋房子，不辛苦，那布可以來幫忙。
+
+
+（小銅鈸）
+村民2：鋤鋤草，翻翻土，開田地，真辛苦，誰來好心幫幫忙？
+那布：我可以！
+村民和那布：鋤鋤草，翻翻土，開田地，不辛苦，那布可以來幫忙。
+
+
+（小銅鈸，山豬出現）
+大頭目：山豬山豬偷吃芋，糟踏作物，真生氣，誰來好心幫幫忙？
+那布：我可以！
+（銅鈴，那布撲抓山豬，弄亂田地）
+大頭目：傻大個呀傻大個，抓了山豬毀田地，部落不再歡迎你，請你滾回山上去！
+
+
+歌曲：不要捉弄
+bunuaz lahzang lahzang
+bunuaz lahzang lahzang
+haisul dui silingsiling
+tinintala pima ivut
+minsuma ivut daingaz
+
+
+那布被大頭目趕回了山上，孤孤單單，悶悶不樂，直到有天，大風怪來到了島上，刮起大風，下起大雨…
+
+
+（彈指、拍掌）
+大風怪，發脾氣，用力一吹，樹到地，嚇得雲兒擠成堆，雨水嘩啦淹大地。
+
+
+（沙鈴，大風怪披藍布繞行一圈）
+大雨下了三天三夜，淹沒有田野，也淹沒了家園。
+
+
+那布：跟著我逃到山上去吧！
+村民們：可是天色昏暗，看不到路，怎麼辦？
+那布：沒關係，有螢火蟲帶路！
+
+
+歌曲：螢火蟲
+nuin tapuskuan,nuin tapuskuan
+antadaiza danum ma mapais
+antaiti tanum ma madavus
+nuin nuin nuin tapuskuan
+
+
+那布帶著大家逃到了山上，在螢火蟲的引路下，安然無恙。
+
+
+（雪鈴）
+終於，洪水退去。但是。天上的烏雲卻依然籠罩大地…
+
+
+塔琳：厚厚烏雲，遮住太陽，花朵枯萎，小米無穗，誰來幫忙帶回陽光？
+那布：讓我來！
+塔琳和那布：厚厚烏雲，遮住太陽，花朵枯萎，小米無穗，那布可以帶回陽光！
+塔琳：聽說海神那裡有顆寶珠，可以讓人長得和天一樣高。
+那布：太好了，那我們一起去找！
+
+
+歌曲：越過山脈
+muhaiv ludu, muhaiv ludu 
+kata si-kia, kata si-kia
+
+
+muhaiv ludu, muhaiv ludu
+kata sipal tas-tas, kata sipal tas-tas
+
+
+muhaiv ludu, muhaiv ludu
+kata sipal tunuh, kata sipal tunuh
+
+
+muhaiv ludu, muhaiv ludu
+sikavilun vini daingaz, sikavilun vini daingaz
+
+
+沿著山壁，穿過瀑布，越過山脈，終於他們來到了海邊。那布跳進了海裡…
+
+
+歌曲：數字歌
+ tasa, dusa, tau, pat, ima, num, pitu, vau, 
+ tasa, dusa, tau, pat, ima, num, pitu, vau, 
+ siva, masan, mihanitu, mihanitu
+
+
+那布抓到了一千條魚，拔下一千片魚驎，交給塔琳，做成了千鱗衣。
+那布穿上了千鱗衣，游得比任何魚都還要快，游啊游啊，他找到了海神…
+
+
+海神：這袋寶珠交給你，你要找出最完美的一顆。
+那布：可是…這麼多珍珠，哪一顆才是最完美的呢？
+
+
+歌曲：螞蟻
+aiza tasa halu-a ansahan bianu
+nitumatu ansahan kazin tinghaiding
+
+
+幸好，在小螞蟻的幫忙下，找到最完美的一顆。
+那布吞下寶珠，愈長愈高，愈長愈高，高過了山，高過了雲。終於，他撕開了烏雲，但也筋疲力盡倒了下來。
+
+
+（小銅鈸）
+歌曲：太陽出來了
+kula vali
+bata nausang
+dagi nitu
+vava suwu
+ho gu
+
+
+（銅鈴）
+最後，那布的身體變成了能高山，塔琳的眼淚也變成了瀑布，他們世世代代，守護著族人，也守護著家園。
+
+
+歌曲：來看月亮
+masiala buan, masiala buan
+idazaza dihanin
+tuzaining, tuzaining
+sadu kata buan
+
+
+結束，謝幕
+________________________________
+
+
+
+
+*歌曲網路資源
+太陽出來了
+https://www.facebook.com/watch/?v=1069703013809499
+https://www.facebook.com/watch/?v=1472697846369402
+
+
+不要捉弄
+https://web.klokah.tw/video/watch.php?vid=4036
+https://web.klokah.tw/video/watch.php?vid=992
+
+
+螢火蟲
+https://web.klokah.tw/video/watch.php?vid=4062
+
+
+越過山脈
+https://www.youtube.com/watch?v=vChYaEYUML0
+
+
+數字歌
+https://www.youtube.com/watch?v=WW40cVFUFjA
+
+
+螞蟻
+https://web.klokah.tw/video/watch.php?vid=1793
+
+
+來看月亮
+https://www.youtube.com/watch?v=64fHbcOKyx4
+
+
+*教學資源
+莊展鵬，《能高山》，台北：遠流，2006。
+郭彥仁，《走進布農的山》，新北：大家，2022。
+達西烏拉彎．畢馬，《布農族神話與傳說》，台中：晨星，2003。</div>
+      
+      <div class="mt-6 text-sm text-stone-500">
+        最後更新：2025-09-11 15:35
+      </div>
+    
+  </article>
+</section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC 授權；照片含學生已取得公開授權。</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script>
+    window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+  
+  <!-- CommentBox.io initialization for reflections page -->
+  
+</body>
+</html>

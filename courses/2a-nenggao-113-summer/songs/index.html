@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>慈心課程織圖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="flex-1">
+        <ul class="flex gap-8 justify-center">
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a></li>
+        </ul>
+      </nav>
+      <div></div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div id="search" class="mb-6"></div>
+    
+
+  <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
+    <ul class="flex flex-wrap gap-2 text-sm">
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/">課程主頁</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/play-script/">劇本內容</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/workbook/">工作本</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/photos/">照片集</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/blackboard/">黑板畫</a></li>
+      <li><a class="pill " href="/course-site-starter/courses/2a-nenggao-113-summer/scripts/">劇本</a></li>
+      <li><a class="pill active" href="/course-site-starter/courses/2a-nenggao-113-summer/songs/">歌曲與音檔</a></li>
+    </ul>
+    <label class="text-sm text-stone-600 flex items-center gap-2">
+      切換課程
+      <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value">
+        
+          <option value="/course-site-starter/courses/2a-nenggao-113-summer/songs/" selected>能高山（班級戲劇）</option>
+        
+      </select>
+    </label>
+  </div>
+
+
+
+<h1 class="text-2xl md:text-3xl font-semibold mb-6" style="color: var(--primary);">歌曲與音檔</h1>
+
+
+
+<div class="playlist-container">
+  <h2 class="playlist-title">播放列表</h2>
+  <div class="current-track">
+    <div class="current-track-name" id="currentTrackName">選擇一首歌曲開始播放</div>
+  </div>
+  <div id="playerContainer">
+    <audio id="mainPlayer" class="audio-player" controls preload="metadata">
+      你的瀏覽器不支援 audio 播放。
+    </audio>
+    <iframe id="drivePlayer" class="drive-player" style="display: none;" allowfullscreen></iframe>
+  </div>
+</div>
+
+<div class="space-y-4">
+  
+    <div class="audio-card" data-track-id="0" data-title="不要捉弄" data-src="https://drive.google.com/uc?export=download&id=1Z1jjb4K8LMFn6VkvysLaLtqyE94pUMYN">
+      <div class="flex justify-between items-start mb-3">
+        <h3 class="audio-title flex-1">不要捉弄</h3>
+        <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">1</span>
+      </div>
+      <div class="audio-controls">
+        <button class="play-btn px-4 py-2 rounded-lg font-medium transition-all hover:opacity-80" style="background: var(--primary); color: var(--warm-cream);" onclick="playTrack(0)">
+          ▶ 播放
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id=1Z1jjb4K8LMFn6VkvysLaLtqyE94pUMYN" class="download-link" download>
+          📥 下載
+        </a>
+      </div>
+    </div>
+  
+    <div class="audio-card" data-track-id="1" data-title="來看月亮" data-src="https://drive.google.com/uc?export=download&id=1qRpp5cA4BUqHoqdSUmG-Hl6saTnZYA6d">
+      <div class="flex justify-between items-start mb-3">
+        <h3 class="audio-title flex-1">來看月亮</h3>
+        <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">2</span>
+      </div>
+      <div class="audio-controls">
+        <button class="play-btn px-4 py-2 rounded-lg font-medium transition-all hover:opacity-80" style="background: var(--primary); color: var(--warm-cream);" onclick="playTrack(1)">
+          ▶ 播放
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id=1qRpp5cA4BUqHoqdSUmG-Hl6saTnZYA6d" class="download-link" download>
+          📥 下載
+        </a>
+      </div>
+    </div>
+  
+    <div class="audio-card" data-track-id="2" data-title="太陽出來了" data-src="https://drive.google.com/uc?export=download&id=1gC3A1If1SeUwrclMYR1CTwjYez0Q44TF">
+      <div class="flex justify-between items-start mb-3">
+        <h3 class="audio-title flex-1">太陽出來了</h3>
+        <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">3</span>
+      </div>
+      <div class="audio-controls">
+        <button class="play-btn px-4 py-2 rounded-lg font-medium transition-all hover:opacity-80" style="background: var(--primary); color: var(--warm-cream);" onclick="playTrack(2)">
+          ▶ 播放
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id=1gC3A1If1SeUwrclMYR1CTwjYez0Q44TF" class="download-link" download>
+          📥 下載
+        </a>
+      </div>
+    </div>
+  
+    <div class="audio-card" data-track-id="3" data-title="數字歌" data-src="https://drive.google.com/uc?export=download&id=12cf_D2tpXA5c17Xca2Ph_LBQWvbyU57m">
+      <div class="flex justify-between items-start mb-3">
+        <h3 class="audio-title flex-1">數字歌</h3>
+        <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">4</span>
+      </div>
+      <div class="audio-controls">
+        <button class="play-btn px-4 py-2 rounded-lg font-medium transition-all hover:opacity-80" style="background: var(--primary); color: var(--warm-cream);" onclick="playTrack(3)">
+          ▶ 播放
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id=12cf_D2tpXA5c17Xca2Ph_LBQWvbyU57m" class="download-link" download>
+          📥 下載
+        </a>
+      </div>
+    </div>
+  
+    <div class="audio-card" data-track-id="4" data-title="螞蟻" data-src="https://drive.google.com/uc?export=download&id=1Nk9DXjQ6_6q4uNgc1ONyxCNyv0PYOIvo">
+      <div class="flex justify-between items-start mb-3">
+        <h3 class="audio-title flex-1">螞蟻</h3>
+        <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">5</span>
+      </div>
+      <div class="audio-controls">
+        <button class="play-btn px-4 py-2 rounded-lg font-medium transition-all hover:opacity-80" style="background: var(--primary); color: var(--warm-cream);" onclick="playTrack(4)">
+          ▶ 播放
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id=1Nk9DXjQ6_6q4uNgc1ONyxCNyv0PYOIvo" class="download-link" download>
+          📥 下載
+        </a>
+      </div>
+    </div>
+  
+    <div class="audio-card" data-track-id="5" data-title="螢火蟲" data-src="https://drive.google.com/uc?export=download&id=1WxRCUPdlwtepDiIptLNoK8qTN6ixAylB">
+      <div class="flex justify-between items-start mb-3">
+        <h3 class="audio-title flex-1">螢火蟲</h3>
+        <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">6</span>
+      </div>
+      <div class="audio-controls">
+        <button class="play-btn px-4 py-2 rounded-lg font-medium transition-all hover:opacity-80" style="background: var(--primary); color: var(--warm-cream);" onclick="playTrack(5)">
+          ▶ 播放
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id=1WxRCUPdlwtepDiIptLNoK8qTN6ixAylB" class="download-link" download>
+          📥 下載
+        </a>
+      </div>
+    </div>
+  
+    <div class="audio-card" data-track-id="6" data-title="越過山脈" data-src="https://drive.google.com/uc?export=download&id=1ugVFgHAF_ZF2loZ9JAofWmMz5-D-qKBC">
+      <div class="flex justify-between items-start mb-3">
+        <h3 class="audio-title flex-1">越過山脈</h3>
+        <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">7</span>
+      </div>
+      <div class="audio-controls">
+        <button class="play-btn px-4 py-2 rounded-lg font-medium transition-all hover:opacity-80" style="background: var(--primary); color: var(--warm-cream);" onclick="playTrack(6)">
+          ▶ 播放
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id=1ugVFgHAF_ZF2loZ9JAofWmMz5-D-qKBC" class="download-link" download>
+          📥 下載
+        </a>
+      </div>
+    </div>
+  
+</div>
+
+<script>
+let currentTrackIndex = 0;
+const tracks = [
+  
+  {
+    title: "不要捉弄",
+    id: "1Z1jjb4K8LMFn6VkvysLaLtqyE94pUMYN",
+    src: "https://drive.google.com/uc?export=download&id=1Z1jjb4K8LMFn6VkvysLaLtqyE94pUMYN",
+    streamUrl: "https://docs.google.com/uc?export=download&id=1Z1jjb4K8LMFn6VkvysLaLtqyE94pUMYN",
+    fallbackUrl: "https://drive.google.com/file/d/1Z1jjb4K8LMFn6VkvysLaLtqyE94pUMYN/preview"
+  },
+  
+  {
+    title: "來看月亮",
+    id: "1qRpp5cA4BUqHoqdSUmG-Hl6saTnZYA6d",
+    src: "https://drive.google.com/uc?export=download&id=1qRpp5cA4BUqHoqdSUmG-Hl6saTnZYA6d",
+    streamUrl: "https://docs.google.com/uc?export=download&id=1qRpp5cA4BUqHoqdSUmG-Hl6saTnZYA6d",
+    fallbackUrl: "https://drive.google.com/file/d/1qRpp5cA4BUqHoqdSUmG-Hl6saTnZYA6d/preview"
+  },
+  
+  {
+    title: "太陽出來了",
+    id: "1gC3A1If1SeUwrclMYR1CTwjYez0Q44TF",
+    src: "https://drive.google.com/uc?export=download&id=1gC3A1If1SeUwrclMYR1CTwjYez0Q44TF",
+    streamUrl: "https://docs.google.com/uc?export=download&id=1gC3A1If1SeUwrclMYR1CTwjYez0Q44TF",
+    fallbackUrl: "https://drive.google.com/file/d/1gC3A1If1SeUwrclMYR1CTwjYez0Q44TF/preview"
+  },
+  
+  {
+    title: "數字歌",
+    id: "12cf_D2tpXA5c17Xca2Ph_LBQWvbyU57m",
+    src: "https://drive.google.com/uc?export=download&id=12cf_D2tpXA5c17Xca2Ph_LBQWvbyU57m",
+    streamUrl: "https://docs.google.com/uc?export=download&id=12cf_D2tpXA5c17Xca2Ph_LBQWvbyU57m",
+    fallbackUrl: "https://drive.google.com/file/d/12cf_D2tpXA5c17Xca2Ph_LBQWvbyU57m/preview"
+  },
+  
+  {
+    title: "螞蟻",
+    id: "1Nk9DXjQ6_6q4uNgc1ONyxCNyv0PYOIvo",
+    src: "https://drive.google.com/uc?export=download&id=1Nk9DXjQ6_6q4uNgc1ONyxCNyv0PYOIvo",
+    streamUrl: "https://docs.google.com/uc?export=download&id=1Nk9DXjQ6_6q4uNgc1ONyxCNyv0PYOIvo",
+    fallbackUrl: "https://drive.google.com/file/d/1Nk9DXjQ6_6q4uNgc1ONyxCNyv0PYOIvo/preview"
+  },
+  
+  {
+    title: "螢火蟲",
+    id: "1WxRCUPdlwtepDiIptLNoK8qTN6ixAylB",
+    src: "https://drive.google.com/uc?export=download&id=1WxRCUPdlwtepDiIptLNoK8qTN6ixAylB",
+    streamUrl: "https://docs.google.com/uc?export=download&id=1WxRCUPdlwtepDiIptLNoK8qTN6ixAylB",
+    fallbackUrl: "https://drive.google.com/file/d/1WxRCUPdlwtepDiIptLNoK8qTN6ixAylB/preview"
+  },
+  
+  {
+    title: "越過山脈",
+    id: "1ugVFgHAF_ZF2loZ9JAofWmMz5-D-qKBC",
+    src: "https://drive.google.com/uc?export=download&id=1ugVFgHAF_ZF2loZ9JAofWmMz5-D-qKBC",
+    streamUrl: "https://docs.google.com/uc?export=download&id=1ugVFgHAF_ZF2loZ9JAofWmMz5-D-qKBC",
+    fallbackUrl: "https://drive.google.com/file/d/1ugVFgHAF_ZF2loZ9JAofWmMz5-D-qKBC/preview"
+  }
+  
+];
+
+async function playTrack(index) {
+  const audioPlayer = document.getElementById('mainPlayer');
+  const drivePlayer = document.getElementById('drivePlayer');
+  const trackName = document.getElementById('currentTrackName');
+  const track = tracks[index];
+  
+  if (!track) return;
+
+  trackName.textContent = track.title;
+  currentTrackIndex = index;
+  
+  // Update UI immediately
+  updatePlayButtonsUI();
+  const currentBtn = document.querySelector(`[data-track-id="${index}"] .play-btn`);
+  if (currentBtn) {
+    currentBtn.textContent = '⏳ 載入中';
+    currentBtn.style.background = 'var(--accent)';
+  }
+
+  // Try audio first, then fallback to embedded Drive player
+  try {
+    const audioUrl = `https://drive.google.com/uc?export=download&id=${track.id}`;
+    audioPlayer.src = audioUrl;
+    await audioPlayer.load();
+    await audioPlayer.play();
+    
+    // Success - show audio player, hide iframe
+    audioPlayer.style.display = 'block';
+    drivePlayer.style.display = 'none';
+    
+    if (currentBtn) {
+      currentBtn.textContent = '⏸ 播放中';
+      currentBtn.style.background = 'var(--accent)';
+    }
+    
+    console.log(`Successfully playing: ${track.title} via audio element`);
+    
+  } catch (error) {
+    console.log(`Audio playback failed for ${track.title}, using embedded player`);
+    
+    // Use embedded Google Drive player
+    const embedUrl = `https://drive.google.com/file/d/${track.id}/preview`;
+    drivePlayer.src = embedUrl;
+    
+    // Show iframe, hide audio player
+    audioPlayer.style.display = 'none';
+    drivePlayer.style.display = 'block';
+    
+    if (currentBtn) {
+      currentBtn.textContent = '🎵 播放中 (內嵌)';
+      currentBtn.style.background = 'var(--accent)';
+    }
+  }
+}
+
+function updatePlayButtonsUI() {
+  document.querySelectorAll('.play-btn').forEach(btn => {
+    btn.textContent = '▶ 播放';
+    btn.style.background = 'var(--primary)';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const audioPlayer = document.getElementById('mainPlayer');
+  const drivePlayer = document.getElementById('drivePlayer');
+  
+  audioPlayer.addEventListener('ended', function() {
+    const nextIndex = (currentTrackIndex + 1) % tracks.length;
+    playTrack(nextIndex);
+  });
+  
+  audioPlayer.addEventListener('pause', function() {
+    updatePlayButtonsUI();
+  });
+});
+</script>
+
+
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC 授權；照片含學生已取得公開授權。</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script>
+    window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+  
+  <!-- CommentBox.io initialization for reflections page -->
+  
+</body>
+</html>
