@@ -8,6 +8,11 @@
   "teacher": "Teacher Name",
   "hero_image": "DRIVE_FILE_ID_FOR_HERO_IMAGE",
   "overview": "Course overview text",
+  "learningObjectives": [
+    "Learning objective 1",
+    "Learning objective 2",
+    "Learning objective 3"
+  ],
   "tags": [
     "tag1",
     "tag2",

@@ -44,6 +44,17 @@ permalink: "/courses/{{ c.slug }}/index.html"
       {% endif %}
     </section>
 
+    {% if c.learningObjectives and c.learningObjectives.length > 0 %}
+    <section id="learning-objectives" class="border-t border-stone-200 pt-6">
+      <h2>Learning Objectives (學習目標)</h2>
+      <ul class="list-disc list-inside space-y-2">
+        {% for objective in c.learningObjectives %}
+        <li>{{ objective }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
     <section id="teacher-bio" class="border-t border-stone-200 pt-6">
       <h2>教師介紹</h2>
       <p>{{ c.teacher or '（尚未填寫教師介紹）' }}</p>

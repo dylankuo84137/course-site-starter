@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title or site.title }}</title>
+  {% if description %}
+  <meta name="description" content="{{ description }}">
+  {% elif c and c.overview %}
+  <meta name="description" content="{{ c.overview | truncate(200) }}">
+  {% else %}
+  <meta name="description" content="Waldorf education course materials including workbooks, blackboard drawings, photos, and audio recordings from {{ site.footer_org }}">
+  {% endif %}
+  <meta name="keywords" content="Waldorf education, 華德福教育, course materials, teaching resources{% if c and c.tags %}, {{ c.tags | join(', ') }}{% endif %}">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="{{ '/css/site.css' | url }}" rel="stylesheet">
   <script>

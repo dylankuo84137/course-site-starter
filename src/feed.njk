@@ -1,0 +1,45 @@
+---
+permalink: /feed.json
+eleventyExcludeFromCollections: true
+---
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "{{ site.title }} - Course Updates",
+  "home_page_url": "{% if site.url %}{{ site.url }}{% endif %}{{ '/' | url }}",
+  "feed_url": "{% if site.url %}{{ site.url }}{% endif %}{{ '/feed.json' | url }}",
+  "description": "Updates and changes to Waldorf education course materials",
+  "icon": "{% if site.url %}{{ site.url }}{% endif %}{{ '/favicon.ico' | url }}",
+  "language": "zh-Hant",
+  "items": [
+    {%- for course in coursesList -%}
+    {
+      "id": "{{ ('/courses/' + course.slug + '/') | url }}",
+      "url": "{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/') | url }}",
+      "title": "{{ course.title }}",
+      "content_html": "<p>{{ course.overview | replace('\n', '<br>') | replace('"', '&quot;') }}</p>",
+      "summary": "{{ course.grade }} - {{ course.semester }} | {{ course.unit }} | {{ course.domain }}",
+      "date_published": "{{ buildTime }}",
+      "date_modified": "{{ buildTime }}",
+      "authors": [
+        {
+          "name": "{{ course.teacher }}"
+        }
+      ],
+      "tags": {{ course.tags | json }},
+      "_course_metadata": {
+        "slug": "{{ course.slug }}",
+        "grade": "{{ course.grade }}",
+        "semester": "{{ course.semester }}",
+        "unit": "{{ course.unit }}",
+        "domain": "{{ course.domain }}",
+        "materials": {
+          "workbook": {{ (course.files.workbook_photos and course.files.workbook_photos.length > 0) or (course.files.workbook_pdfs and course.files.workbook_pdfs.length > 0) }},
+          "photos": {{ course.files.photos and course.files.photos.length > 0 }},
+          "blackboard": {{ course.files.blackboard and course.files.blackboard.length > 0 }},
+          "audio": {{ course.files.songs and course.files.songs.length > 0 }}
+        }
+      }
+    }{{ "," if not loop.last }}
+    {%- endfor -%}
+  ]
+}

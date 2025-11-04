@@ -63,6 +63,21 @@ module.exports = function(eleventyConfig) {
     }
     return JSON.stringify(schema, null, 2);
   });
+  eleventyConfig.addFilter("truncate", (str, length) => {
+    if (!str) return '';
+    if (str.length <= length) return str;
+    return str.substring(0, length).trim() + '...';
+  });
+  eleventyConfig.addFilter("flatten", (arr) => {
+    return arr.flat();
+  });
+  eleventyConfig.addFilter("uniq", (arr) => {
+    return [...new Set(arr)];
+  });
+  eleventyConfig.addFilter("map", (arr, prop) => {
+    return arr.map(item => item[prop]);
+  });
+  eleventyConfig.addGlobalData("buildTime", () => new Date().toISOString());
 
   return {
     dir: { input: "src", output: "_site", includes: "_includes" },

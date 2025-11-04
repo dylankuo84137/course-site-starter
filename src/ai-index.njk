@@ -1,0 +1,74 @@
+---
+permalink: /ai-index.json
+eleventyExcludeFromCollections: true
+---
+{
+  "site": {
+    "name": "{{ site.title }}",
+    "description": "Waldorf education course materials including workbooks, blackboard drawings, photos, and audio recordings",
+    "url": "{% if site.url %}{{ site.url }}{% endif %}",
+    "baseUrl": "{{ '/' | url }}",
+    "license": "{% if site.license_text %}{{ site.license_text }}{% else %}CC BY-NC{% endif %}",
+    "organization": "{{ site.footer_org }}",
+    "contact": "{{ site.footer_email }}",
+    "buildDate": "{{ buildTime }}",
+    "totalCourses": {{ coursesList | length }}
+  },
+  "courses": [
+    {%- for course in coursesList -%}
+    {
+      "slug": "{{ course.slug }}",
+      "title": "{{ course.title }}",
+      "url": "{{ ('/courses/' + course.slug + '/') | url }}",
+      "grade": "{{ course.grade }}",
+      "semester": "{{ course.semester }}",
+      "unit": "{{ course.unit }}",
+      "domain": "{{ course.domain }}",
+      "teacher": "{{ course.teacher }}",
+      "summary": "{{ course.overview | truncate(200) | replace('\n', ' ') | replace('"', '\\"') }}",
+      "tags": {{ course.tags | json }},
+      {%- if course.learningObjectives -%}
+      "learningObjectives": {{ course.learningObjectives | json }},
+      {%- else -%}
+      "learningObjectives": [],
+      {%- endif -%}
+      "pages": {
+        "home": "{{ ('/courses/' + course.slug + '/') | url }}",
+        "workbook": "{{ ('/courses/' + course.slug + '/workbook/') | url }}",
+        "photos": "{{ ('/courses/' + course.slug + '/photos/') | url }}",
+        "blackboard": "{{ ('/courses/' + course.slug + '/blackboard/') | url }}",
+        "scripts": "{{ ('/courses/' + course.slug + '/scripts/') | url }}",
+        "songs": "{{ ('/courses/' + course.slug + '/songs/') | url }}"
+      },
+      "materials": {
+        "hasWorkbook": {{ (course.files.workbook_photos and course.files.workbook_photos.length > 0) or (course.files.workbook_pdfs and course.files.workbook_pdfs.length > 0) }},
+        "hasPhotos": {{ course.files.photos and course.files.photos.length > 0 }},
+        "hasBlackboard": {{ course.files.blackboard and course.files.blackboard.length > 0 }},
+        "hasScripts": {{ course.files.scripts_photos and course.files.scripts_photos.length > 0 }},
+        "hasAudio": {{ course.files.songs and course.files.songs.length > 0 }},
+        "hasVideos": {{ course.youtube_videos and (course.youtube_videos | length) > 0 }}
+      },
+      "metadata": {
+        "heroImage": {{ course.hero_image | json }},
+        "hasDocs": {{ course.docs and (course.docs | length) > 0 }}
+      }
+    }{{ "," if not loop.last }}
+    {%- endfor -%}
+  ],
+  "statistics": {
+    "totalGrades": {{ coursesList | map('grade') | uniq | length }},
+    "totalDomains": {{ coursesList | map('domain') | uniq | length }},
+    "totalTeachers": {{ coursesList | map('teacher') | uniq | length }},
+    "uniqueTags": {{ coursesList | map('tags') | flatten | uniq | length }}
+  },
+  "usage": {
+    "description": "This AI-readable index provides structured access to all course data",
+    "queryExamples": [
+      "List all Grade 2 courses",
+      "Find courses by teacher name",
+      "Get all drama courses",
+      "Compare blackboard drawing across grades"
+    ],
+    "documentation": "{{ '/for-ai/' | url }}"
+  }
+}
