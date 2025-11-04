@@ -26,31 +26,48 @@ eleventyExcludeFromCollections: true
       "domain": "{{ course.domain }}",
       "teacher": "{{ course.teacher }}",
       "summary": "{{ course.overview | truncate(200) | replace('\n', ' ') | replace('"', '\\"') }}",
-      "tags": {{ course.tags | json }},
-      {%- if course.learningObjectives -%}
-      "learningObjectives": {{ course.learningObjectives | json }},
-      {%- else -%}
+      "tags": [{% for tag in course.tags %}"{{ tag }}"{{ "," if not loop.last }}{% endfor %}],
+      {% if course.learningObjectives -%}
+      "learningObjectives": [{% for obj in course.learningObjectives %}"{{ obj | replace('"', '\\"') }}"{{ "," if not loop.last }}{% endfor %}],
+      {% else -%}
       "learningObjectives": [],
-      {%- endif -%}
+      {% endif -%}
       "pages": {
-        "home": "{{ ('/courses/' + course.slug + '/') | url }}",
-        "workbook": "{{ ('/courses/' + course.slug + '/workbook/') | url }}",
-        "photos": "{{ ('/courses/' + course.slug + '/photos/') | url }}",
-        "blackboard": "{{ ('/courses/' + course.slug + '/blackboard/') | url }}",
-        "scripts": "{{ ('/courses/' + course.slug + '/scripts/') | url }}",
-        "songs": "{{ ('/courses/' + course.slug + '/songs/') | url }}"
+        "home": "{{ site.url }}{{ ('/courses/' + course.slug + '/') | url }}"
+        {%- if course.google_docs and course.google_docs.story -%}
+        ,"story": "{{ site.url }}{{ ('/courses/' + course.slug + '/story/') | url }}"
+        {%- endif -%}
+        ,"play_script": "{{ site.url }}{{ ('/courses/' + course.slug + '/play-script/') | url }}"
+        ,"workbook": "{{ site.url }}{{ ('/courses/' + course.slug + '/workbook/') | url }}"
+        {%- if course.files and course.files.photos and course.files.photos.length > 0 -%}
+        ,"photos": "{{ site.url }}{{ ('/courses/' + course.slug + '/photos/') | url }}"
+        {%- endif -%}
+        {%- if course.files and course.files.blackboard and course.files.blackboard.length > 0 -%}
+        ,"blackboard": "{{ site.url }}{{ ('/courses/' + course.slug + '/blackboard/') | url }}"
+        {%- endif -%}
+        ,"scripts": "{{ site.url }}{{ ('/courses/' + course.slug + '/scripts/') | url }}"
+        ,"songs": "{{ site.url }}{{ ('/courses/' + course.slug + '/songs/') | url }}"
+        {%- if course.files and course.files.sheet_music and course.files.sheet_music.length > 0 -%}
+        ,"sheet_music": "{{ site.url }}{{ ('/courses/' + course.slug + '/sheet-music/') | url }}"
+        {%- endif -%}
+        {%- if course.youtube_videos and course.youtube_videos.play_video -%}
+        ,"videos": "{{ site.url }}{{ ('/courses/' + course.slug + '/videos/') | url }}"
+        {%- endif -%}
       },
       "materials": {
-        "hasWorkbook": {{ (course.files.workbook_photos and course.files.workbook_photos.length > 0) or (course.files.workbook_pdfs and course.files.workbook_pdfs.length > 0) }},
-        "hasPhotos": {{ course.files.photos and course.files.photos.length > 0 }},
-        "hasBlackboard": {{ course.files.blackboard and course.files.blackboard.length > 0 }},
-        "hasScripts": {{ course.files.scripts_photos and course.files.scripts_photos.length > 0 }},
-        "hasAudio": {{ course.files.songs and course.files.songs.length > 0 }},
-        "hasVideos": {{ course.youtube_videos and (course.youtube_videos | length) > 0 }}
+        "hasStory": {% if course.google_docs and course.google_docs.story %}true{% else %}false{% endif %},
+        "hasPlayScript": true,
+        "hasWorkbook": true,
+        "hasPhotos": {% if course.files and course.files.photos and course.files.photos.length > 0 %}true{% else %}false{% endif %},
+        "hasBlackboard": {% if course.files and course.files.blackboard and course.files.blackboard.length > 0 %}true{% else %}false{% endif %},
+        "hasScripts": true,
+        "hasAudio": true,
+        "hasSheetMusic": {% if course.files and course.files.sheet_music and course.files.sheet_music.length > 0 %}true{% else %}false{% endif %},
+        "hasVideos": {% if course.youtube_videos and course.youtube_videos.play_video %}true{% else %}false{% endif %}
       },
       "metadata": {
-        "heroImage": {{ course.hero_image | json }},
-        "hasDocs": {{ course.docs and (course.docs | length) > 0 }}
+        "heroImage": {% if course.hero_image %}"{{ course.hero_image }}"{% else %}null{% endif %},
+        "hasDocs": {% if course.docs and (course.docs | length) > 0 %}true{% else %}false{% endif %}
       }
     }{{ "," if not loop.last }}
     {%- endfor -%}

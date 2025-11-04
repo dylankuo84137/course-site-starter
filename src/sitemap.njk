@@ -35,24 +35,42 @@ eleventyExcludeFromCollections: true
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  {%- if course.google_docs and course.google_docs.story -%}
+  <url>
+    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/story/') | url }}</loc>
+    <lastmod>{{ buildTime }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  {%- endif -%}
+  <url>
+    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/play-script/') | url }}</loc>
+    <lastmod>{{ buildTime }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/workbook/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  {%- if course.files and course.files.photos and course.files.photos.length > 0 -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/photos/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  {%- endif -%}
+  {%- if course.files and course.files.blackboard and course.files.blackboard.length > 0 -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/blackboard/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  {%- endif -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/scripts/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
@@ -65,5 +83,21 @@ eleventyExcludeFromCollections: true
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  {%- if course.files and course.files.sheet_music and course.files.sheet_music.length > 0 -%}
+  <url>
+    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/sheet-music/') | url }}</loc>
+    <lastmod>{{ buildTime }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  {%- endif -%}
+  {%- if course.youtube_videos and course.youtube_videos.play_video -%}
+  <url>
+    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/videos/') | url }}</loc>
+    <lastmod>{{ buildTime }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  {%- endif -%}
   {%- endfor -%}
 </urlset>
