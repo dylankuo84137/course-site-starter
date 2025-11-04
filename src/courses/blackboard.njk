@@ -21,4 +21,6 @@ permalink: "/courses/{{ c.slug }}/blackboard/index.html"
 {% endif %}
 
 {% import "components/drive.njk" as drive %}
-{{ drive.grid(c.files.blackboard) }}
+<section id="blackboard-gallery">
+  {{ drive.grid(c.files.blackboard, c.title ~ ' Blackboard Drawings') }}
+</section>

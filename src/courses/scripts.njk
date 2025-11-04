@@ -21,4 +21,6 @@ permalink: "/courses/{{ c.slug }}/scripts/index.html"
 {% endif %}
 
 {% import "components/drive.njk" as drive %}
-{{ drive.grid(c.files.scripts_photos) }}
+<section id="performance-gallery">
+  {{ drive.grid(c.files.scripts_photos, c.title ~ ' Performance Photos') }}
+</section>

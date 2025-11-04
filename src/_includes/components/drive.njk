@@ -1,16 +1,20 @@
-{% macro thumb(raw, altFallback, idx) %}
+{% macro thumb(raw, altFallback, idx, contextPrefix) %}
   {% set id = raw.id if raw.id else raw %}
   {% set title = raw.name if raw.name else altFallback %}
   {% set tags = (raw.tags | join(' ')) if raw.tags else '' %}
+  {# Create meaningful alt text: context + title + tags #}
+  {% set altText = (contextPrefix ~ ': ' if contextPrefix else '') ~ title ~ ((' - ' ~ tags) if tags else '') %}
   <a href="#" class="block group gallery-item"
      data-index="{{ idx }}"
      data-id="{{ id }}"
      data-tags="{{ tags }}"
      data-full="https://drive.google.com/thumbnail?id={{ id }}&sz=w2000"
-     data-title="{{ title }}" aria-haspopup="dialog">
+     data-title="{{ title }}"
+     aria-haspopup="dialog"
+     aria-label="View {{ altText }}">
     <img class="w-full h-auto rounded-xl shadow group-hover:shadow-lg transition-shadow"
       src="https://drive.google.com/thumbnail?id={{ id }}&sz=w600"
-      alt="{{ title }}"
+      alt="{{ altText }}"
       loading="lazy"
       onerror="this.onerror=null;this.src='https://drive.google.com/uc?id={{ id }}&export=view';">
   </a>
@@ -38,17 +42,17 @@
   </div>
 {% endmacro %}
 
-{% macro grid(items) %}
+{% macro grid(items, contextPrefix) %}
   <div class="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-    <p class="text-sm text-stone-600">點擊縮圖可放大，支援方向鍵切換與 ESC 關閉</p>
-    <input id="quick-filter" class="filter-input" placeholder="快速篩選（可輸入多個關鍵字或標籤）" />
+    <p class="text-sm text-stone-600">點擊縮圖可放大，支援方向鍵切換與 ESC 關閉 (Click to enlarge, arrow keys to navigate, ESC to close)</p>
+    <input id="quick-filter" class="filter-input" placeholder="快速篩選（可輸入多個關鍵字或標籤）" aria-label="Filter images by keywords or tags" />
   </div>
   {% if not items or (items | length) == 0 %}
-    <p class="text-stone-500">目前沒有可顯示的圖片。</p>
+    <p class="text-stone-500">目前沒有可顯示的圖片。(No images available)</p>
   {% else %}
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 gallery-grid">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 gallery-grid" role="list">
     {% for it in items %}
-      {{ thumb(it, "圖片 " ~ loop.index, loop.index0) }}
+      {{ thumb(it, "Image " ~ loop.index, loop.index0, contextPrefix) }}
     {% endfor %}
   </div>
   {% endif %}

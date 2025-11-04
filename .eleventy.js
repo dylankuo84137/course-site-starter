@@ -32,6 +32,37 @@ module.exports = function(eleventyConfig) {
     formatted = formatted.replace(/<p><br><\/p>/g, '');
     return formatted;
   });
+  eleventyConfig.addFilter("jsonLD", (course, site) => {
+    if (!course) return '';
+    const baseUrl = site?.url || '';
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": course.title,
+      "description": course.overview || `${course.title} - ${course.unit}`,
+      "provider": {
+        "@type": "EducationalOrganization",
+        "name": site?.footer_org || "Waldorf Education",
+        "url": baseUrl
+      },
+      "educationalLevel": course.grade,
+      "teaches": course.unit,
+      "courseCode": course.slug,
+      "instructor": {
+        "@type": "Person",
+        "name": course.teacher
+      },
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "onsite",
+        "courseWorkload": course.semester
+      }
+    };
+    if (course.tags && course.tags.length > 0) {
+      schema.keywords = course.tags.join(', ');
+    }
+    return JSON.stringify(schema, null, 2);
+  });
 
   return {
     dir: { input: "src", output: "_site", includes: "_includes" },

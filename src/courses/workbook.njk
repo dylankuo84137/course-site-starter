@@ -30,9 +30,9 @@ permalink: "/courses/{{ c.slug }}/workbook/index.html"
   {% endfor %}
 </section>
 {% elif c.files.workbook_photos and c.files.workbook_photos.length > 0 %}
-<section class="mb-8">
-  <h2 class="text-lg font-medium mb-4">工作本內容</h2>
-  {{ drv.grid(c.files.workbook_photos) }}
+<section id="workbook-content" class="mb-8">
+  <h2 class="text-lg font-medium mb-4">工作本內容 (Workbook Content)</h2>
+  {{ drv.grid(c.files.workbook_photos, c.title ~ ' Workbook') }}
 </section>
 {% else %}
   <p class="text-stone-500">目前沒有工作本內容。</p>

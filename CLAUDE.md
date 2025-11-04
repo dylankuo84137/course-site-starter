@@ -46,6 +46,44 @@ pathPrefix: process.env.ELEVENTY_BASE || '/'
 - Search: build with `npx pagefind --site _site`, runtime fallback to CDN
 - Images: try thumbnail first, fallback to `uc?export=view`
 
+### 5. AI Accessibility (Text-First Design)
+**Goal:** Make all content machine-readable for AI tools (NotebookLM, ChatGPT, Claude, etc.)
+
+#### Semantic Structure
+- Use proper HTML5 tags: `<article>`, `<section>`, `<nav>`, `<aside>`
+- Maintain strict heading hierarchy: h1 → h2 → h3 (no skips)
+- Add unique fragment IDs to all content blocks: `id="unit-2-lesson-3"`
+- Use `<time datetime="...">` for all dates
+- Meaningful alt text for all images (describe educational content)
+
+#### Structured Metadata
+- JSON-LD schema on all course pages (`@type: "Course"`)
+- Include: `name`, `description`, `provider`, `teaches`, `educationalLevel`
+- Add `learningObjectives` array to course JSON
+- Use `<meta name="description">` with 2-3 sentence summaries
+
+#### AI Discovery Files
+Create these machine-readable endpoints:
+- `/for-ai.html` - Human-readable guide to site structure
+- `/ai-index.json` - Complete course catalog in structured format
+- `/feed.json` - Course updates with ISO timestamps
+- `/sitemap.xml` - All pages with priority/changefreq
+
+#### Content Requirements
+- **Lesson summaries:** 2-3 sentences intro on every course page
+- **Alt text:** Educational context, not just description ("Week 3 blackboard: firefly lifecycle diagram")
+- **Audio transcripts:** Text descriptions for songs/narration
+- **Link context:** Use descriptive text, not "click here"
+
+#### Interlinking Standards
+```html
+<!-- Good: precise citations -->
+<a href="{{ '/courses/2a-nenggao/workbook' | url }}#week-3">Week 3 Firefly Study</a>
+
+<!-- Bad: vague references -->
+<a href="{{ '/courses/2a-nenggao/workbook' | url }}">Click here</a>
+```
+
 ## Quality Gates
 
 Every change must pass:
@@ -57,6 +95,13 @@ Every change must pass:
 - [ ] Audio plays inline with download option
 - [ ] No cross-layer coupling
 - [ ] Small, focused diffs
+
+**AI Accessibility Checks:**
+- [ ] All images have meaningful alt text
+- [ ] Heading hierarchy is valid (no h1→h3 jumps)
+- [ ] Course pages include JSON-LD schema
+- [ ] Content blocks have unique IDs for citation
+- [ ] Links use descriptive text, not generic phrases
 
 ## Simple vs. Easy Test
 
