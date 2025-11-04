@@ -2,12 +2,25 @@
   <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
     <ul class="flex flex-wrap gap-2 text-sm">
       <li><a class="pill {% if current == 'home' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/">課程主頁</a></li>
+      {% if c.google_docs and c.google_docs.story %}
+      <li><a class="pill {% if current == 'story' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/story/">故事內容</a></li>
+      {% endif %}
       <li><a class="pill {% if current == 'play-script' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">劇本內容</a></li>
       <li><a class="pill {% if current == 'workbook' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">工作本</a></li>
+      {% if c.files and c.files.photos and c.files.photos.length > 0 %}
       <li><a class="pill {% if current == 'photos' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">照片集</a></li>
+      {% endif %}
+      {% if c.files and c.files.blackboard and c.files.blackboard.length > 0 %}
       <li><a class="pill {% if current == 'blackboard' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">黑板畫</a></li>
-      <li><a class="pill {% if current == 'scripts' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">劇本</a></li>
+      {% endif %}
+      <li><a class="pill {% if current == 'scripts' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">表演照片</a></li>
       <li><a class="pill {% if current == 'songs' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">歌曲與音檔</a></li>
+      {% if c.files and c.files.sheet_music and c.files.sheet_music.length > 0 %}
+      <li><a class="pill {% if current == 'sheet-music' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/sheet-music/">樂譜</a></li>
+      {% endif %}
+      {% if c.youtube_videos and c.youtube_videos.play_video %}
+      <li><a class="pill {% if current == 'videos' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/videos/">演出影片</a></li>
+      {% endif %}
     </ul>
     <label class="text-sm text-stone-600 flex items-center gap-2">
       切換課程

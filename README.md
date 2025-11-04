@@ -98,6 +98,10 @@ course-site-starter/
     "scripts_and_performance": "FOLDER_ID",
     "songs_audio": "FOLDER_ID"
   },
+  "google_docs": {
+    "course_description": "GOOGLE_DOC_ID",
+    "play_script": "GOOGLE_DOC_ID"
+  },
   "files": {
     "workbook_photos": [
       { "id": "FILE_ID", "name": "P01【第1週】【螢火蟲】", "tags": ["第1週","螢火蟲","二年級 2A 嶺光班","113 學年度 夏季","班級戲劇","自然主課"] }
@@ -115,6 +119,7 @@ course-site-starter/
 
 **重點：**
 - `drive_folders`：放各分類的 **Google Drive 資料夾 ID**（需設為「知道連結的任何人可檢視」）。  
+- `google_docs`：放課程相關的 **Google Docs 文件 ID**，如課程說明、劇本等（需設為「知道連結的任何人可檢視」）。
 - `files.*`：執行同步腳本後自動覆寫；**圖片會寫成物件 `{id,name,tags}`**。  
 - 標籤來源：
   - 由檔名自動擷取：`[方括號]`、`【全形】`、`#hashtag`（例如 `P01【第2週】【螢火蟲】.jpg`）  
@@ -127,20 +132,18 @@ course-site-starter/
 
 ### 取得 API Key（只需一次）
 1. 到 Google Cloud Console 開啟專案並啟用 **Drive API**。  
-2. 建立 **API 金鑰**（限制為特定 HTTP 來源或 IP）。  
+2. 建立 **API 金鑰**（不限制）。  
 3. 將金鑰設到環境變數 `GOOGLE_API_KEY`。
 
-### 執行同步
-```bash
-GOOGLE_API_KEY=你的API金鑰 npm run sync:drive
-```
-腳本會：
-- 讀取 `src/_data/course_*.json`
-- 依 `drive_folders` 列出所有檔案（支援 **Shortcut** 轉正）
-- 篩選：`image/*` → 相簿；`audio/*` → 歌曲與音檔
-- 產生 `files.*` 清單（含 `{id,name,tags}`），並備份為 `.bak`
+### 同步腳本工作流程
 
-> 若圖片無法顯示，請檢查該檔／資料夾是否公開。部分檔案若 `uc?export=view` 403，系統會改用 `thumbnail` 端點（並內建後備）。
+**腳本執行步驟：**
+1. 備份同步前的 `course_*.json` → `course_*.json.bak`
+2. 從 Drive 抓取檔案清單（圖片、音檔、文件）
+3. 覆寫原始 JSON（加入 `files.*` 和 `docs.*` 完整內容）
+
+> **提示**：`.bak` 檔案保存乾淨的課程元數據，提交前務必還原。
+> 若圖片無法顯示，請檢查 Drive 檔案/資料夾權限設為「知道連結的任何人可檢視」。
 
 ---
 
@@ -224,84 +227,121 @@ ELEVENTY_BASE=/
 
 ### Git 工作流程
 
-專案已設定適當的 `.gitignore`，會自動排除：
-- `.env*` - 環境變數檔案（包含 API 金鑰）
-- `_site/` - 建置輸出目錄
-- `src/_data/course_*.json` - 包含 Google Drive 內容的課程檔案
-- `*.bak` - 同步腳本的備份檔案
+專案 `.gitignore` 已排除：
+- `*.bak` - 同步腳本的備份檔案（乾淨課程 JSON）
+- `.env*` - 環境變數（API 金鑰）
+- `_site/` - 建置輸出
 
-**提交變更的正確流程：**
+**核心原則：**
+- Git 僅追蹤**同步之前的 `course_*.json`**（無 Drive 同步內容）
+- 同步腳本覆寫 JSON 供本地測試
+- `.bak` 保存無同步內容版本供還原
 
-1. 開發完成後，先同步 Google Drive 內容（供本地測試）：
+**提交流程：**
 ```bash
-npm run sync:drive
-```
+# 測試完成後，還原乾淨版本
+cp src/_data/*.json.bak src/_data/*.json
 
-2. 檢查 git 狀態，確認不會提交敏感資料：
-```bash
-git status
-```
-
-3. 提交代碼變更（不包含 Google Drive 內容）：
-```bash
+# 提交
 git add .
-git commit -m "your commit message"
+git commit -m "your message"
 git push
 ```
 
-4. **部署時**在伺服器上設定環境變數並同步內容：
-```bash
-# 在部署環境設定 API 金鑰
-export GOOGLE_API_KEY=your_api_key
-npm run sync:drive
-npm run deploy
-```
-
-### 課程檔案模板
-
-使用 `src/_data/course_template.json` 作為新課程的起始模板：
-
-```json
-{
-  "slug": "course-example",
-  "title": "Course Example Template",
-  "grade": "Year Level",
-  "semester": "Semester Info",
-  "unit": "Subject/Unit",
-  "domain": "Subject Domain",
-  "teacher": "Teacher Name",
-  "tags": ["tag1", "tag2", "tag3"],
-  "drive_folders": {
-    "workbook_photos": "FOLDER_ID_HERE",
-    "blackboard": "FOLDER_ID_HERE",
-    "photos": "FOLDER_ID_HERE",
-    "scripts_and_performance": "FOLDER_ID_HERE",
-    "songs_audio": "FOLDER_ID_HERE"
-  },
-  "files": {
-    "workbook_photos": [],
-    "blackboard": [],
-    "photos": [],
-    "scripts_photos": [],
-    "songs": []
-  }
-}
-```
+**GitHub Actions 自動部署：**
+- CI 在建置時執行 `npm run sync:drive`（使用 Secrets 中的 API Key）
+- 自動同步 Drive 內容並部署到 GitHub Pages
 
 ---
 
 ## 🧩 新增一門課
 
-1. 複製 `src/_data/course_2a_nenggao_113_summer.json` 為新檔，修改：  
-   `slug/title/grade/semester/unit/domain/teacher/drive_folders`  
-2. 將對應 Drive 資料夾設為「知道連結的任何人可檢視」。  
-3. 執行同步：
+### 步驟 1：建立課程 JSON 檔案
+
+使用 `src/_data/course_template.json` 作為新課程的起始模板。
+複製模板並重新命名（**必須使用 `course_` 開頭**）：
 
 ```bash
-GOOGLE_API_KEY=你的API金鑰 npm run sync:drive
+cp src/_data/course_template.json src/_data/course_3b_myclass_114_spring.json
 ```
 
-4. 在瀏覽器檢視 `/courses/你的-slug/`。
+### 步驟 2：編輯課程元數據
+
+編輯新建的 JSON 檔案，填入以下**必填欄位**：
+
+```json
+{
+  "slug": "3b-myclass-114-spring",           // 網址路徑（小寫、連字號）
+  "title": "我的課程名稱",
+  "grade": "三年級 3B 班級名稱",
+  "semester": "114 學年度 春季",
+  "unit": "主題單元",
+  "domain": "課程領域",
+  "teacher": "教師名稱",
+  "overview": "課程簡介文字",
+  "tags": ["標籤1", "標籤2"],
+  "google_docs": {
+    "course_description": "",                // Google Doc ID（可選）
+    "play_script": "",
+    "story": ""
+  },
+  "drive_folders": {
+    "workbook_photos": "",                   // Drive 資料夾 ID
+    "blackboard": "",
+    "photos": "",
+    "performance": "",
+    "songs_audio": ""
+  },
+  "files": {
+    "workbook_pdfs": [],
+    "play_scripts": [],
+    "sheet_music": []
+  },
+  "youtube_videos": {},
+  "docs": {}
+}
+```
+
+### 步驟 3：設定 Drive 資料夾權限
+
+將 `drive_folders` 中填入的資料夾設為**「知道連結的任何人可檢視」**：
+
+1. 開啟 Google Drive 資料夾
+2. 右鍵 → 共用 → 一般存取權
+3. 選擇「知道連結的任何人」+ 「檢視者」
+
+### 步驟 4：同步與測試
+
+```bash
+# 同步 Drive 內容
+GOOGLE_API_KEY=你的金鑰 npm run sync:drive
+
+# 啟動開發伺服器
+npm run dev
+
+# 瀏覽器開啟
+# http://localhost:8080/courses/3b-myclass-114-spring/
+```
+
+### 步驟 5：提交到 Git
+
+測試完成後，還原乾淨版本並提交：
+
+```bash
+# 還原乾淨的課程 JSON
+cp src/_data/*.json.bak src/_data/*.json
+
+# 提交新課程
+git add src/_data/course_3b_myclass_114_spring.json
+git commit -m "feat: add 3B MyClass 114 Spring course"
+git push
+```
+
+**重要提醒：**
+- 檔案名稱必須符合 `course_*.json` 格式
+- `slug` 欄位決定網址路徑，必須是唯一值
+- 僅提交**乾淨的 JSON**（無 `files.*` 同步內容）
+- GitHub Actions 會在部署時自動同步 Drive 內容
 
 ---
 

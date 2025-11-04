@@ -1,0 +1,37 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: coursesList
+  size: 1
+  alias: c
+permalink: "/courses/{{ c.slug }}/videos/index.html"
+---
+{% import "components/course_nav.njk" as cn %}
+{{ cn.nav(c, coursesList, 'videos') }}
+
+<section class="space-y-6">
+  <header>
+    <h1 class="text-2xl md:text-3xl font-semibold">{{ c.title }} - 演出影片</h1>
+    <p class="text-stone-600">{{ c.grade }}・{{ c.semester }}｜{{ c.unit }}｜{{ c.domain }}</p>
+  </header>
+
+  {% if c.youtube_videos and c.youtube_videos.play_video %}
+    <article class="prose prose-stone max-w-none">
+      <div class="aspect-video bg-stone-100 rounded-lg overflow-hidden shadow-lg">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/{{ c.youtube_videos.play_video }}"
+          title="演出影片"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </article>
+  {% else %}
+    <div class="bg-stone-100 border border-stone-200 rounded-lg p-6 text-center text-stone-600">
+      <h3 class="text-lg font-medium mb-2">尚無演出影片</h3>
+      <p>影片內容將在稍後新增</p>
+    </div>
+  {% endif %}
+</section>

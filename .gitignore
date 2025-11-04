@@ -8,7 +8,7 @@ npm-debug.log*
 *.bak
 
 # Ignore populated course data with Google Drive content
-# Keep only template and demo course files in git
-src/_data/course_*.json
-!src/_data/course_template.json
-!src/_data/course_2a_nenggao_113_summer.json
+src/_data/*.json.bak
+
+# Ignore .claude directory
+.claude/

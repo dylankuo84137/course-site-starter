@@ -14,12 +14,36 @@ title: 課程介紹
       <p class="text-sm text-stone-600 mb-3">{{ c.grade }}・{{ c.semester }}｜{{ c.unit }}｜{{ c.domain }}</p>
       <p class="mb-4 line-clamp-4">{{ c.overview or '' }}</p>
       <div class="flex gap-3 flex-wrap text-sm">
+        {% if (c.google_docs and c.google_docs.course_description) or (c.docs and c.docs.course_description) %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/">課程主頁</a>
+        {% endif %}
+        {% if (c.drive_folders and c.drive_folders.workbook_photos) or (c.files.workbook_pdfs and c.files.workbook_pdfs.length > 0) %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">工作本</a>
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">照片集</a>
+        {% endif %}
+        {% if c.drive_folders and c.drive_folders.blackboard %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">黑板畫</a>
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">劇本</a>
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">歌曲與音檔</a>
+        {% endif %}
+        {% if c.drive_folders and c.drive_folders.photos %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">照片集</a>
+        {% endif %}
+        {% if (c.google_docs and c.google_docs.play_script) or (c.docs and c.docs.play_script) or (c.files.play_scripts and c.files.play_scripts.length > 0) %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">劇本</a>
+        {% endif %}
+        {% if c.drive_folders and c.drive_folders.performance %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">劇照</a>
+        {% endif %}
+        {% if c.drive_folders and c.drive_folders.songs_audio %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">歌曲音檔</a>
+        {% endif %}
+        {% if c.files.sheet_music and c.files.sheet_music.length > 0 %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/sheet-music/">樂譜</a>
+        {% endif %}
+        {% if (c.google_docs and c.google_docs.story) or (c.docs and c.docs.story) %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/story/">故事</a>
+        {% endif %}
+        {% if c.youtube_videos and c.youtube_videos.play_video %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/#play-video">影片</a>
+        {% endif %}
       </div>
     </article>
     {% endfor %}

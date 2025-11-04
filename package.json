@@ -13,5 +13,6 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
     "pagefind": "^1.4.0"
-  }
+  },
+  "dependencies": {}
 }

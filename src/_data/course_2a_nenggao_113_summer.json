@@ -6,29 +6,34 @@
   "unit": "班級戲劇",
   "domain": "自然主課",
   "teacher": "王琬婷",
+  "overview": "琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。\n因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。",
   "tags": [
     "戲劇",
     "黑板畫",
     "工作本",
     "歌曲"
   ],
-  "drive_folders": {
-    "workbook_photos": "1oLFEEzenmwfXJSx1spHAQhOAuulAo3g9",
-    "blackboard": "1cp5UtWnwn91wGHBeex4U6f0_yYEQlfVH",
-    "photos": "1HcotGA2RSDwqe5hDlZq-EQNaBxAWvhvT",
-    "scripts_and_performance": "16wIiNoWD7qkoJzRATpht_ROsIbRVGbf1",
-    "songs_audio": "1lX8JZ9xZFa_aGc1p2rVpFsoP9wcj4Zd2"
-  },
   "google_docs": {
-    "course_description": "1Utu492SAp7zGtfaElhav3eMke3ZQypnfyoglSuMChxI",
-    "play_script": "18jmlgtR62NWV4Lwf8pzI3mUAR4D2Ps1r1PrFlpNOwXs"
+    "course_description": "1cAnYydnh9_m5R3i2eqvrIJ2uK6Q9bN7-Lh9Np6i2QuE",
+    "play_script": "11H87lM9cAa089UFBUCNzo_S7ZBz11FJwZKU_MUrwVxc"
+  },
+  "drive_folders": {
+    "workbook_photos": "1zu2uPKB44LpnrF9lLIMGghzVnbcDY8ZD",
+    "blackboard": "1VE7O-kqTtQy7BnMd2n-YQS4-dDBAuAkM",
+    "photos": "1cJQfOaYZk9fyQz3vbZXyfylFwe-tkxwM",
+    "performance": "1QSJnvBq0UnVTpYYKpvRtkSc2Xev_m5Ea",
+    "songs_audio": "1noqS9qz116NlMu2eTn6JjuUMIh7VCCWn"
   },
   "files": {
+    "workbook_pdfs": [],
+    "play_scripts": [],
+    "sheet_music": [],
     "workbook_photos": [],
     "blackboard": [],
     "photos": [],
     "scripts_photos": [],
     "songs": []
   },
-  "overview": "琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。"
+  "youtube_videos": {},
+  "docs": {}
 }

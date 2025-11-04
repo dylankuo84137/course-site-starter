@@ -16,6 +16,28 @@
   </a>
 {% endmacro %}
 
+{% macro pdfViewer(pdf) %}
+  {% set pdfId = pdf.id if pdf.id else pdf %}
+  {% set pdfName = pdf.name if pdf.name else "PDF 文件" %}
+  {% set pdfDownloadUrl = pdf.downloadUrl if pdf.downloadUrl else ("https://drive.google.com/file/d/" + pdfId + "/view") %}
+  <div class="my-8 border rounded-lg overflow-hidden shadow-lg">
+    <div class="bg-stone-100 px-4 py-3 border-b flex items-center justify-between">
+      <h3 class="font-medium text-stone-800">{{ pdfName }}</h3>
+      <a href="{{ pdfDownloadUrl }}" target="_blank" class="text-sm text-blue-600 hover:text-blue-800">
+        開啟新視窗檢視
+      </a>
+    </div>
+    <iframe
+      src="https://drive.google.com/file/d/{{ pdfId }}/preview"
+      class="w-full"
+      style="height: 700px;"
+      loading="lazy"
+      allow="autoplay"
+      sandbox="allow-scripts allow-same-origin allow-popups"
+      title="{{ pdfName }}"></iframe>
+  </div>
+{% endmacro %}
+
 {% macro grid(items) %}
   <div class="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
     <p class="text-sm text-stone-600">點擊縮圖可放大，支援方向鍵切換與 ESC 關閉</p>

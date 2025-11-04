@@ -7,23 +7,31 @@
   "domain": "Subject Domain",
   "teacher": "Teacher Name",
   "hero_image": "DRIVE_FILE_ID_FOR_HERO_IMAGE",
+  "overview": "Course overview text",
   "tags": [
     "tag1",
     "tag2",
     "tag3"
   ],
+  "google_docs": {
+    "course_description": "GOOGLE_DOC_ID",
+    "play_script": "GOOGLE_DOC_ID",
+    "story": "GOOGLE_DOC_ID"
+  },
   "drive_folders": {
     "workbook_photos": "FOLDER_ID_HERE",
     "blackboard": "FOLDER_ID_HERE",
     "photos": "FOLDER_ID_HERE",
-    "scripts_and_performance": "FOLDER_ID_HERE",
+    "performance": "FOLDER_ID_HERE",
     "songs_audio": "FOLDER_ID_HERE"
   },
   "files": {
-    "workbook_photos": [],
-    "blackboard": [],
-    "photos": [],
-    "scripts_photos": [],
-    "songs": []
-  }
+    "workbook_pdfs": [],
+    "play_scripts": [],
+    "sheet_music": []
+  },
+  "youtube_videos": {
+    "play_video": "YOUTUBE_VIDEO_ID"
+  },
+  "docs": {}
 }

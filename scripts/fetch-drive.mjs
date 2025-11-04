@@ -16,49 +16,73 @@ const FOLDER_TO_OUTPUT = {
   blackboard: "blackboard",
   photos: "photos",
   scripts_and_performance: "scripts_photos",
+  performance: "scripts_photos",
   songs_audio: "songs",
 };
 
 async function fetchGoogleDoc(docId) {
   if (!docId) return null;
-  
+
   try {
     // First check file metadata to determine type
-    const metaUrl = `https://www.googleapis.com/drive/v3/files/${docId}?key=${API_KEY}&fields=id,name,mimeType`;
+    // Add supportsAllDrives for Shared Drive support
+    const metaUrl = `https://www.googleapis.com/drive/v3/files/${docId}?key=${API_KEY}&fields=id,name,mimeType&supportsAllDrives=true`;
     const metaRes = await fetch(metaUrl);
     if (!metaRes.ok) {
       console.warn(`[fetch-drive] Failed to get metadata for doc ${docId}: ${metaRes.status} ${metaRes.statusText}`);
       return null;
     }
     const metadata = await metaRes.json();
-    
+
     let contentUrl;
     let isGoogleDoc = false;
-    
+
     if (metadata.mimeType === 'application/vnd.google-apps.document') {
-      // Native Google Doc - use export API
-      contentUrl = `https://www.googleapis.com/drive/v3/files/${docId}/export?mimeType=text/plain&key=${API_KEY}`;
+      // Native Google Doc - use export API with Shared Drive support
+      contentUrl = `https://www.googleapis.com/drive/v3/files/${docId}/export?mimeType=text/plain&key=${API_KEY}&supportsAllDrives=true`;
       isGoogleDoc = true;
     } else {
-      // Other file types (docx, pdf, etc.) - download directly
-      contentUrl = `https://www.googleapis.com/drive/v3/files/${docId}?alt=media&key=${API_KEY}`;
+      // Other file types (docx, pdf, etc.) - download directly with Shared Drive support
+      contentUrl = `https://www.googleapis.com/drive/v3/files/${docId}?alt=media&key=${API_KEY}&supportsAllDrives=true`;
     }
-    
+
     const res = await fetch(contentUrl);
     if (!res.ok) {
+      // If export fails with 403 (common for Shared Drive docs), try alternative method
+      if (res.status === 403 && isGoogleDoc) {
+        console.warn(`[fetch-drive] Export forbidden for ${docId}, trying alternative download method...`);
+        // Try using the download endpoint instead
+        const altUrl = `https://www.googleapis.com/drive/v3/files/${docId}?alt=media&key=${API_KEY}&supportsAllDrives=true`;
+        const altRes = await fetch(altUrl);
+        if (altRes.ok) {
+          const altContent = await altRes.text();
+          return {
+            id: docId,
+            name: metadata.name,
+            mimeType: metadata.mimeType,
+            content: altContent.trim(),
+            lastUpdated: new Date().toISOString(),
+            downloadUrl: `https://drive.google.com/file/d/${docId}/view`
+          };
+        }
+      }
       console.warn(`[fetch-drive] Failed to fetch doc ${docId}: ${res.status} ${res.statusText}`);
       return null;
     }
-    
+
     let content;
     if (isGoogleDoc || metadata.mimeType.startsWith('text/')) {
       content = await res.text();
+    } else if (metadata.mimeType === 'application/pdf') {
+      // For PDFs, just provide download info
+      content = `文件類型: ${metadata.name}\n檔案格式: PDF\n\n請使用下方的 PDF 檢視器或下載檢視。\n下載連結: https://drive.google.com/file/d/${docId}/view`;
+      console.log(`[fetch-drive] PDF document ${metadata.name}`);
     } else {
-      // For binary files like docx, we can't extract text easily
+      // For other binary files like docx, we can't extract text easily
       // Return a placeholder with download info
       content = `文件類型: ${metadata.name}\n檔案格式: ${metadata.mimeType}\n\n此檔案需要下載檢視，無法直接顯示文字內容。\n下載連結: https://drive.google.com/file/d/${docId}/view`;
     }
-    
+
     return {
       id: docId,
       name: metadata.name,
@@ -74,6 +98,7 @@ async function fetchGoogleDoc(docId) {
 }
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
 
 async function listFolderFiles(folderId) {
   const results = [];
@@ -152,6 +177,7 @@ async function updateCourseJson(courseJsonPath) {
 
   const out = {
     workbook_photos: [],
+    workbook_pdfs: [],
     blackboard: [],
     photos: [],
     scripts_photos: [],
@@ -162,7 +188,40 @@ async function updateCourseJson(courseJsonPath) {
     const folderId = folders[folderKey];
     if (!folderId) continue;
     console.log(`[fetch-drive] Listing ${folderKey} (${folderId}) ...`);
-    const files = await listFolderFiles(folderId);
+
+    // Check if this is actually a file instead of a folder
+    let files = [];
+    try {
+      // First try to get metadata to see if it's a file (with Shared Drive support)
+      const metaUrl = `https://www.googleapis.com/drive/v3/files/${folderId}?key=${API_KEY}&fields=id,name,mimeType&supportsAllDrives=true`;
+      const metaRes = await fetch(metaUrl);
+      if (metaRes.ok) {
+        const metadata = await metaRes.json();
+        if (metadata.mimeType === "application/pdf" && folderKey === "workbook_photos") {
+          // Handle PDF file directly
+          console.log(`[fetch-drive] Found PDF file instead of folder: ${metadata.name}`);
+          files = [{ id: metadata.id, name: metadata.name, mimeType: metadata.mimeType }];
+        } else if (metadata.mimeType === "application/vnd.google-apps.folder") {
+          // It's a folder, proceed normally
+          files = await listFolderFiles(folderId);
+        } else {
+          // It's some other type of file
+          files = [{ id: metadata.id, name: metadata.name, mimeType: metadata.mimeType }];
+        }
+      } else {
+        // If metadata fetch fails, try as folder
+        files = await listFolderFiles(folderId);
+      }
+    } catch (err) {
+      console.warn(`[fetch-drive] Error checking ${folderKey}: ${err.message}`);
+      // Fallback to treating as folder
+      try {
+        files = await listFolderFiles(folderId);
+      } catch (folderErr) {
+        console.warn(`[fetch-drive] Failed to list folder ${folderKey}: ${folderErr.message}`);
+        continue;
+      }
+    }
 
     for (const f of files) {
       const mime = resolveShortcutMime(f) || "";
@@ -177,6 +236,21 @@ async function updateCourseJson(courseJsonPath) {
         if (mime.startsWith("image/")) {
           const tags = uniq([...extractTagsFromName(name), ...courseTags]);
           out[outputKey].push({ id, name: stripExt(name), tags });
+        } else if (outputKey === "workbook_photos" && mime === "application/pdf") {
+          const tags = uniq([...extractTagsFromName(name), ...courseTags]);
+
+          // Add PDF to workbook_pdfs for embedded viewer
+          out.workbook_pdfs.push({
+            id,
+            name: stripExt(name),
+            tags,
+            mimeType: mime,
+            isPdf: true,
+            viewerUrl: `https://drive.google.com/file/d/${id}/preview`,
+            downloadUrl: `https://drive.google.com/file/d/${id}/view`
+          });
+
+          console.log(`[fetch-drive] Added PDF: ${name}`);
         }
       }
     }
@@ -196,16 +270,33 @@ async function updateCourseJson(courseJsonPath) {
     }
   }
 
+  // Backup clean JSON before syncing (for manual restore before git commit)
   fs.writeFileSync(courseJsonPath + ".bak", fs.readFileSync(courseJsonPath));
+  console.log(`[fetch-drive] Backed up clean ${path.basename(courseJsonPath)} → .bak`);
+
+  // Add synced Drive content, preserving manually-added static content
   course.files = course.files || {};
+
+  // For arrays, keep manually-added items that aren't objects with 'id' field
+  // (e.g., keep plain string IDs like "1KmhiSfHtnn8H1hF96gE-vaKTZuPbL3-Q")
+  const preserveManualItems = (existing, synced) => {
+    const existingManual = (existing || []).filter(item =>
+      typeof item === 'string' || (typeof item === 'object' && !item.id)
+    );
+    return [...existingManual, ...synced];
+  };
+
   course.files.workbook_photos = out.workbook_photos;
+  course.files.workbook_pdfs = preserveManualItems(course.files.workbook_pdfs, out.workbook_pdfs);
   course.files.blackboard = out.blackboard;
   course.files.photos = out.photos;
   course.files.scripts_photos = out.scripts_photos;
   course.files.songs = out.songs;
   course.docs = docsOut;
+
+  // Write synced data to original JSON (for local testing)
   fs.writeFileSync(courseJsonPath, JSON.stringify(course, null, 2), "utf-8");
-  console.log(`[fetch-drive] Updated ${path.basename(courseJsonPath)}`);
+  console.log(`[fetch-drive] Updated ${path.basename(courseJsonPath)} with Drive content`);
 }
 
 async function main() {

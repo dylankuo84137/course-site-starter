@@ -1,0 +1,45 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: coursesList
+  size: 1
+  alias: c
+permalink: "/courses/{{ c.slug }}/story/index.html"
+---
+{% import "components/course_nav.njk" as cn %}
+{{ cn.nav(c, coursesList, 'story') }}
+
+<section class="space-y-6">
+  <header>
+    <h1 class="text-2xl md:text-3xl font-semibold">{{ c.title }} - 故事內容</h1>
+    <p class="text-stone-600">{{ c.grade }}・{{ c.semester }}｜{{ c.unit }}｜{{ c.domain }}</p>
+  </header>
+
+  <article class="prose prose-stone max-w-none">
+    {% if c.docs and c.docs.story and c.docs.story.content %}
+      {% if c.docs.story.mimeType != 'application/vnd.google-apps.document' and not c.docs.story.mimeType.startsWith('text/') %}
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h3 class="text-blue-800 font-medium mb-3">📄 {{ c.docs.story.name }}</h3>
+          <div class="whitespace-pre-wrap text-blue-700 mb-4">{{ c.docs.story.content }}</div>
+          <a href="{{ c.docs.story.downloadUrl }}" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+            <span>開啟文件</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
+      {% else %}
+        {{ c.docs.story.content | nl2br | safe }}
+      {% endif %}
+      <div class="mt-6 text-sm text-stone-500">
+        最後更新：{{ c.docs.story.lastUpdated | formatDate }}
+      </div>
+    {% else %}
+      <div class="bg-stone-100 border border-stone-200 rounded-lg p-6 text-center text-stone-600">
+        <h3 class="text-lg font-medium mb-2">故事內容尚未載入</h3>
+        <p>請確認已設定 Google 文件 ID 並執行同步腳本</p>
+        <code class="bg-stone-200 px-2 py-1 rounded text-sm">npm run sync:drive</code>
+      </div>
+    {% endif %}
+  </article>
+</section>
