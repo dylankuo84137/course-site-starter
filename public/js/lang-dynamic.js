@@ -103,6 +103,26 @@
       node.textContent = node.textContent.replace(node.textContent.trim(), newText);
     });
 
+    // Translate elements with data-i18n attribute
+    const i18nElements = document.querySelectorAll('[data-i18n]');
+    i18nElements.forEach(function(el) {
+      const keyPath = el.getAttribute('data-i18n');
+      const newText = getI18nValue(i18nData[toLang], keyPath);
+      if (newText) {
+        el.textContent = newText;
+      }
+    });
+
+    // Translate placeholder attributes
+    const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+    placeholderElements.forEach(function(el) {
+      const keyPath = el.getAttribute('data-i18n-placeholder');
+      const newText = getI18nValue(i18nData[toLang], keyPath);
+      if (newText) {
+        el.setAttribute('placeholder', newText);
+      }
+    });
+
     // Update HTML lang attribute
     const htmlLangMap = {
       'zh-TW': 'zh-Hant',
@@ -120,6 +140,9 @@
         document.title = newTitle;
       }
     }
+
+    // Dispatch language changed event for other modules
+    document.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: toLang } }));
   }
 
   // Translate course content with data attributes

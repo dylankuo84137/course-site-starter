@@ -2,53 +2,117 @@
 layout: layouts/base.njk
 permalink: /courses/index.html
 currentLang: zh-TW
+hidePagefindSearch: true
 ---
 {% import "macros/i18n.njk" as i18nMacro %}
 
-<h1 class="text-2xl md:text-3xl font-semibold mb-6">{{ i18n[currentLang].nav.courses }}</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-  {% for c in coursesList %}
-  <article class="bg-white rounded-2xl shadow p-5 flex flex-col gap-3" data-course-slug="{{ c.slug }}" data-course-i18n="{{ c.i18n | json }}">
-    <h2 class="text-xl font-semibold">
-      <a class="hover:text-emerald-700" href="{{ '/courses/' | url }}{{ c.slug }}/" data-i18n-course="title">{{ i18nMacro.cf(c, 'title', currentLang) }}</a>
-    </h2>
-    <p class="text-sm text-stone-600">
-      <span data-i18n-course="grade">{{ i18nMacro.cf(c, 'grade', currentLang) }}</span>・<span data-i18n-course="semester">{{ i18nMacro.cf(c, 'semester', currentLang) }}</span>｜<span data-i18n-course="unit">{{ i18nMacro.cf(c, 'unit', currentLang) }}</span>｜<span data-i18n-course="domain">{{ i18nMacro.cf(c, 'domain', currentLang) }}</span>
-    </p>
-    <p class="line-clamp-3" data-i18n-course="overview">{{ i18nMacro.cf(c, 'overview', currentLang) or '' }}</p>
-    <div class="flex gap-2 flex-wrap text-sm">
-      {% if (c.google_docs and c.google_docs.course_description) or (c.docs and c.docs.course_description) %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ i18n[currentLang].course.course_home }}</a>
-      {% endif %}
-      {% if (c.drive_folders and c.drive_folders.workbook_photos) or (c.files.workbook_pdfs and c.files.workbook_pdfs.length > 0) %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">{{ i18n[currentLang].course.workbook }}</a>
-      {% endif %}
-      {% if c.drive_folders and c.drive_folders.blackboard %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">{{ i18n[currentLang].course.blackboard_drawings }}</a>
-      {% endif %}
-      {% if c.drive_folders and c.drive_folders.photos %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">{{ i18n[currentLang].course.photo_gallery }}</a>
-      {% endif %}
-      {% if (c.google_docs and c.google_docs.play_script) or (c.docs and c.docs.play_script) or (c.files.play_scripts and c.files.play_scripts.length > 0) %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">{{ i18n[currentLang].course.play_script }}</a>
-      {% endif %}
-      {% if c.drive_folders and c.drive_folders.performance %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">{{ i18n[currentLang].course.performance }}</a>
-      {% endif %}
-      {% if c.drive_folders and c.drive_folders.songs_audio %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">{{ i18n[currentLang].course.songs }}</a>
-      {% endif %}
-      {% if c.files.sheet_music and c.files.sheet_music.length > 0 %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/sheet-music/">{{ i18n[currentLang].course.sheet_music }}</a>
-      {% endif %}
-      {% if (c.google_docs and c.google_docs.story) or (c.docs and c.docs.story) %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/story/">{{ i18n[currentLang].course.story }}</a>
-      {% endif %}
-      {% if c.youtube_videos and c.youtube_videos.play_video %}
-      <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/#play-video">{{ i18n[currentLang].course.video }}</a>
-      {% endif %}
-    </div>
-  </article>
-  {% endfor %}
+<div class="flex items-center justify-between gap-4 mb-6">
+  <h1 class="text-2xl md:text-3xl font-semibold">{{ i18n[currentLang].nav.courses }}</h1>
+  <!-- Search Bar with Icon -->
+  <div class="search-input-wrapper">
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    </svg>
+    <input
+      type="text"
+      id="searchInput"
+      class="search-input"
+      placeholder="{{ i18n[currentLang].filters.search_placeholder }}"
+      data-i18n-placeholder="filters.search_placeholder"
+    >
+  </div>
 </div>
+
+<!-- Results Count -->
+<div id="resultsCount" class="results-count" data-i18n-template="filters.showing_results"></div>
+
+<!-- Responsive Layout: Mobile (top) / Desktop (sidebar + main) -->
+<div class="courses-container">
+  <!-- Filter Panel -->
+  <aside class="filter-panel" id="filterPanel">
+    <div class="filter-panel-content">
+      <h2 class="filter-panel-title" data-i18n="filters.grade_filter">{{ i18n[currentLang].filters.grade_filter }}</h2>
+      <select id="gradeFilter" class="filter-select">
+        <option value="all" data-i18n="filters.all_grades">{{ i18n[currentLang].filters.all_grades }}</option>
+      </select>
+
+      <h2 class="filter-panel-title" data-i18n="filters.domain_filter">{{ i18n[currentLang].filters.domain_filter }}</h2>
+      <select id="domainFilter" class="filter-select">
+        <option value="all" data-i18n="filters.all_domains">{{ i18n[currentLang].filters.all_domains }}</option>
+      </select>
+
+      <h2 class="filter-panel-title" data-i18n="filters.teacher_filter">{{ i18n[currentLang].filters.teacher_filter }}</h2>
+      <select id="teacherFilter" class="filter-select">
+        <option value="all" data-i18n="filters.all_teachers">{{ i18n[currentLang].filters.all_teachers }}</option>
+      </select>
+
+      <button id="resetFilters" class="reset-filters-btn" data-i18n="filters.reset_filters">{{ i18n[currentLang].filters.reset_filters }}</button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="courses-main">
+    <!-- Course Cards Grid -->
+    <div id="coursesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% for c in coursesList %}
+      <article
+        class="course-card bg-white rounded-2xl shadow p-5 flex flex-col gap-3"
+        data-course-slug="{{ c.slug }}"
+        data-course-i18n="{{ c.i18n | json }}"
+        data-grade="{{ c.metadata.grade_level if c.metadata else '' }}"
+        data-domain="{{ c.metadata.domain_category if c.metadata else '' }}"
+        data-teacher="{{ c.metadata.teacher_name if c.metadata else '' }}"
+      >
+        <h2 class="text-xl font-semibold">
+          <a class="hover:text-emerald-700" href="{{ '/courses/' | url }}{{ c.slug }}/" data-i18n-course="title">{{ i18nMacro.cf(c, 'title', currentLang) }}</a>
+        </h2>
+        <p class="text-sm text-stone-600">
+          <span data-i18n-course="grade">{{ i18nMacro.cf(c, 'grade', currentLang) }}</span>・<span data-i18n-course="semester">{{ i18nMacro.cf(c, 'semester', currentLang) }}</span>｜<span data-i18n-course="unit">{{ i18nMacro.cf(c, 'unit', currentLang) }}</span>｜<span data-i18n-course="domain">{{ i18nMacro.cf(c, 'domain', currentLang) }}</span>
+        </p>
+        <p class="line-clamp-3" data-i18n-course="overview">{{ i18nMacro.cf(c, 'overview', currentLang) or '' }}</p>
+        <div class="flex gap-2 flex-wrap text-sm">
+          {% if (c.google_docs and c.google_docs.course_description) or (c.docs and c.docs.course_description) %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ i18n[currentLang].course.course_home }}</a>
+          {% endif %}
+          {% if (c.drive_folders and c.drive_folders.workbook_photos) or (c.files.workbook_pdfs and c.files.workbook_pdfs.length > 0) %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">{{ i18n[currentLang].course.workbook }}</a>
+          {% endif %}
+          {% if c.drive_folders and c.drive_folders.blackboard %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">{{ i18n[currentLang].course.blackboard_drawings }}</a>
+          {% endif %}
+          {% if c.drive_folders and c.drive_folders.photos %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">{{ i18n[currentLang].course.photo_gallery }}</a>
+          {% endif %}
+          {% if (c.google_docs and c.google_docs.play_script) or (c.docs and c.docs.play_script) or (c.files.play_scripts and c.files.play_scripts.length > 0) %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">{{ i18n[currentLang].course.play_script }}</a>
+          {% endif %}
+          {% if c.drive_folders and c.drive_folders.performance %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">{{ i18n[currentLang].course.performance }}</a>
+          {% endif %}
+          {% if c.drive_folders and c.drive_folders.songs_audio %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">{{ i18n[currentLang].course.songs }}</a>
+          {% endif %}
+          {% if c.files.sheet_music and c.files.sheet_music.length > 0 %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/sheet-music/">{{ i18n[currentLang].course.sheet_music }}</a>
+          {% endif %}
+          {% if (c.google_docs and c.google_docs.story) or (c.docs and c.docs.story) %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/story/">{{ i18n[currentLang].course.story }}</a>
+          {% endif %}
+          {% if c.youtube_videos and c.youtube_videos.play_video %}
+          <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/#play-video">{{ i18n[currentLang].course.video }}</a>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="no-results hidden">
+      <p>{{ i18n[currentLang].filters.no_results }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- Load filter script -->
+<script src="{{ '/js/course-filters.js' | url }}" defer></script>

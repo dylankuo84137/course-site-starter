@@ -1,6 +1,11 @@
 {
   "slug": "course-example",
   "hero_image": "DRIVE_FILE_ID_FOR_HERO_IMAGE",
+  "metadata": {
+    "grade_level": "1",
+    "domain_category": "main-lesson",
+    "teacher_name": "teacher-name"
+  },
   "i18n": {
     "zh-TW": {
       "title": "課程範例模板",

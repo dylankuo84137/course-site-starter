@@ -68,7 +68,9 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-8">
+    {% if not hidePagefindSearch %}
     <div id="search" class="mb-6"></div>
+    {% endif %}
     {{ content | safe }}
   </main>
 

@@ -15,7 +15,7 @@
 - **多語言支援**: 中英文雙語介面，使用客戶端動態翻譯
 - **Google Drive 整合**: 自動同步公開Drive資料夾中的圖片和音檔
 - **響應式相簿**: 支援縮圖瀏覽、Lightbox放大、鍵盤導航
-- **智能標籤系統**: 從檔名自動提取標籤，支援中英文標記
+- **檔名標籤系統**: 從檔名自動提取標籤，支援中英文標記
 - **全文搜索**: 基於Pagefind的站內搜索功能
 - **快速篩選**: 相簿頁面的即時關鍵字篩選
 - **AI 友善設計**: 文字優先架構，支援 AI 工具分析與學習（NotebookLM、ChatGPT、Claude 等）
@@ -69,16 +69,21 @@ course-site-starter/
 
 ## ✨ 功能總覽
 
-- 多課程導覽：課程主頁（課程名稱／簡介／教師介紹）＋六大分頁  
+- 多課程導覽：課程主頁（課程名稱／簡介／教師介紹）＋六大分頁
   `工作本｜照片集｜黑板畫｜劇本｜歌曲與音檔｜留言與交流`
+- **課程索引與篩選系統**：
+  - **響應式過濾面板**：桌面版顯示於左側欄，行動版顯示於頁面頂部
+  - **課程篩選器**：依年級、領域、教師快速篩選課程
+  - **即時搜尋**：文字搜尋功能位於右上角，即時過濾課程內容
+  - **一鍵重設**：快速清除所有篩選條件
 - Drive 同步腳本：從公開資料夾擷取檔案清單，產生 JSON（可手動覆寫）
 - 圖片相簿：縮圖格狀瀏覽、點擊放大、**方向鍵切換**、**ESC 關閉**
 - 快速篩選（僅相簿頁）：輸入多個關鍵字（**AND 條件**）即時過濾
 - 站內搜尋（Pagefind）：搜尋課程文字內容（首頁／課程頁等）
-- 標籤系統：  
-  - **自動從檔名擷取** `[方括號]`／`【全形】`／`#hashtag`  
-  - **自動附加課程層級標籤**：年級、學期、主題單元、課程領域  
-- 音檔播放：直接串流 Google Drive (`uc?export=download&id=...`) 或下載  
+- 標籤系統：
+  - **自動從檔名擷取** `[方括號]`／`【全形】`／`#hashtag`
+  - **自動附加課程層級標籤**：年級、學期、主題單元、課程領域
+- 音檔播放：直接串流 Google Drive (`uc?export=download&id=...`) 或下載
 - 適合 GitHub Pages 發佈（純靜態、無伺服器）
 
 ---
@@ -90,12 +95,31 @@ course-site-starter/
 ```json
 {
   "slug": "2a-nenggao-113-summer",
-  "title": "能高山（班級戲劇）",
-  "grade": "二年級 2A 嶺光班",
-  "semester": "113 學年度 夏季",
-  "unit": "班級戲劇",
-  "domain": "自然主課",
-  "teacher": "王琬婷",
+  "metadata": {
+    "grade_level": "2",
+    "domain_category": "nature",
+    "teacher_name": "王琬婷"
+  },
+  "i18n": {
+    "zh-TW": {
+      "title": "能高山（班級戲劇）",
+      "grade": "二年級 2A 嶺光班",
+      "semester": "113 學年度 夏季",
+      "unit": "班級戲劇",
+      "domain": "自然主課",
+      "teacher": "王琬婷",
+      "overview": "課程簡介文字。"
+    },
+    "en-US": {
+      "title": "Mt. Nenggao (Class Drama)",
+      "grade": "Grade 2, Class 2A Lingguang",
+      "semester": "Academic Year 113, Summer",
+      "unit": "Class Drama",
+      "domain": "Main Lesson - Nature",
+      "teacher": "Wang Wan-Ting",
+      "overview": "Course overview text."
+    }
+  },
   "tags": ["戲劇", "黑板畫", "工作本", "歌曲"],
   "drive_folders": {
     "workbook_photos": "FOLDER_ID",
@@ -123,14 +147,23 @@ course-site-starter/
 }
 ```
 
-**重點：**
-- `drive_folders`：放各分類的 **Google Drive 資料夾 ID**（需設為「知道連結的任何人可檢視」）。  
-- `google_docs`：放課程相關的 **Google Docs 文件 ID**，如課程說明、劇本等（需設為「知道連結的任何人可檢視」）。
-- `files.*`：執行同步腳本後自動覆寫；**圖片會寫成物件 `{id,name,tags}`**。  
+**結構重點：**
+- `metadata`：用於課程索引頁（`/courses/`）的篩選功能，包含三個**必填**欄位：
+  - `grade_level`：年級編號（數字或字串，例如 `"2"`, `"3"`）
+  - `domain_category`：領域類別（slug 格式，例如 `"nature-main-lesson"`, `"arts"`）
+  - `teacher_name`：教師姓名（slug 格式，例如 `"wang-wan-ting"`）
+  - 這些值會被 `course-filters.js` 用於動態生成篩選器選項並執行過濾
+- `i18n`：包含所有可翻譯欄位的多語言內容（必須包含 `zh-TW` 和 `en-US`）
+  - 所有顯示給使用者的文字都應放在 `i18n` 物件中
+  - 範本中使用 `cf()` 巨集來存取多語言欄位
+  - **注意**：`metadata` 中的 slug 格式欄位與 `i18n` 中的顯示文字是獨立的
+- `drive_folders`：放各分類的 **Google Drive 資料夾 ID**（需設為「知道連結的任何人可檢視」）
+- `google_docs`：放課程相關的 **Google Docs 文件 ID**，如課程說明、劇本等（需設為「知道連結的任何人可檢視」）
+- `files.*`：執行同步腳本後自動覆寫；**圖片會寫成物件 `{id,name,tags}`**
 - 標籤來源：
-  - 由檔名自動擷取：`[方括號]`、`【全形】`、`#hashtag`（例如 `P01【第2週】【螢火蟲】.jpg`）  
+  - 由檔名自動擷取：`[方括號]`、`【全形】`、`#hashtag`（例如 `P01【第2週】【螢火蟲】.jpg`）
   - 由課程層級自動附加：`grade/semester/unit/domain`
-- **音檔**：以 `{title,id,mimeType}` 表示，頁面以 `<audio>` 串流播放。
+- **音檔**：以 `{title,id,mimeType}` 表示，頁面以 `<audio>` 串流播放
 
 ---
 
@@ -162,7 +195,7 @@ course-site-starter/
 **頁面右上角語言選單：**
 - 顯示當前語言（繁體中文 / English）
 - 點擊展開下拉選單選擇語言
-- 語言偏好儲存於 `localStorage`，跨頁面持久化
+- 語言偏好儲存於 `localStorage`
 
 **首頁行為：**
 - `/` → 繁體中文（預設）
@@ -175,46 +208,6 @@ course-site-starter/
 - 若使用者偏好 English，頁面載入時自動翻譯
 - 切換語言時重新載入頁面套用新語言
 - 偏好設定跨頁面導覽持續生效
-
-### 課程資料結構（重要）
-
-**單一資料來源原則** - 所有可翻譯欄位僅存在於 `i18n` 物件中：
-
-```json
-{
-  "slug": "course-example",
-  "i18n": {
-    "zh-TW": {
-      "title": "課程標題",
-      "grade": "年級",
-      "semester": "學期",
-      "unit": "課程單元",
-      "domain": "領域",
-      "teacher": "教師姓名",
-      "overview": "課程簡介...",
-      "learningObjectives": ["目標1", "目標2"]
-    },
-    "en-US": {
-      "title": "Course Title",
-      "grade": "Grade Level",
-      "semester": "Semester",
-      "unit": "Unit",
-      "domain": "Domain",
-      "teacher": "Teacher Name",
-      "overview": "Course overview...",
-      "learningObjectives": ["Objective 1", "Objective 2"]
-    }
-  },
-  "tags": ["tag1", "tag2"],
-  "google_docs": {...},
-  "drive_folders": {...}
-}
-```
-
-**⚠️ 注意事項：**
-- **不要**在 JSON 根層級重複 `title`、`grade` 等欄位
-- **不要**直接存取 `course.title`，一律使用 `i18nMacro.cf()` 巨集
-- 這樣可避免維護時需在兩處更新同一內容
 
 ### 模板中存取多語言欄位
 
@@ -487,11 +480,16 @@ cp src/_data/course_template.json src/_data/course_3b_myclass_114_spring.json
 
 ### 步驟 2：編輯課程元數據
 
-編輯新建的 JSON 檔案，填入以下**必填欄位**：
+編輯新建的 JSON 檔案，填入以下**必填欄位**。詳細欄位說明請參考「🗂️ 資料結構（`course_*.json`）」章節。
 
 ```json
 {
   "slug": "3b-myclass-114-spring",           // 網址路徑（小寫、連字號）
+  "metadata": {
+    "grade_level": "3",                      // 年級編號（數字字串，用於課程索引頁篩選）
+    "domain_category": "nature-main-lesson", // 領域類別（slug 格式，用於課程索引頁篩選）
+    "teacher_name": "wang-wan-ting"          // 教師姓名（slug 格式，用於課程索引頁篩選）
+  },
   "i18n": {
     "zh-TW": {
       "title": "課程名稱",
@@ -546,9 +544,9 @@ cp src/_data/course_template.json src/_data/course_3b_myclass_114_spring.json
 ```
 
 **⚠️ 重要：**
-- 所有可翻譯欄位（title、grade、overview 等）**必須**放在 `i18n` 物件內
-- **不要**在 JSON 根層級重複這些欄位
-- 至少需提供 `zh-TW`（繁體中文）與 `en-US`（英文）兩種語言
+- **`metadata` 欄位**：用於課程索引頁的篩選功能（`/courses/`），必須使用 slug 格式。詳細說明請參考「🗂️ 資料結構（`course_*.json`）」章節。
+- **`i18n` 欄位**：所有可翻譯欄位（title、grade、overview 等）**必須**放在此物件內。詳細說明請參考「🗂️ 資料結構（`course_*.json`）」章節。
+- **區別**：`metadata` 是機器可讀的篩選鍵值，`i18n` 是人類可讀的顯示文字
 
 ### 步驟 3：設定 Drive 資料夾權限
 

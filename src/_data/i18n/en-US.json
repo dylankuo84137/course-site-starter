@@ -42,6 +42,18 @@
     "no_content": "No content available yet.",
     "course_home": "Course Home"
   },
+  "filters": {
+    "search_placeholder": "Search courses...",
+    "all_grades": "All Grades",
+    "all_domains": "All Domains",
+    "all_teachers": "All Teachers",
+    "grade_filter": "Grade",
+    "domain_filter": "Domain",
+    "teacher_filter": "Teacher",
+    "showing_results": "Showing {count} courses",
+    "no_results": "No matching courses",
+    "reset_filters": "Reset Filters"
+  },
   "gallery": {
     "filter_placeholder": "Filter photos...",
     "no_results": "No matching photos",

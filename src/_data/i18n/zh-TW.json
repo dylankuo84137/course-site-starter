@@ -42,6 +42,18 @@
     "no_content": "目前沒有內容。",
     "course_home": "課程主頁"
   },
+  "filters": {
+    "search_placeholder": "搜尋課程...",
+    "all_grades": "所有年級",
+    "all_domains": "所有領域",
+    "all_teachers": "所有教師",
+    "grade_filter": "年級",
+    "domain_filter": "領域",
+    "teacher_filter": "教師",
+    "showing_results": "顯示 {count} 個課程",
+    "no_results": "沒有符合的課程",
+    "reset_filters": "重設篩選"
+  },
   "gallery": {
     "filter_placeholder": "篩選照片...",
     "no_results": "沒有符合的照片",
