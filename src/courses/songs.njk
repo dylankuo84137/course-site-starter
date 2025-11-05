@@ -6,8 +6,8 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/songs/index.html"
 ---
-{% import "components/course_nav.njk" as cn %}
-{{ cn.nav(c, coursesList, 'songs', currentLang, i18n) }}
+{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{{ breadcrumb.breadcrumb(c, coursesList, 'songs', currentLang, i18n) }}
 
 {% if c.hero_image %}
 <div class="section-hero">

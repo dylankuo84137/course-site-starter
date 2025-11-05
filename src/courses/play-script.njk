@@ -6,9 +6,9 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/play-script/index.html"
 ---
-{% import "components/course_nav.njk" as cn %}
+{% import "components/course-breadcrumb.njk" as breadcrumb %}
 {% import "components/drive.njk" as drv %}
-{{ cn.nav(c, coursesList, 'play-script', currentLang, i18n) }}
+{{ breadcrumb.breadcrumb(c, coursesList, 'play-script', currentLang, i18n) }}
 
 {% set courseTitle = c.i18n[currentLang].title if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].title) else c.title %}
 {% set courseGrade = c.i18n[currentLang].grade if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].grade) else c.grade %}

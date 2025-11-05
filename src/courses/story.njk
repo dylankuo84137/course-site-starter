@@ -6,8 +6,8 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/story/index.html"
 ---
-{% import "components/course_nav.njk" as cn %}
-{{ cn.nav(c, coursesList, 'story', currentLang, i18n) }}
+{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{{ breadcrumb.breadcrumb(c, coursesList, 'story', currentLang, i18n) }}
 
 {% set courseTitle = c.i18n[currentLang].title if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].title) else c.title %}
 {% set courseGrade = c.i18n[currentLang].grade if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].grade) else c.grade %}

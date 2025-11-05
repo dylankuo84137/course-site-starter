@@ -1,0 +1,124 @@
+{#
+  Utility Filters Macro
+  Consolidated text processing and data manipulation filters
+#}
+
+{# 
+  String processing utilities 
+#}
+{% macro slug(s) -%}
+  {{- (s or '').toString().toLowerCase()
+    .replace(/\s+/g,'-')
+    .replace(/[^\w\-]+/g,'')
+    .replace(/\-\-+/g,'-')
+    .replace(/^\-+|\-+$/g,'') -}}
+{%- endmacro %}
+
+{% macro nl2br(str) -%}
+  {%- if not str -%}
+    {{- '' -}}
+  {%- else -%}
+    {{- str.replace(/\r\n|\n|\r/g, '<br>') -}}
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro truncate(str, length) -%}
+  {%- if not str -%}
+    {{- '' -}}
+  {%- elif str.length <= length -%}
+    {{- str -}}
+  {%- else -%}
+    {{- str.substring(0, length).trim() + '...' -}}
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro formatGoogleDoc(str) -%}
+  {%- if not str -%}
+    {{- '' -}}
+  {%- else -%}
+    {%- set formatted = str.replace(/(\r\n|\n|\r){3,}/g, '</p><p>') -%}
+    {%- set formatted = formatted.replace(/(\r\n|\n|\r){2}/g, '</p><p>') -%}
+    {%- set formatted = formatted.replace(/(\r\n|\n|\r)/g, '<br>') -%}
+    {%- set formatted = '<p>' + formatted + '</p>' -%}
+    {%- set formatted = formatted.replace(/<p><\/p>/g, '') -%}
+    {%- set formatted = formatted.replace(/<p><br><\/p>/g, '') -%}
+    {{- formatted -}}
+  {%- endif -%}
+{%- endmacro %}
+
+{# 
+  Date formatting utilities 
+#}
+{% macro formatDate(dateStr) -%}
+  {%- if not dateStr -%}
+    {{- '' -}}
+  {%- else -%}
+    {%- set date = new Date(dateStr) -%}
+    {%- set year = date.getFullYear() -%}
+    {%- set month = String(date.getMonth() + 1).padStart(2, '0') -%}
+    {%- set day = String(date.getDate()).padStart(2, '0') -%}
+    {%- set hours = String(date.getHours()).padStart(2, '0') -%}
+    {%- set minutes = String(date.getMinutes()).padStart(2, '0') -%}
+    {{- year + '-' + month + '-' + day + ' ' + hours + ':' + minutes -}}
+  {%- endif -%}
+{%- endmacro %}
+
+{# 
+  Array manipulation utilities 
+#}
+{% macro flatten(arr) -%}
+  {{- arr.flat() -}}
+{%- endmacro %}
+
+{% macro uniq(arr) -%}
+  {{- [...new Set(arr)] -}}
+{%- endmacro %}
+
+{% macro map(arr, prop) -%}
+  {{- arr.map(item => item[prop]) -}}
+{%- endmacro %}
+
+{# 
+  JSON utilities 
+#}
+{% macro json(v) -%}
+  {{- JSON.stringify(v) -}}
+{%- endmacro %}
+
+{# 
+  Structured data utilities 
+#}
+{% macro jsonLD(course, site) -%}
+  {%- if not course -%}
+    {{- '' -}}
+  {%- else -%}
+    {%- set baseUrl = site.url or '' -%}
+    {%- set schema = {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": course.title,
+      "description": course.overview or (course.title + ' - ' + course.unit),
+      "provider": {
+        "@type": "EducationalOrganization",
+        "name": site.footer_org or "Waldorf Education",
+        "url": baseUrl
+      },
+      "educationalLevel": course.grade,
+      "teaches": course.unit,
+      "courseCode": course.slug,
+      "instructor": {
+        "@type": "Person",
+        "name": course.teacher
+      },
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "onsite",
+        "courseWorkload": course.semester
+      }
+    } -%}
+    {%- if course.tags and course.tags.length > 0 -%}
+      {%- set schema = schema | set('keywords', course.tags.join(', ')) -%}
+    {%- endif -%}
+    {{- JSON.stringify(schema, null, 2) -}}
+  {%- endif -%}
+{%- endmacro %}

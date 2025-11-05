@@ -4,32 +4,12 @@ const translations = {
   'en-US': require('./src/_data/i18n/en-US.json')
 };
 
-module.exports = function(eleventyConfig) {
-  // i18n configuration
-  eleventyConfig.addPlugin(i18n, {
-    translations,
-    fallbackLocales: {
-      'en-US': 'zh-TW'
-    }
-  });
-
-  // Add translation filter (shorthand for i18n filter)
-  eleventyConfig.addFilter("t", function(key, lang) {
-    // Default to zh-TW if no language specified
-    const locale = lang || 'zh-TW';
-    const keys = key.split('.');
-    let value = translations[locale];
-    for (const k of keys) {
-      value = value?.[k];
-    }
-    return value || key;
-  });
-
-  eleventyConfig.addPassthroughCopy({ "public": "/" });
-  eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
-  eleventyConfig.addFilter("slug", s => (s || '').toString().toLowerCase()
-    .replace(/\s+/g,'-').replace(/[^\w\-]+/g,'').replace(/\-\-+/g,'-').replace(/^\-+|\-+$/g,''));
-  eleventyConfig.addFilter("formatDate", (dateStr) => {
+// Utility functions for filters
+const utilityFilters = {
+  slug: s => (s || '').toString().toLowerCase()
+    .replace(/\s+/g,'-').replace(/[^\w\-]+/g,'').replace(/\-\-+/g,'-').replace(/^\-+|\-+$/g,''),
+  
+  formatDate: (dateStr) => {
     if (!dateStr) return '';
     const date = new Date(dateStr);
     const year = date.getFullYear();
@@ -38,27 +18,25 @@ module.exports = function(eleventyConfig) {
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${year}-${month}-${day} ${hours}:${minutes}`;
-  });
-  eleventyConfig.addFilter("nl2br", (str) => {
+  },
+  
+  nl2br: (str) => {
     if (!str) return '';
     return str.replace(/\r\n|\n|\r/g, '<br>');
-  });
-  eleventyConfig.addFilter("formatGoogleDoc", (str) => {
+  },
+  
+  formatGoogleDoc: (str) => {
     if (!str) return '';
-    // Replace multiple consecutive line breaks with paragraph breaks
     let formatted = str.replace(/(\r\n|\n|\r){3,}/g, '</p><p>');
-    // Replace double line breaks with paragraph breaks
     formatted = formatted.replace(/(\r\n|\n|\r){2}/g, '</p><p>');
-    // Replace single line breaks with <br>
     formatted = formatted.replace(/(\r\n|\n|\r)/g, '<br>');
-    // Wrap in paragraph tags
     formatted = '<p>' + formatted + '</p>';
-    // Clean up empty paragraphs
     formatted = formatted.replace(/<p><\/p>/g, '');
     formatted = formatted.replace(/<p><br><\/p>/g, '');
     return formatted;
-  });
-  eleventyConfig.addFilter("jsonLD", (course, site) => {
+  },
+  
+  jsonLD: (course, site) => {
     if (!course) return '';
     const baseUrl = site?.url || '';
     const schema = {
@@ -88,20 +66,46 @@ module.exports = function(eleventyConfig) {
       schema.keywords = course.tags.join(', ');
     }
     return JSON.stringify(schema, null, 2);
-  });
-  eleventyConfig.addFilter("truncate", (str, length) => {
+  },
+  
+  truncate: (str, length) => {
     if (!str) return '';
     if (str.length <= length) return str;
     return str.substring(0, length).trim() + '...';
+  },
+  
+  flatten: (arr) => arr.flat(),
+  uniq: (arr) => [...new Set(arr)],
+  map: (arr, prop) => arr.map(item => item[prop])
+};
+
+module.exports = function(eleventyConfig) {
+  // i18n configuration
+  eleventyConfig.addPlugin(i18n, {
+    translations,
+    fallbackLocales: {
+      'en-US': 'zh-TW'
+    }
   });
-  eleventyConfig.addFilter("flatten", (arr) => {
-    return arr.flat();
+
+  // Add translation filter (shorthand for i18n filter)
+  eleventyConfig.addFilter("t", function(key, lang) {
+    // Default to zh-TW if no language specified
+    const locale = lang || 'zh-TW';
+    const keys = key.split('.');
+    let value = translations[locale];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
   });
-  eleventyConfig.addFilter("uniq", (arr) => {
-    return [...new Set(arr)];
-  });
-  eleventyConfig.addFilter("map", (arr, prop) => {
-    return arr.map(item => item[prop]);
+
+  eleventyConfig.addPassthroughCopy({ "public": "/" });
+  
+  // Register utility filters
+  eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
+  Object.entries(utilityFilters).forEach(([name, fn]) => {
+    eleventyConfig.addFilter(name, fn);
   });
   eleventyConfig.addGlobalData("buildTime", () => new Date().toISOString());
 

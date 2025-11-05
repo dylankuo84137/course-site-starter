@@ -7,8 +7,11 @@
     "dev": "npx @11ty/eleventy --serve",
     "build": "npx @11ty/eleventy",
     "postbuild": "npx pagefind --site _site",
+    "prebuild": "node scripts/validate-courses.js",
     "deploy": "npm run build && npm run postbuild",
-    "sync:drive": "node scripts/fetch-drive.mjs"
+    "sync:drive": "node scripts/fetch-drive.mjs",
+    "validate": "node scripts/validate-courses.js",
+    "validate:watch": "npx nodemon --watch src/_data/course_*.json --exec \"npm run validate\""
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

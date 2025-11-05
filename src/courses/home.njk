@@ -6,9 +6,9 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/index.html"
 ---
-{% import "components/course_nav.njk" as cn %}
+{% import "components/course-breadcrumb.njk" as breadcrumb %}
 {% import "macros/i18n.njk" as i18nMacro %}
-{{ cn.nav(c, coursesList, 'home', currentLang, i18n) }}
+{{ breadcrumb.breadcrumb(c, coursesList, 'home', currentLang, i18n) }}
 
 {# JSON-LD structured data for AI and search engines #}
 <script type="application/ld+json">

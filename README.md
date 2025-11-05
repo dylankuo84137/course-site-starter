@@ -42,11 +42,18 @@ course-site-starter/
 │       └── lang-dynamic.js   # 多語言動態翻譯
 ├── src/
 │   ├── _data/                # 數據文件夾
+│   │   ├── course-configs/   # 課程配置文件夾
+│   │   │   ├── course_2a_nenggao_113_summer.json
+│   │   │   ├── course_3a_sunshot_113_summer.json
+│   │   │   └── course_template.json  # 新課程模板
+│   │   ├── i18n/             # 國際化資料
+│   │   │   ├── zh-TW.json    # 繁體中文翻譯
+│   │   │   └── en-US.json    # 英文翻譯
 │   │   ├── site.json         # 站點基本信息
-│   │   ├── i18n.json         # 多語言字串定義
 │   │   ├── locale.js         # 語言配置
 │   │   ├── coursesList.js    # 課程列表生成器
-│   │   └── course_*.json     # 各課程數據文件
+│   │   ├── courseValidation.js # 建置時驗證
+│   │   └── course-validator.js # 驗證邏輯
 │   ├── _includes/            # 模板組件
 │   │   ├── layouts/base.njk  # 基礎頁面模板
 │   │   └── components/       # 可復用組件
@@ -177,7 +184,7 @@ course-site-starter/
 ### 同步腳本工作流程
 
 **腳本執行步驟：**
-1. 備份同步前的 `course_*.json` → `course_*.json.bak`
+1. 備份同步前的 `course-configs/course_*.json` → `course_*.json.bak`
 2. 從 Drive 抓取檔案清單（圖片、音檔、文件）
 3. 覆寫原始 JSON（加入 `files.*` 和 `docs.*` 完整內容）
 
@@ -266,7 +273,7 @@ course-site-starter/
    }
    ```
 
-3. **課程內容翻譯**（各 `src/_data/course_*.json`）
+3. **課程內容翻譯**（各 `src/_data/course-configs/course_*.json`）
    ```json
    {
      "i18n": {
@@ -340,7 +347,7 @@ course-site-starter/
    - 工作本、黑板畫、照片等視覺教材描述
 
 2. **結構化資料**（JSON 格式）
-   - `/_data/course_*.json` - 課程元資料
+   - `/_data/course-configs/course_*.json` - 課程元資料
    - `/ai-index.json` - 完整課程索引
    - `/feed.json` - 更新時間軸
 
@@ -446,14 +453,14 @@ ELEVENTY_BASE=/
 - `_site/` - 建置輸出
 
 **核心原則：**
-- Git 僅追蹤**同步之前的 `course_*.json`**（無 Drive 同步內容）
+- Git 僅追蹤**同步之前的 `course-configs/course_*.json`**（無 Drive 同步內容）
 - 同步腳本覆寫 JSON 供本地測試
 - `.bak` 保存無同步內容版本供還原
 
 **提交流程：**
 ```bash
 # 測試完成後，還原乾淨版本
-cp src/_data/*.json.bak src/_data/*.json
+cp src/_data/course-configs/*.json.bak src/_data/course-configs/*.json
 
 # 提交
 git add .
@@ -471,11 +478,11 @@ git push
 
 ### 步驟 1：建立課程 JSON 檔案
 
-使用 `src/_data/course_template.json` 作為新課程的起始模板。
+使用 `src/_data/course-configs/course_template.json` 作為新課程的起始模板。
 複製模板並重新命名（**必須使用 `course_` 開頭**）：
 
 ```bash
-cp src/_data/course_template.json src/_data/course_3b_myclass_114_spring.json
+cp src/_data/course-configs/course_template.json src/_data/course-configs/course_3b_myclass_114_spring.json
 ```
 
 ### 步驟 2：編輯課程元數據
@@ -575,10 +582,10 @@ npm run dev
 
 ```bash
 # 還原乾淨的課程 JSON
-cp src/_data/*.json.bak src/_data/*.json
+cp src/_data/course-configs/*.json.bak src/_data/course-configs/*.json
 
 # 提交新課程
-git add src/_data/course_3b_myclass_114_spring.json
+git add src/_data/course-configs/course_3b_myclass_114_spring.json
 git commit -m "feat: add 3B MyClass 114 Spring course"
 git push
 ```

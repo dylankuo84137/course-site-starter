@@ -1,0 +1,132 @@
+{#
+  Course Breadcrumb Component
+  Consolidated navigation patterns for course pages
+#}
+
+{% macro breadcrumb(course, allCourses, currentPage, currentLang, i18nData) %}
+  {% set lang = currentLang or 'zh-TW' %}
+  {% set i18n = i18nData or i18n %}
+  
+  <nav aria-label="{{ i18n[lang].course.course_navigation }}" class="mb-6">
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      {# Primary navigation tabs #}
+      <ul class="flex flex-wrap gap-2 text-sm" role="tablist">
+        {{ navItem(course, 'home', currentPage, lang, i18n, i18n[lang].course.course_home) }}
+        
+        {% if course.google_docs and course.google_docs.story %}
+        {{ navItem(course, 'story', currentPage, lang, i18n, i18n[lang].course.story) }}
+        {% endif %}
+        
+        {{ navItem(course, 'play-script', currentPage, lang, i18n, i18n[lang].course.play_script) }}
+        {{ navItem(course, 'workbook', currentPage, lang, i18n, i18n[lang].course.workbook) }}
+        
+        {% if course.files and course.files.photos and course.files.photos.length > 0 %}
+        {{ navItem(course, 'photos', currentPage, lang, i18n, i18n[lang].course.photo_gallery) }}
+        {% endif %}
+        
+        {% if course.files and course.files.blackboard and course.files.blackboard.length > 0 %}
+        {{ navItem(course, 'blackboard', currentPage, lang, i18n, i18n[lang].course.blackboard_drawings) }}
+        {% endif %}
+        
+        {{ navItem(course, 'scripts', currentPage, lang, i18n, i18n[lang].course.performance) }}
+        {{ navItem(course, 'songs', currentPage, lang, i18n, i18n[lang].course.songs) }}
+        
+        {% if course.files and course.files.sheet_music and course.files.sheet_music.length > 0 %}
+        {{ navItem(course, 'sheet-music', currentPage, lang, i18n, i18n[lang].course.sheet_music) }}
+        {% endif %}
+        
+        {% if course.youtube_videos and course.youtube_videos.play_video %}
+        {{ navItem(course, 'videos', currentPage, lang, i18n, i18n[lang].course.video) }}
+        {% endif %}
+      </ul>
+      
+      {# Course switcher dropdown #}
+      <div class="course-switcher">
+        <label class="text-sm text-stone-600 flex items-center gap-2">
+          {{ i18n[lang].course.switch_course }}
+          <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value" aria-label="{{ i18n[lang].course.switch_course }}">
+            {% for other in allCourses %}
+              <option value="{{ courseUrl(other.slug, currentPage) }}" 
+                      {% if other.slug == course.slug %}selected{% endif %} 
+                      data-course-switcher-i18n='{{ other.i18n | json }}'>
+                {{ other.i18n[lang].title }}
+              </option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+    </div>
+  </nav>
+{% endmacro %}
+
+{% macro navItem(course, page, currentPage, lang, i18n, label) %}
+  <li role="presentation">
+    <a href="{{ courseUrl(course.slug, page) }}" 
+       class="pill {% if currentPage == page %}active{% endif %}"
+       {% if currentPage == page %}aria-current="page"{% endif %}
+       role="tab">
+      {{ label }}
+    </a>
+  </li>
+{% endmacro %}
+
+{% macro courseUrl(courseSlug, page) %}
+  {%- if page == 'home' -%}
+    {{ '/courses/' | url }}{{ courseSlug }}/
+  {%- else -%}
+    {{ '/courses/' | url }}{{ courseSlug }}/{{ page }}/
+  {%- endif -%}
+{% endmacro %}
+
+{# 
+  Simplified breadcrumb for pages that only need basic navigation
+  Usage: {{ breadcrumbSimple(course, 'Page Title', currentLang, i18n) }}
+#}
+{% macro breadcrumbSimple(course, pageTitle, currentLang, i18nData) %}
+  {% set lang = currentLang or 'zh-TW' %}
+  {% set i18n = i18nData or i18n %}
+  
+  <nav aria-label="{{ i18n[lang].course.breadcrumb }}" class="mb-4">
+    <ol class="flex items-center space-x-2 text-sm text-stone-600">
+      <li>
+        <a href="{{ '/' | url }}" class="hover:text-stone-900">{{ i18n[lang].nav.home }}</a>
+      </li>
+      <li class="before:content-['/'] before:mx-2">
+        <a href="{{ '/courses/' | url }}" class="hover:text-stone-900">{{ i18n[lang].nav.courses }}</a>
+      </li>
+      <li class="before:content-['/'] before:mx-2">
+        <a href="{{ courseUrl(course.slug, 'home') }}" class="hover:text-stone-900">{{ course.i18n[lang].title }}</a>
+      </li>
+      {% if pageTitle %}
+      <li class="before:content-['/'] before:mx-2 font-medium text-stone-900" aria-current="page">
+        {{ pageTitle }}
+      </li>
+      {% endif %}
+    </ol>
+  </nav>
+{% endmacro %}
+
+{#
+  Header component that combines breadcrumb with course title
+  Usage: {{ headerWithNav(course, allCourses, currentPage, pageTitle, currentLang, i18n) }}
+#}
+{% macro headerWithNav(course, allCourses, currentPage, pageTitle, currentLang, i18nData) %}
+  {% set lang = currentLang or 'zh-TW' %}
+  {% set i18n = i18nData or i18n %}
+  
+  {{ breadcrumb(course, allCourses, currentPage, lang, i18n) }}
+  
+  {% if pageTitle %}
+  <header class="mb-6">
+    <h1 class="text-2xl md:text-3xl font-semibold">{{ pageTitle }}</h1>
+    {% if currentPage != 'home' %}
+    <p class="text-stone-600 mt-1">
+      <span>{{ course.i18n[lang].grade }}</span>・
+      <span>{{ course.i18n[lang].semester }}</span>｜
+      <span>{{ course.i18n[lang].unit }}</span>｜
+      <span>{{ course.i18n[lang].domain }}</span>
+    </p>
+    {% endif %}
+  </header>
+  {% endif %}
+{% endmacro %}
