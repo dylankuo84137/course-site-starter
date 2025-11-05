@@ -145,6 +145,24 @@
     document.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: toLang } }));
   }
 
+  // Translate course switcher dropdown
+  function translateCourseSwitcher(toLang) {
+    const options = document.querySelectorAll('[data-course-switcher-i18n]');
+    options.forEach(option => {
+      const i18nJSON = option.getAttribute('data-course-switcher-i18n');
+      if (i18nJSON) {
+        try {
+          const i18nData = JSON.parse(i18nJSON);
+          if (i18nData[toLang] && i18nData[toLang].title) {
+            option.textContent = i18nData[toLang].title;
+          }
+        } catch (e) {
+          // Silently fail on parse error
+        }
+      }
+    });
+  }
+
   // Translate course content with data attributes
   function translateCourseContent(toLang) {
     // Find all course cards with i18n data
@@ -234,6 +252,7 @@
     // On homepage, translate course content if needed
     if (savedLang && savedLang !== currentLang) {
       translateCourseContent(savedLang);
+      translateCourseSwitcher(savedLang);
       replaceText(currentLang, savedLang);
       updateLanguageSwitcher(savedLang);
     }
@@ -249,6 +268,7 @@
       // Execute immediately - no delay needed since we set lang attribute in <head>
       // This prevents FOUC by working synchronously before first paint
       translateCourseContent(savedLang);
+      translateCourseSwitcher(savedLang);
       replaceText(currentLang, savedLang);
       updateLanguageSwitcher(savedLang);
     }

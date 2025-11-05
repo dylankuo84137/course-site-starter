@@ -40,7 +40,8 @@
     "tags": "標籤",
     "back_to_courses": "返回所有課程",
     "no_content": "目前沒有內容。",
-    "course_home": "課程主頁"
+    "course_home": "課程主頁",
+    "switch_course": "切換課程"
   },
   "filters": {
     "search_placeholder": "搜尋課程...",

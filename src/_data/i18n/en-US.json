@@ -40,7 +40,8 @@
     "tags": "Tags",
     "back_to_courses": "Back to All Courses",
     "no_content": "No content available yet.",
-    "course_home": "Course Home"
+    "course_home": "Course Home",
+    "switch_course": "Switch Course"
   },
   "filters": {
     "search_placeholder": "Search courses...",

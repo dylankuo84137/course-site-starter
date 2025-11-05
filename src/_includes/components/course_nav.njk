@@ -25,10 +25,10 @@
       {% endif %}
     </ul>
     <label class="text-sm text-stone-600 flex items-center gap-2">
-      {% if lang == 'en-US' %}Switch Course{% else %}切換課程{% endif %}
+      {{ i18n[lang].course.switch_course }}
       <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value">
         {% for other in coursesList %}
-          <option value="{{ '/courses/' | url }}{{ other.slug }}/{% if current != 'home' %}{{ current }}/{% endif %}" {% if other.slug == c.slug %}selected{% endif %}>{{ other.title }}</option>
+          <option value="{{ '/courses/' | url }}{{ other.slug }}/{% if current != 'home' %}{{ current }}/{% endif %}" {% if other.slug == c.slug %}selected{% endif %} data-course-switcher-i18n='{{ other.i18n | json }}'>{{ other.i18n[lang].title }}</option>
         {% endfor %}
       </select>
     </label>
