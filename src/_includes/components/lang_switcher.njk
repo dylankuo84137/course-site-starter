@@ -1,0 +1,92 @@
+{# Language Switcher Component #}
+{% set switchLang = currentLang or page.lang or locale.default %}
+<div class="language-switcher">
+  <button
+    id="lang-toggle"
+    class="lang-button"
+    aria-label="{{ i18n[switchLang].lang.switch_to }}"
+    aria-expanded="false"
+    title="{{ i18n[switchLang].lang.switch_to }}">
+    <svg class="lang-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </svg>
+    <span class="lang-label">{{ locale.labels[switchLang] }}</span>
+    <svg class="lang-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <div id="lang-menu" class="lang-menu" hidden>
+    {% for lang in locale.available %}
+    {% set langUrl = ('/' + lang + '/') if lang != locale.default else '/' %}
+    <a
+      href="{{ langUrl | url }}"
+      class="lang-option {% if lang == switchLang %}active{% endif %}"
+      data-lang="{{ lang }}">
+      <span class="lang-code">{{ lang }}</span>
+      <span class="lang-name">{{ locale.labels[lang] }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+(function() {
+  const toggle = document.getElementById('lang-toggle');
+  const menu = document.getElementById('lang-menu');
+
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isHidden = menu.hasAttribute('hidden');
+    if (isHidden) {
+      menu.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      menu.setAttribute('hidden', '');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('click', function() {
+    menu.setAttribute('hidden', '');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+
+  menu.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  // Save language preference when user clicks a language option
+  const langOptions = menu.querySelectorAll('.lang-option');
+  langOptions.forEach(function(option) {
+    option.addEventListener('click', function(e) {
+      const selectedLang = this.getAttribute('data-lang');
+      if (selectedLang) {
+        try {
+          localStorage.setItem('preferredLang', selectedLang);
+        } catch (err) {
+          // Silently fail if localStorage is unavailable
+        }
+
+        // Check if we're on a course page (not a language-specific homepage)
+        const currentPath = window.location.pathname;
+        const basePath = '{{ "/" | url }}';
+        const normPath = currentPath.replace(/\/+$/, '');
+        const normBase = basePath.replace(/\/+$/, '');
+
+        // Check if on homepage or course page
+        const isHomepage = normPath === normBase ||
+                          normPath.match(new RegExp('^' + normBase.replace(/\//g, '\\/') + '/(en-US|zh-TW)$'));
+
+        // Always prevent default navigation and reload to apply language
+        e.preventDefault();
+        window.location.reload();
+      }
+    });
+  });
+})();
+</script>

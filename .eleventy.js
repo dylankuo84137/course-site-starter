@@ -1,4 +1,30 @@
+const i18n = require('eleventy-plugin-i18n');
+const translations = {
+  'zh-TW': require('./src/_data/i18n/zh-TW.json'),
+  'en-US': require('./src/_data/i18n/en-US.json')
+};
+
 module.exports = function(eleventyConfig) {
+  // i18n configuration
+  eleventyConfig.addPlugin(i18n, {
+    translations,
+    fallbackLocales: {
+      'en-US': 'zh-TW'
+    }
+  });
+
+  // Add translation filter (shorthand for i18n filter)
+  eleventyConfig.addFilter("t", function(key, lang) {
+    // Default to zh-TW if no language specified
+    const locale = lang || 'zh-TW';
+    const keys = key.split('.');
+    let value = translations[locale];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  });
+
   eleventyConfig.addPassthroughCopy({ "public": "/" });
   eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
   eleventyConfig.addFilter("slug", s => (s || '').toString().toLowerCase()

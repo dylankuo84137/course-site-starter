@@ -7,7 +7,7 @@ pagination:
 permalink: "/courses/{{ c.slug }}/sheet-music/index.html"
 ---
 {% import "components/course_nav.njk" as cn %}
-{{ cn.nav(c, coursesList, 'sheet-music') }}
+{{ cn.nav(c, coursesList, 'sheet-music', currentLang, i18n) }}
 
 {% if c.hero_image %}
 <div class="section-hero">

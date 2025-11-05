@@ -7,7 +7,8 @@ pagination:
 permalink: "/courses/{{ c.slug }}/index.html"
 ---
 {% import "components/course_nav.njk" as cn %}
-{{ cn.nav(c, coursesList, 'home') }}
+{% import "macros/i18n.njk" as i18nMacro %}
+{{ cn.nav(c, coursesList, 'home', currentLang, i18n) }}
 
 {# JSON-LD structured data for AI and search engines #}
 <script type="application/ld+json">
@@ -21,34 +22,49 @@ permalink: "/courses/{{ c.slug }}/index.html"
 </div>
 {% endif %}
 
+{# Use i18n macro for cleaner field access with automatic fallback #}
+{% set courseTitle = i18nMacro.cf(c, 'title', currentLang) %}
+{% set courseGrade = i18nMacro.cf(c, 'grade', currentLang) %}
+{% set courseSemester = i18nMacro.cf(c, 'semester', currentLang) %}
+{% set courseUnit = i18nMacro.cf(c, 'unit', currentLang) %}
+{% set courseDomain = i18nMacro.cf(c, 'domain', currentLang) %}
+{% set courseTeacher = i18nMacro.cf(c, 'teacher', currentLang) %}
+{% set courseOverview = i18nMacro.cf(c, 'overview', currentLang) %}
+{% set courseLearningObjectives = i18nMacro.cf(c, 'learningObjectives', currentLang) %}
+
 <section class="space-y-6">
-  <header id="course-header">
-    <h1 class="text-2xl md:text-3xl font-semibold">{{ c.title }}</h1>
-    <p class="text-stone-600">{{ c.grade }}・{{ c.semester }}｜{{ c.unit }}｜{{ c.domain }}</p>
+  <header id="course-header" data-course-i18n="{{ c.i18n | json }}">
+    <h1 class="text-2xl md:text-3xl font-semibold" data-i18n-course="title">{{ courseTitle }}</h1>
+    <p class="text-stone-600">
+      <span data-i18n-course="grade">{{ courseGrade }}</span>・
+      <span data-i18n-course="semester">{{ courseSemester }}</span>｜
+      <span data-i18n-course="unit">{{ courseUnit }}</span>｜
+      <span data-i18n-course="domain">{{ courseDomain }}</span>
+    </p>
   </header>
 
   <article class="prose prose-stone max-w-none">
     <section id="course-overview" class="mb-8">
-      <h2>課程簡介</h2>
+      <h2>{{ i18n[currentLang].course.overview }}</h2>
       {% if c.docs and c.docs.course_description and c.docs.course_description.content %}
         {% if c.docs.course_description.mimeType == 'application/vnd.google-apps.document' or c.docs.course_description.mimeType.startsWith('text/') %}
           <div class="course-description">{{ c.docs.course_description.content | formatGoogleDoc | safe }}</div>
         {% else %}
           <div class="whitespace-pre-wrap">{{ c.docs.course_description.content }}</div>
           <a href="{{ c.docs.course_description.downloadUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors mt-3">
-            <span>開啟完整文件 (Open Full Document)</span>
+            <span>{{ i18n[currentLang].course.open_document }}</span>
           </a>
         {% endif %}
       {% else %}
-        <p>{{ c.overview or '（尚未填寫）' }}</p>
+        <p>{{ courseOverview or i18n[currentLang].course.no_description }}</p>
       {% endif %}
     </section>
 
-    {% if c.learningObjectives and c.learningObjectives.length > 0 %}
+    {% if courseLearningObjectives and courseLearningObjectives.length > 0 %}
     <section id="learning-objectives" class="border-t border-stone-200 pt-6">
-      <h2>Learning Objectives (學習目標)</h2>
+      <h2>{{ i18n[currentLang].course.learning_objectives }}</h2>
       <ul class="list-disc list-inside space-y-2">
-        {% for objective in c.learningObjectives %}
+        {% for objective in courseLearningObjectives %}
         <li>{{ objective }}</li>
         {% endfor %}
       </ul>
@@ -56,8 +72,8 @@ permalink: "/courses/{{ c.slug }}/index.html"
     {% endif %}
 
     <section id="teacher-bio" class="border-t border-stone-200 pt-6">
-      <h2>教師介紹</h2>
-      <p>{{ c.teacher or '（尚未填寫教師介紹）' }}</p>
+      <h2>{{ i18n[currentLang].course.teacher_intro }}</h2>
+      <p>{{ courseTeacher or i18n[currentLang].course.no_teacher_bio }}</p>
     </section>
   </article>
 </section>

@@ -1,9 +1,10 @@
 ---
 layout: layouts/base.njk
-permalink: /
+title: 課程介紹
+permalink: /zh-TW/
+lang: zh-TW
 currentLang: zh-TW
 ---
-{% import "macros/i18n.njk" as i18nMacro %}
 
 {% set langData = i18n[currentLang] %}
 {% if not langData %}{% set langData = i18n['zh-TW'] %}{% endif %}
@@ -13,14 +14,10 @@ currentLang: zh-TW
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {% for c in coursesList %}
-    <article class="bg-white rounded-2xl shadow p-5" data-course-slug="{{ c.slug }}" data-course-i18n="{{ c.i18n | json }}">
-      <h2 class="text-xl font-semibold mb-2">
-        <a class="hover:text-emerald-700" href="{{ '/courses/' | url }}{{ c.slug }}/" data-i18n-course="title">{{ i18nMacro.cf(c, 'title', currentLang) }}</a>
-      </h2>
-      <p class="text-sm text-stone-600 mb-3">
-        <span data-i18n-course="grade">{{ i18nMacro.cf(c, 'grade', currentLang) }}</span>・<span data-i18n-course="semester">{{ i18nMacro.cf(c, 'semester', currentLang) }}</span>｜<span data-i18n-course="unit">{{ i18nMacro.cf(c, 'unit', currentLang) }}</span>｜<span data-i18n-course="domain">{{ i18nMacro.cf(c, 'domain', currentLang) }}</span>
-      </p>
-      <p class="mb-4 line-clamp-4" data-i18n-course="overview">{{ i18nMacro.cf(c, 'overview', currentLang) or '' }}</p>
+    <article class="bg-white rounded-2xl shadow p-5">
+      <h2 class="text-xl font-semibold mb-2"><a class="hover:text-emerald-700" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ c.title }}</a></h2>
+      <p class="text-sm text-stone-600 mb-3">{{ c.grade }}・{{ c.semester }}｜{{ c.unit }}｜{{ c.domain }}</p>
+      <p class="mb-4 line-clamp-4">{{ c.overview or '' }}</p>
       <div class="flex gap-3 flex-wrap text-sm">
         {% if (c.google_docs and c.google_docs.course_description) or (c.docs and c.docs.course_description) %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ i18n[currentLang].course.course_home }}</a>

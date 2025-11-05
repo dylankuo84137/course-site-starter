@@ -46,7 +46,108 @@ pathPrefix: process.env.ELEVENTY_BASE || '/'
 - Search: build with `npx pagefind --site _site`, runtime fallback to CDN
 - Images: try thumbnail first, fallback to `uc?export=view`
 
-### 5. AI Accessibility (Text-First Design)
+### 5. Multi-Language Support
+**Architecture:** Client-side dynamic translation with zero-FOUC (Flash of Unstyled Content)
+
+#### Data Structure: Single Source of Truth
+**Course JSON** - All translatable content lives in `i18n` object only:
+```json
+{
+  "slug": "course-example",
+  "i18n": {
+    "zh-TW": {
+      "title": "課程標題",
+      "grade": "年級",
+      "overview": "課程簡介..."
+    },
+    "en-US": {
+      "title": "Course Title",
+      "grade": "Grade Level",
+      "overview": "Course overview..."
+    }
+  },
+  "tags": [...],
+  "google_docs": {...}
+}
+```
+
+**NEVER duplicate fields at root level** - eliminates maintenance burden.
+
+#### Template Access: Unified Macro
+Use `cf()` (course field) macro for consistent i18n access:
+```nunjucks
+{% import "macros/i18n.njk" as i18nMacro %}
+{{ i18nMacro.cf(course, 'title', currentLang) }}
+```
+
+Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` → `course[field]`
+
+#### Language Preference Flow
+1. **Early Detection** (`base.njk` inline `<script>` in `<head>`)
+   - Runs before ANY content renders
+   - Checks `localStorage.preferredLang`
+   - Sets `html[lang]` and `data-user-lang` attributes synchronously
+
+2. **FOUC Prevention** (`site.css`)
+   ```css
+   html:not([data-lang-ready]) body {
+     visibility: hidden;
+   }
+   ```
+   - Hides body until translation completes
+   - Removed when `data-lang-ready="true"` is set
+
+3. **Dynamic Translation** (`lang-dynamic.js`)
+   - Loads synchronously at end of `<body>`
+   - Uses TreeWalker to find/replace UI text nodes
+   - Parses `data-course-i18n` JSON for course content
+   - Skips language switcher elements to avoid recursion
+   - Marks page ready after translation
+
+#### Homepage Behavior
+- `/` → default (zh-TW)
+- `/zh-TW/` → Traditional Chinese
+- `/en-US/` → English
+- Auto-redirects based on saved preference
+
+#### Course Page Behavior
+- All course pages built once (default zh-TW)
+- Client-side translation if user prefers en-US
+- Preference persists across navigation
+- Page reload applies new language immediately
+
+#### Performance Considerations
+- **No duplicate builds:** One set of course pages, not N × languages
+- **No duplication:** Each field exists once in `i18n` object
+- **Inline critical script:** Language detection in `<head>` (< 0.2 KB)
+- **Synchronous translation:** Executes before first paint
+- **CSS-based hiding:** More efficient than JS visibility toggle
+- **localStorage cache:** Instant preference recall
+
+#### Translation Data
+- **UI strings:** `_data/i18n/{zh-TW,en-US}.json`
+- **Course content:** `_data/course_*.json` inside `i18n` object
+- Embedded in page: `window.__I18N_DATA__` (UI), `data-course-i18n` (courses)
+- TreeWalker reverse lookup: Chinese text → key path → English text
+- No external API calls or async dependencies
+
+#### Never Do
+- Don't build duplicate pages per language (breaks simplicity)
+- Don't use `defer` on `lang-dynamic.js` (causes FOUC)
+- Don't skip `data-lang-ready` marker (causes flash)
+- Don't translate language switcher labels (causes recursion)
+- **Don't duplicate translatable fields at course JSON root level**
+- **Don't access course fields directly** - always use `cf()` macro
+
+#### Always Do
+- Keep inline script minimal (localStorage check only)
+- Use CSS for visibility control (declarative)
+- Load translation script synchronously
+- Test with preference cleared and set
+- **Use `i18nMacro.cf(course, field, lang)` in templates**
+- **Add new course fields inside `i18n` object only**
+
+### 6. AI Accessibility (Text-First Design)
 **Goal:** Make all content machine-readable for AI tools (NotebookLM, ChatGPT, Claude, etc.)
 
 #### Semantic Structure
@@ -102,6 +203,13 @@ Every change must pass:
 - [ ] Course pages include JSON-LD schema
 - [ ] Content blocks have unique IDs for citation
 - [ ] Links use descriptive text, not generic phrases
+
+**Language Switching Checks:**
+- [ ] No flash of Chinese content on English preference
+- [ ] Language switcher shows correct current language
+- [ ] Preference persists across page navigation
+- [ ] Homepage redirects to preferred language
+- [ ] Course pages reload and translate correctly
 
 ## Simple vs. Easy Test
 

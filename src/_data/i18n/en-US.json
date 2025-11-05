@@ -1,0 +1,63 @@
+{
+  "site": {
+    "title": "Cixin Course Weaver",
+    "description": "Waldorf education course materials including workbooks, blackboard drawings, photos, and audio recordings",
+    "homepage_description": "A comprehensive collection of course structures, blackboard drawings, workbooks, scripts, songs, and other materials, supporting multi-course browsing and site-wide search."
+  },
+  "nav": {
+    "home": "Course Introduction",
+    "courses": "All Courses",
+    "reflections": "Messages & Discussions"
+  },
+  "course": {
+    "grade": "Grade",
+    "semester": "Semester",
+    "unit": "unit",
+    "teacher": "Teacher",
+    "overview": "Course Overview",
+    "learning_objectives": "Learning Objectives",
+    "teacher_intro": "Teacher Introduction",
+    "no_description": "(Not yet provided)",
+    "no_teacher_bio": "(Teacher bio not yet provided)",
+    "open_document": "Open Full Document",
+    "workbook": "Workbook",
+    "workbook_content": "Workbook Content",
+    "blackboard": "Blackboard",
+    "blackboard_drawings": "Blackboard Drawings",
+    "photos": "Photos",
+    "photo_gallery": "Photo Gallery",
+    "audio": "Audio",
+    "songs": "Songs",
+    "performance": "Performance Photos",
+    "play_script": "Play Script",
+    "play_script_content": "Play Script Content",
+    "story": "Story",
+    "story_content": "Story Content",
+    "songs_audio": "Songs & Audio",
+    "sheet_music": "Sheet Music",
+    "video": "Video",
+    "video_performance": "Performance Video",
+    "tags": "Tags",
+    "back_to_courses": "Back to All Courses",
+    "no_content": "No content available yet.",
+    "course_home": "Course Home"
+  },
+  "gallery": {
+    "filter_placeholder": "Filter photos...",
+    "no_results": "No matching photos",
+    "loading": "Loading...",
+    "close": "Close"
+  },
+  "footer": {
+    "license": "This website content is licensed under CC BY-NC; student photos are authorized for public display.",
+    "org": "2025 Cixin Waldorf",
+    "email": "it@waldorf.ilc.edu.tw"
+  },
+  "metadata": {
+    "keywords": "Waldorf education, course materials, teaching resources"
+  },
+  "lang": {
+    "current": "English",
+    "switch_to": "切換至繁體中文"
+  }
+}

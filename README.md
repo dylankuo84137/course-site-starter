@@ -5,7 +5,6 @@
 - 已套用 Eleventy `pathPrefix`，並在模板使用 `{{ '/path' | url }}` 支援 GitHub Project Pages 子路徑。
 
 > 內容授權：CC BY-NC；含學生照片之素材已取得公開授權。  
-> 聯絡：it@waldorf.ilc.edu.tw
 
 ## 📋 專案概覽
 
@@ -13,6 +12,7 @@
 
 ### 🎯 核心功能
 - **多課程管理**: 支援多個課程同時展示，每個課程有獨立的頁面結構
+- **多語言支援**: 中英文雙語介面，使用客戶端動態翻譯
 - **Google Drive 整合**: 自動同步公開Drive資料夾中的圖片和音檔
 - **響應式相簿**: 支援縮圖瀏覽、Lightbox放大、鍵盤導航
 - **智能標籤系統**: 從檔名自動提取標籤，支援中英文標記
@@ -23,6 +23,7 @@
 ### 🛠 技術架構
 - **靜態網站生成**: Eleventy (11ty) v3.0
 - **樣式框架**: Tailwind CSS + 自定義CSS
+- **多語言實作**: 客戶端動態翻譯 + localStorage 偏好記憶
 - **搜索引擎**: Pagefind v1.4
 - **自動化部署**: GitHub Actions
 - **檔案同步**: Google Drive API v3
@@ -36,10 +37,14 @@ course-site-starter/
 │   └── fetch-drive.mjs       # Google Drive同步腳本
 ├── public/
 │   ├── css/site.css          # 自定義樣式
-│   └── js/gallery.js         # 圖片瀏覽功能
+│   └── js/
+│       ├── gallery.js        # 圖片瀏覽功能
+│       └── lang-dynamic.js   # 多語言動態翻譯
 ├── src/
 │   ├── _data/                # 數據文件夾
 │   │   ├── site.json         # 站點基本信息
+│   │   ├── i18n.json         # 多語言字串定義
+│   │   ├── locale.js         # 語言配置
 │   │   ├── coursesList.js    # 課程列表生成器
 │   │   └── course_*.json     # 各課程數據文件
 │   ├── _includes/            # 模板組件
@@ -145,6 +150,164 @@ course-site-starter/
 
 > **提示**：`.bak` 檔案保存乾淨的課程元數據，提交前務必還原。
 > 若圖片無法顯示，請檢查 Drive 檔案/資料夾權限設為「知道連結的任何人可檢視」。
+
+---
+
+## 🌐 多語言支援
+
+本站支援**繁體中文**（預設）與 **English** 雙語介面，採用**客戶端動態翻譯**架構，實現多語言切換。
+
+### 語言切換機制
+
+**頁面右上角語言選單：**
+- 顯示當前語言（繁體中文 / English）
+- 點擊展開下拉選單選擇語言
+- 語言偏好儲存於 `localStorage`，跨頁面持久化
+
+**首頁行為：**
+- `/` → 繁體中文（預設）
+- `/zh-TW/` → 繁體中文
+- `/en-US/` → English
+- 自動重定向至使用者偏好語言
+
+**課程頁面行為：**
+- 所有課程頁面僅建置一次（繁體中文）
+- 若使用者偏好 English，頁面載入時自動翻譯
+- 切換語言時重新載入頁面套用新語言
+- 偏好設定跨頁面導覽持續生效
+
+### 課程資料結構（重要）
+
+**單一資料來源原則** - 所有可翻譯欄位僅存在於 `i18n` 物件中：
+
+```json
+{
+  "slug": "course-example",
+  "i18n": {
+    "zh-TW": {
+      "title": "課程標題",
+      "grade": "年級",
+      "semester": "學期",
+      "unit": "課程單元",
+      "domain": "領域",
+      "teacher": "教師姓名",
+      "overview": "課程簡介...",
+      "learningObjectives": ["目標1", "目標2"]
+    },
+    "en-US": {
+      "title": "Course Title",
+      "grade": "Grade Level",
+      "semester": "Semester",
+      "unit": "Unit",
+      "domain": "Domain",
+      "teacher": "Teacher Name",
+      "overview": "Course overview...",
+      "learningObjectives": ["Objective 1", "Objective 2"]
+    }
+  },
+  "tags": ["tag1", "tag2"],
+  "google_docs": {...},
+  "drive_folders": {...}
+}
+```
+
+**⚠️ 注意事項：**
+- **不要**在 JSON 根層級重複 `title`、`grade` 等欄位
+- **不要**直接存取 `course.title`，一律使用 `i18nMacro.cf()` 巨集
+- 這樣可避免維護時需在兩處更新同一內容
+
+### 模板中存取多語言欄位
+
+使用 `cf()` (course field) 巨集確保語言回退正確：
+
+```nunjucks
+{% import "macros/i18n.njk" as i18nMacro %}
+
+{# 存取課程標題 #}
+{{ i18nMacro.cf(course, 'title', currentLang) }}
+
+{# 存取課程簡介 #}
+{{ i18nMacro.cf(course, 'overview', currentLang) }}
+```
+
+### 技術實作細節
+
+**翻譯資料來源：**
+- **UI 字串**: `src/_data/i18n/{zh-TW,en-US}.json`
+- **課程內容**: 各課程 JSON 的 `i18n` 物件
+- 內嵌於頁面：
+  - `window.__I18N_DATA__` (UI 字串)
+  - `data-course-i18n` 屬性 (課程內容)
+- 無需額外 API 請求，完全客戶端運作
+
+**效能考量：**
+- **零重複**：每個欄位只存在於 `i18n` 物件中一次
+- **單一建置**：不產生重複的多語言頁面
+- **內聯關鍵腳本**：`<head>` 中僅 < 0.2 KB
+- **同步執行**：翻譯在首次渲染前完成
+- **CSS 控制可見性**：避免 FOUC（內容閃爍）
+
+### 新增語言
+
+若要新增其他語言（如簡體中文、日文），需修改：
+
+1. **語言配置**（`src/_data/locale.js`）
+   ```javascript
+   module.exports = {
+     default: 'zh-TW',
+     available: ['zh-TW', 'en-US', 'ja-JP'],  // 新增語言代碼
+     labels: {
+       'zh-TW': '繁體中文',
+       'en-US': 'English',
+       'ja-JP': '日本語'  // 新增語言標籤
+     }
+   };
+   ```
+
+2. **UI 翻譯字串**（`src/_data/i18n/{zh-TW,en-US,ja-JP}.json`）
+   ```json
+   {
+     "site": { "title": "..." },
+     "nav": { "home": "ホーム" },
+     "course": { "workbook": "..." }
+   }
+   ```
+
+3. **課程內容翻譯**（各 `src/_data/course_*.json`）
+   ```json
+   {
+     "i18n": {
+       "zh-TW": { ... },
+       "en-US": { ... },
+       "ja-JP": {
+         "title": "コース名",
+         "overview": "..."
+       }
+     }
+   }
+   ```
+
+4. **語言頁面**（新增 `src/ja-JP/index.njk`）
+   ```nunjucks
+   ---
+   layout: layouts/base.njk
+   permalink: /ja-JP/index.html
+   lang: ja-JP
+   ---
+   ```
+
+5. **翻譯腳本**（`public/js/lang-dynamic.js`）
+   - 更新 `htmlLangMap` 映射
+   - 新增語言標籤至 `labels` 物件
+
+### 維護注意事項
+
+- **新增 UI 文字**：必須同步加入所有語言的 `i18n/{lang}.json`
+- **新增課程欄位**：必須放在 `i18n` 物件內，並提供所有語言版本
+- **模板開發**：一律使用 `i18nMacro.cf(course, field, lang)` 存取課程欄位
+- **語言切換元件**：`.language-switcher` 會被跳過翻譯
+- **自動更新**：標題（`<title>`）與 `html[lang]` 屬性會自動更新
+- **測試**：清除 `localStorage` 確認預設行為正確
 
 ---
 

@@ -1,0 +1,25 @@
+{# Translation macro for UI strings #}
+{% macro t(key, lang) %}
+  {%- set locale = lang or page.lang or 'zh-TW' -%}
+  {%- set keys = key.split('.') -%}
+  {%- set value = i18n[locale] -%}
+  {%- for k in keys -%}
+    {%- set value = value[k] -%}
+  {%- endfor -%}
+  {{- value or key -}}
+{% endmacro %}
+
+{#
+  Macro for accessing course i18n fields with fallback logic
+  Usage: {{ cf(course, 'title', currentLang) }}
+  Fallback order: course.i18n[lang][field] → course.i18n['zh-TW'][field] → course[field]
+#}
+{% macro cf(course, field, lang = 'zh-TW') -%}
+{%- if course.i18n and course.i18n[lang] and course.i18n[lang][field] -%}
+{{ course.i18n[lang][field] }}
+{%- elif course.i18n and course.i18n['zh-TW'] and course.i18n['zh-TW'][field] -%}
+{{ course.i18n['zh-TW'][field] }}
+{%- elif course[field] -%}
+{{ course[field] }}
+{%- endif -%}
+{%- endmacro %}

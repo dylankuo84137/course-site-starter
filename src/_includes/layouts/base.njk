@@ -1,19 +1,41 @@
+{% set currentLang = (currentLang if currentLang else (lang if lang else (page.lang if page.lang else locale.default))) %}
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="{{ locale.htmlLang[currentLang] or 'zh-Hant' }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title or site.title }}</title>
+  <!-- Prevent FOUC: Check language preference before any rendering -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('preferredLang');
+        if (saved) {
+          document.documentElement.setAttribute('lang', saved === 'en-US' ? 'en-US' : 'zh-Hant');
+          document.documentElement.setAttribute('data-user-lang', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>{{ title or i18n[currentLang].site.title }}</title>
   {% if description %}
   <meta name="description" content="{{ description }}">
   {% elif c and c.overview %}
   <meta name="description" content="{{ c.overview | truncate(200) }}">
   {% else %}
-  <meta name="description" content="Waldorf education course materials including workbooks, blackboard drawings, photos, and audio recordings from {{ site.footer_org }}">
+  <meta name="description" content="{{ i18n[currentLang].site.description }}">
   {% endif %}
-  <meta name="keywords" content="Waldorf education, 華德福教育, course materials, teaching resources{% if c and c.tags %}, {{ c.tags | join(', ') }}{% endif %}">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="keywords" content="{{ i18n[currentLang].metadata.keywords }}{% if c and c.tags %}, {{ c.tags | join(', ') }}{% endif %}">
   <link href="{{ '/css/site.css' | url }}" rel="stylesheet">
+
+  <!-- Embed i18n data for client-side language switching -->
+  <script>
+    window.__I18N_DATA__ = {{ i18n | json | safe }};
+    window.__CURRENT_LANG__ = '{{ currentLang }}';
+    window.__DEFAULT_LANG__ = '{{ locale.default }}';
+    window.__BASE_PATH__ = '{{ "/" | url }}';
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     (function(){
       const BASE = "{{ '/' | url }}";
@@ -33,15 +55,15 @@
 <body style="background-color: var(--bg-secondary); color: var(--text-primary);">
   <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="{{ '/' | url }}" class="font-bold text-xl" style="color: var(--primary);">{{ site.title }}</a>
+      <a href="{{ '/' | url }}" class="font-bold text-xl" style="color: var(--primary);">{{ i18n[currentLang].site.title }}</a>
       <nav class="flex-1">
         <ul class="flex gap-8 justify-center">
-          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/' | url }}">課程介紹</a></li>
-          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/courses/' | url }}">所有課程</a></li>
-          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/reflections/' | url }}">留言與交流</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/' | url }}">{{ i18n[currentLang].nav.home }}</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/courses/' | url }}">{{ i18n[currentLang].nav.courses }}</a></li>
+          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/reflections/' | url }}">{{ i18n[currentLang].nav.reflections }}</a></li>
         </ul>
       </nav>
-      <div></div>
+      {% include "components/lang_switcher.njk" %}
     </div>
   </header>
 
@@ -54,16 +76,19 @@
     <div class="max-w-6xl mx-auto px-4 py-12">
       <div class="footer-content">
         <div class="footer-info">
-          <h3 class="footer-title">{{ site.title }}</h3>
-          <p class="footer-license">{{ site.license_text }}</p>
+          <h3 class="footer-title">{{ i18n[currentLang].site.title }}</h3>
+          <p class="footer-license">{{ i18n[currentLang].footer.license }}</p>
         </div>
         <div class="footer-contact">
-          <p class="footer-org">© {{ site.footer_org }}</p>
-          <a class="footer-email" href="mailto:{{ site.footer_email }}">{{ site.footer_email }}</a>
+          <p class="footer-org">© {{ i18n[currentLang].footer.org }}</p>
+          <a class="footer-email" href="mailto:{{ i18n[currentLang].footer.email }}">{{ i18n[currentLang].footer.email }}</a>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Language handler: loads synchronously to prevent FOUC -->
+  <script src="{{ '/js/lang-dynamic.js' | url }}"></script>
 
   <script src="{{ '/js/gallery.js' | url }}" defer></script>
   <script>

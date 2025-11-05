@@ -1,12 +1,25 @@
 {
   "slug": "2a-nenggao-113-summer",
-  "title": "能高山（班級戲劇）",
-  "grade": "二年級 2A 嶺光班",
-  "semester": "113 學年度 夏季",
-  "unit": "班級戲劇",
-  "domain": "自然主課",
-  "teacher": "王琬婷",
-  "overview": "琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。\n因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。",
+  "i18n": {
+    "zh-TW": {
+      "title": "能高山（班級戲劇）",
+      "grade": "二年級 2A 嶺光班",
+      "semester": "113 學年度 夏季",
+      "unit": "班級戲劇",
+      "domain": "自然主課",
+      "teacher": "王琬婷",
+      "overview": "琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。\n因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。"
+    },
+    "en-US": {
+      "title": "Mt. Nenggao (Class Drama)",
+      "grade": "Grade 2, Class 2A Lingguang",
+      "semester": "Academic Year 113, Summer",
+      "unit": "Class Drama",
+      "domain": "Main Lesson - Nature",
+      "teacher": "Wang Wan-Ting",
+      "overview": "Teacher Wan-Ting explained that the 'Mt. Nenggao' drama is part of her Nature main lesson. The previous year's nature class used 'The Wonderful Adventures of Nils,' which has great storytelling and prose, but the setting is distant and not rooted in Taiwan.\n\nTherefore, this season she began experimenting with indigenous stories—not necessarily traditional tales, but also picture books created by contemporary authors. Last season's nature class featured 'Fish in the Trees,' a picture book about Amis plants and animals. This season, she chose the classic picture book 'Mt. Nenggao.' She discovered that many indigenous songs use pentatonic scales, making them simple and repetitive—easy patterns to imitate. She also sourced songs online, such as children's songs about ants and fireflies, which enriched the originally brief storyline."
+    }
+  },
   "tags": [
     "戲劇",
     "黑板畫",

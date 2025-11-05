@@ -1,0 +1,63 @@
+{
+  "site": {
+    "title": "慈心課程織圖",
+    "description": "華德福教育課程資料，包含工作本、黑板畫、照片及音檔紀錄",
+    "homepage_description": "匯集課程結構、黑板畫、工作本、劇本、歌曲等素材，支援多課程瀏覽與站內搜尋。"
+  },
+  "nav": {
+    "home": "課程介紹",
+    "courses": "所有課程",
+    "reflections": "留言與交流"
+  },
+  "course": {
+    "grade": "年級",
+    "semester": "學期",
+    "unit": "課程單元",
+    "teacher": "老師",
+    "overview": "課程簡介",
+    "learning_objectives": "學習目標",
+    "teacher_intro": "教師介紹",
+    "no_description": "（尚未填寫）",
+    "no_teacher_bio": "（尚未填寫教師介紹）",
+    "open_document": "開啟完整文件",
+    "workbook": "工作本",
+    "workbook_content": "工作本內容",
+    "blackboard": "黑板",
+    "blackboard_drawings": "黑板畫",
+    "photos": "照片",
+    "photo_gallery": "照片集",
+    "audio": "音檔",
+    "songs": "歌曲音檔",
+    "performance": "劇照",
+    "play_script": "劇本",
+    "play_script_content": "劇本內容",
+    "story": "故事",
+    "story_content": "故事內容",
+    "songs_audio": "歌曲與音檔",
+    "sheet_music": "樂譜",
+    "video": "影片",
+    "video_performance": "演出影片",
+    "tags": "標籤",
+    "back_to_courses": "返回所有課程",
+    "no_content": "目前沒有內容。",
+    "course_home": "課程主頁"
+  },
+  "gallery": {
+    "filter_placeholder": "篩選照片...",
+    "no_results": "沒有符合的照片",
+    "loading": "載入中...",
+    "close": "關閉"
+  },
+  "footer": {
+    "license": "本網站內容採 CC BY-NC 授權；照片含學生已取得公開授權。",
+    "org": "2025 慈心華德福",
+    "email": "it@waldorf.ilc.edu.tw"
+  },
+  "metadata": {
+    "keywords": "Waldorf education, 華德福教育, course materials, teaching resources"
+  },
+  "lang": {
+    "current": "繁體中文",
+    "switch_to": "Switch to English"
+  }
+}

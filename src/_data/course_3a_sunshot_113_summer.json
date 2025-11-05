@@ -1,12 +1,25 @@
 {
   "slug": "3a-sunshot-113-summer",
-  "title": "射日傳說（班級戲劇）",
-  "grade": "三年級 3A 雲朵班",
-  "semester": "113 學年度 夏季",
-  "unit": "班級戲劇",
-  "domain": "藝術課程",
-  "teacher": "林倩詒",
-  "overview": "常有家長問：「為什麼慈心的戲劇課程這麼多？」這個提問，也常成為老師們反思的起點──在華德福學校裡，戲劇到底扮演了什麼角色？\n對老師而言，戲劇不只是藝術表達，更是一段深具教育性的學習歷程。透過將課程內容轉化為戲劇展演，孩子不僅深化了對課程的理解，更能藉由肢體、聲音與情感的參與，整合內在的經驗與外在的表達。今年三年級的戲劇課，我們選擇了台灣原住民的《射日傳說》，並嘗試以台語音樂劇的方式演出。",
+  "i18n": {
+    "zh-TW": {
+      "title": "射日傳說（班級戲劇）",
+      "grade": "三年級 3A 雲朵班",
+      "semester": "113 學年度 夏季",
+      "unit": "班級戲劇",
+      "domain": "藝術課程",
+      "teacher": "林倩詒",
+      "overview": "常有家長問：「為什麼慈心的戲劇課程這麼多？」這個提問，也常成為老師們反思的起點──在華德福學校裡，戲劇到底扮演了什麼角色？\n對老師而言，戲劇不只是藝術表達，更是一段深具教育性的學習歷程。透過將課程內容轉化為戲劇展演，孩子不僅深化了對課程的理解，更能藉由肢體、聲音與情感的參與，整合內在的經驗與外在的表達。今年三年級的戲劇課，我們選擇了台灣原住民的《射日傳說》，並嘗試以台語音樂劇的方式演出。"
+    },
+    "en-US": {
+      "title": "The Legend of Shooting the Suns (Class Drama)",
+      "grade": "Grade 3, Class 3A Yunduo",
+      "semester": "Academic Year 113, Summer",
+      "unit": "Class Drama",
+      "domain": "Arts Program",
+      "teacher": "Lin Qian-Yi",
+      "overview": "Parents often ask: 'Why does Cixin have so many drama courses?' This question frequently becomes a starting point for teachers' reflection—what role does drama actually play in a Waldorf school?\n\nFor teachers, drama is not just artistic expression; it's a deeply educational learning journey. By transforming curriculum content into dramatic performance, children not only deepen their understanding of the material but also integrate internal experience with external expression through physical movement, voice, and emotion. This year's third-grade drama class features the Taiwanese indigenous legend 'Shooting the Suns,' presented as a Taiwanese-language musical."
+    }
+  },
   "tags": [
     "戲劇",
     "劇本",

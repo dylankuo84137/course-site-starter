@@ -1,18 +1,36 @@
 {
   "slug": "course-example",
-  "title": "Course Example Template",
-  "grade": "Year Level",
-  "semester": "Semester Info",
-  "unit": "Subject/Unit",
-  "domain": "Subject Domain",
-  "teacher": "Teacher Name",
   "hero_image": "DRIVE_FILE_ID_FOR_HERO_IMAGE",
-  "overview": "Course overview text",
-  "learningObjectives": [
-    "Learning objective 1",
-    "Learning objective 2",
-    "Learning objective 3"
-  ],
+  "i18n": {
+    "zh-TW": {
+      "title": "課程範例模板",
+      "grade": "年級",
+      "semester": "學期",
+      "unit": "課程單元",
+      "domain": "領域",
+      "teacher": "教師",
+      "overview": "課程簡介",
+      "learningObjectives": [
+        "學習目標 1",
+        "學習目標 2",
+        "學習目標 3"
+      ]
+    },
+    "en-US": {
+      "title": "Course Example Template",
+      "grade": "Year Level",
+      "semester": "Semester Info",
+      "unit": "Subject/Unit",
+      "domain": "Subject Domain",
+      "teacher": "Teacher Name",
+      "overview": "Course overview text",
+      "learningObjectives": [
+        "Learning objective 1",
+        "Learning objective 2",
+        "Learning objective 3"
+      ]
+    }
+  },
   "tags": [
     "tag1",
     "tag2",
