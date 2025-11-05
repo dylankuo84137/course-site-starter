@@ -492,13 +492,34 @@ cp src/_data/course_template.json src/_data/course_3b_myclass_114_spring.json
 ```json
 {
   "slug": "3b-myclass-114-spring",           // 網址路徑（小寫、連字號）
-  "title": "我的課程名稱",
-  "grade": "三年級 3B 班級名稱",
-  "semester": "114 學年度 春季",
-  "unit": "主題單元",
-  "domain": "課程領域",
-  "teacher": "教師名稱",
-  "overview": "課程簡介文字",
+  "i18n": {
+    "zh-TW": {
+      "title": "課程名稱",
+      "grade": "三年級 3B 班級名稱",
+      "semester": "114 學年度 春季",
+      "unit": "主題單元",
+      "domain": "課程領域",
+      "teacher": "教師名稱",
+      "overview": "課程簡介文字",
+      "learningObjectives": [
+        "學習目標 1",
+        "學習目標 2"
+      ]
+    },
+    "en-US": {
+      "title": "My Course Name",
+      "grade": "Grade 3, Class 3B",
+      "semester": "Academic Year 114, Spring",
+      "unit": "Theme Unit",
+      "domain": "Subject Domain",
+      "teacher": "Teacher Name",
+      "overview": "Course overview text",
+      "learningObjectives": [
+        "Learning objective 1",
+        "Learning objective 2"
+      ]
+    }
+  },
   "tags": ["標籤1", "標籤2"],
   "google_docs": {
     "course_description": "",                // Google Doc ID（可選）
@@ -517,10 +538,17 @@ cp src/_data/course_template.json src/_data/course_3b_myclass_114_spring.json
     "play_scripts": [],
     "sheet_music": []
   },
-  "youtube_videos": {},
+  "youtube_videos": {
+    "play_video": ""                         // YouTube 影片 ID（可選）
+  },
   "docs": {}
 }
 ```
+
+**⚠️ 重要：**
+- 所有可翻譯欄位（title、grade、overview 等）**必須**放在 `i18n` 物件內
+- **不要**在 JSON 根層級重複這些欄位
+- 至少需提供 `zh-TW`（繁體中文）與 `en-US`（英文）兩種語言
 
 ### 步驟 3：設定 Drive 資料夾權限
 
