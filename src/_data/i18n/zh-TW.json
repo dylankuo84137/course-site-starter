@@ -41,7 +41,9 @@
     "back_to_courses": "返回所有課程",
     "no_content": "目前沒有內容。",
     "course_home": "課程主頁",
-    "switch_course": "切換課程"
+    "switch_course": "切換課程",
+    "course_navigation": "課程導覽",
+    "course_materials": "-- 課程素材 --"
   },
   "filters": {
     "search_placeholder": "搜尋課程...",

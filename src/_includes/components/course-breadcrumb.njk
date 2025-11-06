@@ -3,51 +3,54 @@
   Consolidated navigation patterns for course pages
 #}
 
-{% macro breadcrumb(course, allCourses, currentPage, currentLang, i18nData) %}
+{# Unified Course Header - Card on top, navigation on bottom #}
+{% macro unifiedHeader(course, allCourses, currentPage, currentLang, i18nData) %}
+  {% import "macros/i18n.njk" as i18nMacro %}
   {% set lang = currentLang or 'zh-TW' %}
   {% set i18n = i18nData or i18n %}
-  
-  <nav aria-label="{{ i18n[lang].course.course_navigation }}" class="mb-6">
-    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-      {# Primary navigation tabs #}
-      <ul class="flex flex-wrap gap-2 text-sm" role="tablist">
-        {{ navItem(course, 'home', currentPage, lang, i18n, i18n[lang].course.course_home) }}
-        
-        {% if course.google_docs and course.google_docs.story %}
-        {{ navItem(course, 'story', currentPage, lang, i18n, i18n[lang].course.story) }}
+
+  {% set courseTitle = i18nMacro.cf(course, 'title', lang) %}
+  {% set courseGrade = i18nMacro.cf(course, 'grade', lang) %}
+  {% set courseSemester = i18nMacro.cf(course, 'semester', lang) %}
+  {% set courseUnit = i18nMacro.cf(course, 'unit', lang) %}
+  {% set courseDomain = i18nMacro.cf(course, 'domain', lang) %}
+  {% set courseTeacher = i18nMacro.cf(course, 'teacher', lang) %}
+
+  <div class="course-header-block">
+    {# Row 1: Info Card (left) and Switcher (right) #}
+    <div class="flex justify-between items-end mb-4">
+      <div class="course-info-card mr-4" data-course-i18n="{{ course.i18n | json }}">
+        {% if course.hero_image %}
+        <div class="course-info-card-bg" style="background-image: url('https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w800');"></div>
         {% endif %}
-        
-        {{ navItem(course, 'play-script', currentPage, lang, i18n, i18n[lang].course.play_script) }}
-        {{ navItem(course, 'workbook', currentPage, lang, i18n, i18n[lang].course.workbook) }}
-        
-        {% if course.files and course.files.photos and course.files.photos.length > 0 %}
-        {{ navItem(course, 'photos', currentPage, lang, i18n, i18n[lang].course.photo_gallery) }}
-        {% endif %}
-        
-        {% if course.files and course.files.blackboard and course.files.blackboard.length > 0 %}
-        {{ navItem(course, 'blackboard', currentPage, lang, i18n, i18n[lang].course.blackboard_drawings) }}
-        {% endif %}
-        
-        {{ navItem(course, 'scripts', currentPage, lang, i18n, i18n[lang].course.performance) }}
-        {{ navItem(course, 'songs', currentPage, lang, i18n, i18n[lang].course.songs) }}
-        
-        {% if course.files and course.files.sheet_music and course.files.sheet_music.length > 0 %}
-        {{ navItem(course, 'sheet-music', currentPage, lang, i18n, i18n[lang].course.sheet_music) }}
-        {% endif %}
-        
-        {% if course.youtube_videos and course.youtube_videos.play_video %}
-        {{ navItem(course, 'videos', currentPage, lang, i18n, i18n[lang].course.video) }}
-        {% endif %}
-      </ul>
-      
-      {# Course switcher dropdown #}
+        <div class="course-info-card-content">
+          <h2 class="course-info-title" data-i18n-course="title">{{ courseTitle }}</h2>
+          <div class="course-info-metadata">
+            <span data-i18n-course="grade">{{ courseGrade }}</span>
+            <span class="course-info-separator">・</span>
+            <span data-i18n-course="semester">{{ courseSemester }}</span>
+          </div>
+          <div class="course-info-metadata">
+            <span data-i18n-course="unit">{{ courseUnit }}</span>
+            <span class="course-info-separator">｜</span>
+            <span data-i18n-course="domain">{{ courseDomain }}</span>
+          </div>
+          {% if courseTeacher %}
+          <div class="course-info-teacher">
+            <span class="course-info-teacher-label" data-i18n="course.teacher">{{ i18n[lang].course.teacher }}</span>:
+            <span data-i18n-course="teacher">{{ courseTeacher }}</span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
       <div class="course-switcher">
-        <label class="text-sm text-stone-600 flex items-center gap-2">
+        <label class="text-sm text-stone-600">
           {{ i18n[lang].course.switch_course }}
           <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value" aria-label="{{ i18n[lang].course.switch_course }}">
             {% for other in allCourses %}
-              <option value="{{ courseUrl(other.slug, currentPage) }}" 
-                      {% if other.slug == course.slug %}selected{% endif %} 
+              <option value="{{ courseUrl(other.slug, currentPage) }}"
+                      {% if other.slug == course.slug %}selected{% endif %}
                       data-course-switcher-i18n='{{ other.i18n | json }}'>
                 {{ other.i18n[lang].title }}
               </option>
@@ -56,7 +59,91 @@
         </label>
       </div>
     </div>
-  </nav>
+
+    {# Row 2: Navigation Row #}
+    <nav aria-label="{{ i18n[lang].course.course_navigation }}">
+      <div class="course-nav-row">
+        {# Left side: Course Home pill + Materials dropdown #}
+        <div class="course-nav-left">
+          <a href="{{ courseUrl(course.slug, 'home') }}"
+             class="pill {% if currentPage == 'home' %}active{% else %}highlight{% endif %}"
+             aria-label="{{ i18n[lang].course.course_home }}">
+            {{ i18n[lang].course.course_home }}
+          </a>
+
+          <div class="course-materials-dropdown">
+            <select class="course-materials-select"
+                    onchange="if(this.value) location.href=this.value"
+                    aria-label="{{ i18n[lang].course.course_materials }}">
+              <option value="" {% if currentPage == 'home' %}selected{% endif %}>
+                {{ i18n[lang].course.course_materials }}
+              </option>
+
+              {% if course.google_docs and course.google_docs.story %}
+              <option value="{{ courseUrl(course.slug, 'story') }}"
+                      {% if currentPage == 'story' %}selected{% endif %}>
+                {{ i18n[lang].course.story }}
+              </option>
+              {% endif %}
+
+              <option value="{{ courseUrl(course.slug, 'play-script') }}"
+                      {% if currentPage == 'play-script' %}selected{% endif %}>
+                {{ i18n[lang].course.play_script }}
+              </option>
+
+              <option value="{{ courseUrl(course.slug, 'workbook') }}"
+                      {% if currentPage == 'workbook' %}selected{% endif %}>
+                {{ i18n[lang].course.workbook }}
+              </option>
+
+              {% if course.files and course.files.photos and course.files.photos.length > 0 %}
+              <option value="{{ courseUrl(course.slug, 'photos') }}"
+                      {% if currentPage == 'photos' %}selected{% endif %}>
+                {{ i18n[lang].course.photo_gallery }}
+              </option>
+              {% endif %}
+
+              {% if course.files and course.files.blackboard and course.files.blackboard.length > 0 %}
+              <option value="{{ courseUrl(course.slug, 'blackboard') }}"
+                      {% if currentPage == 'blackboard' %}selected{% endif %}>
+                {{ i18n[lang].course.blackboard_drawings }}
+              </option>
+              {% endif %}
+
+              <option value="{{ courseUrl(course.slug, 'scripts') }}"
+                      {% if currentPage == 'scripts' %}selected{% endif %}>
+                {{ i18n[lang].course.performance }}
+              </option>
+
+              <option value="{{ courseUrl(course.slug, 'songs') }}"
+                      {% if currentPage == 'songs' %}selected{% endif %}>
+                {{ i18n[lang].course.songs }}
+              </option>
+
+              {% if course.files and course.files.sheet_music and course.files.sheet_music.length > 0 %}
+              <option value="{{ courseUrl(course.slug, 'sheet-music') }}"
+                      {% if currentPage == 'sheet-music' %}selected{% endif %}>
+                {{ i18n[lang].course.sheet_music }}
+              </option>
+              {% endif %}
+
+              {% if course.youtube_videos and course.youtube_videos.play_video %}
+              <option value="{{ courseUrl(course.slug, 'videos') }}"
+                      {% if currentPage == 'videos' %}selected{% endif %}>
+                {{ i18n[lang].course.video }}
+              </option>
+              {% endif %}
+            </select>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+{% endmacro %}
+
+{# Legacy breadcrumb macro - kept for backward compatibility #}
+{% macro breadcrumb(course, allCourses, currentPage, currentLang, i18nData) %}
+  {{ unifiedHeader(course, allCourses, currentPage, currentLang, i18nData) }}
 {% endmacro %}
 
 {% macro navItem(course, page, currentPage, lang, i18n, label) %}

@@ -1,5 +1,6 @@
 ---
 layout: layouts/base.njk
+hidePagefindSearch: true
 pagination:
   data: coursesList
   size: 1
@@ -7,18 +8,12 @@ pagination:
 permalink: "/courses/{{ c.slug }}/sheet-music/index.html"
 ---
 {% import "components/course-breadcrumb.njk" as breadcrumb %}
+
+{# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'sheet-music', currentLang, i18n) }}
 
-{% if c.hero_image %}
-<div class="section-hero">
-  <img class="section-hero-image" src="https://drive.google.com/thumbnail?id={{ c.hero_image }}&sz=w600" alt="{{ c.title }} banner" loading="lazy">
-  <div class="section-hero-overlay">
-    <h1 class="section-hero-title">樂譜</h1>
-  </div>
-</div>
-{% else %}
-<h1 class="text-2xl md:text-3xl font-semibold mb-4">樂譜</h1>
-{% endif %}
+
+<h1 class="text-2xl md:text-3xl font-semibold mb-4">{{ i18n[currentLang].course.sheet_music }}</h1>
 
 {% import "components/drive.njk" as drv %}
 

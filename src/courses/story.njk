@@ -1,5 +1,6 @@
 ---
 layout: layouts/base.njk
+hidePagefindSearch: true
 pagination:
   data: coursesList
   size: 1
@@ -7,24 +8,15 @@ pagination:
 permalink: "/courses/{{ c.slug }}/story/index.html"
 ---
 {% import "components/course-breadcrumb.njk" as breadcrumb %}
+{% import "macros/i18n.njk" as i18nMacro %}
+
+{# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'story', currentLang, i18n) }}
 
-{% set courseTitle = c.i18n[currentLang].title if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].title) else c.title %}
-{% set courseGrade = c.i18n[currentLang].grade if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].grade) else c.grade %}
-{% set courseSemester = c.i18n[currentLang].semester if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].semester) else c.semester %}
-{% set courseUnit = c.i18n[currentLang].unit if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].unit) else c.unit %}
-{% set courseDomain = c.i18n[currentLang].domain if (c.i18n and c.i18n[currentLang] and c.i18n[currentLang].domain) else c.domain %}
+
 <section class="space-y-6">
   <header data-course-i18n="{{ c.i18n | json }}">
-    <h1 class="text-2xl md:text-3xl font-semibold">
-      <span data-i18n-course="title">{{ courseTitle }}</span> - <span class="page-label">{{ i18n[currentLang].course.story }}</span>
-    </h1>
-    <p class="text-stone-600">
-      <span data-i18n-course="grade">{{ courseGrade }}</span>・
-      <span data-i18n-course="semester">{{ courseSemester }}</span>｜
-      <span data-i18n-course="unit">{{ courseUnit }}</span>｜
-      <span data-i18n-course="domain">{{ courseDomain }}</span>
-    </p>
+    <h1 class="text-2xl md:text-3xl font-semibold">{{ i18n[currentLang].course.story }}</h1>
   </header>
 
   <article class="prose prose-stone max-w-none">

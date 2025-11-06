@@ -41,7 +41,9 @@
     "back_to_courses": "Back to All Courses",
     "no_content": "No content available yet.",
     "course_home": "Course Home",
-    "switch_course": "Switch Course"
+    "switch_course": "Switch Course",
+    "course_navigation": "Course Navigation",
+    "course_materials": "-- Course Material --"
   },
   "filters": {
     "search_placeholder": "Search courses...",

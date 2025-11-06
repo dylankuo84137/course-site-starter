@@ -1,5 +1,6 @@
 ---
 layout: layouts/base.njk
+hidePagefindSearch: true
 pagination:
   data: coursesList
   size: 1
@@ -8,41 +9,22 @@ permalink: "/courses/{{ c.slug }}/index.html"
 ---
 {% import "components/course-breadcrumb.njk" as breadcrumb %}
 {% import "macros/i18n.njk" as i18nMacro %}
+
+{# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'home', currentLang, i18n) }}
+
 
 {# JSON-LD structured data for AI and search engines #}
 <script type="application/ld+json">
 {{ c | jsonLD(site) | safe }}
 </script>
 
-{% if c.hero_image %}
-<div class="course-hero">
-  <img class="course-hero-image" src="https://drive.google.com/thumbnail?id={{ c.hero_image }}&sz=w800" alt="{{ c.title }} hero image" loading="lazy">
-  <div class="course-hero-overlay"></div>
-</div>
-{% endif %}
-
 {# Use i18n macro for cleaner field access with automatic fallback #}
-{% set courseTitle = i18nMacro.cf(c, 'title', currentLang) %}
-{% set courseGrade = i18nMacro.cf(c, 'grade', currentLang) %}
-{% set courseSemester = i18nMacro.cf(c, 'semester', currentLang) %}
-{% set courseUnit = i18nMacro.cf(c, 'unit', currentLang) %}
-{% set courseDomain = i18nMacro.cf(c, 'domain', currentLang) %}
-{% set courseTeacher = i18nMacro.cf(c, 'teacher', currentLang) %}
 {% set courseOverview = i18nMacro.cf(c, 'overview', currentLang) %}
 {% set courseLearningObjectives = i18nMacro.cf(c, 'learningObjectives', currentLang) %}
+{% set courseTeacher = i18nMacro.cf(c, 'teacher', currentLang) %}
 
-<section class="space-y-6">
-  <header id="course-header" data-course-i18n="{{ c.i18n | json }}">
-    <h1 class="text-2xl md:text-3xl font-semibold" data-i18n-course="title">{{ courseTitle }}</h1>
-    <p class="text-stone-600">
-      <span data-i18n-course="grade">{{ courseGrade }}</span>・
-      <span data-i18n-course="semester">{{ courseSemester }}</span>｜
-      <span data-i18n-course="unit">{{ courseUnit }}</span>｜
-      <span data-i18n-course="domain">{{ courseDomain }}</span>
-    </p>
-  </header>
-
+<section class="space-y-6" data-course-i18n="{{ c.i18n | json }}">
   <article class="prose prose-stone max-w-none">
     <section id="course-overview" class="mb-8">
       <h2>{{ i18n[currentLang].course.overview }}</h2>
