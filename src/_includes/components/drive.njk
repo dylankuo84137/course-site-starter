@@ -22,7 +22,7 @@
 
 {% macro pdfViewer(pdf) %}
   {% set pdfId = pdf.id if pdf.id else pdf %}
-  {% set pdfName = pdf.name if pdf.name else "PDF 文件" %}
+  {% set pdfName = pdf.title or pdf.name or pdf.sourceTitle or "PDF 文件" %}
   {% set pdfDownloadUrl = pdf.downloadUrl if pdf.downloadUrl else ("https://drive.google.com/file/d/" + pdfId + "/view") %}
   <div class="my-8 border rounded-lg overflow-hidden shadow-lg">
     <div class="bg-stone-100 px-4 py-3 border-b flex items-center justify-between">

@@ -763,8 +763,8 @@ html:not([data-lang-ready]) body {
   /* background: linear-gradient(135deg, var(--warm-50) 0%, var(--warm-100) 100%); */
   border: none;
   border-radius: 1rem;
-  padding: 1.75rem;
-  margin-bottom: 2rem;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
   /* box-shadow: */
   /* 0 1px 3px rgba(139, 75, 29, 0.08),
     0 4px 16px rgba(139, 75, 29, 0.12),
@@ -786,8 +786,8 @@ html:not([data-lang-ready]) body {
 .course-header-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  align-items: flex-start;
+  gap: 0.75rem;
+  align-items: flex-end;
   justify-content: space-between;
 }
 
@@ -837,7 +837,7 @@ html:not([data-lang-ready]) body {
 
 .course-info-card-inner {
   display: flex;
-  gap: 0;
+  gap: 0.75rem;
   align-items: stretch;
   justify-content: flex-start;
 }
@@ -846,19 +846,19 @@ html:not([data-lang-ready]) body {
   flex: 1 1 auto;
   min-width: 0;
   background: linear-gradient(135deg, rgba(255,252,247,0.97) 0%, rgba(254,247,237,0.94) 100%);
-  padding: 1.1rem 1.2rem;
+  padding: 1rem 1.15rem;
   backdrop-filter: blur(12px);
 }
 
 .course-info-card--has-hero .course-info-card-content {
-  flex: 0 0 clamp(340px, 50%, 420px);
-  max-width: none;
-  padding-right: 0.5rem;
+  flex: 1 1 auto;
+  min-width: clamp(280px, 45%, 420px);
+  padding-left: 0.25rem;
 }
 
 .course-info-card-media {
-  flex: 1 1 auto;
-  max-width: 320px;
+  flex: 0 0 clamp(160px, 18vw, 200px);
+  max-width: 60%;
   background: #fff;
   display: flex;
   align-items: stretch;
@@ -879,10 +879,11 @@ html:not([data-lang-ready]) body {
 @media (max-width: 1023px) {
   .course-info-card--has-hero .course-info-card-content {
     max-width: none;
+    padding-left: 0;
   }
 
   .course-info-card-media {
-    flex-basis: 40%;
+    flex-basis: 35%;
   }
 }
 

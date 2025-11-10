@@ -24,6 +24,9 @@ permalink: "/courses/{{ c.slug }}/index.html"
 {% set courseLearningObjectives = courseHelpers.getI18nField(c, 'learningObjectives', currentLang) %}
 {% set courseTeacher = i18nMacro.cf(c, 'teacher', currentLang) %}
 {% set courseDescriptionDoc = materialHelpers.getDoc(c, 'course_description') %}
+{% set syllabusPdfs = materialHelpers.getMaterialItems(c, 'syllabus') %}
+{% set worksheetPdfs = materialHelpers.getMaterialItems(c, 'worksheet') %}
+{% set hasDownloadMaterials = (syllabusPdfs | length) > 0 or (worksheetPdfs | length) > 0 %}
 
 <section class="space-y-6" data-course-i18n="{{ c.i18n | json }}">
   <article class="prose prose-stone max-w-none">
@@ -59,5 +62,70 @@ permalink: "/courses/{{ c.slug }}/index.html"
       <h2>{{ i18n[currentLang].course.teacher_intro }}</h2>
       <p>{{ courseTeacher or i18n[currentLang].course.no_teacher_bio }}</p>
     </section>
+
+    {% if hasDownloadMaterials %}
+    <section id="course-downloads" class="border-t border-stone-200 pt-6">
+      <h2>{{ i18n[currentLang].course.downloads }}</h2>
+      <div class="space-y-6">
+        {% if syllabusPdfs and (syllabusPdfs | length) > 0 %}
+        <div>
+          <h3 class="text-lg font-medium mb-3">{{ i18n[currentLang].course.syllabus }}</h3>
+          <ul class="space-y-3">
+            {% for pdf in syllabusPdfs %}
+              {% set fileName = pdf.title or pdf.name or (i18n[currentLang].course.syllabus ~ ' #' ~ loop.index) %}
+              {% set fileUrl = pdf.downloadUrl or (pdf.id and ('https://drive.google.com/file/d/' ~ pdf.id ~ '/view')) %}
+              <li class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-stone-200 bg-stone-50 px-4 py-3">
+                <div>
+                  <p class="font-medium text-stone-900">{{ fileName }}</p>
+                  {% if pdf.sourceTitle %}
+                  <p class="text-sm text-stone-500">{{ pdf.sourceTitle }}</p>
+                  {% endif %}
+                </div>
+                {% if fileUrl %}
+                <a href="{{ fileUrl }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 rounded-md border border-blue-200 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-50 transition">
+                  {{ i18n[currentLang].course.open_document }}
+                  <span aria-hidden="true">↗</span>
+                </a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {% if worksheetPdfs and (worksheetPdfs | length) > 0 %}
+        <div>
+          <h3 class="text-lg font-medium mb-3">{{ i18n[currentLang].course.worksheet }}</h3>
+          <ul class="space-y-3">
+            {% for pdf in worksheetPdfs %}
+              {% set fileName = pdf.title or pdf.name or (i18n[currentLang].course.worksheet ~ ' #' ~ loop.index) %}
+              {% set fileUrl = pdf.downloadUrl or (pdf.id and ('https://drive.google.com/file/d/' ~ pdf.id ~ '/view')) %}
+              <li class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-stone-200 bg-stone-50 px-4 py-3">
+                <div>
+                  <p class="font-medium text-stone-900">{{ fileName }}</p>
+                  {% if pdf.sourceTitle %}
+                  <p class="text-sm text-stone-500">{{ pdf.sourceTitle }}</p>
+                  {% endif %}
+                </div>
+                {% if fileUrl %}
+                <a href="{{ fileUrl }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 rounded-md border border-blue-200 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-50 transition">
+                  {{ i18n[currentLang].course.open_document }}
+                  <span aria-hidden="true">↗</span>
+                </a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
   </article>
 </section>

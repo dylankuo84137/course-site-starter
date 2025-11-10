@@ -13,6 +13,8 @@
   {% set hasPhotos = materialHelpers.hasMaterial(course, 'photos') %}
   {% set hasBlackboard = materialHelpers.hasMaterial(course, 'blackboard') %}
   {% set hasPlayScript = docPlayScript or materialHelpers.hasMaterial(course, 'play_scripts') %}
+  {% set hasSyllabus = materialHelpers.hasMaterial(course, 'syllabus') %}
+  {% set hasWorksheet = materialHelpers.hasMaterial(course, 'worksheet') %}
   {% set hasWorkbook = materialHelpers.hasMaterial(course, 'workbook_photos') or materialHelpers.hasMaterial(course, 'workbook_pdfs') %}
   {% set hasScripts = materialHelpers.hasMaterial(course, 'scripts_photos') %}
   {% set hasSongs = materialHelpers.hasMaterial(course, 'songs_audio') %}
@@ -33,6 +35,15 @@
       {% if course.hero_image %}{% set cardClasses = cardClasses.concat(['course-info-card--has-hero']) %}{% endif %}
       <div class="{{ cardClasses | join(' ') }}" data-course-i18n="{{ course.i18n | json }}">
         <div class="course-info-card-inner">
+          {% if course.hero_image %}
+          <figure class="course-info-card-media">
+            <img
+              src="https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w1200"
+              alt="{{ courseTitle }}"
+              loading="lazy"
+              decoding="async">
+          </figure>
+          {% endif %}
           <div class="course-info-card-content">
             <h2 class="course-info-title" data-i18n-course="title">{{ courseTitle }}</h2>
             <div class="course-info-metadata">
@@ -52,15 +63,6 @@
             </div>
             {% endif %}
           </div>
-          {% if course.hero_image %}
-          <figure class="course-info-card-media">
-            <img
-              src="https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w1200"
-              alt="{{ courseTitle }}"
-              loading="lazy"
-              decoding="async">
-          </figure>
-          {% endif %}
         </div>
       </div>
 
@@ -98,6 +100,20 @@
               <option value="" {% if currentPage == 'home' %}selected{% endif %}>
                 {{ i18n[lang].course.course_materials }}
               </option>
+
+              {% if hasSyllabus or currentPage == 'syllabus' %}
+                <option value="{{ courseUrl(course.slug, 'syllabus') }}"
+                        {% if currentPage == 'syllabus' %}selected{% endif %}>
+                  {{ i18n[lang].course.syllabus }}
+                </option>
+              {% endif %}
+
+              {% if hasWorksheet or currentPage == 'worksheet' %}
+                <option value="{{ courseUrl(course.slug, 'worksheet') }}"
+                        {% if currentPage == 'worksheet' %}selected{% endif %}>
+                  {{ i18n[lang].course.worksheet }}
+                </option>
+              {% endif %}
 
               {% if docStory %}
               <option value="{{ courseUrl(course.slug, 'story') }}"

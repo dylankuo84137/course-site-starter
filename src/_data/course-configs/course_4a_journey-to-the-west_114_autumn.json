@@ -1,0 +1,125 @@
+{
+  "slug": "4a-journey-to-the-west-114-autumn",
+  "hero_image": "19xKvaXjXfNIkGF5zV4kCrf5FpynUZ_Ao",
+  "metadata": {
+    "grade_level": "4",
+    "domain_category": "main-lesson",
+    "teacher_name": "林倩詒/Lin Qian-Yi",
+    "tags": [
+      "西遊記",
+      "語文",
+      "四年級",
+      "林倩詒",
+      "主課"
+    ]
+  },
+  "i18n": {
+    "zh-TW": {
+      "title": "西遊記（語文主課）",
+      "grade": "四年級 4A 雲朵班",
+      "semester": "114 學年度 秋季",
+      "unit": "語文主課",
+      "domain": "語文",
+      "teacher": "林倩詒",
+      "overview": "本課程旨在深化四年級學生的語文理解、表達與書寫能力。透過《西遊記》的故事，培養學生獨立書寫、自由書寫的能力，並積累語感、詞彙與語言節奏。課程強調閱讀深化，學習整理段落大意、找出佳句、寫下感想，並將生活經驗轉化為文字。學生將透過小組討論與全班分享，練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見。課程設計採用「故事推進」與「主題書寫」雙軌並行，讓學生在收斂與擴展的語文學習中，看見勇敢、智慧與堅持等特質的對照，並在挑戰中選擇正向價值。",
+      "learningObjectives": [
+        "深化語文理解、表達與書寫能力",
+        "培養獨立書寫與自由書寫能力",
+        "積累語感、詞彙與語言節奏",
+        "學習整理段落大意、找出佳句、寫下感想",
+        "將生活經驗轉化為文字",
+        "練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見",
+        "看見勇敢與怠惰、智慧與愚鈍、堅定與搖擺等不同特質的對照",
+        "在生活的挑戰裡選擇勇敢、堅持與智慧",
+        "經驗「收斂」與「擴展」的語文學習"
+      ]
+    },
+    "en-US": {
+      "title": "Journey to the West",
+      "grade": "Grade 4, Class 4A Yunduo",
+      "semester": "Academic Year 114, Autumn",
+      "unit": "Language Main Lesson",
+      "domain": "Language Arts",
+      "teacher": "Lin Qianyi",
+      "overview": "This course aims to deepen fourth-grade students' language comprehension, expression, and writing skills. Through the story of 'Journey to the West,' students will develop independent and free writing abilities, and accumulate language sense, vocabulary, and linguistic rhythm. The curriculum emphasizes deepening reading, learning to summarize paragraph main ideas, identify excellent sentences, write reflections, and transform life experiences into text. Students will engage in group discussions and whole-class sharing to practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions. The course design adopts a 'story progression' and 'thematic writing' dual-track approach, allowing students to experience convergent and divergent language learning, observe contrasting qualities like bravery, wisdom, and perseverance, and choose positive values when facing challenges.",
+      "learningObjectives": [
+        "Deepen language comprehension, expression, and writing skills",
+        "Cultivate independent and free writing abilities",
+        "Accumulate language sense, vocabulary, and linguistic rhythm",
+        "Learn to summarize paragraph main ideas, identify excellent sentences, and write reflections",
+        "Transform life experiences into text",
+        "Practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions",
+        "Observe contrasting qualities such as bravery and laziness, wisdom and foolishness, steadfastness and wavering",
+        "Choose bravery, perseverance, and wisdom in life's challenges",
+        "Experience 'convergent' and 'divergent' language learning"
+      ]
+    }
+  },
+  "material": {
+    "workbook_photos": [
+      {
+        "type": "drive-folder",
+        "id": "1-KnRAXb30xdH_t4DO_cWY_lFLz8Ylskk",
+        "title": "4A予澄",
+        "items": []
+      },
+      {
+        "type": "drive-folder",
+        "id": "1iSeWw-A7R-8Wansuok80My_V0SnQ5ZJN",
+        "title": "4A昀霏",
+        "items": []
+      },
+      {
+        "type": "drive-folder",
+        "id": "1OGxmZjdmHWO8tczYqFawfk_ItWRhn3Lm",
+        "title": "4A品妤",
+        "items": []
+      },
+      {
+        "type": "drive-folder",
+        "id": "1_TqUoTWmLriWCQ6yYM3ljBtRKGLfLJrY",
+        "title": "4A宇樂",
+        "items": []
+      },
+      {
+        "type": "drive-folder",
+        "id": "1vN3vptyHGhkyumax1RMUBa7blbBKIFHU",
+        "title": "4A杰凱",
+        "items": []
+      },
+      {
+        "type": "drive-folder",
+        "id": "1NDA2OiQF4Zh_iPN723xkHmvilSd9E3LM",
+        "title": "4A侑黎",
+        "items": []
+      }
+    ],
+    "blackboard": [],
+    "photos": [
+      {
+        "type": "drive-folder",
+        "id": "13MrNKr5lOyTBj_MgrHj_LYdKuUrLCD0j",
+        "title": "",
+        "items": []
+      }
+    ],
+    "videos": [
+      {
+        "type": "drive-folder",
+        "id": "1LofwZplAK2VoTNwBznFkajARS_XF7ND6",
+        "title": "",
+        "items": []
+      }
+    ],
+    "songs_audio": []
+  },
+  "docs": {
+    "course_description": {
+      "type": "google-doc",
+      "id": "1nFAALCUefl4Y1_P7HrRPTfRzqChNKbqFOhRXhLCjrSQ",
+      "title": "課程介紹",
+      "content": null,
+      "lastSynced": null
+    }
+  }
+}

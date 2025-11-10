@@ -224,6 +224,8 @@ function mapFolderFile(materialKey, file, courseTags) {
   return item;
 }
 
+const MATERIAL_FILE_ENTRY_TYPES = new Set(["drive-file", "pdf"]);
+
 async function syncMaterialEntry(materialKey, entry, courseTags) {
   if (!entry || typeof entry !== "object") return null;
   const synced = { ...entry };
@@ -244,7 +246,7 @@ async function syncMaterialEntry(materialKey, entry, courseTags) {
     } catch (err) {
       console.warn(`[fetch-drive] Failed to list folder ${entry.id}: ${err.message}`);
     }
-  } else if (entry.type === "drive-file" && entry.id) {
+  } else if (MATERIAL_FILE_ENTRY_TYPES.has(entry.type) && entry.id) {
     console.log(`[fetch-drive] Syncing material file ${materialKey}: ${entry.id}`);
     const metadata = await fetchDriveMetadata(entry.id);
     if (metadata) {

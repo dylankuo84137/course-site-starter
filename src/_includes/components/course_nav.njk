@@ -4,6 +4,8 @@
   {% set docStory = materialHelpers.getDoc(c, 'story') %}
   {% set hasPhotos = materialHelpers.hasMaterial(c, 'photos') %}
   {% set hasBlackboard = materialHelpers.hasMaterial(c, 'blackboard') %}
+  {% set hasSyllabus = materialHelpers.hasMaterial(c, 'syllabus') %}
+  {% set hasWorksheet = materialHelpers.hasMaterial(c, 'worksheet') %}
   {% set hasSheetMusic = materialHelpers.hasMaterial(c, 'sheet_music') %}
   {% set hasVideos = materialHelpers.hasMaterial(c, 'videos') %}
   <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
@@ -14,6 +16,12 @@
       {% endif %}
       <li><a class="pill {% if current == 'play-script' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">{{ i18n[lang].course.play_script }}</a></li>
       <li><a class="pill {% if current == 'workbook' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">{{ i18n[lang].course.workbook }}</a></li>
+      {% if hasSyllabus %}
+      <li><a class="pill {% if current == 'syllabus' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/syllabus/">{{ i18n[lang].course.syllabus }}</a></li>
+      {% endif %}
+      {% if hasWorksheet %}
+      <li><a class="pill {% if current == 'worksheet' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/worksheet/">{{ i18n[lang].course.worksheet }}</a></li>
+      {% endif %}
       {% if hasPhotos %}
       <li><a class="pill {% if current == 'photos' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">{{ i18n[lang].course.photo_gallery }}</a></li>
       {% endif %}

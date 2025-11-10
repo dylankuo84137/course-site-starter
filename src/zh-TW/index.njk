@@ -17,6 +17,8 @@ currentLang: zh-TW
     <article class="bg-white rounded-2xl shadow p-5">
       {% set courseDescriptionDoc = materialHelpers.getDoc(c, 'course_description') %}
       {% set hasWorkbook = materialHelpers.hasMaterial(c, 'workbook_photos') or materialHelpers.hasMaterial(c, 'workbook_pdfs') %}
+      {% set hasSyllabus = materialHelpers.hasMaterial(c, 'syllabus') %}
+      {% set hasWorksheet = materialHelpers.hasMaterial(c, 'worksheet') %}
       {% set hasBlackboard = materialHelpers.hasMaterial(c, 'blackboard') %}
       {% set hasPhotos = materialHelpers.hasMaterial(c, 'photos') %}
       {% set hasPlayScript = materialHelpers.getDoc(c, 'play_script') or materialHelpers.hasMaterial(c, 'play_scripts') %}
@@ -34,6 +36,12 @@ currentLang: zh-TW
         {% endif %}
         {% if hasWorkbook %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">{{ i18n[currentLang].course.workbook }}</a>
+        {% endif %}
+        {% if hasSyllabus %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/syllabus/">{{ i18n[currentLang].course.syllabus }}</a>
+        {% endif %}
+        {% if hasWorksheet %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/worksheet/">{{ i18n[currentLang].course.worksheet }}</a>
         {% endif %}
         {% if hasBlackboard %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">{{ i18n[currentLang].course.blackboard_drawings }}</a>

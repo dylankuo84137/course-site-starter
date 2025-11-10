@@ -1,0 +1,82 @@
+{
+  "slug": "9c-modern-history-114-autumn",
+  "hero_image": "1hzjZCO8wFMkl4czSGrZSh4rgcvg7WaX7",
+  "metadata": {
+    "grade_level": "9",
+    "domain_category": "main-lesson",
+    "teacher_name": "林信宏/Lin Xin-Hong",
+    "tags": [
+      "現代史",
+      "工業革命",
+      "青年行動",
+      "學習筆記"
+    ]
+  },
+  "i18n": {
+    "zh-TW": {
+      "title": "現代史主課",
+      "grade": "九年級 9C 心亮班",
+      "semester": "114 學年度 秋季",
+      "unit": "現代史主課",
+      "domain": "歷史",
+      "teacher": "林信宏",
+      "overview": "這門現代史主課以十六堂課的節奏走過啟蒙、革命、工業到戰後世界，帶著九年級學生重新看見「歷史中的人」。課堂安排回顧、講述、辯論與筆記練習交織，學生每天閱讀史料並在工作本中建構自己的時間軸與概念圖。透過盧梭、拿破崙、羅伯·歐文到青年運動的案例，課程讓學生辨識自由與秩序、理想與代價的張力，也把自己視為正在形塑歷史的人。",
+      "learningObjectives": [
+        "了解近代至現代歷史的主要脈絡，掌握思想與制度發展的連貫性。",
+        "培養時間軸、人物關聯與概念分析能力，能以筆記與書寫統整歷史理解。",
+        "培養對歷史的敬意與反思，理解自己身為「歷史的承繼者與創造者」。"
+      ]
+    },
+    "en-US": {
+      "title": "Modern History Main Lesson",
+      "grade": "Grade 9, Class 9C",
+      "semester": "Academic Year 114, Autumn",
+      "unit": "Modern History Main Lesson",
+      "domain": "History",
+      "teacher": "Lin Xin-Hong",
+      "overview": "Across sixteen lessons this modern history block traces the path from the Enlightenment and revolutionary waves to the industrial age and postwar world, inviting students to keep asking who is acting inside history. Each morning we cycle through review, storytelling, debate, and deliberate note-making so learners read source material and build their own timelines and concept maps in the workbook. From Rousseau and Napoleon to Robert Owen and contemporary youth movements, students examine the tension between freedom and order, ideals and costs, and begin to see themselves as people actively shaping history.",
+      "learningObjectives": [
+        "Understand the major throughlines from early modern to contemporary history and how ideas and institutions evolve together.",
+        "Develop the ability to map timelines, relationships, and key concepts while using structured notes and writing to synthesize historical understanding.",
+        "Cultivate respect and reflection toward history, recognizing themselves as inheritors and creators within the historical stream."
+      ]
+    }
+  },
+  "material": {
+    "syllabus": [
+      {
+        "type": "pdf",
+        "id": "107gAQIikxL_f0TeEEKeUVnUAJ9WgXJLy",
+        "title": "",
+        "items": []
+      }
+    ],
+    "workbook_photos": [
+      {
+        "type": "drive-folder",
+        "id": "1bngeOyepl2bgdBH9u3xSITvCLwMoykTj",
+        "title": "",
+        "items": []
+      }
+    ],
+    "photos": [],
+    "blackboard": [],
+    "worksheet": [
+      {
+        "type": "pdf",
+        "id": "1Jv4ah9Ed6W8GHfroGV8PUMsW8HttI0QG",
+        "title": "",
+        "items": []
+      }
+    ]
+  },
+  "docs": {
+    "course_description": {
+      "type": "google-doc",
+      "id": "1gcO5bBrNTfBxF5AY4J77A_V0UfhBeCoYy2ghYDbetlA",
+      "title": "九年級現代史課程設計與教學實踐報告",
+      "content": null,
+      "lastSynced": null
+    }
+  }
+}

@@ -150,12 +150,12 @@
         "items": []
       }
     ],
-    "_comment_worksheet": "講義、練習單等 PDF",
+    "_comment_worksheet": "講義、學習單等 PDF",
     "worksheet": [
       {
         "type": "drive-file",
         "id": "GOOGLE_DRIVE_ID",
-        "title": "練習單",
+        "title": "學習單",
         "items": []
       }
     ]
