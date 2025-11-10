@@ -7,15 +7,17 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/songs/index.html"
 ---
-{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{% import "components/course-breadcrumb.njk" as breadcrumb with context %}
 
 {# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'songs', currentLang, i18n) }}
 
 
+{% set courseSongs = materialHelpers.getMaterialItems(c, 'songs_audio') %}
+
 <h1 class="text-2xl md:text-3xl font-semibold mb-6" style="color: var(--primary);">{{ i18n[currentLang].course.songs_audio }}</h1>
 
-{% if c.files.songs and c.files.songs.length > 0 %}
+{% if courseSongs and courseSongs.length > 0 %}
 <div class="playlist-container">
   <h2 class="playlist-title">播放列表</h2>
   <div class="current-track">
@@ -30,10 +32,11 @@ permalink: "/courses/{{ c.slug }}/songs/index.html"
 </div>
 
 <div class="space-y-4">
-  {% for s in c.files.songs %}
-    <div class="audio-card" data-track-id="{{ loop.index0 }}" data-title="{{ s.title }}" data-src="https://drive.google.com/uc?export=download&id={{ s.id }}">
+  {% for s in courseSongs %}
+    {% set songTitle = s.title or s.name or ('Track ' ~ loop.index) %}
+    <div class="audio-card" data-track-id="{{ loop.index0 }}" data-title="{{ songTitle }}" data-src="https://drive.google.com/uc?export=download&id={{ s.id }}">
       <div class="flex justify-between items-start mb-3">
-        <h3 class="audio-title flex-1">{{ s.title }}</h3>
+        <h3 class="audio-title flex-1">{{ songTitle }}</h3>
         <span class="text-sm px-2 py-1 rounded-full" style="background: var(--nature-green-light); color: var(--nature-green);">{{ loop.index }}</span>
       </div>
       <div class="audio-controls">
@@ -50,17 +53,14 @@ permalink: "/courses/{{ c.slug }}/songs/index.html"
 
 <script>
 let currentTrackIndex = 0;
-const tracks = [
-  {% for s in c.files.songs %}
-  {
-    title: "{{ s.title }}",
-    id: "{{ s.id }}",
-    src: "https://drive.google.com/uc?export=download&id={{ s.id }}",
-    streamUrl: "https://docs.google.com/uc?export=download&id={{ s.id }}",
-    fallbackUrl: "https://drive.google.com/file/d/{{ s.id }}/preview"
-  }{% if not loop.last %},{% endif %}
-  {% endfor %}
-];
+const rawSongs = {{ courseSongs | json | safe }};
+const tracks = rawSongs.map((song, index) => ({
+  title: song.title || song.name || `Track ${index + 1}`,
+  id: song.id,
+  src: `https://drive.google.com/uc?export=download&id=${song.id}`,
+  streamUrl: `https://docs.google.com/uc?export=download&id=${song.id}`,
+  fallbackUrl: `https://drive.google.com/file/d/${song.id}/preview`
+}));
 
 async function playTrack(index) {
   const audioPlayer = document.getElementById('mainPlayer');
@@ -129,8 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const drivePlayer = document.getElementById('drivePlayer');
   
   audioPlayer.addEventListener('ended', function() {
-    const nextIndex = (currentTrackIndex + 1) % tracks.length;
-    playTrack(nextIndex);
+    if (tracks.length) {
+      const nextIndex = (currentTrackIndex + 1) % tracks.length;
+      playTrack(nextIndex);
+    }
   });
   
   audioPlayer.addEventListener('pause', function() {
@@ -141,6 +143,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% else %}
 <div class="text-center py-12">
-  <p style="color: var(--text-muted);" class="text-lg">尚未抓到音檔。</p>
+  <p style="color: var(--text-muted);" class="text-lg">
+    尚未抓到音檔。
+    <span class="block text-sm mt-2 text-stone-400">請在 <code>material.songs_audio</code> 中設定音訊資料夾或手動清單。</span>
+  </p>
 </div>
 {% endif %}

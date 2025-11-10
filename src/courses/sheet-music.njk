@@ -7,23 +7,28 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/sheet-music/index.html"
 ---
-{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{% import "components/course-breadcrumb.njk" as breadcrumb with context %}
 
 {# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'sheet-music', currentLang, i18n) }}
 
 
+{% set sheetMusicPdfs = materialHelpers.getMaterialItems(c, 'sheet_music') %}
+
 <h1 class="text-2xl md:text-3xl font-semibold mb-4">{{ i18n[currentLang].course.sheet_music }}</h1>
 
 {% import "components/drive.njk" as drv %}
 
-{% if c.files.sheet_music and c.files.sheet_music.length > 0 %}
+{% if sheetMusicPdfs and sheetMusicPdfs.length > 0 %}
 <section class="mb-8">
   <h2 class="text-lg font-medium mb-4">樂譜內容</h2>
-  {% for pdf in c.files.sheet_music %}
+  {% for pdf in sheetMusicPdfs %}
     {{ drv.pdfViewer(pdf) }}
   {% endfor %}
 </section>
 {% else %}
-  <p class="text-stone-500">目前沒有樂譜內容。</p>
+  <p class="text-stone-500">
+    目前沒有樂譜內容。
+    <span class="block text-sm text-stone-400">請在 <code>material.sheet_music</code> 中設定樂譜檔案。</span>
+  </p>
 {% endif %}

@@ -29,13 +29,18 @@ eleventyExcludeFromCollections: true
     <priority>0.6</priority>
   </url>
   {%- for course in coursesList -%}
+  {%- set docStory = materialHelpers.getDoc(course, 'story') -%}
+  {%- set hasPhotos = materialHelpers.hasMaterial(course, 'photos') -%}
+  {%- set hasBlackboard = materialHelpers.hasMaterial(course, 'blackboard') -%}
+  {%- set hasSheetMusic = materialHelpers.hasMaterial(course, 'sheet_music') -%}
+  {%- set hasVideos = materialHelpers.hasMaterial(course, 'videos') -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  {%- if course.google_docs and course.google_docs.story -%}
+  {%- if docStory -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/story/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
@@ -55,7 +60,7 @@ eleventyExcludeFromCollections: true
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  {%- if course.files and course.files.photos and course.files.photos.length > 0 -%}
+  {%- if hasPhotos -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/photos/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
@@ -63,7 +68,7 @@ eleventyExcludeFromCollections: true
     <priority>0.7</priority>
   </url>
   {%- endif -%}
-  {%- if course.files and course.files.blackboard and course.files.blackboard.length > 0 -%}
+  {%- if hasBlackboard -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/blackboard/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
@@ -83,7 +88,7 @@ eleventyExcludeFromCollections: true
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  {%- if course.files and course.files.sheet_music and course.files.sheet_music.length > 0 -%}
+  {%- if hasSheetMusic -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/sheet-music/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>
@@ -91,7 +96,7 @@ eleventyExcludeFromCollections: true
     <priority>0.7</priority>
   </url>
   {%- endif -%}
-  {%- if course.youtube_videos and course.youtube_videos.play_video -%}
+  {%- if hasVideos -%}
   <url>
     <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/videos/') | url }}</loc>
     <lastmod>{{ buildTime }}</lastmod>

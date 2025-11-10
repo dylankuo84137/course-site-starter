@@ -12,6 +12,10 @@ eleventyExcludeFromCollections: true
   "language": "zh-Hant",
   "items": [
     {%- for course in coursesList -%}
+    {%- set hasWorkbook = materialHelpers.hasMaterial(course, 'workbook_photos') or materialHelpers.hasMaterial(course, 'workbook_pdfs') -%}
+    {%- set hasPhotos = materialHelpers.hasMaterial(course, 'photos') -%}
+    {%- set hasBlackboard = materialHelpers.hasMaterial(course, 'blackboard') -%}
+    {%- set hasSongs = materialHelpers.hasMaterial(course, 'songs_audio') -%}
     {
       "id": "{{ ('/courses/' + course.slug + '/') | url }}",
       "url": "{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/') | url }}",
@@ -33,10 +37,10 @@ eleventyExcludeFromCollections: true
         "unit": "{{ course.unit }}",
         "domain": "{{ course.domain }}",
         "materials": {
-          "workbook": {{ (course.files.workbook_photos and course.files.workbook_photos.length > 0) or (course.files.workbook_pdfs and course.files.workbook_pdfs.length > 0) }},
-          "photos": {{ course.files.photos and course.files.photos.length > 0 }},
-          "blackboard": {{ course.files.blackboard and course.files.blackboard.length > 0 }},
-          "audio": {{ course.files.songs and course.files.songs.length > 0 }}
+          "workbook": {{ hasWorkbook }},
+          "photos": {{ hasPhotos }},
+          "blackboard": {{ hasBlackboard }},
+          "audio": {{ hasSongs }}
         }
       }
     }{{ "," if not loop.last }}

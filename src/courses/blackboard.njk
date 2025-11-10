@@ -7,15 +7,24 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/blackboard/index.html"
 ---
-{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{% import "components/course-breadcrumb.njk" as breadcrumb with context %}
 
 {# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'blackboard', currentLang, i18n) }}
 
 
+{% set blackboardItems = materialHelpers.getMaterialItems(c, 'blackboard') %}
+
 <h1 class="text-2xl md:text-3xl font-semibold mb-4">{{ i18n[currentLang].course.blackboard_drawings }}</h1>
 
 {% import "components/drive.njk" as drive %}
 <section id="blackboard-gallery">
-  {{ drive.grid(c.files.blackboard, c.title ~ ' Blackboard Drawings') }}
+  {% if blackboardItems and blackboardItems.length > 0 %}
+    {{ drive.grid(blackboardItems, c.title ~ ' Blackboard Drawings') }}
+  {% else %}
+    <p class="text-stone-500">
+      {{ i18n[currentLang].course.no_content }}
+      <span class="block text-sm text-stone-400">請在 <code>material.blackboard</code> 中設定黑板畫資料夾。</span>
+    </p>
+  {% endif %}
 </section>

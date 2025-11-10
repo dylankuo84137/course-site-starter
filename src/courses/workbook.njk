@@ -7,28 +7,133 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/workbook/index.html"
 ---
-{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{% import "components/course-breadcrumb.njk" as breadcrumb with context %}
 
 {# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'workbook', currentLang, i18n) }}
 
 
+{% set workbookPdfs = materialHelpers.getMaterialItems(c, 'workbook_pdfs') %}
+{% if (workbookPdfs | length) == 0 %}
+  {% set workbookPdfs = materialHelpers.getMaterialItems(c, 'workbook_photos', { onlyPdf: true }) %}
+{% endif %}
+{% set workbookPhotoGroups = materialHelpers.getMaterialGroups(c, 'workbook_photos', { onlyPdf: false }) %}
+{% set subfolderDefaultTitle = i18n[currentLang].course.workbook_subfolder_all_photos %}
+
 <h1 class="text-2xl md:text-3xl font-semibold mb-4">{{ i18n[currentLang].course.workbook }}</h1>
 
 {% import "components/drive.njk" as drv %}
 
-{% if c.files.workbook_pdfs and c.files.workbook_pdfs.length > 0 %}
+{% if workbookPdfs and workbookPdfs.length > 0 %}
 <section class="mb-8">
   <h2 class="text-lg font-medium mb-4">{{ i18n[currentLang].course.workbook_content }}</h2>
-  {% for pdf in c.files.workbook_pdfs %}
+  {% for pdf in workbookPdfs %}
     {{ drv.pdfViewer(pdf) }}
   {% endfor %}
 </section>
-{% elif c.files.workbook_photos and c.files.workbook_photos.length > 0 %}
+{% elif workbookPhotoGroups and workbookPhotoGroups.length > 0 %}
+{% set simpleFolderCandidate = workbookPhotoGroups[0] %}
+{% set simpleFolderTitle = simpleFolderCandidate.title or i18n[currentLang].course.workbook_folder_default %}
+{% set simpleFolderHasSub = simpleFolderCandidate.subfolders and (simpleFolderCandidate.subfolders | length) > 0 %}
+{% set simpleFolderHasItems = simpleFolderCandidate.items and (simpleFolderCandidate.items | length) > 0 %}
+{% set renderSimpleGallery = (workbookPhotoGroups | length) == 1 and not simpleFolderHasSub and simpleFolderHasItems %}
 <section id="workbook-content" class="mb-8">
-  <h2 class="text-lg font-medium mb-4">{{ i18n[currentLang].course.workbook_content }}</h2>
-  {{ drv.grid(c.files.workbook_photos, c.title ~ ' Workbook') }}
+  <div class="gallery-section-header">
+    <h2 class="text-lg font-medium">{{ i18n[currentLang].course.workbook_content }}</h2>
+    {% if not renderSimpleGallery %}
+    <div class="gallery-toolbar-actions">
+      <button
+        type="button"
+        class="gallery-toggle-button"
+        data-gallery-toggle
+        data-expand-label="{{ i18n[currentLang].course.workbook_expand_all }}"
+        data-collapse-label="{{ i18n[currentLang].course.workbook_collapse_all }}"
+        aria-pressed="false">
+        <span class="icon" aria-hidden="true">⤢</span>
+        <span data-toggle-text>{{ i18n[currentLang].course.workbook_expand_all }}</span>
+      </button>
+    </div>
+    {% endif %}
+  </div>
+  {% if renderSimpleGallery %}
+    {{ drv.grid(simpleFolderCandidate.items, simpleFolderTitle) }}
+  {% else %}
+  <div class="gallery-folder-stack">
+  {% for folder in workbookPhotoGroups %}
+    {% set folderTitle = folder.title or (i18n[currentLang].course.workbook_folder_default ~ ' #' ~ loop.index) %}
+    {% set subfolders = folder.subfolders or [] %}
+    {% set directItems = folder.items | default([]) %}
+    {% set totalCount = directItems | length %}
+    {% for sub in subfolders %}
+      {% set totalCount = totalCount + (sub.items | length) %}
+    {% endfor %}
+    <details class="gallery-folder" {% if loop.index == 1 %}open{% endif %}>
+      <summary class="gallery-folder-summary">
+        <span class="gallery-folder-title">
+          <span class="gallery-folder-icon" aria-hidden="true">📁</span>
+          {{ folderTitle }}
+        </span>
+      </summary>
+      <div class="gallery-folder-body">
+        {% if directItems | length > 0 %}
+        <div class="gallery-strip" aria-label="{{ folderTitle }}">
+          {{ drv.grid(directItems, folderTitle, { showFilter: false }) }}
+        </div>
+        {% endif %}
+        {% if subfolders | length > 0 %}
+        <div class="gallery-subfolder-stack">
+          {% for sub in subfolders %}
+          {% set subTitle = sub.title or sub.name or (i18n[currentLang].course.workbook_subfolder_default ~ ' #' ~ loop.index) %}
+          <details class="gallery-subfolder">
+            <summary class="gallery-subfolder-summary">
+              <span class="gallery-subfolder-title">
+                <span class="gallery-subfolder-icon" aria-hidden="true">🗂️</span>
+                {{ subTitle }}
+              </span>
+            </summary>
+            <div class="gallery-subfolder-body">
+              {{ drv.grid(sub.items, folderTitle ~ ' · ' ~ subTitle, { showFilter: false }) }}
+            </div>
+          </details>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </details>
+  {% endfor %}
+  </div>
+  {% endif %}
 </section>
+{% if not renderSimpleGallery %}
+<script>
+(function(){
+  const toggleBtn = document.querySelector('[data-gallery-toggle]');
+  if(!toggleBtn) return;
+  const expandLabel = toggleBtn.getAttribute('data-expand-label') || 'Expand all';
+  const collapseLabel = toggleBtn.getAttribute('data-collapse-label') || 'Collapse all';
+  const labelEl = toggleBtn.querySelector('[data-toggle-text]');
+  function setState(open){
+    document.querySelectorAll('.gallery-folder').forEach(folder => {
+      folder.open = open;
+    });
+    toggleBtn.setAttribute('aria-pressed', open ? 'true' : 'false');
+    if(labelEl){
+      labelEl.textContent = open ? collapseLabel : expandLabel;
+    }
+  }
+  let expanded = false;
+  toggleBtn.addEventListener('click', () => {
+    expanded = !expanded;
+    setState(expanded);
+  });
+})();
+</script>
+{% endif %}
 {% else %}
-  <p class="text-stone-500">{{ i18n[currentLang].course.no_content }}</p>
+  <p class="text-stone-500">
+    {{ i18n[currentLang].course.no_content }}
+    <span class="block text-sm text-stone-400">
+      請在 course JSON 的 <code>material.workbook_photos</code> 或 <code>material.workbook_pdfs</code> 中設定素材，並執行同步腳本。
+    </span>
+  </p>
 {% endif %}

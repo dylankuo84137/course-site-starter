@@ -1,9 +1,16 @@
 {
   "slug": "3a-sunshot-113-summer",
+  "hero_image": "",
   "metadata": {
     "grade_level": "3",
     "domain_category": "arts",
-    "teacher_name": "林倩詒"
+    "teacher_name": "林倩詒/Lin Qian-Yi",
+    "tags": [
+      "戲劇",
+      "劇本",
+      "歌曲",
+      "表演"
+    ]
   },
   "i18n": {
     "zh-TW": {
@@ -25,43 +32,70 @@
       "overview": "Parents often ask: 'Why does Cixin have so many drama courses?' This question frequently becomes a starting point for teachers' reflection—what role does drama actually play in a Waldorf school?\n\nFor teachers, drama is not just artistic expression; it's a deeply educational learning journey. By transforming curriculum content into dramatic performance, children not only deepen their understanding of the material but also integrate internal experience with external expression through physical movement, voice, and emotion. This year's third-grade drama class features the Taiwanese indigenous legend 'Shooting the Suns,' presented as a Taiwanese-language musical."
     }
   },
-  "tags": [
-    "戲劇",
-    "劇本",
-    "歌曲",
-    "表演"
-  ],
-  "google_docs": {
-    "course_description": "1rIP7xTqJuuSv7tHxrj-YKuFT7IUKGWHY5bF2x8asjGc",
-    "play_script": "",
-    "story": "14bc21cxYg_6s7NHhdvB9iZhaQLHjmQ7Xv-cTqlCDX48"
-  },
-  "drive_folders": {
-    "workbook_photos": "",
-    "performance": "1vmYgE6qybRMD-iTch7qRbqEOHgywPjGg",
-    "songs_audio": "1ydiol6Mjwbpcif6QKVaQtGfyuUepTagv"
-  },
-  "files": {
-    "workbook_pdfs": [
-      "1aF7mRoRYgtwqsvzUaaIN-66y0PLKT05C"
+  "material": {
+    "workbook_photos": [
+      {
+        "type": "pdf",
+        "id": "1aF7mRoRYgtwqsvzUaaIN-66y0PLKT05C",
+        "title": "",
+        "items": []
+      }
+    ],
+    "photos": [
+      {
+        "type": "drive-folder",
+        "id": "1vmYgE6qybRMD-iTch7qRbqEOHgywPjGg",
+        "title": "",
+        "items": []
+      }
+    ],
+    "songs_audio": [
+      {
+        "type": "drive-folder",
+        "id": "1ydiol6Mjwbpcif6QKVaQtGfyuUepTagv",
+        "title": "",
+        "items": []
+      }
     ],
     "play_scripts": [
-      "1NBP0Us7wHsrQWmpQMFGl6u3w6FleT7nq"
+      {
+        "type": "pdf",
+        "id": "1NBP0Us7wHsrQWmpQMFGl6u3w6FleT7nq",
+        "title": "",
+        "items": []
+      }
     ],
     "sheet_music": [
       {
+        "type": "pdf",
         "id": "1GO4Pw6jyimcKHF73-0o71XYF63qag8QW",
-        "name": "樂譜"
+        "title": "",
+        "items": []
       }
     ],
-    "workbook_photos": [],
-    "blackboard": [],
-    "photos": [],
-    "scripts_photos": [],
-    "songs": []
+    "videos": [
+      {
+        "type": "youtube",
+        "id": "LZ--fNtzII8",
+        "title": "play video",
+        "items": []
+      }
+    ]
   },
-  "youtube_videos": {
-    "play_video": "LZ--fNtzII8"
-  },
-  "docs": {}
+  "docs": {
+    "course_description": {
+      "type": "google-doc",
+      "id": "1rIP7xTqJuuSv7tHxrj-YKuFT7IUKGWHY5bF2x8asjGc",
+      "title": "課程介紹",
+      "content": null,
+      "lastSynced": null
+    },
+    "story": {
+      "type": "google-doc",
+      "id": "14bc21cxYg_6s7NHhdvB9iZhaQLHjmQ7Xv-cTqlCDX48",
+      "title": "故事稿",
+      "content": null,
+      "lastSynced": null
+    }
+  }
 }

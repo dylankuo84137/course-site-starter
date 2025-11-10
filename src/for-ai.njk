@@ -41,16 +41,23 @@ permalink: /for-ai/
 
     <pre><code>{
   "slug": "unique-course-identifier",
-  "title": "Course Name",
-  "grade": "Grade Level & Class Name",
-  "semester": "Academic Year & Semester",
-  "unit": "Thematic Unit",
-  "domain": "Subject Domain",
-  "teacher": "Teacher Name",
-  "overview": "Course description (2-3 paragraphs)",
-  "tags": ["tag", "array"],
-  "drive_folders": { /* Google Drive folder IDs */ },
-  "files": { /* Synced file lists */ }
+  "metadata": { "grade_level": "4", "domain_category": "main-lesson", "teacher_name": "lin-qianyi" },
+  "i18n": {
+    "zh-TW": { "title": "課程名稱", "overview": "..." },
+    "en-US": { "title": "Course Name", "overview": "..." }
+  },
+  "material": {
+    "workbook_photos": [
+      { "type": "drive-folder", "id": "FOLDER_ID", "title": "Workbook Photos", "items": [] }
+    ],
+    "videos": [
+      { "type": "youtube", "id": "YOUTUBE_ID", "title": "Performance" }
+    ]
+  },
+  "docs": {
+    "course_description": { "type": "google-doc", "id": "DOC_ID" },
+    "play_script": { "type": "google-doc", "id": "DOC_ID" }
+  }
 }</code></pre>
 
     <h3>Tagging System</h3>

@@ -85,6 +85,36 @@ npm run sync:drive           # Sync content from Google Drive
 
 The sync script automatically works with the new course directory structure.
 
+### Course JSON Quick Reference
+- Place all course files inside `src/_data/course-configs/`.
+- `material.*` holds arrays of resources. Supported `type` values:
+  - `drive-folder`: stores a Google Drive folder ID. The sync script replaces `items` with the folder's files (each file includes `id`, `name`, `mimeType`, `tags`, preview/download URLs, etc.).
+  - `drive-file`: tracks a single Drive asset such as PDFs or sheet music.
+  - `manual`: use when you want to maintain `items` by hand (sync will not override).
+  - `youtube`: list of `{ id, title }` entries for embedded videos.
+- `docs.*` centralizes Google Docs IDs. Each entry should specify `{ type: "google-doc", id: "..." }`. The sync task fills `content`, `downloadUrl`, and `lastSynced`.
+- Legacy keys (`drive_folders`, `google_docs`, `files.*`, `youtube_videos`, root-level `tags`) are now **blocked** by `npm run validate`.
+
+### Template Helpers for Material / Docs
+`src/_data/materialHelpers.js` exposes common helpers across Nunjucks templates:
+
+- `materialHelpers.getMaterialItems(course, key, options?)`  
+  Flattens `material[key]` into a list of ready-to-render items. Supports `options.onlyPdf` and custom filters.
+- `materialHelpers.hasMaterial(course, key, options?)`  
+  Boolean convenience wrapper used to toggle UI pills/sections.
+- `materialHelpers.getDoc(course, key)`  
+  Returns a doc entry (with `content`, `downloadUrl`, `lastSynced`) or `null`. Use this instead of referencing `course.docs` directly.
+
+Always prefer these helpers over manual traversal so templates stay consistent with future schema tweaks.
+
+### Verification Checklist
+Before opening a PR or merging:
+
+1. `GOOGLE_API_KEY=... npm run sync:drive`
+2. `npm run validate`
+3. `npm run build`
+4. Spot check `/courses/<slug>/` and key material pages (workbook/photos/songs/videos)
+
 ## Benefits of New Structure
 
 1. **Maintainability**: Clear organization makes code easier to maintain

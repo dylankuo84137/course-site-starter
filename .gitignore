@@ -7,8 +7,12 @@ npm-debug.log*
 # Google Drive sync backups
 *.bak
 
-# Ignore populated course data with Google Drive content
-src/_data/*.json.bak
+# Ignore course original data
+src/_data/course-original/
 
 # Ignore .claude directory
 .claude/
+
+# Ignore logs
+logs/
+

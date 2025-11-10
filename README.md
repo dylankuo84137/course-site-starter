@@ -127,28 +127,55 @@ course-site-starter/
       "overview": "Course overview text."
     }
   },
-  "tags": ["戲劇", "黑板畫", "工作本", "歌曲"],
-  "drive_folders": {
-    "workbook_photos": "FOLDER_ID",
-    "blackboard": "FOLDER_ID",
-    "photos": "FOLDER_ID",
-    "scripts_and_performance": "FOLDER_ID",
-    "songs_audio": "FOLDER_ID"
-  },
-  "google_docs": {
-    "course_description": "GOOGLE_DOC_ID",
-    "play_script": "GOOGLE_DOC_ID"
-  },
-  "files": {
+  "material": {
     "workbook_photos": [
-      { "id": "FILE_ID", "name": "P01【第1週】【螢火蟲】", "tags": ["第1週","螢火蟲","二年級 2A 嶺光班","113 學年度 夏季","班級戲劇","自然主課"] }
+      {
+        "type": "drive-folder",
+        "id": "FOLDER_ID",
+        "title": "工作本成果",
+        "items": []
+      }
     ],
-    "blackboard": [ { "id": "FILE_ID", "name": "..." , "tags": ["..."] } ],
-    "photos":    [ { "id": "FILE_ID", "name": "..." , "tags": ["..."] } ],
-    "scripts_photos": [ { "id": "FILE_ID", "name": "..." , "tags": ["..."] } ],
-    "songs": [
-      { "title": "不要捉弄", "id": "FILE_ID", "mimeType": "audio/x-m4a" }
+    "play_scripts": [
+      {
+        "type": "drive-file",
+        "id": "GOOGLE_DRIVE_FILE_ID",
+        "title": "劇本 PDF",
+        "items": []
+      }
+    ],
+    "songs_audio": [
+      {
+        "type": "drive-folder",
+        "id": "FOLDER_ID",
+        "title": "歌曲音檔",
+        "items": []
+      }
+    ],
+    "videos": [
+      {
+        "type": "youtube",
+        "id": "YOUTUBE_ID",
+        "title": "Performance"
+      }
     ]
+  },
+  "docs": {
+    "course_description": {
+      "type": "google-doc",
+      "id": "DOC_ID",
+      "title": "課程介紹"
+    },
+    "play_script": {
+      "type": "google-doc",
+      "id": "DOC_ID",
+      "title": "劇本"
+    },
+    "story": {
+      "type": "google-doc",
+      "id": "DOC_ID",
+      "title": "故事稿"
+    }
   },
   "overview": "課程簡介文字。"
 }
@@ -164,9 +191,12 @@ course-site-starter/
   - 所有顯示給使用者的文字都應放在 `i18n` 物件中
   - 範本中使用 `cf()` 巨集來存取多語言欄位
   - **注意**：`metadata` 中的 slug 格式欄位與 `i18n` 中的顯示文字是獨立的
-- `drive_folders`：放各分類的 **Google Drive 資料夾 ID**（需設為「知道連結的任何人可檢視」）
-- `google_docs`：放課程相關的 **Google Docs 文件 ID**，如課程說明、劇本等（需設為「知道連結的任何人可檢視」）
-- `files.*`：執行同步腳本後自動覆寫；**圖片會寫成物件 `{id,name,tags}`**
+- `material`：描述所有素材來源。每個欄位都是陣列，元素可為：
+  - `type: "drive-folder"`：指向 Google Drive 資料夾。同步腳本會將檔案清單寫入 `items`。
+  - `type: "drive-file"`：同步單一檔案（多用於 PDF、曲譜）。
+  - `type: "manual"`：完全手動維護的 `items` 陣列。
+  - `type: "youtube"`：收錄 YouTube 影片 ID 與標題。
+- `docs`：集中管理 Google Docs。每個文件需設定 `type` 及 `id`，同步後會補上 `content`、`downloadUrl`、`lastSynced`。
 - 標籤來源：
   - 由檔名自動擷取：`[方括號]`、`【全形】`、`#hashtag`（例如 `P01【第2週】【螢火蟲】.jpg`）
   - 由課程層級自動附加：`grade/semester/unit/domain`
@@ -184,12 +214,14 @@ course-site-starter/
 ### 同步腳本工作流程
 
 **腳本執行步驟：**
-1. 備份同步前的 `course-configs/course_*.json` → `course_*.json.bak`
+1. 備份同步前的 `course-configs/course_*.json` → `course-original/course_*.json.orig`
 2. 從 Drive 抓取檔案清單（圖片、音檔、文件）
-3. 覆寫原始 JSON（加入 `files.*` 和 `docs.*` 完整內容）
+3. 將結果寫入 `material.*[].items` 與 `docs.*`（包含 `content`、`downloadUrl`、`lastSynced`）
 
-> **提示**：`.bak` 檔案保存乾淨的課程元數據，提交前務必還原。
+> **提示**：`.orig` 只是備份，請勿提交；主要 JSON 檔案保存乾淨的課程元數據，提交前務必還原。
 > 若圖片無法顯示，請檢查 Drive 檔案/資料夾權限設為「知道連結的任何人可檢視」。
+需要保留 `material` / `docs` 的同步結果。
+> 若圖片無法顯示，請檢查 Drive 檔案或資料夾權限是否為「知道連結的任何人可檢視」。
 
 ---
 
@@ -448,19 +480,21 @@ ELEVENTY_BASE=/
 ### Git 工作流程
 
 專案 `.gitignore` 已排除：
-- `*.bak` - 同步腳本的備份檔案（乾淨課程 JSON）
+- `*.orig` - 同步腳本的備份檔案（乾淨課程 JSON）
 - `.env*` - 環境變數（API 金鑰）
 - `_site/` - 建置輸出
 
 **核心原則：**
 - Git 僅追蹤**同步之前的 `course-configs/course_*.json`**（無 Drive 同步內容）
 - 同步腳本覆寫 JSON 供本地測試
-- `.bak` 保存無同步內容版本供還原
+- `src/_data/course-original/*.orig` 儲存無同步內容版本
 
 **提交流程：**
 ```bash
-# 測試完成後，還原乾淨版本
-cp src/_data/course-configs/*.json.bak src/_data/course-configs/*.json
+# 測試完成後，還原乾淨版本（使用 .orig 作為來源）
+for file in src/_data/course-original/course_*.json.orig; do
+  cp "$file" "src/_data/course-configs/$(basename "${file%.orig}")"
+done
 
 # 提交
 git add .
@@ -525,28 +559,28 @@ cp src/_data/course-configs/course_template.json src/_data/course-configs/course
       ]
     }
   },
-  "tags": ["標籤1", "標籤2"],
-  "google_docs": {
-    "course_description": "",                // Google Doc ID（可選）
-    "play_script": "",
-    "story": ""
+  "material": {
+    "workbook_photos": [
+      { "type": "drive-folder", "id": "", "title": "工作本成果" }
+    ],
+    "blackboard": [
+      { "type": "drive-folder", "id": "", "title": "黑板畫" }
+    ],
+    "photos": [
+      { "type": "drive-folder", "id": "", "title": "課程照片" }
+    ],
+    "scripts_photos": [
+      { "type": "drive-folder", "id": "", "title": "演出照片" }
+    ],
+    "songs_audio": [
+      { "type": "drive-folder", "id": "", "title": "歌曲音檔" }
+    ]
   },
-  "drive_folders": {
-    "workbook_photos": "",                   // Drive 資料夾 ID
-    "blackboard": "",
-    "photos": "",
-    "performance": "",
-    "songs_audio": ""
-  },
-  "files": {
-    "workbook_pdfs": [],
-    "play_scripts": [],
-    "sheet_music": []
-  },
-  "youtube_videos": {
-    "play_video": ""                         // YouTube 影片 ID（可選）
-  },
-  "docs": {}
+  "docs": {
+    "course_description": { "type": "google-doc", "id": "" },
+    "play_script": { "type": "google-doc", "id": "" },
+    "story": { "type": "google-doc", "id": "" }
+  }
 }
 ```
 
@@ -557,7 +591,7 @@ cp src/_data/course-configs/course_template.json src/_data/course-configs/course
 
 ### 步驟 3：設定 Drive 資料夾權限
 
-將 `drive_folders` 中填入的資料夾設為**「知道連結的任何人可檢視」**：
+所有 `material.*` 中的 `drive-folder` / `drive-file` 項目都必須設為**「知道連結的任何人可檢視」**：
 
 1. 開啟 Google Drive 資料夾
 2. 右鍵 → 共用 → 一般存取權
@@ -578,13 +612,10 @@ npm run dev
 
 ### 步驟 5：提交到 Git
 
-測試完成後，還原乾淨版本並提交：
+測試完成後，檢查差異並提交：
 
 ```bash
-# 還原乾淨的課程 JSON
-cp src/_data/course-configs/*.json.bak src/_data/course-configs/*.json
-
-# 提交新課程
+# 只提交有變動的課程
 git add src/_data/course-configs/course_3b_myclass_114_spring.json
 git commit -m "feat: add 3B MyClass 114 Spring course"
 git push
@@ -593,8 +624,8 @@ git push
 **重要提醒：**
 - 檔案名稱必須符合 `course_*.json` 格式
 - `slug` 欄位決定網址路徑，必須是唯一值
-- 僅提交**乾淨的 JSON**（無 `files.*` 同步內容）
-- GitHub Actions 會在部署時自動同步 Drive 內容
+- `material.*[].items` 與 `docs.*` 是網站顯示素材所需資料，請保留同步結果
+- GitHub Actions 會在部署時重新執行同步腳本
 
 ---
 
@@ -608,6 +639,13 @@ git push
   檢查音檔是否允許公開存取；瀏覽器可能以串流或下載處理（依 MIME 與瀏覽器行為）。
 - **同步不到檔案**：  
   確認 `GOOGLE_API_KEY`、Drive API 已啟用、資料夾 ID 正確、未被回收桶或非 shortcut 指向私人檔案。
+
+## ✅ 合併前檢查清單
+
+1. `GOOGLE_API_KEY=xxx npm run sync:drive`（確保 `material`/`docs` 最新）
+2. `npm run validate`（必須通過，會阻擋 legacy 欄位）
+3. `npm run build`（確認模板與 helper 沒有跑版）
+4. 手動檢視 `/courses/<slug>/` 及對應素材頁面（workbook / photos / songs / videos）
 
 ---
 

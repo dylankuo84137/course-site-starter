@@ -2,64 +2,185 @@
   "slug": "course-example",
   "hero_image": "DRIVE_FILE_ID_FOR_HERO_IMAGE",
   "metadata": {
+    "_comment_grade_level": "年級（純數字），例：1、2、3",
     "grade_level": "1",
+    "_comment_domain_category": "課程領域分類，例：main-lesson、nature、language",
     "domain_category": "main-lesson",
-    "teacher_name": "teacher-name"
+    "_comment_teacher_name": "教師姓名，若有多位教師可填寫字串描述",
+    "teacher_name": "teacher-name",
+    "_comment_tags": "用於關鍵字搜尋與篩選的標籤陣列",
+    "tags": [
+      "tag1",
+      "tag2",
+      "tag3"
+    ]
   },
   "i18n": {
     "zh-TW": {
+      "_comment_title": "課程標題（會顯示在網站上）",
       "title": "課程範例模板",
+      "_comment_grade": "年級＋班級顯示文字（例：二年級 2A 嶺光班）",
       "grade": "年級",
+      "_comment_year": "學年度（例：114）",
+      "year": 114,
+      "_comment_semester": "學期／季節（例：114 學年 秋季）",
       "semester": "學期",
+      "_comment_unit": "課程單元（例：語文主課）",
       "unit": "課程單元",
+      "_comment_domain": "領域（例：語文、自然、數學）",
       "domain": "領域",
+      "_comment_teacher": "顯示於網站的教師名稱",
       "teacher": "教師",
+      "_comment_overview": "課程簡介（可多行文字）",
       "overview": "課程簡介",
+      "_comment_learningObjectives": "學習目標（陣列，依需求增減）",
       "learningObjectives": [
         "學習目標 1",
         "學習目標 2",
         "學習目標 3"
+      ],
+      "_comment_tags": "顯示語系可用的標籤，若無可移除",
+      "tags": [
+        "tag1",
+        "tag2",
+        "tag3"
       ]
     },
     "en-US": {
+      "_comment_title": "Course title shown on the site",
       "title": "Course Example Template",
+      "_comment_grade": "Grade + class label (e.g., Grade 2, Class 2A)",
       "grade": "Year Level",
+      "_comment_year": "Academic year number",
+      "year": 2025,
+      "_comment_semester": "Semester or season information",
       "semester": "Semester Info",
+      "_comment_unit": "Lesson block name",
       "unit": "Subject/Unit",
+      "_comment_domain": "Domain label (Language Arts, Nature, etc.)",
       "domain": "Subject Domain",
+      "_comment_teacher": "Teacher name shown publicly",
       "teacher": "Teacher Name",
+      "_comment_overview": "Course overview paragraph",
       "overview": "Course overview text",
+      "_comment_learningObjectives": "Learning objectives list",
       "learningObjectives": [
         "Learning objective 1",
         "Learning objective 2",
         "Learning objective 3"
+      ],
+      "_comment_tags": "Optional tags for this locale",
+      "tags": [
+        "tag1",
+        "tag2",
+        "tag3"
       ]
     }
   },
-  "tags": [
-    "tag1",
-    "tag2",
-    "tag3"
-  ],
-  "google_docs": {
-    "course_description": "GOOGLE_DOC_ID",
-    "play_script": "GOOGLE_DOC_ID",
-    "story": "GOOGLE_DOC_ID"
+  "material": {
+    "_comment_syllabus": "課程講義或教案（例如 Google Doc）",
+    "syllabus": [
+      {
+        "type": "drive-file",
+        "id": "GOOGLE_DRIVE_ID",
+        "title": "課程大綱",
+        "items": []
+      }
+    ],
+    "_comment_workbook_photos": "工作本照片資料夾，可新增多個",
+    "workbook_photos": [
+      {
+        "type": "drive-folder",
+        "id": "FOLDER_ID_HERE",
+        "title": "工作本成果",
+        "items": []
+      }
+    ],
+    "_comment_photos": "課堂或校外教學照片",
+    "photos": [
+      {
+        "type": "drive-folder",
+        "id": "FOLDER_ID_HERE",
+        "title": "課堂照片",
+        "items": []
+      }
+    ],
+    "_comment_blackboard": "黑板畫照片",
+    "blackboard": [
+      {
+        "type": "drive-folder",
+        "id": "FOLDER_ID_HERE",
+        "title": "黑板畫",
+        "items": []
+      }
+    ],
+    "_comment_play_scripts": "劇本或 PDF 檔案，可直接列出或以資料夾提供",
+    "play_scripts": [
+      {
+        "type": "drive-file",
+        "id": "GOOGLE_DRIVE_ID",
+        "title": "劇本",
+        "items": []
+      }
+    ],
+    "_comment_sheet_music": "曲譜或合唱譜",
+    "sheet_music": [
+      {
+        "type": "drive-file",
+        "id": "GOOGLE_DRIVE_ID",
+        "title": "歌譜",
+        "items": []
+      }
+    ],
+    "_comment_songs_audio": "歌曲或音檔，可指向資料夾",
+    "songs_audio": [
+      {
+        "type": "drive-folder",
+        "id": "FOLDER_ID_HERE",
+        "title": "歌曲音檔",
+        "items": []
+      }
+    ],
+    "_comment_videos": "影片或演出記錄，可使用 YouTube ID",
+    "videos": [
+      {
+        "type": "youtube",
+        "id": "YOUTUBE_ID",
+        "title": "演出影片",
+        "items": []
+      }
+    ],
+    "_comment_worksheet": "講義、練習單等 PDF",
+    "worksheet": [
+      {
+        "type": "drive-file",
+        "id": "GOOGLE_DRIVE_ID",
+        "title": "練習單",
+        "items": []
+      }
+    ]
   },
-  "drive_folders": {
-    "workbook_photos": "FOLDER_ID_HERE",
-    "blackboard": "FOLDER_ID_HERE",
-    "photos": "FOLDER_ID_HERE",
-    "performance": "FOLDER_ID_HERE",
-    "songs_audio": "FOLDER_ID_HERE"
-  },
-  "files": {
-    "workbook_pdfs": [],
-    "play_scripts": [],
-    "sheet_music": []
-  },
-  "youtube_videos": {
-    "play_video": "YOUTUBE_VIDEO_ID"
-  },
-  "docs": {}
+  "docs": {
+    "course_description": {
+      "type": "google-doc",
+      "id": "GOOGLE_DOC_ID",
+      "title": "課程介紹",
+      "content": null,
+      "lastSynced": null
+    },
+    "play_script": {
+      "type": "google-doc",
+      "id": "GOOGLE_DOC_ID",
+      "title": "劇本",
+      "content": null,
+      "lastSynced": null
+    },
+    "story": {
+      "type": "google-doc",
+      "id": "GOOGLE_DOC_ID",
+      "title": "故事稿",
+      "content": null,
+      "lastSynced": null
+    }
+  }
 }

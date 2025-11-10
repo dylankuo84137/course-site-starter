@@ -42,18 +42,26 @@
   </div>
 {% endmacro %}
 
-{% macro grid(items, contextPrefix) %}
-  <div class="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-    <p class="text-sm text-stone-600">點擊縮圖可放大，支援方向鍵切換與 ESC 關閉 (Click to enlarge, arrow keys to navigate, ESC to close)</p>
-    <input id="quick-filter" class="filter-input" placeholder="快速篩選（可輸入多個關鍵字或標籤）" aria-label="Filter images by keywords or tags" />
-  </div>
-  {% if not items or (items | length) == 0 %}
-    <p class="text-stone-500">目前沒有可顯示的圖片。(No images available)</p>
-  {% else %}
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 gallery-grid" role="list">
-    {% for it in items %}
-      {{ thumb(it, "Image " ~ loop.index, loop.index0, contextPrefix) }}
-    {% endfor %}
-  </div>
+{% macro grid(items, contextPrefix, options = {}) %}
+  {% set showFilter = true %}
+  {% if options and options.showFilter is defined %}
+    {% set showFilter = options.showFilter %}
   {% endif %}
+  <div class="gallery-wrapper" data-gallery>
+    {% if showFilter %}
+    <div class="gallery-toolbar">
+      <p class="gallery-hint">點擊縮圖可放大，支援方向鍵切換與 ESC 關閉 (Click to enlarge, arrow keys to navigate, ESC to close)</p>
+      <input class="filter-input gallery-filter" placeholder="快速篩選（可輸入多個關鍵字或標籤）" aria-label="Filter images by keywords or tags" />
+    </div>
+    {% endif %}
+    {% if not items or (items | length) == 0 %}
+      <p class="text-stone-500">目前沒有可顯示的圖片。(No images available)</p>
+    {% else %}
+    <div class="gallery-grid" role="list">
+      {% for it in items %}
+        {{ thumb(it, "Image " ~ loop.index, loop.index0, contextPrefix) }}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
 {% endmacro %}

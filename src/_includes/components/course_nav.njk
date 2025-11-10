@@ -1,26 +1,31 @@
 {% macro nav(c, coursesList, current, currentLang, i18nData) %}
   {% set lang = currentLang or 'zh-TW' %}
   {% set i18n = i18nData or i18n %}
+  {% set docStory = materialHelpers.getDoc(c, 'story') %}
+  {% set hasPhotos = materialHelpers.hasMaterial(c, 'photos') %}
+  {% set hasBlackboard = materialHelpers.hasMaterial(c, 'blackboard') %}
+  {% set hasSheetMusic = materialHelpers.hasMaterial(c, 'sheet_music') %}
+  {% set hasVideos = materialHelpers.hasMaterial(c, 'videos') %}
   <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
     <ul class="flex flex-wrap gap-2 text-sm">
       <li><a class="pill {% if current == 'home' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ i18n[lang].course.course_home }}</a></li>
-      {% if c.google_docs and c.google_docs.story %}
+      {% if docStory %}
       <li><a class="pill {% if current == 'story' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/story/">{{ i18n[lang].course.story }}</a></li>
       {% endif %}
       <li><a class="pill {% if current == 'play-script' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">{{ i18n[lang].course.play_script }}</a></li>
       <li><a class="pill {% if current == 'workbook' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">{{ i18n[lang].course.workbook }}</a></li>
-      {% if c.files and c.files.photos and c.files.photos.length > 0 %}
+      {% if hasPhotos %}
       <li><a class="pill {% if current == 'photos' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">{{ i18n[lang].course.photo_gallery }}</a></li>
       {% endif %}
-      {% if c.files and c.files.blackboard and c.files.blackboard.length > 0 %}
+      {% if hasBlackboard %}
       <li><a class="pill {% if current == 'blackboard' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">{{ i18n[lang].course.blackboard_drawings }}</a></li>
       {% endif %}
       <li><a class="pill {% if current == 'scripts' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">{{ i18n[lang].course.performance }}</a></li>
       <li><a class="pill {% if current == 'songs' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">{{ i18n[lang].course.songs }}</a></li>
-      {% if c.files and c.files.sheet_music and c.files.sheet_music.length > 0 %}
+      {% if hasSheetMusic %}
       <li><a class="pill {% if current == 'sheet-music' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/sheet-music/">{{ i18n[lang].course.sheet_music }}</a></li>
       {% endif %}
-      {% if c.youtube_videos and c.youtube_videos.play_video %}
+      {% if hasVideos %}
       <li><a class="pill {% if current == 'videos' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/videos/">{{ i18n[lang].course.video }}</a></li>
       {% endif %}
     </ul>

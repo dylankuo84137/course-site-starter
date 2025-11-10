@@ -8,6 +8,16 @@
   {% import "macros/i18n.njk" as i18nMacro %}
   {% set lang = currentLang or 'zh-TW' %}
   {% set i18n = i18nData or i18n %}
+  {% set docStory = materialHelpers.getDoc(course, 'story') %}
+  {% set docPlayScript = materialHelpers.getDoc(course, 'play_script') %}
+  {% set hasPhotos = materialHelpers.hasMaterial(course, 'photos') %}
+  {% set hasBlackboard = materialHelpers.hasMaterial(course, 'blackboard') %}
+  {% set hasPlayScript = docPlayScript or materialHelpers.hasMaterial(course, 'play_scripts') %}
+  {% set hasWorkbook = materialHelpers.hasMaterial(course, 'workbook_photos') or materialHelpers.hasMaterial(course, 'workbook_pdfs') %}
+  {% set hasScripts = materialHelpers.hasMaterial(course, 'scripts_photos') %}
+  {% set hasSongs = materialHelpers.hasMaterial(course, 'songs_audio') %}
+  {% set hasSheetMusic = materialHelpers.hasMaterial(course, 'sheet_music') %}
+  {% set hasVideos = materialHelpers.hasMaterial(course, 'videos') %}
 
   {% set courseTitle = i18nMacro.cf(course, 'title', lang) %}
   {% set courseGrade = i18nMacro.cf(course, 'grade', lang) %}
@@ -18,28 +28,38 @@
 
   <div class="course-header-block">
     {# Row 1: Info Card (left) and Switcher (right) #}
-    <div class="flex justify-between items-end mb-4">
-      <div class="course-info-card mr-4" data-course-i18n="{{ course.i18n | json }}">
-        {% if course.hero_image %}
-        <div class="course-info-card-bg" style="background-image: url('https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w800');"></div>
-        {% endif %}
-        <div class="course-info-card-content">
-          <h2 class="course-info-title" data-i18n-course="title">{{ courseTitle }}</h2>
-          <div class="course-info-metadata">
-            <span data-i18n-course="grade">{{ courseGrade }}</span>
-            <span class="course-info-separator">・</span>
-            <span data-i18n-course="semester">{{ courseSemester }}</span>
+    <div class="course-header-meta">
+      {% set cardClasses = ['course-info-card'] %}
+      {% if course.hero_image %}{% set cardClasses = cardClasses.concat(['course-info-card--has-hero']) %}{% endif %}
+      <div class="{{ cardClasses | join(' ') }}" data-course-i18n="{{ course.i18n | json }}">
+        <div class="course-info-card-inner">
+          <div class="course-info-card-content">
+            <h2 class="course-info-title" data-i18n-course="title">{{ courseTitle }}</h2>
+            <div class="course-info-metadata">
+              <span data-i18n-course="grade">{{ courseGrade }}</span>
+              <span class="course-info-separator">・</span>
+              <span data-i18n-course="semester">{{ courseSemester }}</span>
+            </div>
+            <div class="course-info-metadata">
+              <span data-i18n-course="unit">{{ courseUnit }}</span>
+              <span class="course-info-separator">｜</span>
+              <span data-i18n-course="domain">{{ courseDomain }}</span>
+            </div>
+            {% if courseTeacher %}
+            <div class="course-info-teacher">
+              <span class="course-info-teacher-label" data-i18n="course.teacher">{{ i18n[lang].course.teacher }}</span>:
+              <span data-i18n-course="teacher">{{ courseTeacher }}</span>
+            </div>
+            {% endif %}
           </div>
-          <div class="course-info-metadata">
-            <span data-i18n-course="unit">{{ courseUnit }}</span>
-            <span class="course-info-separator">｜</span>
-            <span data-i18n-course="domain">{{ courseDomain }}</span>
-          </div>
-          {% if courseTeacher %}
-          <div class="course-info-teacher">
-            <span class="course-info-teacher-label" data-i18n="course.teacher">{{ i18n[lang].course.teacher }}</span>:
-            <span data-i18n-course="teacher">{{ courseTeacher }}</span>
-          </div>
+          {% if course.hero_image %}
+          <figure class="course-info-card-media">
+            <img
+              src="https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w1200"
+              alt="{{ courseTitle }}"
+              loading="lazy"
+              decoding="async">
+          </figure>
           {% endif %}
         </div>
       </div>
@@ -79,55 +99,63 @@
                 {{ i18n[lang].course.course_materials }}
               </option>
 
-              {% if course.google_docs and course.google_docs.story %}
+              {% if docStory %}
               <option value="{{ courseUrl(course.slug, 'story') }}"
                       {% if currentPage == 'story' %}selected{% endif %}>
                 {{ i18n[lang].course.story }}
               </option>
               {% endif %}
 
-              <option value="{{ courseUrl(course.slug, 'play-script') }}"
-                      {% if currentPage == 'play-script' %}selected{% endif %}>
-                {{ i18n[lang].course.play_script }}
-              </option>
+              {% if hasPlayScript or currentPage == 'play-script' %}
+                <option value="{{ courseUrl(course.slug, 'play-script') }}"
+                        {% if currentPage == 'play-script' %}selected{% endif %}>
+                  {{ i18n[lang].course.play_script }}
+                </option>
+              {% endif %}
 
-              <option value="{{ courseUrl(course.slug, 'workbook') }}"
-                      {% if currentPage == 'workbook' %}selected{% endif %}>
-                {{ i18n[lang].course.workbook }}
-              </option>
+              {% if hasWorkbook or currentPage == 'workbook' %}
+                <option value="{{ courseUrl(course.slug, 'workbook') }}"
+                        {% if currentPage == 'workbook' %}selected{% endif %}>
+                  {{ i18n[lang].course.workbook }}
+                </option>
+              {% endif %}
 
-              {% if course.files and course.files.photos and course.files.photos.length > 0 %}
+              {% if hasPhotos %}
               <option value="{{ courseUrl(course.slug, 'photos') }}"
                       {% if currentPage == 'photos' %}selected{% endif %}>
                 {{ i18n[lang].course.photo_gallery }}
               </option>
               {% endif %}
 
-              {% if course.files and course.files.blackboard and course.files.blackboard.length > 0 %}
+              {% if hasBlackboard %}
               <option value="{{ courseUrl(course.slug, 'blackboard') }}"
                       {% if currentPage == 'blackboard' %}selected{% endif %}>
                 {{ i18n[lang].course.blackboard_drawings }}
               </option>
               {% endif %}
 
-              <option value="{{ courseUrl(course.slug, 'scripts') }}"
-                      {% if currentPage == 'scripts' %}selected{% endif %}>
-                {{ i18n[lang].course.performance }}
-              </option>
+              {% if hasScripts or currentPage == 'scripts' %}
+                <option value="{{ courseUrl(course.slug, 'scripts') }}"
+                        {% if currentPage == 'scripts' %}selected{% endif %}>
+                  {{ i18n[lang].course.performance }}
+                </option>
+              {% endif %}
 
-              <option value="{{ courseUrl(course.slug, 'songs') }}"
-                      {% if currentPage == 'songs' %}selected{% endif %}>
-                {{ i18n[lang].course.songs }}
-              </option>
+              {% if hasSongs or currentPage == 'songs' %}
+                <option value="{{ courseUrl(course.slug, 'songs') }}"
+                        {% if currentPage == 'songs' %}selected{% endif %}>
+                  {{ i18n[lang].course.songs }}
+                </option>
+              {% endif %}
 
-              {% if course.files and course.files.sheet_music and course.files.sheet_music.length > 0 %}
+              {% if hasSheetMusic %}
               <option value="{{ courseUrl(course.slug, 'sheet-music') }}"
                       {% if currentPage == 'sheet-music' %}selected{% endif %}>
                 {{ i18n[lang].course.sheet_music }}
               </option>
               {% endif %}
 
-              {% if course.youtube_videos and course.youtube_videos.play_video %}
+              {% if hasVideos %}
               <option value="{{ courseUrl(course.slug, 'videos') }}"
                       {% if currentPage == 'videos' %}selected{% endif %}>
                 {{ i18n[lang].course.video }}

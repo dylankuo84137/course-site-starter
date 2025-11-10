@@ -7,35 +7,108 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/videos/index.html"
 ---
-{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{% import "components/course-breadcrumb.njk" as breadcrumb with context %}
 {% import "macros/i18n.njk" as i18nMacro %}
 
 {# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'videos', currentLang, i18n) }}
 
+{% set courseVideos = materialHelpers.normalizeVideos(c) %}
 
 <section class="space-y-6">
   <header data-course-i18n="{{ c.i18n | json }}">
     <h1 class="text-2xl md:text-3xl font-semibold">{{ i18n[currentLang].course.video }}</h1>
   </header>
 
-  {% if c.youtube_videos and c.youtube_videos.play_video %}
-    <article class="prose prose-stone max-w-none">
-      <div class="aspect-video bg-stone-100 rounded-lg overflow-hidden shadow-lg">
+  {% if courseVideos and courseVideos.length > 0 %}
+    {% set isSingleVideo = courseVideos.length == 1 %}
+    {% if isSingleVideo %}
+      {% set video = courseVideos[0] %}
+      <div class="video-player-frame is-full">
         <iframe
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/{{ c.youtube_videos.play_video }}"
-          title="演出影片"
-          frameborder="0"
+          class="w-full h-full rounded-xl shadow-lg"
+          src="{{ video.embedUrl }}"
+          title="{{ video.title }}"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
+          allowfullscreen></iframe>
       </div>
-    </article>
+      <div class="video-player-caption">
+        <h2 class="video-player-title">{{ video.title }}</h2>
+        {% if video.downloadUrl %}
+        <a class="download-link" href="{{ video.downloadUrl }}" target="_blank" rel="noopener noreferrer">
+          {{ i18n[currentLang].course.download_video }}
+        </a>
+        {% endif %}
+        {% set singleNote = '' %}
+        {% if video.kind == 'drive' %}
+          {% set singleNote = i18n[currentLang].course.video_drive_note %}
+          {% if video.mimeType == 'video/quicktime' %}
+            {% set singleNote = singleNote ~ ' ' ~ i18n[currentLang].course.video_mov_note %}
+          {% endif %}
+        {% endif %}
+        {% if singleNote %}
+        <p class="video-note">{{ singleNote }}</p>
+        {% endif %}
+      </div>
+    {% else %}
+    {% set firstVideo = courseVideos[0] %}
+    {% set initialNote = '' %}
+    {% if firstVideo.kind == 'drive' %}
+      {% set initialNote = i18n[currentLang].course.video_drive_note %}
+      {% if firstVideo.mimeType == 'video/quicktime' %}
+        {% set initialNote = initialNote ~ ' ' ~ i18n[currentLang].course.video_mov_note %}
+      {% endif %}
+    {% endif %}
+    <section
+      class="course-video-playlist"
+      data-video-playlist
+      data-drive-note="{{ i18n[currentLang].course.video_drive_note }}"
+      data-mov-note="{{ i18n[currentLang].course.video_mov_note }}"
+      data-videos='{{ courseVideos | json | escape }}'>
+      <div class="video-player-frame is-full">
+        <iframe
+          data-video-frame
+          class="w-full h-full rounded-xl shadow-lg"
+          src="{{ firstVideo.embedUrl }}"
+          title="{{ firstVideo.title }}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+      <div class="video-player-caption">
+        <h2 class="video-player-title" data-video-title>{{ firstVideo.title }}</h2>
+        <p class="video-note" data-video-note {% if not initialNote %}hidden{% endif %}>{{ initialNote }}</p>
+      </div>
+      <div class="video-playlist-grid" role="list">
+        {% for video in courseVideos %}
+          <div class="video-playlist-card">
+            <button
+              type="button"
+              class="video-playlist-item {% if loop.first %}is-active{% endif %}"
+              data-video-index="{{ loop.index0 }}">
+              {% if video.thumbnail %}
+              <img src="{{ video.thumbnail }}" alt="{{ video.title }}" loading="lazy">
+              {% endif %}
+              <div class="video-playlist-meta">
+                <p class="video-playlist-title">{{ video.title }}</p>
+                {% if video.mimeType %}
+                <span class="video-playlist-meta-text">{{ video.mimeType }}</span>
+                {% endif %}
+              </div>
+            </button>
+            {% if video.downloadUrl %}
+            <a class="video-thumb-download" href="{{ video.downloadUrl }}" target="_blank" rel="noopener noreferrer">
+              {{ i18n[currentLang].course.download_video }}
+            </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
   {% else %}
     <div class="bg-stone-100 border border-stone-200 rounded-lg p-6 text-center text-stone-600">
-      <h3 class="text-lg font-medium mb-2">尚無演出影片</h3>
-      <p>影片內容將在稍後新增</p>
+      <h3 class="text-lg font-medium mb-2">{{ i18n[currentLang].course.video_performance }}</h3>
+      <p>{{ i18n[currentLang].course.no_content }}</p>
     </div>
   {% endif %}
 </section>

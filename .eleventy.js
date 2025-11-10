@@ -1,4 +1,6 @@
 const i18n = require('eleventy-plugin-i18n');
+const materialHelpers = require('./src/_data/materialHelpers.js');
+const courseHelpers = require('./src/_data/courseHelpers.js');
 const translations = {
   'zh-TW': require('./src/_data/i18n/zh-TW.json'),
   'en-US': require('./src/_data/i18n/en-US.json')
@@ -76,7 +78,15 @@ const utilityFilters = {
   
   flatten: (arr) => arr.flat(),
   uniq: (arr) => [...new Set(arr)],
-  map: (arr, prop) => arr.map(item => item[prop])
+  map: (arr, prop) => arr.map(item => item[prop]),
+  autoLink: (str) => {
+    if (!str) return '';
+    const urlRegex = /(https?:\/\/[^\s<]+)/g;
+    return str.replace(urlRegex, (match) => {
+      const safeUrl = match.replace(/"/g, '&quot;');
+      return `<a class="auto-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${match}</a>`;
+    });
+  }
 };
 
 module.exports = function(eleventyConfig) {
@@ -108,6 +118,8 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addFilter(name, fn);
   });
   eleventyConfig.addGlobalData("buildTime", () => new Date().toISOString());
+  eleventyConfig.addGlobalData("materialHelpers", materialHelpers);
+  eleventyConfig.addGlobalData("courseHelpers", courseHelpers);
 
   return {
     dir: { input: "src", output: "_site", includes: "_includes" },

@@ -7,7 +7,7 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/index.html"
 ---
-{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{% import "components/course-breadcrumb.njk" as breadcrumb with context %}
 {% import "macros/i18n.njk" as i18nMacro %}
 
 {# Course navigation with home pill highlighted and materials dropdown #}
@@ -21,19 +21,21 @@ permalink: "/courses/{{ c.slug }}/index.html"
 
 {# Use i18n macro for cleaner field access with automatic fallback #}
 {% set courseOverview = i18nMacro.cf(c, 'overview', currentLang) %}
-{% set courseLearningObjectives = i18nMacro.cf(c, 'learningObjectives', currentLang) %}
+{% set courseLearningObjectives = courseHelpers.getI18nField(c, 'learningObjectives', currentLang) %}
 {% set courseTeacher = i18nMacro.cf(c, 'teacher', currentLang) %}
+{% set courseDescriptionDoc = materialHelpers.getDoc(c, 'course_description') %}
 
 <section class="space-y-6" data-course-i18n="{{ c.i18n | json }}">
   <article class="prose prose-stone max-w-none">
     <section id="course-overview" class="mb-8">
       <h2>{{ i18n[currentLang].course.overview }}</h2>
-      {% if c.docs and c.docs.course_description and c.docs.course_description.content %}
-        {% if c.docs.course_description.mimeType == 'application/vnd.google-apps.document' or c.docs.course_description.mimeType.startsWith('text/') %}
-          <div class="course-description">{{ c.docs.course_description.content | formatGoogleDoc | safe }}</div>
+      {% if courseDescriptionDoc and courseDescriptionDoc.content %}
+        {% set docMime = courseDescriptionDoc.mimeType or '' %}
+        {% if docMime == 'application/vnd.google-apps.document' or (docMime and docMime.startsWith('text/')) %}
+          <div class="course-description">{{ courseDescriptionDoc.content | formatGoogleDoc | autoLink | safe }}</div>
         {% else %}
-          <div class="whitespace-pre-wrap">{{ c.docs.course_description.content }}</div>
-          <a href="{{ c.docs.course_description.downloadUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors mt-3">
+          <div class="whitespace-pre-wrap">{{ courseDescriptionDoc.content | autoLink | safe }}</div>
+          <a href="{{ courseDescriptionDoc.downloadUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors mt-3">
             <span>{{ i18n[currentLang].course.open_document }}</span>
           </a>
         {% endif %}
@@ -42,10 +44,10 @@ permalink: "/courses/{{ c.slug }}/index.html"
       {% endif %}
     </section>
 
-    {% if courseLearningObjectives and courseLearningObjectives.length > 0 %}
+    {% if courseLearningObjectives and (courseLearningObjectives | length) > 0 %}
     <section id="learning-objectives" class="border-t border-stone-200 pt-6">
       <h2>{{ i18n[currentLang].course.learning_objectives }}</h2>
-      <ul class="list-disc list-inside space-y-2">
+      <ul class="list-disc list-inside space-y-2" data-i18n-course-list="learningObjectives">
         {% for objective in courseLearningObjectives %}
         <li>{{ objective }}</li>
         {% endfor %}

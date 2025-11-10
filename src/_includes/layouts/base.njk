@@ -1,4 +1,9 @@
 {% set currentLang = (currentLang if currentLang else (lang if lang else (page.lang if page.lang else locale.default))) %}
+{% set navLinks = [
+  { href: '/' | url, label: i18n[currentLang].nav.home },
+  { href: '/courses/' | url, label: i18n[currentLang].nav.courses },
+  { href: '/reflections/' | url, label: i18n[currentLang].nav.reflections }
+] %}
 <!doctype html>
 <html lang="{{ locale.htmlLang[currentLang] or 'zh-Hant' }}">
 <head>
@@ -54,16 +59,50 @@
 </head>
 <body style="background-color: var(--bg-secondary); color: var(--text-primary);">
   <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4 relative">
       <a href="{{ '/' | url }}" class="font-bold text-xl" style="color: var(--primary);">{{ i18n[currentLang].site.title }}</a>
-      <nav class="flex-1">
+      <nav class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-label="Primary navigation">
         <ul class="flex gap-8 justify-center">
-          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/' | url }}">{{ i18n[currentLang].nav.home }}</a></li>
-          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/courses/' | url }}">{{ i18n[currentLang].nav.courses }}</a></li>
-          <li><a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ '/reflections/' | url }}">{{ i18n[currentLang].nav.reflections }}</a></li>
+          {% for link in navLinks %}
+          <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ link.href }}">{{ link.label }}</a>
+          </li>
+          {% endfor %}
         </ul>
       </nav>
-      {% include "components/lang_switcher.njk" %}
+      <div class="flex items-center gap-3 ml-auto">
+        {% include "components/lang_switcher.njk" %}
+        <button
+          type="button"
+          class="mobile-menu-toggle md:hidden"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="mobile-nav-panel">
+          <span class="sr-only">Toggle navigation</span>
+          <svg class="mobile-menu-icon" data-menu-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+          </svg>
+          <svg class="mobile-menu-icon hidden" data-menu-close-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-nav-panel" class="mobile-menu-panel md:hidden hidden" data-menu-panel>
+      <div class="max-w-6xl mx-auto px-4 py-4">
+        <nav aria-label="Mobile navigation">
+          <ul class="flex flex-col gap-3">
+            {% for link in navLinks %}
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="{{ link.href }}">{{ link.label }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -93,6 +132,55 @@
   <script src="{{ '/js/lang-dynamic.js' | url }}"></script>
 
   <script src="{{ '/js/gallery.js' | url }}" defer></script>
+  <script src="{{ '/js/video-playlist.js' | url }}" defer></script>
+  <script>
+    (function() {
+      const toggle = document.querySelector('[data-menu-toggle]');
+      const panel = document.querySelector('[data-menu-panel]');
+      if (!toggle || !panel) return;
+      const openIcon = toggle.querySelector('[data-menu-icon]');
+      const closeIcon = toggle.querySelector('[data-menu-close-icon]');
+
+      function setMenuState(isOpen) {
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        panel.classList.toggle('hidden', !isOpen);
+        if (openIcon && closeIcon) {
+          openIcon.classList.toggle('hidden', isOpen);
+          closeIcon.classList.toggle('hidden', !isOpen);
+        }
+      }
+
+      toggle.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        setMenuState(!expanded);
+      });
+
+      document.addEventListener('click', function(event) {
+        if (panel.classList.contains('hidden')) return;
+        if (panel.contains(event.target) || toggle.contains(event.target)) return;
+        setMenuState(false);
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          setMenuState(false);
+        }
+      });
+
+      const mediaQuery = window.matchMedia('(min-width: 768px)');
+      function handleQuery(event) {
+        if (event.matches) {
+          setMenuState(false);
+        }
+      }
+      if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', handleQuery);
+      } else if (typeof mediaQuery.addListener === 'function') {
+        mediaQuery.addListener(handleQuery);
+      }
+    })();
+  </script>
   <script>
     window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });

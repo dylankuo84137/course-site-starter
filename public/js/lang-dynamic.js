@@ -53,6 +53,15 @@
     return value;
   }
 
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   // Replace text content in the DOM
   function replaceText(fromLang, toLang) {
     // Build map of old text -> key paths
@@ -189,6 +198,17 @@
           const field = el.getAttribute('data-i18n-course');
           if (translations[field]) {
             el.textContent = translations[field];
+          }
+        });
+
+        const listElements = card.querySelectorAll('[data-i18n-course-list]');
+        listElements.forEach(function(listEl) {
+          const field = listEl.getAttribute('data-i18n-course-list');
+          const items = translations[field];
+          if (Array.isArray(items)) {
+            listEl.innerHTML = items
+              .map(item => `<li>${escapeHtml(item)}</li>`)
+              .join('');
           }
         });
       } catch (e) {

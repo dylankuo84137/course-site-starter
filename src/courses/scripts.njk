@@ -7,15 +7,24 @@ pagination:
   alias: c
 permalink: "/courses/{{ c.slug }}/scripts/index.html"
 ---
-{% import "components/course-breadcrumb.njk" as breadcrumb %}
+{% import "components/course-breadcrumb.njk" as breadcrumb with context %}
 
 {# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'scripts', currentLang, i18n) }}
 
 
+{% set performancePhotos = materialHelpers.getMaterialItems(c, 'scripts_photos') %}
+
 <h1 class="text-2xl md:text-3xl font-semibold mb-4">{{ i18n[currentLang].course.performance }}</h1>
 
 {% import "components/drive.njk" as drive %}
 <section id="performance-gallery">
-  {{ drive.grid(c.files.scripts_photos, c.title ~ ' Performance Photos') }}
+  {% if performancePhotos and performancePhotos.length > 0 %}
+    {{ drive.grid(performancePhotos, c.title ~ ' Performance Photos') }}
+  {% else %}
+    <p class="text-stone-500">
+      {{ i18n[currentLang].course.no_content }}
+      <span class="block text-sm text-stone-400">請在 <code>material.scripts_photos</code> 中設定演出素材。</span>
+    </p>
+  {% endif %}
 </section>

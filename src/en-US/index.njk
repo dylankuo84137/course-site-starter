@@ -15,39 +15,49 @@ currentLang: en-US
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {% for c in coursesList %}
     <article class="bg-white rounded-2xl shadow p-5">
+      {% set courseDescriptionDoc = materialHelpers.getDoc(c, 'course_description') %}
+      {% set hasWorkbook = materialHelpers.hasMaterial(c, 'workbook_photos') or materialHelpers.hasMaterial(c, 'workbook_pdfs') %}
+      {% set hasBlackboard = materialHelpers.hasMaterial(c, 'blackboard') %}
+      {% set hasPhotos = materialHelpers.hasMaterial(c, 'photos') %}
+      {% set hasPlayScript = materialHelpers.getDoc(c, 'play_script') or materialHelpers.hasMaterial(c, 'play_scripts') %}
+      {% set hasScripts = materialHelpers.hasMaterial(c, 'scripts_photos') %}
+      {% set hasSongs = materialHelpers.hasMaterial(c, 'songs_audio') %}
+      {% set hasSheetMusic = materialHelpers.hasMaterial(c, 'sheet_music') %}
+      {% set hasStory = materialHelpers.getDoc(c, 'story') %}
+      {% set hasVideos = materialHelpers.hasMaterial(c, 'videos') %}
       <h2 class="text-xl font-semibold mb-2"><a class="hover:text-emerald-700" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ c.title }}</a></h2>
       <p class="text-sm text-stone-600 mb-3">{{ c.grade }} ・ {{ c.semester }} | {{ c.unit }} | {{ c.domain }}</p>
       <p class="mb-4 line-clamp-4">{{ c.overview or '' }}</p>
       <div class="flex gap-3 flex-wrap text-sm">
-        {% if (c.google_docs and c.google_docs.course_description) or (c.docs and c.docs.course_description) %}
+        {% if courseDescriptionDoc %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ i18n[currentLang].course.course_home }}</a>
         {% endif %}
-        {% if (c.drive_folders and c.drive_folders.workbook_photos) or (c.files.workbook_pdfs and c.files.workbook_pdfs.length > 0) %}
+        {% if hasWorkbook %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">{{ i18n[currentLang].course.workbook }}</a>
         {% endif %}
-        {% if c.drive_folders and c.drive_folders.blackboard %}
+        {% if hasBlackboard %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">{{ i18n[currentLang].course.blackboard_drawings }}</a>
         {% endif %}
-        {% if c.drive_folders and c.drive_folders.photos %}
+        {% if hasPhotos %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">{{ i18n[currentLang].course.photo_gallery }}</a>
         {% endif %}
-        {% if (c.google_docs and c.google_docs.play_script) or (c.docs and c.docs.play_script) or (c.files.play_scripts and c.files.play_scripts.length > 0) %}
+        {% if hasPlayScript %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">{{ i18n[currentLang].course.play_script }}</a>
         {% endif %}
-        {% if c.drive_folders and c.drive_folders.performance %}
+        {% if hasScripts %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">{{ i18n[currentLang].course.performance }}</a>
         {% endif %}
-        {% if c.drive_folders and c.drive_folders.songs_audio %}
+        {% if hasSongs %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">{{ i18n[currentLang].course.songs }}</a>
         {% endif %}
-        {% if c.files.sheet_music and c.files.sheet_music.length > 0 %}
+        {% if hasSheetMusic %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/sheet-music/">{{ i18n[currentLang].course.sheet_music }}</a>
         {% endif %}
-        {% if (c.google_docs and c.google_docs.story) or (c.docs and c.docs.story) %}
+        {% if hasStory %}
         <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/story/">{{ i18n[currentLang].course.story }}</a>
         {% endif %}
-        {% if c.youtube_videos and c.youtube_videos.play_video %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/#play-video">{{ i18n[currentLang].course.video }}</a>
+        {% if hasVideos %}
+        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/videos/">{{ i18n[currentLang].course.video }}</a>
         {% endif %}
       </div>
     </article>

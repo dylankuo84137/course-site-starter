@@ -8,32 +8,46 @@
   {% set lang = currentLang or 'zh-TW' %}
   {% set i18n = i18nData or i18n %}
 
+  {% set courseTitle = i18nMacro.cf(course, 'title', lang) %}
   {% set courseGrade = i18nMacro.cf(course, 'grade', lang) %}
   {% set courseSemester = i18nMacro.cf(course, 'semester', lang) %}
   {% set courseUnit = i18nMacro.cf(course, 'unit', lang) %}
   {% set courseDomain = i18nMacro.cf(course, 'domain', lang) %}
   {% set courseTeacher = i18nMacro.cf(course, 'teacher', lang) %}
 
-  <div class="course-info-card" data-course-i18n="{{ course.i18n | json }}">
-    {% if course.hero_image %}
-    <div class="course-info-card-bg" style="background-image: url('https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w400');"></div>
-    {% endif %}
-    <div class="course-info-card-content">
-      <div class="course-info-metadata">
-        <span data-i18n-course="grade">{{ courseGrade }}</span>
-        <span class="course-info-separator">・</span>
-        <span data-i18n-course="semester">{{ courseSemester }}</span>
+  {% set cardClasses = ['course-info-card'] %}
+  {% if course.hero_image %}{% set cardClasses = cardClasses.concat(['course-info-card--has-hero']) %}{% endif %}
+  <div class="{{ cardClasses | join(' ') }}" data-course-i18n="{{ course.i18n | json }}">
+    <div class="course-info-card-inner">
+      <div class="course-info-card-content">
+        {% if courseTitle %}
+        <h3 class="course-info-title" data-i18n-course="title">{{ courseTitle }}</h3>
+        {% endif %}
+        <div class="course-info-metadata">
+          <span data-i18n-course="grade">{{ courseGrade }}</span>
+          <span class="course-info-separator">・</span>
+          <span data-i18n-course="semester">{{ courseSemester }}</span>
+        </div>
+        <div class="course-info-metadata">
+          <span data-i18n-course="unit">{{ courseUnit }}</span>
+          <span class="course-info-separator">｜</span>
+          <span data-i18n-course="domain">{{ courseDomain }}</span>
+        </div>
+        {% if courseTeacher %}
+        <div class="course-info-teacher">
+          <span class="course-info-teacher-label">{{ i18n[lang].course.teacher }}:</span>
+          <span data-i18n-course="teacher">{{ courseTeacher }}</span>
+        </div>
+        {% endif %}
       </div>
-      <div class="course-info-metadata">
-        <span data-i18n-course="unit">{{ courseUnit }}</span>
-        <span class="course-info-separator">｜</span>
-        <span data-i18n-course="domain">{{ courseDomain }}</span>
-      </div>
-      {% if courseTeacher %}
-      <div class="course-info-teacher">
-        <span class="course-info-teacher-label">{{ i18n[lang].course.teacher }}:</span>
-        <span data-i18n-course="teacher">{{ courseTeacher }}</span>
-      </div>
+      {% if course.hero_image %}
+      <figure class="course-info-card-media">
+        <img
+          src="https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w800"
+          alt="{{ courseTitle or courseGrade }}"
+          loading="lazy"
+          decoding="async">
+      </figure>
       {% endif %}
     </div>
   </div>

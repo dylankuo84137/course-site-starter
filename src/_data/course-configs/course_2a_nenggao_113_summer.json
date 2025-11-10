@@ -1,9 +1,16 @@
 {
   "slug": "2a-nenggao-113-summer",
+  "hero_image": "",
   "metadata": {
     "grade_level": "2",
     "domain_category": "nature",
-    "teacher_name": "王琬婷"
+    "teacher_name": "王琬婷/Wang Wan-Ting",
+    "tags": [
+      "戲劇",
+      "黑板畫",
+      "工作本",
+      "歌曲"
+    ]
   },
   "i18n": {
     "zh-TW": {
@@ -25,33 +32,62 @@
       "overview": "Teacher Wan-Ting explained that the 'Mt. Nenggao' drama is part of her Nature main lesson. The previous year's nature class used 'The Wonderful Adventures of Nils,' which has great storytelling and prose, but the setting is distant and not rooted in Taiwan.\n\nTherefore, this season she began experimenting with indigenous stories—not necessarily traditional tales, but also picture books created by contemporary authors. Last season's nature class featured 'Fish in the Trees,' a picture book about Amis plants and animals. This season, she chose the classic picture book 'Mt. Nenggao.' She discovered that many indigenous songs use pentatonic scales, making them simple and repetitive—easy patterns to imitate. She also sourced songs online, such as children's songs about ants and fireflies, which enriched the originally brief storyline."
     }
   },
-  "tags": [
-    "戲劇",
-    "黑板畫",
-    "工作本",
-    "歌曲"
-  ],
-  "google_docs": {
-    "course_description": "1cAnYydnh9_m5R3i2eqvrIJ2uK6Q9bN7-Lh9Np6i2QuE",
-    "play_script": "11H87lM9cAa089UFBUCNzo_S7ZBz11FJwZKU_MUrwVxc"
+  "material": {
+    "workbook_photos": [
+      {
+        "type": "drive-folder",
+        "id": "1zu2uPKB44LpnrF9lLIMGghzVnbcDY8ZD",
+        "title": "",
+        "items": []
+      }
+    ],
+    "blackboard": [
+      {
+        "type": "drive-folder",
+        "id": "1VE7O-kqTtQy7BnMd2n-YQS4-dDBAuAkM",
+        "title": "",
+        "items": []
+      }
+    ],
+    "photos": [
+      {
+        "type": "drive-folder",
+        "id": "1cJQfOaYZk9fyQz3vbZXyfylFwe-tkxwM",
+        "title": "",
+        "items": []
+      }
+    ],
+    "scripts_photos": [
+      {
+        "type": "drive-folder",
+        "id": "1QSJnvBq0UnVTpYYKpvRtkSc2Xev_m5Ea",
+        "title": "",
+        "items": []
+      }
+    ],
+    "songs_audio": [
+      {
+        "type": "drive-folder",
+        "id": "1noqS9qz116NlMu2eTn6JjuUMIh7VCCWn",
+        "title": "",
+        "items": []
+      }
+    ]
   },
-  "drive_folders": {
-    "workbook_photos": "1zu2uPKB44LpnrF9lLIMGghzVnbcDY8ZD",
-    "blackboard": "1VE7O-kqTtQy7BnMd2n-YQS4-dDBAuAkM",
-    "photos": "1cJQfOaYZk9fyQz3vbZXyfylFwe-tkxwM",
-    "performance": "1QSJnvBq0UnVTpYYKpvRtkSc2Xev_m5Ea",
-    "songs_audio": "1noqS9qz116NlMu2eTn6JjuUMIh7VCCWn"
-  },
-  "files": {
-    "workbook_pdfs": [],
-    "play_scripts": [],
-    "sheet_music": [],
-    "workbook_photos": [],
-    "blackboard": [],
-    "photos": [],
-    "scripts_photos": [],
-    "songs": []
-  },
-  "youtube_videos": {},
-  "docs": {}
+  "docs": {
+    "course_description": {
+      "type": "google-doc",
+      "id": "1cAnYydnh9_m5R3i2eqvrIJ2uK6Q9bN7-Lh9Np6i2QuE",
+      "title": "課程介紹",
+      "content": null,
+      "lastSynced": null
+    },
+    "play_script": {
+      "type": "google-doc",
+      "id": "11H87lM9cAa089UFBUCNzo_S7ZBz11FJwZKU_MUrwVxc",
+      "title": "劇本",
+      "content": null,
+      "lastSynced": null
+    }
+  }
 }
