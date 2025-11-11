@@ -46,26 +46,41 @@
           {% endif %}
           <div class="course-info-card-content">
             <h2 class="course-info-title" data-i18n-course="title">{{ courseTitle }}</h2>
-            <div class="course-info-metadata">
-              <span data-i18n-course="grade">{{ courseGrade }}</span>
-              <span class="course-info-separator">・</span>
-              <span data-i18n-course="semester">{{ courseSemester }}</span>
+            <div class="course-info-rows">
+              {% if courseGrade %}
+              <p class="course-info-row course-info-row--grade" data-i18n-course="grade">{{ courseGrade }}</p>
+              {% endif %}
+              {% if courseSemester %}
+              <p class="course-info-row course-info-row--semester" data-i18n-course="semester">{{ courseSemester }}</p>
+              {% endif %}
+              {% if courseUnit or courseDomain %}
+              <p class="course-info-row course-info-row--unit-domain">
+                {% if courseUnit %}
+                <span data-i18n-course="unit">{{ courseUnit }}</span>
+                {% endif %}
+                {% if courseUnit and courseDomain %}
+                <span class="course-info-separator" aria-hidden="true">｜</span>
+                {% endif %}
+                {% if courseDomain %}
+                <span data-i18n-course="domain">{{ courseDomain }}</span>
+                {% endif %}
+              </p>
+              {% endif %}
+              {% if courseTeacher %}
+              <p class="course-info-row course-info-row--teacher course-info-teacher">
+                <span class="course-info-teacher-label" data-i18n="course.teacher">{{ i18n[lang].course.teacher }}</span>:
+                <span data-i18n-course="teacher">{{ courseTeacher }}</span>
+              </p>
+              {% endif %}
             </div>
-            <div class="course-info-metadata">
-              <span data-i18n-course="unit">{{ courseUnit }}</span>
-              <span class="course-info-separator">｜</span>
-              <span data-i18n-course="domain">{{ courseDomain }}</span>
-            </div>
-            {% if courseTeacher %}
-            <div class="course-info-teacher">
-              <span class="course-info-teacher-label" data-i18n="course.teacher">{{ i18n[lang].course.teacher }}</span>:
-              <span data-i18n-course="teacher">{{ courseTeacher }}</span>
-            </div>
-            {% endif %}
           </div>
         </div>
       </div>
+    </div>
 
+    {# Row 2: Navigation and Switcher Container #}
+    <div class="course-nav-wrapper">
+      {# Course Switcher (top on mobile, right on desktop) #}
       <div class="course-switcher">
         <label class="text-sm text-stone-600">
           {{ i18n[lang].course.switch_course }}
@@ -80,26 +95,25 @@
           </select>
         </label>
       </div>
-    </div>
 
-    {# Row 2: Navigation Row #}
-    <nav aria-label="{{ i18n[lang].course.course_navigation }}">
-      <div class="course-nav-row">
-        {# Left side: Course Home pill + Materials dropdown #}
-        <div class="course-nav-left">
-          <a href="{{ courseUrl(course.slug, 'home') }}"
-             class="pill {% if currentPage == 'home' %}active{% else %}highlight{% endif %}"
-             aria-label="{{ i18n[lang].course.course_home }}">
-            {{ i18n[lang].course.course_home }}
-          </a>
+      {# Navigation Row (bottom on mobile, left on desktop) #}
+      <nav aria-label="{{ i18n[lang].course.course_navigation }}">
+        <div class="course-nav-row">
+          {# Left side: Course Home pill + Materials dropdown #}
+          <div class="course-nav-left">
+            <a href="{{ courseUrl(course.slug, 'home') }}"
+               class="pill {% if currentPage == 'home' %}active{% else %}highlight{% endif %}"
+               aria-label="{{ i18n[lang].course.course_home }}">
+              {{ i18n[lang].course.course_home }}
+            </a>
 
-          <div class="course-materials-dropdown">
-            <select class="course-materials-select"
-                    onchange="if(this.value) location.href=this.value"
-                    aria-label="{{ i18n[lang].course.course_materials }}">
-              <option value="" {% if currentPage == 'home' %}selected{% endif %}>
-                {{ i18n[lang].course.course_materials }}
-              </option>
+            <div class="course-materials-dropdown">
+              <select class="course-materials-select"
+                      onchange="if(this.value) location.href=this.value"
+                      aria-label="{{ i18n[lang].course.course_materials }}">
+                <option value="" {% if currentPage == 'home' %}selected{% endif %}>
+                  {{ i18n[lang].course.course_materials }}
+                </option>
 
               {% if hasSyllabus or currentPage == 'syllabus' %}
                 <option value="{{ courseUrl(course.slug, 'syllabus') }}"
@@ -182,6 +196,7 @@
         </div>
       </div>
     </nav>
+    </div>
   </div>
 {% endmacro %}
 
