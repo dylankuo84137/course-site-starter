@@ -15,7 +15,9 @@
       try {
         const saved = localStorage.getItem('preferredLang');
         if (saved) {
-          document.documentElement.setAttribute('lang', saved === 'en-US' ? 'en-US' : 'zh-Hant');
+          const validLangs = { 'en-US': 'en-US', 'zh-TW': 'zh-Hant' };
+          const langAttr = validLangs[saved] || 'zh-Hant';
+          document.documentElement.setAttribute('lang', langAttr);
           document.documentElement.setAttribute('data-user-lang', saved);
         }
       } catch (e) {}
@@ -63,13 +65,13 @@
       <a href="{{ '/' | url }}" class="font-bold text-xl" style="color: var(--primary);">{{ i18n[currentLang].site.title }}</a>
       <nav class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-label="Primary navigation">
         <ul class="flex gap-8 justify-center">
-          {% for link in navLinks %}
-          <li>
+            {% for link in navLinks %}
+            <li>
             <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="{{ link.href }}">{{ link.label }}</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </nav>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
       <div class="flex items-center gap-3 ml-auto">
         {% include "components/lang_switcher.njk" %}
         <button
@@ -185,9 +187,9 @@
     window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
   </script>
-  
+
   <!-- CommentBox.io initialization for reflections page -->
-  {% if title == '留言與交流' %}
+  {% if page.fileSlug == 'reflections' or title == '留言與交流' or title == 'Messages & Discussions' or includeCommentBox %}
   <script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
   <script>
     commentBox('5698158134820864-proj');

@@ -2,7 +2,38 @@
   "site": {
     "title": "慈心課程織圖",
     "description": "華德福教育課程資料，包含工作本、黑板畫、照片及音檔紀錄",
-    "homepage_description": "匯集課程結構、黑板畫、工作本、劇本、歌曲等素材，支援多課程瀏覽與站內搜尋。"
+    "homepage_description": "這是一座活的教學典藏館，收藏的不只是課程，更是師生共同創造的學習旅程。從台灣的故事到世界的詩篇，每堂課都以藝術為橋，串連人文與思想。\n您可以在這裡瀏覽工作本、黑板畫、戲劇、音樂，重溫學習的真實足跡。在這裡找到啟發與連結，讓教學在心中繼續綻放。"
+  },
+  "homepage": {
+    "eyebrow": "課程織圖",
+    "hero_title": "課程成為故事，學習化為藝術",
+    "hero_primary_cta": "探索課程",
+    "hero_secondary_cta": "設計理念",
+    "course_section_title": "最新課程推薦",
+    "course_section_copy": "沿著華德福教學節奏，從黑板畫、戲劇到歌曲音檔，完整收藏師生共創的珍貴足跡。",
+    "tag_intro": "熱門標籤",
+    "category_section_title": "課程快速導航",
+    "category_section_copy": "快速導覽各領域課程，找到適合您的教學素材。",
+    "ethos_title": "激發靈感的教學典藏",
+    "ethos_copy": "慈心的每門課都以藝術與故事為媒介，素材可自由參照，邀請你與孩子重新出發，連結更多教學靈感。",
+    "ethos_points": [
+      "以藝術轉化學科與生活經驗",
+      "素材皆附授權與情境說明，可安心應用",
+      "方便與國際社群分享"
+    ],
+    "categories": [
+      { "label": "藝術課程", "description": "黑板畫、戲劇、音樂等整合創作。", "anchor": "arts", "icon": "🎨" },
+      { "label": "自然主題", "description": "山林、人文地景、節氣與環境。", "anchor": "nature", "icon": "🌿" },
+      { "label": "主課程", "description": "語文、歷史與跨領域主課紀錄。", "anchor": "main-lesson", "icon": "📖" },
+      { "label": "歷史主課", "description": "從神話到近代史的跨文化旅程。", "anchor": "history", "icon": "🕰️" }
+    ],
+    "testimonials_title": "教師與學生推薦語",
+    "testimonials_copy": "典藏不只保存作品，更讓每次課程成為可延續的靈感。以下摘錄幾段來自教學現場的感謝與分享。",
+    "testimonials": [
+      { "quote": "這是一段佔位推薦語，供未來內容使用。", "author": "佔位作者 1" },
+      { "quote": "這是第二段佔位推薦語，供未來內容使用。", "author": "佔位作者 2" },
+      { "quote": "這是第三段佔位推薦語，供未來內容使用。", "author": "佔位作者 3" }
+    ]
   },
   "nav": {
     "home": "課程介紹",

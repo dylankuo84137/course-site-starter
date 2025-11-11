@@ -2,7 +2,38 @@
   "site": {
     "title": "Cixin Course Weaver",
     "description": "Waldorf education course materials including workbooks, blackboard drawings, photos, and audio recordings",
-    "homepage_description": "A comprehensive collection of course structures, blackboard drawings, workbooks, scripts, songs, and other materials, supporting multi-course browsing and site-wide search."
+    "homepage_description": "This site is a living museum of teaching — a space where courses become stories and learning becomes art. It gathers journeys co-created by teachers and students, spanning from Taiwan's myths to the world's masterpieces. Browse through notebooks, blackboard art, performances, and melodies, and rediscover the living pulse of education that continues to bloom within."
+  },
+  "homepage": {
+    "eyebrow": "Living Teaching Archive",
+    "hero_title": "Courses become stories. Learning becomes art.",
+    "hero_primary_cta": "Explore courses",
+    "hero_secondary_cta": "See our approach",
+    "course_section_title": "Freshly courses",
+    "course_section_copy": "Follow the Waldorf rhythm—from blackboard landscapes to drama performances and playlists—to see how teachers and students learn together.",
+    "tag_intro": "Popular tags",
+    "category_section_title": "Course categories",
+    "category_section_copy": "Jump into collections by grade, domain, or material and find the right inspiration.",
+    "ethos_title": "Inspiring teaching archives",
+    "ethos_copy": "Every Cixin course pairs art with story. These open resources invite you to remix them for your own classrooms.",
+    "ethos_points": [
+      "Artful translations of academics and lived experience",
+      "Context and permissions are included for safe reuse",
+      "Ready to share internationally"
+    ],
+    "categories": [
+      { "label": "Arts program", "description": "Blackboard art, drama, music, and integrated creations.", "anchor": "arts", "icon": "🎨" },
+      { "label": "Nature studies", "description": "Mountains, field work, seasons, and ecological stories.", "anchor": "nature", "icon": "🌿" },
+      { "label": "Main lesson", "description": "Language arts, history blocks, and interdisciplinary main lessons.", "anchor": "main-lesson", "icon": "📖" },
+      { "label": "History main lesson", "description": "Journeys from myths to modern history.", "anchor": "history", "icon": "🕰️" }
+    ],
+    "testimonials_title": "Voices from teachers & students",
+    "testimonials_copy": "Each archive keeps the warmth of the classroom alive. Here are a few notes shared by our community.",
+    "testimonials": [
+      { "quote": "This is a placeholder testimonial for future content.", "author": "Placeholder Author 1" },
+      { "quote": "This is another placeholder testimonial for future content.", "author": "Placeholder Author 2" },
+      { "quote": "This is a third placeholder testimonial for future content.", "author": "Placeholder Author 3" }
+    ]
   },
   "nav": {
     "home": "Course Introduction",

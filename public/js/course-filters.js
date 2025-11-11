@@ -60,13 +60,13 @@
     if (searchInput) searchInput.addEventListener('input', applyFilters);
     if (resetBtn) resetBtn.addEventListener('click', resetFilters);
 
-    // Initial count
-    updateResultsCount(courseCards.length);
+    applyInitialFiltersFromQuery();
+    applyFilters();
 
     // Listen for language change events
     document.addEventListener('languageChanged', function() {
       // Re-translate the results count with current visible count
-      const visibleCount = document.querySelectorAll('.course-card:not([style*="display: none"])').length;
+      const visibleCount = courseCards.filter(card => card.style.display !== 'none').length;
       updateResultsCount(visibleCount);
     });
 
@@ -168,6 +168,32 @@
         noResults.classList.add('hidden');
         coursesGrid.style.display = '';
       }
+    }
+
+    function applyInitialFiltersFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const initialGrade = params.get('grade');
+      const initialDomain = params.get('domain');
+      const initialTeacher = params.get('teacher');
+      const initialSearch = params.get('search');
+
+      if (gradeFilter && initialGrade && selectHasValue(gradeFilter, initialGrade)) {
+        gradeFilter.value = initialGrade;
+      }
+      if (domainFilter && initialDomain && selectHasValue(domainFilter, initialDomain)) {
+        domainFilter.value = initialDomain;
+      }
+      if (teacherFilter && initialTeacher && selectHasValue(teacherFilter, initialTeacher)) {
+        teacherFilter.value = initialTeacher;
+      }
+      if (searchInput && initialSearch) {
+        searchInput.value = initialSearch;
+      }
+    }
+
+    function selectHasValue(select, value) {
+      if (!select) return false;
+      return Array.from(select.options || []).some(option => option.value === value);
     }
   }
 })();

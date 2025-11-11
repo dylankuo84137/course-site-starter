@@ -3,6 +3,7 @@ _site/
 .DS_Store
 .env*
 npm-debug.log*
+AGENTS.md
 
 # Google Drive sync backups
 *.bak
