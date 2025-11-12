@@ -9,17 +9,17 @@
     "hero_title": "Courses become stories. Learning becomes art.",
     "hero_primary_cta": "Explore courses",
     "hero_secondary_cta": "See our approach",
-    "course_section_title": "Freshly courses",
+    "course_section_title": "Featured Courses",
     "course_section_copy": "Follow the Waldorf rhythm—from blackboard landscapes to drama performances and playlists—to see how teachers and students learn together.",
     "tag_intro": "Popular tags",
     "category_section_title": "Course categories",
     "category_section_copy": "Jump into collections by grade, domain, or material and find the right inspiration.",
-    "ethos_title": "Inspiring teaching archives",
-    "ethos_copy": "Every Cixin course pairs art with story. These open resources invite you to remix them for your own classrooms.",
+    "ethos_title": "Making Learning a Profound Life Experience",
+    "ethos_copy": "At Ci-Xin, we believe education is a journey where we accompany children as they experience, feel, and create. Every course begins from real-life contexts—whether delving into literature, history, or nature—using art as a bridge to transform knowledge into profound inner strength. We invite you to join us in sparking children's curiosity, transforming learning from mere memorization into stories that are lived and told.",
     "ethos_points": [
-      "Artful translations of academics and lived experience",
-      "Context and permissions are included for safe reuse",
-      "Ready to share internationally"
+      "Integrating subjects with drama, stories, and art to deepen the learning experience",
+      "Guiding children to start from their life experiences and connect with the real world",
+      "Encouraging teachers to transform materials and create unique learning paths for children"
     ],
     "categories": [
       { "label": "Arts program", "description": "Blackboard art, drama, music, and integrated creations.", "anchor": "arts", "icon": "🎨" },

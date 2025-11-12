@@ -98,9 +98,9 @@ hidePagefindSearch: true
         <p>{{ homepageStrings.course_section_copy or langData.site.homepage_description }}</p>
       </div>
       {% if featuredTags.length %}
-      <div>
+      <div class="home-tag-section">
         {% if homepageStrings.tag_intro %}
-        <p class="home-tag-label text-sm text-stone-500 mb-2">{{ homepageStrings.tag_intro }}</p>
+        <p class="home-tag-label">{{ homepageStrings.tag_intro }}</p>
         {% endif %}
         <div class="home-tag-strip" aria-label="{{ tagAriaLabel }}">
           {% for tag in featuredTags %}
