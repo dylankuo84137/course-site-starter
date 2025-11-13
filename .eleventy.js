@@ -114,6 +114,11 @@ module.exports = function(eleventyConfig) {
   
   // Register utility filters
   eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
+  // JSON string escape for raw JSON templates (no HTML encoding)
+  eleventyConfig.addFilter("jsonstr", (v) => {
+    if (v === null || v === undefined) return 'null';
+    return JSON.stringify(String(v));
+  });
   Object.entries(utilityFilters).forEach(([name, fn]) => {
     eleventyConfig.addFilter(name, fn);
   });

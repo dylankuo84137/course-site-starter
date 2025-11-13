@@ -3,7 +3,6 @@ _site/
 .DS_Store
 .env*
 npm-debug.log*
-AGENTS.md
 
 # Google Drive sync backups
 *.bak
@@ -11,9 +10,19 @@ AGENTS.md
 # Ignore course original data
 src/_data/course-original/
 
+# PDF text extraction cache (generated during Drive sync)
+# Contains extracted text from Google Docs, regenerated on each CI run
+src/_data/pdf-text-cache/*.json
+!src/_data/pdf-text-cache/.gitkeep
+
 # Ignore .claude directory
 .claude/
 
 # Ignore logs
 logs/
+
+# Development reference files
+docs/CHANGELOG.md
+docs/development/design-style-guide.md
+AGENTS.md
 

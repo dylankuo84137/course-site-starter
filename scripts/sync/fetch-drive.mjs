@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const pdfParse = require("pdf-parse");
 
 const API_KEY = process.env.GOOGLE_API_KEY;
 if (!API_KEY) {
@@ -13,6 +17,12 @@ const DATA_DIR = path.join(ROOT, "src", "_data");
 const COURSE_ORIGINAL_DIR = path.join(DATA_DIR, "course-original");
 if (!fs.existsSync(COURSE_ORIGINAL_DIR)) {
   fs.mkdirSync(COURSE_ORIGINAL_DIR, { recursive: true });
+}
+
+// PDF text cache directory (separate from course JSON)
+const PDF_CACHE_DIR = path.join(DATA_DIR, "pdf-text-cache");
+if (!fs.existsSync(PDF_CACHE_DIR)) {
+  fs.mkdirSync(PDF_CACHE_DIR, { recursive: true });
 }
 
 const MATERIAL_IMAGE_KEYS = new Set(["workbook_photos", "photos", "blackboard", "scripts_photos"]);
@@ -101,6 +111,111 @@ async function fetchGoogleDoc(docId) {
     console.warn(`[fetch-drive] Error fetching doc ${docId}:`, err.message);
     return null;
   }
+}
+
+/**
+ * Extract text content from a PDF file
+ * Supports both Google Docs (via API export) and native PDFs (via pdf-parse)
+ *
+ * @param {string} pdfId - Google Drive file ID
+ * @param {string} pdfName - File name for logging
+ * @returns {Promise<string|null>} Extracted text or null if extraction fails
+ */
+async function extractPdfText(pdfId, pdfName = "PDF") {
+  if (!pdfId) return null;
+
+  try {
+    // Get file metadata to determine type
+    const metaUrl = `https://www.googleapis.com/drive/v3/files/${pdfId}?key=${API_KEY}&fields=mimeType,size&supportsAllDrives=true`;
+    const metaRes = await fetch(metaUrl);
+    if (!metaRes.ok) {
+      console.warn(`[fetch-drive] Cannot get metadata for ${pdfName}`);
+      return null;
+    }
+    const meta = await metaRes.json();
+
+    // Method 1: Google Docs - use API export (fast, no download)
+    if (meta.mimeType === "application/vnd.google-apps.document") {
+      const exportUrl = `https://www.googleapis.com/drive/v3/files/${pdfId}/export?mimeType=text/plain&key=${API_KEY}&supportsAllDrives=true`;
+      const res = await fetch(exportUrl);
+
+      if (res.ok) {
+        const text = await res.text();
+        console.log(`[fetch-drive] ✓ Extracted text from Google Doc: ${pdfName} (${text.length} chars)`);
+        return text.trim();
+      }
+    }
+
+    // Method 2: Native PDF - download and parse with pdf-parse
+    if (meta.mimeType === "application/pdf") {
+      const fileSizeMB = meta.size ? (parseInt(meta.size) / 1024 / 1024).toFixed(2) : "unknown";
+      console.log(`[fetch-drive] 📄 Downloading native PDF: ${pdfName} (${fileSizeMB} MB)`);
+
+      // Download PDF binary
+      const downloadUrl = `https://www.googleapis.com/drive/v3/files/${pdfId}?alt=media&key=${API_KEY}&supportsAllDrives=true`;
+      const downloadRes = await fetch(downloadUrl);
+
+      if (!downloadRes.ok) {
+        console.warn(`[fetch-drive] Failed to download PDF ${pdfName}: ${downloadRes.status}`);
+        return null;
+      }
+
+      // Convert to Buffer for pdf-parse v1.1.1
+      const arrayBuffer = await downloadRes.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      // Parse PDF using pdf-parse v1.1.1 (simple function API)
+      const pdfData = await pdfParse(buffer);
+      const extractedText = pdfData.text.trim();
+
+      if (!extractedText || extractedText.length === 0) {
+        console.warn(`[fetch-drive] ⚠ PDF appears to be empty or scanned (no text layer): ${pdfName}`);
+        return null;
+      }
+
+      console.log(`[fetch-drive] ✓ Extracted text from native PDF: ${pdfName} (${extractedText.length} chars, ${pdfData.numpages} pages)`);
+      return extractedText;
+    }
+
+    console.warn(`[fetch-drive] Unsupported file type for text extraction: ${meta.mimeType}`);
+    return null;
+
+  } catch (err) {
+    console.error(`[fetch-drive] Error extracting text from ${pdfName}:`, err.message);
+    return null;
+  }
+}
+
+/**
+ * Cache PDF text content to separate JSON file
+ * Structure: { courseSlug: { materialKey: { fileId: { name, text, lastSynced } } } }
+ */
+function cachePdfText(courseSlug, materialKey, fileId, fileName, textContent) {
+  if (!textContent) return;
+
+  const cacheFile = path.join(PDF_CACHE_DIR, `${courseSlug}.json`);
+  let cache = {};
+
+  // Load existing cache
+  if (fs.existsSync(cacheFile)) {
+    try {
+      cache = JSON.parse(fs.readFileSync(cacheFile, "utf-8"));
+    } catch (err) {
+      console.warn(`[fetch-drive] Failed to read PDF cache for ${courseSlug}, creating new cache`);
+    }
+  }
+
+  // Update cache
+  if (!cache[materialKey]) cache[materialKey] = {};
+  cache[materialKey][fileId] = {
+    name: fileName,
+    text: textContent,
+    lastSynced: new Date().toISOString()
+  };
+
+  // Write cache
+  fs.writeFileSync(cacheFile, JSON.stringify(cache, null, 2), "utf-8");
+  console.log(`[fetch-drive] Cached PDF text for ${courseSlug}/${materialKey}/${fileName}`);
 }
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
@@ -268,12 +383,29 @@ async function syncMaterialEntry(materialKey, entry, courseTags) {
 
 async function syncMaterial(course, courseTags) {
   const material = course.material || {};
+  const courseSlug = course.slug;
+
   for (const [key, entries] of Object.entries(material)) {
     if (!Array.isArray(entries)) continue;
     const syncedEntries = [];
     for (const entry of entries) {
       const synced = await syncMaterialEntry(key, entry, courseTags);
       if (synced) syncedEntries.push(synced);
+
+      // Extract PDF text for caching (only for PDF material keys)
+      if (MATERIAL_PDF_KEYS.has(key) && synced && synced.items) {
+        for (const item of synced.items) {
+          if (item.mimeType === "application/pdf" && item.id && courseSlug) {
+            console.log(`[fetch-drive] Attempting PDF text extraction: ${item.name}`);
+            const pdfText = await extractPdfText(item.id, item.name);
+            if (pdfText) {
+              cachePdfText(courseSlug, key, item.id, item.name, pdfText);
+            }
+            // Add small delay to avoid rate limiting
+            await sleep(500);
+          }
+        }
+      }
     }
     material[key] = syncedEntries;
   }

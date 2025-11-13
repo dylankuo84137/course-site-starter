@@ -1,25 +1,31 @@
 # AI Assistant Guide: Cixin Course Weaver
 
+> **Location:** This file is at the project root (`CLAUDE.md`) for project-wide AI assistant guidance.
+> **Companion:** See `AGENTS.md` for specialized agent workflows.
+> **Structure:** See `docs/development/STRUCTURE.md` for complete directory organization.
+
 **Core principle:** Build simple (unbraided) artifacts, not just easy (convenient) code.
 
 ## Project Facts
 
-**Tech stack:** 11ty + Nunjucks + vanilla JS + Pagefind + Drive sync  
-**Hosting:** GitHub Pages project subpath (e.g., `/course-site-starter/`)  
+**Tech stack:** 11ty + Nunjucks + vanilla JS + Pagefind + Drive sync
+**Hosting:** GitHub Pages project subpath (e.g., `/course-site-starter/`)
 **Language:** Traditional Chinese UI, English docs/comments
+**Course Data:** JSON configs in `src/_data/course-configs/`
 
 ### Key constraints:
 - No external GitHub Actions allowed
 - Base path must use `{{ '/path' | url }}` for all internal links
 - Search via Pagefind (local first, CDN fallback)
-- Drive sync pulls public folders using `GOOGLE_API_KEY`
+- Drive sync: `scripts/sync/fetch-drive.mjs` pulls public folders using `GOOGLE_API_KEY`
+- Course validation: `npm run validate` checks schema compliance
 - Images: thumbnail → lightbox gallery with text filter
 - Audio: inline playback + download links
 
 ## Core Rules
 
 ### 1. Separation of Concerns
-- **Data:** JSON files + `fetch-drive.mjs`
+- **Data:** JSON files in `src/_data/course-configs/` + `scripts/sync/fetch-drive.mjs`
 - **Templates:** Pure Nunjucks (no JS logic)
 - **Behavior:** Small vanilla JS modules
 - **Styles:** `public/css/site.css`
@@ -54,6 +60,13 @@ pathPrefix: process.env.ELEVENTY_BASE || '/'
 ```json
 {
   "slug": "course-example",
+  "hero_image": "drive-file-id",
+  "metadata": {
+    "grade_level": "2",
+    "domain_category": "nature",
+    "teacher_name": "Teacher Name",
+    "tags": ["戲劇", "黑板畫"]
+  },
   "i18n": {
     "zh-TW": {
       "title": "課程標題",
@@ -66,21 +79,49 @@ pathPrefix: process.env.ELEVENTY_BASE || '/'
       "overview": "Course overview..."
     }
   },
-  "tags": [...],
-  "google_docs": {...}
+  "material": {
+    "workbook_photos": [
+      {
+        "type": "drive-folder",
+        "id": "folder-id",
+        "items": []
+      }
+    ],
+    "songs": [
+      {
+        "type": "drive-folder",
+        "id": "folder-id",
+        "items": []
+      }
+    ]
+  },
+  "docs": {
+    "syllabus": {
+      "type": "google-doc",
+      "id": "doc-id",
+      "content": "",
+      "downloadUrl": "",
+      "lastSynced": ""
+    }
+  }
 }
 ```
 
+**Material types:** `drive-folder`, `drive-file`, `manual`, `youtube`
+**Legacy keys blocked:** `drive_folders`, `google_docs`, `files.*`, `youtube_videos`, root-level `tags`
+
 **NEVER duplicate fields at root level** - eliminates maintenance burden.
 
-#### Template Access: Unified Macro
-Use `cf()` (course field) macro for consistent i18n access:
+#### Template Access: Unified Macros
+**Course field macro** - Use `cf()` for i18n access:
 ```nunjucks
 {% import "macros/i18n.njk" as i18nMacro %}
 {{ i18nMacro.cf(course, 'title', currentLang) }}
 ```
-
 Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` → `course[field]`
+
+**Material helpers** - Use `materialHelpers` for material/docs access:
+Always use these helpers instead of accessing `course.material` or `course.docs` directly.
 
 #### Language Preference Flow
 1. **Early Detection** (`base.njk` inline `<script>` in `<head>`)
@@ -138,13 +179,15 @@ Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` →
 - Don't translate language switcher labels (causes recursion)
 - **Don't duplicate translatable fields at course JSON root level**
 - **Don't access course fields directly** - always use `cf()` macro
+- **Don't access `course.material` or `course.docs` directly** - use `materialHelpers` methods
 
 #### Always Do
 - Keep inline script minimal (localStorage check only)
 - Use CSS for visibility control (declarative)
 - Load translation script synchronously
 - Test with preference cleared and set
-- **Use `i18nMacro.cf(course, field, lang)` in templates**
+- **Use `i18nMacro.cf(course, field, lang)` for i18n fields**
+- **Use `materialHelpers.getMaterialItems()`, `.hasMaterial()`, `.getDoc()` for material/docs**
 - **Add new course fields inside `i18n` object only**
 
 ### 6. AI Accessibility (Text-First Design)
@@ -224,17 +267,21 @@ If any answer is no, redesign.
 ## Never Do
 - Add frameworks (React/Vue/Webpack/bundlers)
 - Mix deployment logic with build logic
-- Use absolute paths (`/css/site.css`)
+- Use absolute paths (`/css/site.css`) - always use `{{ '/path' | url }}`
 - Add global mutable state
 - Hardcode specific course details
 - Use JS ternaries in Nunjucks templates
+- Use legacy course JSON keys: `drive_folders`, `google_docs`, `files.*`, `youtube_videos`
+- Access `course.material` or `course.docs` directly (use `materialHelpers` instead)
 
 ## Always Do
 - Use `{{ '/path' | url }}` for internal references
 - Keep `gallery.js` minimal and focused
-- Reuse `components/course_nav.njk` and `components/drive.njk`
+- Reuse `components/course-breadcrumb.njk` and `components/drive.njk`
+- Use `materialHelpers` for all material/docs access in templates
 - Design for multiple courses
 - Favor small functions over complex configurations
+- Validate course data with `npm run validate` before committing
 
 ## Commit Style
 ```

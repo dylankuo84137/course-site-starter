@@ -9,6 +9,11 @@ The project follows a clean separation of concerns with organized subdirectories
 ## Directory Structure
 
 ```
+Root Level:
+├── CLAUDE.md                      # AI assistant guidelines (project-wide)
+├── AGENTS.md                      # Agent workflow documentation (project-wide)
+└── ... (other root files)
+
 src/
 ├── _data/
 │   ├── course-configs/             # Course JSON files (NEW)
@@ -41,8 +46,12 @@ src/
 └── ... (other template files)
 
 scripts/
-├── fetch-drive.mjs                 # Google Drive sync script
-└── validate-courses.js             # Course validation script (NEW)
+├── sync/                           # Synchronization scripts
+│   └── fetch-drive.mjs             # Google Drive sync script
+├── migration/                      # Data migration scripts
+│   └── migrate-material-schema.mjs # Schema migration tool
+└── validation/                     # Validation scripts
+    └── validate-courses.js         # Course validation script
 
 public/                             # Static assets
 ├── css/
@@ -55,7 +64,7 @@ public/                             # Static assets
 ### Files Updated for New Structure
 1. `src/_data/coursesList.js` - Updated to read from `course-configs/` subdirectory
 2. `src/_data/course-validator.js` - Updated validation paths
-3. `scripts/fetch-drive.mjs` - Updated to work with `course-configs/` subdirectory
+3. `scripts/sync/fetch-drive.mjs` - Updated to work with `course-configs/` subdirectory
 4. All course template files - Updated to use new navigation component
 
 ### Backward Compatibility

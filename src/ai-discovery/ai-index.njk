@@ -26,17 +26,40 @@ eleventyExcludeFromCollections: true
     {%- set hasAudio = materialHelpers.hasMaterial(course, 'songs_audio') -%}
     {%- set hasSheetMusic = materialHelpers.hasMaterial(course, 'sheet_music') -%}
     {%- set hasVideos = materialHelpers.hasMaterial(course, 'videos') -%}
+    {%- set zhTW = course.i18n['zh-TW'] or {} -%}
+    {%- set enUS = course.i18n['en-US'] or {} -%}
+    {%- set metadata = course.metadata or {} -%}
+    {%- set courseTags = metadata.tags or [] -%}
     {
       "slug": "{{ course.slug }}",
-      "title": "{{ course.title }}",
+      "i18n": {
+        "zh-TW": {
+          "title": {{ zhTW.title | jsonstr | safe }},
+          "grade": {{ zhTW.grade | jsonstr | safe }},
+          "semester": {{ zhTW.semester | jsonstr | safe }},
+          "unit": {{ zhTW.unit | jsonstr | safe }},
+          "domain": {{ zhTW.domain | jsonstr | safe }},
+          "teacher": {{ zhTW.teacher | jsonstr | safe }},
+          "overview": {{ zhTW.overview | jsonstr | safe }}
+        },
+        "en-US": {
+          "title": {{ enUS.title | jsonstr | safe }},
+          "grade": {{ enUS.grade | jsonstr | safe }},
+          "semester": {{ enUS.semester | jsonstr | safe }},
+          "unit": {{ enUS.unit | jsonstr | safe }},
+          "domain": {{ enUS.domain | jsonstr | safe }},
+          "teacher": {{ enUS.teacher | jsonstr | safe }},
+          "overview": {{ enUS.overview | jsonstr | safe }}
+        }
+      },
+      "metadata": {
+        "grade_level": "{{ metadata.grade_level }}",
+        "domain_category": "{{ metadata.domain_category }}",
+        "teacher_name": "{{ metadata.teacher_name }}",
+        "heroImage": {% if course.hero_image %}"{{ course.hero_image }}"{% else %}null{% endif %}
+      },
       "url": "{{ ('/courses/' + course.slug + '/') | url }}",
-      "grade": "{{ course.grade }}",
-      "semester": "{{ course.semester }}",
-      "unit": "{{ course.unit }}",
-      "domain": "{{ course.domain }}",
-      "teacher": "{{ course.teacher }}",
-      "summary": "{{ course.overview | truncate(200) | replace('\n', ' ') | replace('"', '\\"') }}",
-      "tags": [{% for tag in course.tags %}"{{ tag }}"{{ "," if not loop.last }}{% endfor %}],
+      "tags": [{% for tag in courseTags %}"{{ tag | replace('"', '\\"') }}"{{ "," if not loop.last }}{% endfor %}],
       {% if course.learningObjectives -%}
       "learningObjectives": [{% for obj in course.learningObjectives %}"{{ obj | replace('"', '\\"') }}"{{ "," if not loop.last }}{% endfor %}],
       {% else -%}
@@ -75,9 +98,66 @@ eleventyExcludeFromCollections: true
         "hasSheetMusic": {% if hasSheetMusic %}true{% else %}false{% endif %},
         "hasVideos": {% if hasVideos %}true{% else %}false{% endif %}
       },
-      "metadata": {
-        "heroImage": {% if course.hero_image %}"{{ course.hero_image }}"{% else %}null{% endif %},
-        "hasDocs": {% if course.docs and (course.docs | length) > 0 %}true{% else %}false{% endif %}
+      "docs": {
+        {%- if course.docs -%}
+        {%- set docEntries = [] -%}
+        {%- for docKey, docData in course.docs -%}
+          {%- if docData and docData.content -%}
+            {%- set _ = docEntries.push({key: docKey, data: docData}) -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- for docEntry in docEntries -%}
+        "{{ docEntry.key }}": {
+          "name": {{ docEntry.data.name | jsonstr | safe }},
+          "content": {{ docEntry.data.content | jsonstr | safe }},
+          "mimeType": "{{ docEntry.data.mimeType }}",
+          "downloadUrl": "{{ docEntry.data.downloadUrl }}",
+          "lastSynced": "{{ docEntry.data.lastSynced }}"
+        }{{ "," if not loop.last }}
+        {%- endfor -%}
+        {%- endif -%}
+      },
+      "driveContent": {
+        {%- if course.material -%}
+        {%- set materialKeys = ["workbook_photos", "photos", "blackboard", "scripts_photos", "songs_audio", "sheet_music", "workbook_pdfs", "play_scripts", "worksheet", "syllabus"] -%}
+        {%- set materialEntries = [] -%}
+        {%- for materialKey in materialKeys -%}
+          {%- if course.material[materialKey] -%}
+            {%- set allItems = [] -%}
+            {%- for entry in course.material[materialKey] -%}
+              {%- if entry.items and (entry.items | length) > 0 -%}
+                {%- for item in entry.items -%}
+                  {%- set _ = allItems.push(item) -%}
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if (allItems | length) > 0 -%}
+              {%- set _ = materialEntries.push({key: materialKey, items: allItems}) -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- for matEntry in materialEntries -%}
+        "{{ matEntry.key }}": [
+          {%- for item in matEntry.items -%}
+          {
+            "id": "{{ item.id }}",
+            "name": "{{ item.name | replace('"', '\\"') }}",
+            "mimeType": "{{ item.mimeType }}",
+            "tags": [{% for tag in item.tags %}"{{ tag | replace('"', '\\"') }}"{{ "," if not loop.last }}{% endfor %}],
+            "downloadUrl": "{{ item.downloadUrl }}",
+            "previewUrl": "{{ item.previewUrl }}",
+            "thumbnailUrl": "https://drive.google.com/thumbnail?id={{ item.id }}&sz=w400",
+            "directViewUrl": "https://drive.google.com/uc?export=view&id={{ item.id }}"
+            {%- if item.mimeType == "application/pdf" and pdfTextCache and pdfTextCache[course.slug] and pdfTextCache[course.slug][matEntry.key] and pdfTextCache[course.slug][matEntry.key][item.id] -%}
+            {%- set pdfCache = pdfTextCache[course.slug][matEntry.key][item.id] -%}
+            ,"pdfText": {{ pdfCache.text | jsonstr | safe }}
+            ,"pdfTextLastSynced": "{{ pdfCache.lastSynced }}"
+            {%- endif -%}
+          }{{ "," if not loop.last }}
+          {%- endfor -%}
+        ]{{ "," if not loop.last }}
+        {%- endfor -%}
+        {%- endif -%}
       }
     }{{ "," if not loop.last }}
     {%- endfor -%}

@@ -1,0 +1,405 @@
+---
+layout: layouts/base.njk
+title: Guide for AI Tools
+permalink: /for-ai/
+---
+
+<article class="prose prose-stone max-w-none">
+  <h1>Guide for AI Tools</h1>
+  <p class="lead">This page explains how AI tools can effectively parse and utilize the educational content on this site.</p>
+
+  <section id="site-overview">
+    <h2>Site Architecture Overview</h2>
+    <p>
+      <strong>Cixin Course Weaver (慈心課程織圖)</strong> is a static educational website built with Eleventy (11ty),
+      Waldorf's bilingual course archive, connecting lesson goals with teaching artifacts, media folders, and downloads for planners and partners.
+    </p>
+
+    <h3>Main Page Structure</h3>
+    <ul>
+      <li><strong>Home (<code>/</code>)</strong>: Site introduction, search portal, and course highlights</li>
+      <li><strong>Language Pages</strong>:
+        <ul>
+          <li><code>/zh-TW/</code> - Traditional Chinese homepage</li>
+          <li><code>/en-US/</code> - English homepage</li>
+        </ul>
+      </li>
+      <li><strong>All Courses (<code>/courses/</code>)</strong>: Complete course catalog with filtering by grade, domain, and teacher</li>
+      <li><strong>Course Pages (<code>/courses/{slug}/</code>)</strong>: Each course includes:
+        <ul>
+          <li><strong>Main Pages:</strong>
+            <ul>
+              <li><code>/courses/{slug}/</code> - Course homepage (overview, learning objectives, teacher bio, downloadable materials)</li>
+              <li><code>/courses/{slug}/workbook/</code> - Student workbook photos with tag filtering</li>
+              <li><code>/courses/{slug}/photos/</code> - Classroom photo gallery with tag filtering</li>
+              <li><code>/courses/{slug}/blackboard/</code> - Blackboard drawing artwork with tag filtering</li>
+              <li><code>/courses/{slug}/scripts/</code> - Play script performance photos with tag filtering</li>
+              <li><code>/courses/{slug}/songs/</code> - Songs and audio recordings with inline playback</li>
+              <li><code>/courses/{slug}/videos/</code> - Video performances (YouTube embeds)</li>
+              <li><code>/courses/{slug}/sheet-music/</code> - Sheet music PDFs with preview</li>
+              <li><code>/courses/{slug}/syllabus/</code> - Course syllabus PDFs with preview</li>
+              <li><code>/courses/{slug}/worksheet/</code> - Student worksheet PDFs with preview</li>
+            </ul>
+          </li>
+          <li><strong>Google Docs Content Pages:</strong>
+            <ul>
+              <li><code>/courses/{slug}/description/</code> - Course description from Google Doc</li>
+              <li><code>/courses/{slug}/story/</code> - Story content from Google Doc</li>
+              <li><code>/courses/{slug}/play-script/</code> - Play script from Google Doc</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>Reflections (<code>/reflections/</code>)</strong>: Community discussion forum</li>
+      <li><strong>AI-Specific Pages</strong>:
+        <ul>
+          <li><code>/for-ai/</code> - This guide for AI tools</li>
+          <li><code>/ai-index.json</code> - Complete course catalog with full text content</li>
+          <li><code>/feed.json</code> - Course update timeline (JSON Feed format)</li>
+          <li><code>/sitemap.xml</code> - Complete site sitemap</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section id="data-structure">
+    <h2>Data Structure</h2>
+
+    <h3>Course Metadata</h3>
+    <p>Each course is stored as <code>course_*.json</code> in <code>src/_data/</code>, containing:</p>
+
+    <pre><code>{
+  "slug": "unique-course-identifier",
+  "metadata": { "grade_level": "4", "domain_category": "main-lesson", "teacher_name": "lin-qianyi" },
+  "i18n": {
+    "zh-TW": { "title": "課程名稱", "overview": "..." },
+    "en-US": { "title": "Course Name", "overview": "..." }
+  },
+  "material": {
+    "workbook_photos": [
+      { "type": "drive-folder", "id": "FOLDER_ID", "title": "Workbook Photos", "items": [] }
+    ],
+    "videos": [
+      { "type": "youtube", "id": "YOUTUBE_ID", "title": "Performance" }
+    ]
+  },
+  "docs": {
+    "course_description": { "type": "google-doc", "id": "DOC_ID" },
+    "play_script": { "type": "google-doc", "id": "DOC_ID" }
+  }
+}</code></pre>
+
+    <h3>Tagging System</h3>
+    <p>Images are automatically tagged with:</p>
+    <ul>
+      <li><strong>Course-level metadata</strong>: grade, semester, unit, domain</li>
+      <li><strong>Filename extraction</strong>: <code>[square brackets]</code>, <code>【fullwidth】</code>, <code>#hashtags</code></li>
+      <li><strong>Purpose</strong>: Quick filtering and categorical browsing</li>
+    </ul>
+  </section>
+
+  <section id="machine-readable">
+    <h2>Machine-Readable Formats</h2>
+
+    <h3>Structured Data (JSON-LD)</h3>
+    <p>All course pages embed Schema.org Course format:</p>
+    <ul>
+      <li><code>@type: "Course"</code></li>
+      <li><code>name</code>: Course title</li>
+      <li><code>description</code>: Course overview</li>
+      <li><code>provider</code>: Educational institution info</li>
+      <li><code>educationalLevel</code>: Grade level</li>
+      <li><code>teaches</code>: Learning subjects</li>
+    </ul>
+
+    <h3>AI-Specific Endpoints</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Path</th>
+          <th>Format</th>
+          <th>Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>/ai-index.json</code></td>
+          <td>JSON</td>
+          <td>Complete course catalog index (generated every CI build)</td>
+        </tr>
+        <tr>
+          <td><code>/feed.json</code></td>
+          <td>JSON Feed</td>
+          <td>Course update timeline (generated every CI build)</td>
+        </tr>
+        <tr>
+          <td><code>/sitemap.xml</code></td>
+          <td>XML</td>
+          <td>Complete page sitemap (generated every CI build)</td>
+        </tr>
+        <tr>
+          <td><code>/for-ai/</code></td>
+          <td>HTML</td>
+          <td>This page</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="ci-ai-generation">
+    <h3>What's Included in <code>ai-index.json</code></h3>
+    <p>The AI index now contains complete Drive-synced content:</p>
+    <ul>
+      <li><strong>Google Docs full text</strong> (<code>docs.course_description.content</code>, <code>docs.play_script.content</code>): Plain text extracted from Google Docs, ideal for semantic search and RAG (Retrieval-Augmented Generation)</li>
+      <li><strong>Image metadata</strong> (<code>driveContent.workbook_photos</code>, <code>driveContent.blackboard</code>, <code>driveContent.photos</code>): File IDs, names, tags, and multiple URL formats (thumbnail, preview, direct view)</li>
+      <li><strong>Audio file metadata</strong> (<code>driveContent.songs_audio</code>): Audio file names, tags, MIME types, and stream/download URLs</li>
+      <li><strong>PDF documents</strong> (<code>driveContent.sheet_music</code>, <code>driveContent.play_scripts</code>): Sheet music and script PDFs with viewer URLs</li>
+    </ul>
+  </section>
+
+  <section id="content-types">
+    <h2>Content Types & Processing Recommendations</h2>
+
+    <h3>Text Content</h3>
+    <ul>
+      <li><strong>Course descriptions</strong>: Teaching philosophy, thematic explanations, learning objectives</li>
+      <li><strong>Teacher bios</strong>: Background, teaching style</li>
+      <li><strong>Google Docs integration</strong>: Some courses include full document content</li>
+    </ul>
+
+    <h3>Visual Materials</h3>
+    <ul>
+      <li><strong>Workbooks</strong>: Student learning process records</li>
+      <li><strong>Blackboard drawings</strong>: Teacher chalkboard art</li>
+      <li><strong>Photo galleries</strong>: Classroom activities and events</li>
+      <li><strong>Script photos</strong>: Drama performance documentation</li>
+    </ul>
+    <p>⚠️ All images are hosted on Google Drive; public access permissions required.</p>
+
+    <h3>Audio Content</h3>
+    <ul>
+      <li><strong>Formats</strong>: Primarily M4A, MP3</li>
+      <li><strong>Types</strong>: Course songs, recitations, instrument performances</li>
+      <li><strong>Access</strong>: Stream or download via Google Drive API</li>
+    </ul>
+
+    <h3>PDF Documents</h3>
+    <p>Many course materials are in PDF format, including:</p>
+    <ul>
+      <li><strong>Worksheets</strong> (<code>driveContent.worksheet</code>): Student exercise templates, note-taking formats</li>
+      <li><strong>Sheet Music</strong> (<code>driveContent.sheet_music</code>): Musical scores and notation</li>
+      <li><strong>Play Scripts</strong> (<code>driveContent.play_scripts</code>): Drama performance scripts</li>
+      <li><strong>Syllabi</strong> (<code>driveContent.syllabus</code>): Course outlines and learning plans</li>
+    </ul>
+
+    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-4">
+      <p class="font-semibold">PDF Accessibility for AI Tools</p>
+      <p><strong>PDF Text Extraction Implemented!</strong></p>
+      <ul>
+        <li>✅ <strong>Native PDF support</strong>: Text extraction from PDF files using <code>pdf-parse</code> library</li>
+        <li>✅ <strong>Google Docs support</strong>: Text export via Drive API for Google Doc format</li>
+        <li>✅ <strong>Automatic caching</strong>: Extracted text stored separately from course JSON</li>
+        <li>✅ <strong>AI-ready output</strong>: Full PDF text included in <code>ai-index.json</code></li>
+      </ul>
+
+      <p><strong>Limitations:</strong></p>
+      <ul>
+        <li>⚠️ <strong>Scanned PDFs</strong>: Cannot extract text from image-only PDFs (no text layer)</li>
+        <li>⚠️ <strong>File size</strong>: Large PDFs increase <code>ai-index.json</code> size</li>
+      </ul>
+
+      <p><strong>What AI Can Access:</strong></p>
+      <ul>
+        <li>✅ PDF metadata: filename, tags, MIME type</li>
+        <li>✅ PDF URLs: for preview and download</li>
+        <li>✅ PDF text content: full extracted text in <code>pdfText</code> field</li>
+        <li>✅ Sync timestamp: <code>pdfTextLastSynced</code> for freshness tracking</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="usage-guidelines">
+    <h2>AI Usage Guidelines</h2>
+
+    <h3>Recommended Tools & Methods</h3>
+
+    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-4">
+      <p class="font-semibold">NotebookLM</p>
+      <ol>
+        <li>Add source: Select "Website"</li>
+        <li>Paste course URL (e.g., <code>{{ site.url }}/courses/2a-nenggao-113-summer/</code>)</li>
+        <li>NotebookLM will crawl the page and linked content</li>
+        <li>Example query: "What are the learning objectives of this course?"</li>
+      </ol>
+    </div>
+
+    <div class="bg-green-50 border-l-4 border-green-500 p-4 my-4">
+      <p class="font-semibold">ChatGPT / Claude</p>
+      <ol>
+        <li>Download <code>{{ site.url }}/ai-index.json</code></li>
+        <li>Upload the JSON file to the AI chat</li>
+        <li>Ask questions like: "Analyze the teaching philosophy in the Mt. Nenggao course based on the teacher's description"</li>
+        <li>The AI can access full Google Docs text, image lists, and audio file metadata</li>
+      </ol>
+    </div>
+
+    <h3>Sample Queries</h3>
+    <ul>
+      <li>"Analyze the teaching strategies in Grade 2 nature main lesson"</li>
+      <li>"Compare the evolution of blackboard drawing styles across grade levels"</li>
+      <li>"How does the drama course integrate Indigenous Taiwanese culture?"</li>
+      <li>"What learning processes are reflected in the workbooks?"</li>
+      <li>"List all songs used in the Mt. Nenggao drama course"</li>
+      <li>"Extract keywords from the play script and course description"</li>
+    </ul>
+
+    <h3>Example: Accessing Drive Content</h3>
+    <p>Here's how AI tools can parse the <code>ai-index.json</code> structure:</p>
+    <pre><code>{
+  "courses": [{
+    "slug": "2a-nenggao-113-summer",
+    "i18n": {
+      "zh-TW": {
+        "title": "能高山（班級戲劇）",
+        "grade": "二年級 2A 嶺光班",
+        "semester": "113 學年度 夏季",
+        "unit": "班級戲劇",
+        "domain": "自然主課",
+        "teacher": "王琬婷",
+        "overview": "琬婷老師說明，「能高山」戲劇是她自然主課的內容..."
+      },
+      "en-US": {
+        "title": "Mt. Nenggao (Class Drama)",
+        "grade": "Grade 2, Class 2A Lingguang",
+        "overview": "Teacher Wan-Ting explained that the 'Mt. Nenggao' drama..."
+      }
+    },
+    "metadata": {
+      "grade_level": "2",
+      "domain_category": "nature",
+      "teacher_name": "王琬婷/Wang Wan-Ting",
+      "heroImage": "142A6mNx2zfmWdr__8VcSu_omjxuLZ_VR"
+    },
+    "docs": {
+      "course_description": {
+        "name": "琬婷老師談能高山課程及戲劇設計",
+        "content": "113學年度2A嶺光班夏季班級戲劇 能高山...",
+        "mimeType": "application/vnd.google-apps.document",
+        "downloadUrl": "https://drive.google.com/file/d/...",
+        "lastSynced": "2025-11-13T04:02:56.116Z"
+      },
+      "play_script": {
+        "name": "嶺光班二年級戲劇劇本 –〈能高山〉",
+        "content": "嶺光班二年級戲劇 –〈能高山〉..."
+      }
+    },
+  }]
+}</code></pre>
+
+    <p><strong>Note on PDFs:</strong> While PDF metadata and URLs are included, AI tools cannot directly parse PDF content from Google Drive links. Users must download PDFs manually and upload them to AI tools for text analysis.</p>
+
+    <h3>Multi-Language Support</h3>
+    <p>All course content is available in both Traditional Chinese (zh-TW) and English (en-US) via the <code>i18n</code> object. AI tools can:</p>
+    <ul>
+      <li>Access Chinese content: <code>course.i18n["zh-TW"].title</code></li>
+      <li>Access English content: <code>course.i18n["en-US"].title</code></li>
+      <li>Use metadata for filtering: <code>course.metadata.grade_level</code>, <code>course.metadata.domain_category</code></li>
+    </ul>
+  </section>
+
+  <section id="licensing">
+    <h2>Licensing & Usage Restrictions</h2>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-4">
+      <p class="font-semibold">Important Notice</p>
+      <ul class="mb-0">
+        <li><strong>Content License</strong>: CC BY-NC-SA (Attribution-NonCommercial-ShareAlike)</li>
+        <li><strong>Student Work</strong>: Publicly authorized for educational purposes only</li>
+        <li><strong>AI Training</strong>: Permitted for educational research with proper attribution</li>
+        <li><strong>Commercial Use</strong>: Requires prior written consent</li>
+        <li><strong>Privacy Protection</strong>: Must not be used to identify individual students</li>
+      </ul>
+    </div>
+
+    <h3>Suggested Citation Format</h3>
+    <pre><code>Cixin Course Weaver - [Course Name]
+{{ site.url }}/courses/[slug]/
+Accessed: [YYYY-MM-DD]
+License: CC BY-NC-SA</code></pre>
+  </section>
+
+  <section id="technical-details">
+    <h2>Technical Details</h2>
+
+    <h3>Technology Stack</h3>
+    <ul>
+      <li><strong>Static Generation</strong>: Eleventy 3.0 (11ty)</li>
+      <li><strong>Template Engine</strong>: Nunjucks</li>
+      <li><strong>Search</strong>: Pagefind</li>
+      <li><strong>Content Sync</strong>: Google Drive API v3</li>
+      <li><strong>Hosting</strong>: GitHub Pages</li>
+    </ul>
+
+    <h3>Semantic Markup</h3>
+    <ul>
+      <li>HTML5 semantic tags (<code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;nav&gt;</code>)</li>
+      <li>Proper heading hierarchy (h1 → h2 → h3)</li>
+      <li>Unique IDs for content blocks (e.g., <code>#course-overview</code>)</li>
+      <li>Meaningful image alt attributes</li>
+      <li>Descriptive link text</li>
+    </ul>
+
+    <h3>Accessibility Features</h3>
+    <ul>
+      <li>Keyboard navigation support (arrow keys for image browsing)</li>
+      <li>ARIA labels</li>
+      <li>Semantically clear forms and interactive elements</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Information</h2>
+    <p>
+      For questions or collaboration inquiries, please contact:<br>
+      <strong>Email</strong>: <a href="mailto:{{ site.footer_email }}">{{ site.footer_email }}</a><br>
+      <strong>Institution</strong>: {{ site.footer_org }}
+    </p>
+  </section>
+
+  <section id="changelog">
+    <h2>Changelog</h2>
+    <ul>
+      <li><strong>2025-11-04</strong>: Created AI Tools Guide page. Added JSON-LD structured data</li>
+      <li><strong>2025-11-13</strong>: Enhanced <code>ai-index.json</code> to include:
+        <ul>
+          <li>Full Google Docs text content (course descriptions, play scripts)</li>
+          <li>Complete Drive metadata (images, audio, PDFs with URLs and tags)</li>
+          <li>Multi-language support (zh-TW and en-US via i18n object)</li>
+          <li>Structured metadata (grade_level, domain_category, teacher_name)</li>
+          <li>Added worksheet and syllabus material types</li>
+          <li><strong>Implemented PDF text extraction using pdf-parse library</strong></li>
+          <li>Separate cache system for extracted PDF text</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section id="future-enhancements">
+    <h2>Future Enhancements</h2>
+    <p>Planned improvements to enhance AI accessibility:</p>
+    <ul>
+      <li><strong>PDF Text Extraction</strong> ✅ COMPLETE:
+        <ul>
+          <li>✅ Infrastructure: Separate cache system (<code>src/_data/pdf-text-cache/</code>)</li>
+          <li>✅ Google Docs: API export for text-based documents</li>
+          <li>✅ Native PDFs: Using <code>pdf-parse v1.1.1</code> library</li>
+          <li>⚠️ Limitation: Scanned PDFs require OCR (future: Google Cloud Vision API)</li>
+        </ul>
+      </li>
+      <li><strong>Image OCR</strong>: Extract text from workbook photos and blackboard drawings for searchability</li>
+      <li><strong>Audio Transcription</strong>: Generate text transcripts for song lyrics and narrations</li>
+      <li><strong>Structured Learning Objectives</strong>: Add machine-readable learning objectives array to each course</li>
+      <li><strong>Cross-Course Links</strong>: Add semantic relationships between related courses (prerequisites, sequels, thematic connections)</li>
+    </ul>
+  </section>
+</article>

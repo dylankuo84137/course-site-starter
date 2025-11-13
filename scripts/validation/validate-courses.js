@@ -9,12 +9,12 @@ const path = require('path');
 const process = require('process');
 
 // Import validator from _data directory
-const validator = require('../src/_data/course-validator.js');
+const validator = require('../../src/_data/course-validator.js');
 
 function main() {
   console.log('🔍 Validating course data...\n');
 
-  const dataDir = path.join(__dirname, '..', 'src', '_data');
+  const dataDir = path.join(__dirname, '../..', 'src', '_data');
   const results = validator.validateAllCourses(dataDir);
   
   // Output formatted results

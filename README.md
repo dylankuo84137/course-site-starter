@@ -19,6 +19,9 @@
 - **全文搜索**: 基於Pagefind的站內搜索功能
 - **快速篩選**: 相簿頁面的即時關鍵字篩選
 - **AI 友善設計**: 文字優先架構，支援 AI 工具分析與學習（NotebookLM、ChatGPT、Claude 等）
+  - 自動生成 `ai-index.json` 包含所有課程元數據與內容
+  - PDF 文字提取系統（支援 Google Docs 格式）
+  - 結構化 JSON-LD 語意標記
 
 ### 🛠 技術架構
 - **靜態網站生成**: Eleventy (11ty) v3.0
@@ -34,7 +37,15 @@ course-site-starter/
 ├── .eleventy.js              # Eleventy配置文件
 ├── package.json              # NPM配置和腳本
 ├── scripts/
-│   └── fetch-drive.mjs       # Google Drive同步腳本
+│   ├── sync/                 # 同步腳本
+│   │   └── fetch-drive.mjs   # Google Drive同步 + PDF文字提取
+│   ├── migration/            # 資料遷移腳本
+│   └── validation/           # 驗證腳本
+│       └── validate-courses.js
+├── docs/                     # 專案文件
+│   ├── development/          # 開發者文件
+│   ├── technical/            # 技術文件
+│   └── CHANGELOG.md          # 更新日誌
 ├── public/
 │   ├── css/site.css          # 自定義樣式
 │   └── js/
@@ -43,15 +54,18 @@ course-site-starter/
 ├── src/
 │   ├── _data/                # 數據文件夾
 │   │   ├── course-configs/   # 課程配置文件夾
-│   │   │   ├── course_2a_nenggao_113_summer.json
-│   │   │   ├── course_3a_sunshot_113_summer.json
+│   │   │   ├── course_*.json
 │   │   │   └── course_template.json  # 新課程模板
 │   │   ├── i18n/             # 國際化資料
 │   │   │   ├── zh-TW.json    # 繁體中文翻譯
 │   │   │   └── en-US.json    # 英文翻譯
+│   │   ├── pdf-text-cache/   # PDF文字提取快取（自動生成，不提交git）
+│   │   │   ├── .gitkeep      # 保留目錄結構
+│   │   │   └── *.json        # 各課程的PDF文字快取（由sync:drive生成）
 │   │   ├── site.json         # 站點基本信息
 │   │   ├── locale.js         # 語言配置
 │   │   ├── coursesList.js    # 課程列表生成器
+│   │   ├── pdfTextCache.js   # PDF文字快取載入器（Eleventy data file）
 │   │   ├── courseValidation.js # 建置時驗證
 │   │   └── course-validator.js # 驗證邏輯
 │   ├── _includes/            # 模板組件
@@ -217,11 +231,39 @@ course-site-starter/
 1. 備份同步前的 `course-configs/course_*.json` → `course-original/course_*.json.orig`
 2. 從 Drive 抓取檔案清單（圖片、音檔、文件）
 3. 將結果寫入 `material.*[].items` 與 `docs.*`（包含 `content`、`downloadUrl`、`lastSynced`）
+4. **自動提取 PDF 文字內容**（v2025.11 新增）：
+   - 偵測 `worksheet`、`syllabus`、`play_scripts`、`sheet_music` 中的 PDF 檔案
+   - 使用 `pdf-parse@1.1.1` 提取文字（支援原生 PDF）
+   - 使用 Drive API 匯出文字（支援 Google Docs 格式）
+   - 文字快取儲存於 `src/_data/pdf-text-cache/{course-slug}.json`
+   - 建置時自動載入並包含於 `ai-index.json`
 
 > **提示**：`.orig` 只是備份，請勿提交；主要 JSON 檔案保存乾淨的課程元數據，提交前務必還原。
 > 若圖片無法顯示，請檢查 Drive 檔案/資料夾權限設為「知道連結的任何人可檢視」。
 需要保留 `material` / `docs` 的同步結果。
 > 若圖片無法顯示，請檢查 Drive 檔案或資料夾權限是否為「知道連結的任何人可檢視」。
+
+### PDF 文字提取
+
+**功能概述：** 自動從 PDF 教材中提取文字內容，使 AI 工具能直接分析教學素材。
+
+**支援格式：**
+- ✅ 原生 PDF 檔案（使用 `pdf-parse` 函式庫下載並解析）
+- ✅ Google Docs 格式（使用 Drive API `/export` 端點快速匯出）
+- ⚠️ 掃描型 PDF（無文字層）無法提取，需使用 OCR
+
+**架構設計：**
+```
+課程 JSON (僅元數據)  →  PDF 文字快取 (分離儲存)  →  AI 索引 (合併輸出)
+course_*.json            pdf-text-cache/*.json       ai-index.json
+```
+
+**資料流程：**
+1. `npm run sync:drive` 偵測 PDF 檔案並提取文字
+2. 文字內容儲存於 `src/_data/pdf-text-cache/{course-slug}.json`
+3. `pdfTextCache.js` 在建置時載入快取
+4. `src/ai-discovery/ai-index.njk` 將文字合併至 `pdfText` 欄位
+5. AI 工具可透過 `ai-index.json` 直接讀取 PDF 內容
 
 ---
 
@@ -380,10 +422,18 @@ course-site-starter/
 
 2. **結構化資料**（JSON 格式）
    - `/_data/course-configs/course_*.json` - 課程元資料
-   - `/ai-index.json` - 完整課程索引
+   - `/ai-index.json` - 完整課程索引（包含 Google Docs 文字內容）
    - `/feed.json` - 更新時間軸
 
-3. **語義標記**
+3. **PDF 文字提取**
+   - **原生 PDF 支援**：使用 `pdf-parse@1.1.1` 自動提取文字內容
+   - **Google Docs 支援**：透過 Drive API 快速匯出純文字
+   - **分離式快取**：提取的文字儲存於 `src/_data/pdf-text-cache/`
+   - **AI 整合**：完整文字內容包含於 `ai-index.json` 的 `pdfText` 欄位
+   - **GitHub Actions 相容**：無原生相依套件，CI/CD 自動執行
+   - **限制**：掃描型 PDF（無文字層）無法提取，需使用 OCR
+
+4. **語義標記**
    - Schema.org Course 標準
    - 有意義的圖片 Alt 文字
    - 描述性連結文字
@@ -391,14 +441,24 @@ course-site-starter/
 ### 使用範例
 
 **NotebookLM:**
-1. 上傳網站 URL: `https://yourusername.github.io/course-site-starter/`
-2. NotebookLM 會自動爬取所有課程頁面
-3. 可詢問：「二年級戲劇課程的教學目標是什麼？」
+1. 上傳 `ai-index.json` 檔案（包含完整課程資料 + PDF 文字）
+2. 或提供網站 URL: `https://yourusername.github.io/course-site-starter/`
+3. 詢問範例：
+   - 「二年級戲劇課程的教學目標是什麼？」
+   - 「9 年級現代史工作本的筆記格式是什麼？」
+   - 「比較不同年級的黑板畫風格」
 
 **ChatGPT/Claude:**
-1. 分享特定課程 URL
-2. 或上傳 `/ai-index.json` 取得完整結構
-3. AI 可分析教學設計、建議改進方向
+1. **方法 A（完整資料）**：下載並上傳 `/ai-index.json`
+   - 優點：包含所有課程元數據、Google Docs 內容、PDF 文字
+   - 適合：深度分析、跨課程比較、教學設計研究
+2. **方法 B（特定課程）**：分享課程頁面 URL
+   - 優點：快速、即時
+   - 適合：單一課程諮詢、教學建議
+3. 實際應用：
+   - 分析工作本內容並建議評量方式
+   - 根據劇本內容設計延伸活動
+   - 比較不同教師的教學策略
 
 ### 授權與使用規範
 
@@ -406,8 +466,6 @@ course-site-starter/
 - **學生照片**: 已取得公開授權，僅限教育用途
 - **AI 訓練**: 允許用於教育研究，需註明出處
 - **商業使用**: 只能將作品用於非商業目的
-
-詳見網站的 `/ai-use.html` 頁面（待建立）。
 
 ---
 
