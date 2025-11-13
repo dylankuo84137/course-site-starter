@@ -111,6 +111,13 @@
   <main class="max-w-6xl mx-auto px-4 py-8">
     {% if not hidePagefindSearch %}
     <div id="search" class="mb-6"></div>
+    <p
+      class="pagefind-search-notice"
+      data-i18n="filters.search_lang_notice"
+      data-lang-only="en-US"
+      hidden>
+      {{ i18n['en-US'].filters.search_lang_notice }}
+    </p>
     {% endif %}
     {{ content | safe }}
   </main>

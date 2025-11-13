@@ -92,6 +92,7 @@
   },
   "filters": {
     "search_placeholder": "Search courses...",
+    "search_lang_notice": "Note: Search is currently optimized for Traditional Chinese. For best results, please switch to 繁體中文 using the language selector above.",
     "all_grades": "All Grades",
     "all_domains": "All Domains",
     "all_teachers": "All Teachers",

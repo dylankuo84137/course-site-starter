@@ -217,6 +217,32 @@
     });
   }
 
+  function updateLangOnlyElements(activeLang) {
+    const langSpecificElements = document.querySelectorAll('[data-lang-only]');
+    langSpecificElements.forEach(function(el) {
+      const attr = el.getAttribute('data-lang-only');
+      if (!attr) {
+        return;
+      }
+
+      const targets = attr.split(',').map(function(lang) {
+        return lang.trim();
+      }).filter(Boolean);
+
+      if (targets.length === 0) {
+        return;
+      }
+
+      const shouldShow = targets.indexOf(activeLang) !== -1;
+      el.hidden = !shouldShow;
+      if (shouldShow) {
+        el.removeAttribute('aria-hidden');
+      } else {
+        el.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
   // Update language switcher label
   // Note: The label shows the CURRENT language name (e.g., when page is in English, show "English")
   function updateLanguageSwitcher(toLang) {
@@ -265,25 +291,22 @@
   const isDefaultHomepage = (normPath === normBase || normPath === '');
   const isHomepage = langPageMatch || isDefaultHomepage;
 
-  if (isHomepage) {
-    // On homepage - apply saved language preference
-    const savedLang = getSavedLang();
+  const savedLang = getSavedLang();
+  let appliedLang = currentLang;
 
+  if (isHomepage) {
     // On homepage, translate course content if needed
     if (savedLang && savedLang !== currentLang) {
       translateCourseContent(savedLang);
       translateCourseSwitcher(savedLang);
       replaceText(currentLang, savedLang);
       updateLanguageSwitcher(savedLang);
+      appliedLang = savedLang;
     }
 
     // Mark language as ready on homepage
     document.documentElement.setAttribute('data-lang-ready', 'true');
   } else {
-    // On other pages (course pages, etc.)
-    // Apply saved language preference if it differs from page default
-    const savedLang = getSavedLang();
-
     if (savedLang && savedLang !== currentLang) {
       // Execute immediately - no delay needed since we set lang attribute in <head>
       // This prevents FOUC by working synchronously before first paint
@@ -291,9 +314,12 @@
       translateCourseSwitcher(savedLang);
       replaceText(currentLang, savedLang);
       updateLanguageSwitcher(savedLang);
+      appliedLang = savedLang;
     }
 
     // Mark language as ready to show content
     document.documentElement.setAttribute('data-lang-ready', 'true');
   }
+
+  updateLangOnlyElements(appliedLang);
 })();

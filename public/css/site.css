@@ -325,6 +325,14 @@ html:not([data-lang-ready]) body {
   margin-top: 1rem;
 }
 
+.home-search-notice,
+.pagefind-search-notice {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
 .home-cta-group {
   display: flex;
   flex-wrap: wrap;

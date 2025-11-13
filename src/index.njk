@@ -69,7 +69,7 @@ hidePagefindSearch: true
   {% set testimonialAriaLabel = '教師與學生推薦' %}
 {% endif %}
 
-<section class="homepage-shell">
+<section class="homepage-shell" data-pagefind-ignore>
   <div class="home-hero{% if homepageStrings.eyebrow %} home-hero--with-eyebrow{% endif %}">
     <div class="home-hero-content">
       {% if homepageStrings.eyebrow %}
@@ -82,6 +82,13 @@ hidePagefindSearch: true
         <a class="home-cta-secondary" href="#ethos">{{ homepageStrings.hero_secondary_cta or langData.nav.home }}</a>
       </div>
       <div class="home-search" id="search" aria-label="{{ i18n[currentLang].filters.search_placeholder }}"></div>
+      <p
+        class="home-search-notice"
+        data-i18n="filters.search_lang_notice"
+        data-lang-only="en-US"
+        hidden>
+        {{ i18n['en-US'].filters.search_lang_notice }}
+      </p>
     </div>
     <div class="home-hero-media">
       <figure class="home-illustration">

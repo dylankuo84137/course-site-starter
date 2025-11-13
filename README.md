@@ -395,6 +395,13 @@ course_*.json            pdf-text-cache/*.json       ai-index.json
   - 以空白分隔多個關鍵字（AND 條件）
   - 比對範圍：**檔名（name）＋ 標籤（tags）＋ 圖片 Alt**
 
+### Pagefind 多語搜尋限制與解法
+
+1. **English User Guidance**  
+   Pagefind 只能索引建置當下輸出的 HTML，無法讀取我們在瀏覽器端才套用的英文化內容。為了避免英文介面的使用者困惑，首頁搜尋框會在 `currentLang === 'en-US'` 時顯示 `filters.search_lang_notice`（`src/index.njk:85` + `src/_data/i18n/en-US.json:95`），提醒他們先切換至「繁體中文」以獲得最完整的搜尋結果。
+2. **English Metadata Indexing**  
+   課程頁面 (`src/courses/home.njk:32`) 會在視覺上隱藏、但語意上可讀的 `<div lang="en-US">` 中輸出課程的英文標題／學期／領域／教師／簡介，讓 Pagefind 在預設中文版面下仍能索引英文關鍵字。新增或更新課程時務必維持 `i18n['en-US']` 欄位完整，否則英文查詢會缺少命中。
+
 ---
 
 ## 🤖 AI 友善設計

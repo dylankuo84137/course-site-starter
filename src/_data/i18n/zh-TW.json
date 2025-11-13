@@ -92,6 +92,7 @@
   },
   "filters": {
     "search_placeholder": "搜尋課程...",
+    "search_lang_notice": "",
     "all_grades": "所有年級",
     "all_domains": "所有領域",
     "all_teachers": "所有教師",

@@ -29,6 +29,16 @@ permalink: "/courses/{{ c.slug }}/index.html"
 {% set hasDownloadMaterials = (syllabusPdfs | length) > 0 or (worksheetPdfs | length) > 0 %}
 
 <section class="space-y-6" data-course-i18n="{{ c.i18n | json }}">
+  {# Hidden English content for Pagefind full-text search indexing #}
+  {% if c.i18n and c.i18n['en-US'] %}
+  <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true" lang="en-US">
+    {{ c.i18n['en-US'].title }}
+    {{ c.i18n['en-US'].grade }} {{ c.i18n['en-US'].semester }}
+    {{ c.i18n['en-US'].unit }} {{ c.i18n['en-US'].domain }}
+    {{ c.i18n['en-US'].overview }}
+    {{ c.i18n['en-US'].teacher }}
+  </div>
+  {% endif %}
   <article class="prose prose-stone max-w-none">
     <section id="course-overview" class="mb-8">
       <h2>{{ i18n[currentLang].course.overview }}</h2>
