@@ -152,6 +152,14 @@
 
     // Dispatch language changed event for other modules
     document.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: toLang } }));
+
+    // Reinitialize Pagefind search with new language
+    if (window.__initPagefind && typeof window.__initPagefind === 'function') {
+      // Wait a brief moment to ensure DOM is updated
+      setTimeout(function() {
+        window.__initPagefind();
+      }, 100);
+    }
   }
 
   // Translate course switcher dropdown

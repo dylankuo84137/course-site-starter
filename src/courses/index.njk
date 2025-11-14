@@ -2,7 +2,6 @@
 layout: layouts/base.njk
 permalink: /courses/index.html
 currentLang: zh-TW
-hidePagefindSearch: true
 ---
 {% import "macros/i18n.njk" as i18nMacro %}
 
@@ -65,6 +64,15 @@ hidePagefindSearch: true
         data-domain="{{ c.metadata.domain_category if c.metadata else '' }}"
         data-teacher="{{ c.metadata.teacher_name if c.metadata else '' }}"
       >
+        {# Hidden English content for Pagefind indexing #}
+        {% if c.i18n and c.i18n['en-US'] %}
+        <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true" lang="en-US">
+          {{ c.i18n['en-US'].title }}
+          {{ c.i18n['en-US'].grade }} {{ c.i18n['en-US'].semester }}
+          {{ c.i18n['en-US'].unit }} {{ c.i18n['en-US'].domain }}
+          {{ c.i18n['en-US'].overview }}
+        </div>
+        {% endif %}
         {% set courseDescriptionDoc = materialHelpers.getDoc(c, 'course_description') %}
         {% set hasWorkbook = materialHelpers.hasMaterial(c, 'workbook_photos') or materialHelpers.hasMaterial(c, 'workbook_pdfs') %}
         {% set hasSyllabus = materialHelpers.hasMaterial(c, 'syllabus') %}

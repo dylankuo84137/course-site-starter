@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx @11ty/eleventy --serve",
     "build": "npx @11ty/eleventy",
-    "postbuild": "npx pagefind --site _site",
+    "postbuild": "npx pagefind --site _site --force-language zh",
     "prebuild": "node scripts/validation/validate-courses.js",
     "deploy": "npm run build && npm run postbuild",
     "sync:drive": "node scripts/sync/fetch-drive.mjs",

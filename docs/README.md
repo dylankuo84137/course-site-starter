@@ -13,7 +13,7 @@ Core guides for developers and AI assistants working on this project:
 
 Implementation details and technical specifications:
 
-- [pdf-text-extraction.md](technical/pdf-text-extraction.md) - PDF Text Extraction System
+- [pdf-text-extraction.md](development/pdf-text-extraction.md) - PDF Text Extraction System
 
 ## Project History
 

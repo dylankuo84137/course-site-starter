@@ -43,7 +43,14 @@
     }
   },
   "material": {
-    "syllabus": [],
+    "syllabus": [
+      {
+        "type": "pdf",
+        "id": "1QEvQXOQiQGQOyxayr5-3AHi3XJCeeJDU",
+        "title": "",
+        "items": []
+      }
+    ],
     "workbook_photos": [
       {
         "type": "drive-folder",

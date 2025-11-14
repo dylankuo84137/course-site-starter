@@ -2,6 +2,7 @@
 {% set navLinks = [
   { href: '/' | url, label: i18n[currentLang].nav.home },
   { href: '/courses/' | url, label: i18n[currentLang].nav.courses },
+  { href: '/ai-guide/' | url, label: i18n[currentLang].nav.ai_guide },
   { href: '/reflections/' | url, label: i18n[currentLang].nav.reflections }
 ] %}
 <!doctype html>
@@ -109,16 +110,6 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-8">
-    {% if not hidePagefindSearch %}
-    <div id="search" class="mb-6"></div>
-    <p
-      class="pagefind-search-notice"
-      data-i18n="filters.search_lang_notice"
-      data-lang-only="en-US"
-      hidden>
-      {{ i18n['en-US'].filters.search_lang_notice }}
-    </p>
-    {% endif %}
     {{ content | safe }}
   </main>
 
@@ -191,7 +182,34 @@
     })();
   </script>
   <script>
-    window.__initPagefind = function(){ try{ if(window.PagefindUI) new PagefindUI({ element: "#search", showSubResults: true }); }catch(e){} };
+    window.__pagefindInstance = null;
+    window.__initPagefind = function() {
+      try {
+        if (!window.PagefindUI) return;
+
+        // Get user's language preference
+        const savedLang = localStorage.getItem('preferredLang') || 'zh-TW';
+
+        // Destroy existing instance if present
+        if (window.__pagefindInstance && typeof window.__pagefindInstance.destroy === 'function') {
+          window.__pagefindInstance.destroy();
+        }
+
+        // Get Pagefind translations for current language
+        const pagefindTranslations = window.__I18N_DATA__[savedLang]?.pagefind || {};
+
+        // Create new instance with full translations
+        // Note: Using --force-language zh creates a single multilingual index
+        // This allows both Chinese and English content to be searched together
+        window.__pagefindInstance = new PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          translations: pagefindTranslations
+        });
+      } catch(e) {
+        console.error('Pagefind init error:', e);
+      }
+    };
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
   </script>
 

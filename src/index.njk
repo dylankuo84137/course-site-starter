@@ -2,7 +2,6 @@
 layout: layouts/base.njk
 permalink: /
 currentLang: zh-TW
-hidePagefindSearch: true
 ---
 {% import "macros/i18n.njk" as i18nMacro %}
 
@@ -133,6 +132,15 @@ hidePagefindSearch: true
       {% set hasStory = materialHelpers.getDoc(c, 'story') %}
       {% set hasVideos = materialHelpers.hasMaterial(c, 'videos') %}
       <article class="home-course-card" data-course-slug="{{ c.slug }}" data-course-i18n="{{ c.i18n | json }}">
+        {# Hidden English content for Pagefind indexing #}
+        {% if c.i18n and c.i18n['en-US'] %}
+        <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true" lang="en-US">
+          {{ c.i18n['en-US'].title }}
+          {{ c.i18n['en-US'].grade }} {{ c.i18n['en-US'].semester }}
+          {{ c.i18n['en-US'].unit }} {{ c.i18n['en-US'].domain }}
+          {{ c.i18n['en-US'].overview }}
+        </div>
+        {% endif %}
         <div class="home-card-header">
           <div class="home-card-meta">
             <span data-i18n-course="grade">{{ i18nMacro.cf(c, 'grade', currentLang) }}</span>
