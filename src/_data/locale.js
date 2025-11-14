@@ -8,5 +8,7 @@ module.exports = {
   htmlLang: {
     'zh-TW': 'zh-Hant',
     'en-US': 'en-US'
-  }
+  },
+  // Routes that have dedicated localized files instead of relying on client-side rewriting
+  langSpecificPages: ['/ai-guide/']
 };

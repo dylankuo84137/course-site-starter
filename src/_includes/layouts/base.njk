@@ -41,6 +41,7 @@
     window.__CURRENT_LANG__ = '{{ currentLang }}';
     window.__DEFAULT_LANG__ = '{{ locale.default }}';
     window.__BASE_PATH__ = '{{ "/" | url }}';
+    window.__LANG_SPECIFIC_PAGES__ = {{ (locale.langSpecificPages or []) | json | safe }};
   </script>
 
   <script src="https://cdn.tailwindcss.com"></script>

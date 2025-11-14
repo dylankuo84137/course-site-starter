@@ -9,6 +9,24 @@
 
   if (!i18nData) return;
 
+  const normalizePagePath = function(path) {
+    if (!path) {
+      return '/';
+    }
+    let normalized = path;
+    if (!normalized.startsWith('/')) {
+      normalized = '/' + normalized;
+    }
+    normalized = normalized.replace(/\/+$/, '');
+    return normalized === '' ? '/' : normalized;
+  };
+
+  const langSpecificPages = (
+    window.__LANG_SPECIFIC_PAGES__ && window.__LANG_SPECIFIC_PAGES__.length
+      ? window.__LANG_SPECIFIC_PAGES__
+      : ['/ai-guide/']
+  ).map(normalizePagePath);
+
   function getSavedLang() {
     try {
       return localStorage.getItem('preferredLang');
@@ -150,6 +168,9 @@
       }
     }
 
+    // Update navigation links to language-specific versions
+    updateNavigationLinks(toLang);
+
     // Dispatch language changed event for other modules
     document.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: toLang } }));
 
@@ -286,6 +307,46 @@
     });
   }
 
+  // Update navigation links to point to language-specific versions
+  function updateNavigationLinks(toLang) {
+    const basePath = window.__BASE_PATH__ || '/';
+    const normBase = basePath.replace(/\/+$/, '');
+
+    // Find all navigation links
+    const navLinks = document.querySelectorAll('nav a[href], .mobile-menu-panel a[href]');
+
+    navLinks.forEach(function(link) {
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      // Check if this is a language-specific page
+      for (let i = 0; i < langSpecificPages.length; i++) {
+        const page = langSpecificPages[i];
+        const pageSuffix = page === '/' ? '/' : page + '/';
+        const zhHref = normBase + pageSuffix;
+        const enHref = normBase + '/en-US' + pageSuffix;
+        const bareZhHref = pageSuffix;
+        const bareEnHref = '/en-US' + pageSuffix;
+
+        const matchesLangSpecific = (
+          href === zhHref ||
+          href === bareZhHref ||
+          href === enHref ||
+          href === bareEnHref
+        );
+
+        if (matchesLangSpecific) {
+          if (toLang === 'en-US') {
+            link.setAttribute('href', enHref);
+          } else {
+            link.setAttribute('href', zhHref);
+          }
+          break;
+        }
+      }
+    });
+  }
+
   // Check if we're on a language-specific homepage
   const currentPath = window.location.pathname;
   const basePath = window.__BASE_PATH__ || '/';
@@ -312,6 +373,9 @@
       appliedLang = savedLang;
     }
 
+    // Update navigation links based on language preference
+    updateNavigationLinks(appliedLang);
+
     // Mark language as ready on homepage
     document.documentElement.setAttribute('data-lang-ready', 'true');
   } else {
@@ -324,6 +388,9 @@
       updateLanguageSwitcher(savedLang);
       appliedLang = savedLang;
     }
+
+    // Update navigation links based on language preference
+    updateNavigationLinks(appliedLang);
 
     // Mark language as ready to show content
     document.documentElement.setAttribute('data-lang-ready', 'true');
