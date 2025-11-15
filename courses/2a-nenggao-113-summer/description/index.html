@@ -1,0 +1,603 @@
+
+
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Prevent FOUC: Check language preference before any rendering -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('preferredLang');
+        if (saved) {
+          const validLangs = { 'en-US': 'en-US', 'zh-TW': 'zh-Hant' };
+          const langAttr = validLangs[saved] || 'zh-Hant';
+          document.documentElement.setAttribute('lang', langAttr);
+          document.documentElement.setAttribute('data-user-lang', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>慈心課程織圖</title>
+  
+  <meta name="description" content="慈心華德福課程資料庫，串起課程目標、教學紀錄與媒體素材，支援備課、典藏與分享。">
+  
+  <meta name="keywords" content="Waldorf education, 華德福教育, course materials, teaching resources, 戲劇, 黑板畫, 工作本, 歌曲">
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+
+  <!-- Embed i18n data for client-side language switching -->
+  <script>
+    window.__I18N_DATA__ = {"zh-TW":{"site":{"title":"慈心課程織圖","description":"慈心華德福課程資料庫，串起課程目標、教學紀錄與媒體素材，支援備課、典藏與分享。","homepage_description":"這是一座活的教學典藏館，收藏的不只是課程，更是師生共同創造的學習旅程。從台灣的故事到世界的詩篇，每堂課都以藝術為橋，串連人文與思想。\n您可以在這裡瀏覽工作本、黑板畫、戲劇、音樂，重溫學習的真實足跡。在這裡找到啟發與連結，讓教學在心中繼續綻放。"},"homepage":{"eyebrow":"課程織圖","hero_title":"課程成為故事，學習化為藝術","hero_primary_cta":"探索課程","hero_secondary_cta":"設計理念","course_section_title":"課程總覽","course_section_copy":"沿著華德福教學節奏，從黑板畫、戲劇到歌曲音檔，完整收藏師生共創的珍貴足跡。","tag_intro":"熱門標籤","category_section_title":"課程快速導航","category_section_copy":"快速導覽各領域課程，找到適合您的教學素材。","ethos_title":"讓學習成為生命的深刻體驗","ethos_copy":"在慈心，我們相信教育是一場陪伴孩子經驗、感受與創造的旅程。每一門課都從真實的生命情境出發，無論是走進文學、歷史，還是山林，我們都以藝術為橋樑，將知識轉化為深刻的內在力量。我們邀請您一同點燃孩子的好奇心，讓學習不只是記憶，而是一段段活出來的故事。","ethos_points":["以戲劇、故事與藝術整合學科，深化學習體驗","引導孩子從生活經驗出發，連結真實世界","鼓勵教師轉化教材，為孩子創造獨特的學習路徑"],"categories":[{"label":"藝術課程","description":"黑板畫、戲劇、音樂等整合創作。","anchor":"arts","icon":"🎨"},{"label":"自然主題","description":"山林、人文地景、節氣與環境。","anchor":"nature","icon":"🌿"},{"label":"主課程","description":"語文、歷史與跨領域主課紀錄。","anchor":"main-lesson","icon":"📖"},{"label":"歷史主課","description":"從神話到近代史的跨文化旅程。","anchor":"history","icon":"🕰️"}],"testimonials_title":"教師與學生推薦語","testimonials_copy":"典藏不只保存作品，更讓每次課程成為可延續的靈感。以下摘錄幾段來自教學現場的感謝與分享。","testimonials":[{"quote":"這是一段佔位推薦語，供未來內容使用。","author":"佔位作者 1"},{"quote":"這是第二段佔位推薦語，供未來內容使用。","author":"佔位作者 2"},{"quote":"這是第三段佔位推薦語，供未來內容使用。","author":"佔位作者 3"}]},"nav":{"home":"課程介紹","courses":"所有課程","ai_guide":"應用指引","reflections":"留言與交流"},"course":{"grade":"年級","semester":"學期","unit":"課程單元","teacher":"老師","overview":"課程簡介","learning_objectives":"學習目標","teacher_intro":"教師介紹","no_description":"（尚未填寫）","no_teacher_bio":"（尚未填寫教師介紹）","open_document":"開啟完整文件","downloads":"下載資源","syllabus":"課程大綱","worksheet":"學習單","workbook":"工作本","workbook_content":"工作本內容","workbook_folder_default":"工作本資料夾","workbook_folder_toggle_hint":"點擊可展開或收合","workbook_subfolder_default":"子資料夾","workbook_subfolder_toggle_hint":"點擊可檢視此子資料夾的照片","workbook_subfolder_all_photos":"全部照片","workbook_expand_all":"全部展開","workbook_collapse_all":"全部收合","blackboard":"黑板","blackboard_drawings":"黑板畫","photos":"照片","photo_gallery":"照片集","audio":"音檔","songs":"歌曲音檔","performance":"劇照","play_script":"劇本","play_script_content":"劇本內容","story":"故事","story_content":"故事內容","songs_audio":"歌曲與音檔","sheet_music":"樂譜","video":"影片","video_performance":"演出影片","download_video":"下載影片","video_drive_note":"影片由 Google Drive 提供播放，若無法載入請改用「下載影片」。","video_mov_note":"此 MOV 檔案可能無法在所有瀏覽器播放，若播放失敗請直接下載觀看。","video_unsupported":"目前僅支援 YouTube 或 Google Drive 影片，請確認素材格式。","tags":"標籤","back_to_courses":"返回所有課程","no_content":"目前沒有內容。","course_home":"課程主頁","switch_course":"切換課程","course_navigation":"課程導覽","course_materials":"-- 課程素材 --"},"filters":{"search_placeholder":"搜尋課程...","search_lang_notice":"","all_grades":"所有年級","all_domains":"所有領域","all_teachers":"所有教師","grade_filter":"年級","domain_filter":"領域","teacher_filter":"教師","showing_results":"顯示 {count} 個課程","no_results":"沒有符合的課程","reset_filters":"重設篩選"},"pagefind":{"placeholder":"搜尋","clear_search":"清除","load_more":"載入更多結果","search_label":"搜尋此網站","filters_label":"篩選","zero_results":"沒有找到 [SEARCH_TERM] 的結果","many_results":"找到 [COUNT] 個 [SEARCH_TERM] 的結果","one_result":"找到 [COUNT] 個 [SEARCH_TERM] 的結果","alt_search":"沒有找到 [SEARCH_TERM] 的結果。改為顯示 [DIFFERENT_TERM] 的結果","search_suggestion":"沒有找到 [SEARCH_TERM] 的結果。試試以下搜尋：","searching":"搜尋 [SEARCH_TERM] 中..."},"gallery":{"filter_placeholder":"篩選照片...","no_results":"沒有符合的照片","loading":"載入中...","close":"關閉"},"footer":{"license":"本網站內容採 CC BY-NC-SA 授權；照片含學生已取得公開授權。","org":"2025 慈心華德福","email":"it@waldorf.ilc.edu.tw"},"metadata":{"keywords":"Waldorf education, 華德福教育, course materials, teaching resources"},"lang":{"current":"繁體中文","switch_to":"Switch to English"}},"en-US":{"site":{"title":"Cixin Course Weaver","description":"Ci-Xin Waldorf's bilingual course archive, connecting lesson goals with teaching artifacts, media folders, and downloads for planners and partners.","homepage_description":"This site is a living museum of teaching — a space where courses become stories and learning becomes art. It gathers journeys co-created by teachers and students, spanning from Taiwan's myths to the world's masterpieces. Browse through notebooks, blackboard art, performances, and melodies, and rediscover the living pulse of education that continues to bloom within."},"homepage":{"eyebrow":"Living Teaching Archive","hero_title":"Courses become stories. Learning becomes art.","hero_primary_cta":"Explore courses","hero_secondary_cta":"See our approach","course_section_title":"Featured Courses","course_section_copy":"Follow the Waldorf rhythm—from blackboard landscapes to drama performances and playlists—to see how teachers and students learn together.","tag_intro":"Popular tags","category_section_title":"Course categories","category_section_copy":"Jump into collections by grade, domain, or material and find the right inspiration.","ethos_title":"Making Learning a Profound Life Experience","ethos_copy":"At Ci-Xin, we believe education is a journey where we accompany children as they experience, feel, and create. Every course begins from real-life contexts—whether delving into literature, history, or nature—using art as a bridge to transform knowledge into profound inner strength. We invite you to join us in sparking children's curiosity, transforming learning from mere memorization into stories that are lived and told.","ethos_points":["Integrating subjects with drama, stories, and art to deepen the learning experience","Guiding children to start from their life experiences and connect with the real world","Encouraging teachers to transform materials and create unique learning paths for children"],"categories":[{"label":"Arts program","description":"Blackboard art, drama, music, and integrated creations.","anchor":"arts","icon":"🎨"},{"label":"Nature studies","description":"Mountains, field work, seasons, and ecological stories.","anchor":"nature","icon":"🌿"},{"label":"Main lesson","description":"Language arts, history blocks, and interdisciplinary main lessons.","anchor":"main-lesson","icon":"📖"},{"label":"History main lesson","description":"Journeys from myths to modern history.","anchor":"history","icon":"🕰️"}],"testimonials_title":"Voices from teachers & students","testimonials_copy":"Each archive keeps the warmth of the classroom alive. Here are a few notes shared by our community.","testimonials":[{"quote":"This is a placeholder testimonial for future content.","author":"Placeholder Author 1"},{"quote":"This is another placeholder testimonial for future content.","author":"Placeholder Author 2"},{"quote":"This is a third placeholder testimonial for future content.","author":"Placeholder Author 3"}]},"nav":{"home":"Course Introduction","courses":"All Courses","ai_guide":"Application Guide","reflections":"Comments & Discussions"},"course":{"grade":"Grade","semester":"Semester","unit":"unit","teacher":"Teacher","overview":"Course Overview","learning_objectives":"Learning Objectives","teacher_intro":"Teacher Introduction","no_description":"(Not yet provided)","no_teacher_bio":"(Teacher bio not yet provided)","open_document":"Open Full Document","downloads":"Downloads","syllabus":"Syllabus","worksheet":"Worksheet","workbook":"Workbook","workbook_content":"Workbook Content","workbook_folder_default":"Workbook Folder","workbook_folder_toggle_hint":"Click to expand or collapse","workbook_subfolder_default":"Subfolder","workbook_subfolder_toggle_hint":"Click to view photos in this subfolder","workbook_subfolder_all_photos":"All Photos","workbook_expand_all":"Expand all","workbook_collapse_all":"Collapse all","blackboard":"Blackboard","blackboard_drawings":"Blackboard Drawings","photos":"Photos","photo_gallery":"Photo Gallery","audio":"Audio","songs":"Songs","performance":"Performance Photos","play_script":"Play Script","play_script_content":"Play Script Content","story":"Story","story_content":"Story Content","songs_audio":"Songs & Audio","sheet_music":"Sheet Music","video":"Video","video_performance":"Performance Video","download_video":"Download Video","video_drive_note":"Video playback is provided through Google Drive. Use the download link if it fails to load.","video_mov_note":"This MOV file may not play in every browser; download it if playback is unavailable.","video_unsupported":"Only YouTube or Google Drive videos are supported. Please verify the source format.","tags":"Tags","back_to_courses":"Back to All Courses","no_content":"No content available yet.","course_home":"Course Home","switch_course":"Switch Course","course_navigation":"Course Navigation","course_materials":"-- Course Material --"},"filters":{"search_placeholder":"Search courses...","search_lang_notice":"Note: Search is currently optimized for Traditional Chinese. For best results, please switch to 繁體中文 using the language selector above.","all_grades":"All Grades","all_domains":"All Domains","all_teachers":"All Teachers","grade_filter":"Grade","domain_filter":"Domain","teacher_filter":"Teacher","showing_results":"Showing {count} courses","no_results":"No matching courses","reset_filters":"Reset Filters"},"pagefind":{"placeholder":"Search","clear_search":"Clear","load_more":"Load more results","search_label":"Search this site","filters_label":"Filters","zero_results":"No results for [SEARCH_TERM]","many_results":"[COUNT] results for [SEARCH_TERM]","one_result":"[COUNT] result for [SEARCH_TERM]","alt_search":"No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead","search_suggestion":"No results for [SEARCH_TERM]. Try one of the following searches:","searching":"Searching for [SEARCH_TERM]..."},"gallery":{"filter_placeholder":"Filter photos...","no_results":"No matching photos","loading":"Loading...","close":"Close"},"footer":{"license":"This website content is licensed under CC BY-NC-SA; student photos are authorized for public display.","org":"2025 Cixin Waldorf","email":"it@waldorf.ilc.edu.tw"},"metadata":{"keywords":"Waldorf education, course materials, teaching resources"},"lang":{"current":"English","switch_to":"切換至繁體中文"}}};
+    window.__CURRENT_LANG__ = 'zh-TW';
+    window.__DEFAULT_LANG__ = 'zh-TW';
+    window.__BASE_PATH__ = '/course-site-starter/';
+    window.__LANG_SPECIFIC_PAGES__ = ["/ai-guide/"];
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4 relative">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-label="Primary navigation">
+        <ul class="flex gap-8 justify-center">
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/ai-guide/">應用指引</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a>
+            </li>
+            
+          </ul>
+        </nav>
+      <div class="flex items-center gap-3 ml-auto">
+        
+
+<div class="language-switcher">
+  <button
+    id="lang-toggle"
+    class="lang-button"
+    aria-label="Switch to English"
+    aria-expanded="false"
+    title="Switch to English">
+    <svg class="lang-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </svg>
+    <span class="lang-label">繁體中文</span>
+    <svg class="lang-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <div id="lang-menu" class="lang-menu" hidden>
+    
+    
+    <a
+      href="/course-site-starter/"
+      class="lang-option active"
+      data-lang="zh-TW">
+      <span class="lang-code">zh-TW</span>
+      <span class="lang-name">繁體中文</span>
+    </a>
+    
+    
+    <a
+      href="/course-site-starter/en-US/"
+      class="lang-option "
+      data-lang="en-US">
+      <span class="lang-code">en-US</span>
+      <span class="lang-name">English</span>
+    </a>
+    
+  </div>
+</div>
+
+<script>
+(function() {
+  const toggle = document.getElementById('lang-toggle');
+  const menu = document.getElementById('lang-menu');
+  const basePath = '/course-site-starter/';
+  const normBase = basePath.replace(/\/+$/, '');
+  const normalizePagePath = function(path) {
+    if (!path) {
+      return '/';
+    }
+    let normalized = path;
+    if (!normalized.startsWith('/')) {
+      normalized = '/' + normalized;
+    }
+    normalized = normalized.replace(/\/+$/, '');
+    return normalized === '' ? '/' : normalized;
+  };
+  const langSpecificPages = (window.__LANG_SPECIFIC_PAGES__ || []).map(normalizePagePath);
+
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isHidden = menu.hasAttribute('hidden');
+    if (isHidden) {
+      menu.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      menu.setAttribute('hidden', '');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('click', function() {
+    menu.setAttribute('hidden', '');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+
+  menu.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  // Save language preference when user clicks a language option
+  const langOptions = menu.querySelectorAll('.lang-option');
+  langOptions.forEach(function(option) {
+    option.addEventListener('click', function(e) {
+      const selectedLang = this.getAttribute('data-lang');
+      if (selectedLang) {
+        try {
+          localStorage.setItem('preferredLang', selectedLang);
+        } catch (err) {
+          // Silently fail if localStorage is unavailable
+        }
+
+        // Check if we're on a special page with language-specific versions
+        const currentPath = window.location.pathname;
+        const normPath = currentPath.replace(/\/+$/, '');
+
+        // Check if on homepage
+        const isHomepage = normPath === normBase ||
+                          normPath.match(new RegExp('^' + normBase.replace(/\//g, '\\/') + '/(en-US|zh-TW)$'));
+
+        // Normalize path relative to site base (supports subfolder deploys)
+        let relativePath = normPath;
+        if (normBase && normPath.startsWith(normBase)) {
+          relativePath = normPath.substring(normBase.length) || '/';
+        } else if (!relativePath) {
+          relativePath = '/';
+        }
+        if (!relativePath.startsWith('/')) {
+          relativePath = '/' + relativePath;
+        }
+        relativePath = relativePath.replace(/\/+$/, '') || '/';
+
+        // Determine if current page has a dedicated localized route
+        let canonicalPath = relativePath;
+        const englishPrefix = '/en-US';
+        if (canonicalPath.startsWith(englishPrefix)) {
+          canonicalPath = canonicalPath.substring(englishPrefix.length) || '/';
+          if (!canonicalPath.startsWith('/')) {
+            canonicalPath = '/' + canonicalPath;
+          }
+          canonicalPath = canonicalPath.replace(/\/+$/, '') || '/';
+        }
+
+        const matchedSpecialPage = langSpecificPages.find(function(page) {
+          return page === canonicalPath;
+        });
+
+        // For special pages with dedicated language versions, navigate to the correct URL
+        if (matchedSpecialPage && !isHomepage) {
+          e.preventDefault();
+          const pageSuffix = matchedSpecialPage === '/' ? '/' : matchedSpecialPage + '/';
+          let targetUrl;
+          if (selectedLang === 'en-US') {
+            // Navigate to English version
+            targetUrl = normBase + '/en-US' + pageSuffix;
+          } else {
+            // Navigate to Chinese version (default, no language prefix)
+            targetUrl = normBase + pageSuffix;
+          }
+          window.location.href = targetUrl;
+          return;
+        }
+
+        // For homepage and course pages, reload to apply language
+        e.preventDefault();
+        window.location.reload();
+      }
+    });
+  });
+})();
+</script>
+
+        <button
+          type="button"
+          class="mobile-menu-toggle md:hidden"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="mobile-nav-panel">
+          <span class="sr-only">Toggle navigation</span>
+          <svg class="mobile-menu-icon" data-menu-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+          </svg>
+          <svg class="mobile-menu-icon hidden" data-menu-close-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-nav-panel" class="mobile-menu-panel md:hidden hidden" data-menu-panel>
+      <div class="max-w-6xl mx-auto px-4 py-4">
+        <nav aria-label="Mobile navigation">
+          <ul class="flex flex-col gap-3">
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/">課程介紹</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/courses/">所有課程</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/ai-guide/">應用指引</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/reflections/">留言與交流</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  <div class="course-header-block">
+    
+    <div class="course-header-meta">
+      
+      
+      <div class="course-info-card course-info-card--has-hero" data-course-i18n="{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;能高山（班級戲劇）&quot;,&quot;grade&quot;:&quot;二年級 2A 嶺光班&quot;,&quot;semester&quot;:&quot;113 學年度 夏季&quot;,&quot;unit&quot;:&quot;班級戲劇&quot;,&quot;domain&quot;:&quot;自然主課&quot;,&quot;teacher&quot;:&quot;王琬婷&quot;,&quot;overview&quot;:&quot;琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。&#92;n因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。&quot;},&quot;en-US&quot;:{&quot;title&quot;:&quot;Mt. Nenggao (Class Drama)&quot;,&quot;grade&quot;:&quot;Grade 2, Class 2A Lingguang&quot;,&quot;semester&quot;:&quot;Academic Year 113, Summer&quot;,&quot;unit&quot;:&quot;Class Drama&quot;,&quot;domain&quot;:&quot;Main Lesson - Nature&quot;,&quot;teacher&quot;:&quot;Wang Wan-Ting&quot;,&quot;overview&quot;:&quot;Teacher Wan-Ting explained that the &#39;Mt. Nenggao&#39; drama is part of her Nature main lesson. The previous year&#39;s nature class used &#39;The Wonderful Adventures of Nils,&#39; which has great storytelling and prose, but the setting is distant and not rooted in Taiwan.&#92;n&#92;nTherefore, this season she began experimenting with indigenous stories—not necessarily traditional tales, but also picture books created by contemporary authors. Last season&#39;s nature class featured &#39;Fish in the Trees,&#39; a picture book about Amis plants and animals. This season, she chose the classic picture book &#39;Mt. Nenggao.&#39; She discovered that many indigenous songs use pentatonic scales, making them simple and repetitive—easy patterns to imitate. She also sourced songs online, such as children&#39;s songs about ants and fireflies, which enriched the originally brief storyline.&quot;}}">
+        <div class="course-info-card-inner">
+          
+          <figure class="course-info-card-media">
+            <img
+              src="https://drive.google.com/thumbnail?id=142A6mNx2zfmWdr__8VcSu_omjxuLZ_VR&sz=w1200"
+              alt="能高山（班級戲劇）"
+              loading="lazy"
+              decoding="async">
+          </figure>
+          
+          <div class="course-info-card-content">
+            <h2 class="course-info-title" data-i18n-course="title">能高山（班級戲劇）</h2>
+            <div class="course-info-rows">
+              
+              <p class="course-info-row course-info-row--grade" data-i18n-course="grade">二年級 2A 嶺光班</p>
+              
+              
+              <p class="course-info-row course-info-row--semester" data-i18n-course="semester">113 學年度 夏季</p>
+              
+              
+              <p class="course-info-row course-info-row--unit-domain">
+                
+                <span data-i18n-course="unit">班級戲劇</span>
+                
+                
+                <span class="course-info-separator" aria-hidden="true">｜</span>
+                
+                
+                <span data-i18n-course="domain">自然主課</span>
+                
+              </p>
+              
+              
+              <p class="course-info-row course-info-row--teacher course-info-teacher">
+                <span class="course-info-teacher-label" data-i18n="course.teacher">老師</span>:
+                <span data-i18n-course="teacher">王琬婷</span>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="course-nav-wrapper">
+      
+      <div class="course-switcher">
+        <label class="text-sm text-stone-600">
+          切換課程
+          <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value" aria-label="切換課程">
+            
+              <option value="/course-site-starter/courses/2a-nenggao-113-summer/description/"
+                      selected
+                      data-course-switcher-i18n='{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;能高山（班級戲劇）&quot;,&quot;grade&quot;:&quot;二年級 2A 嶺光班&quot;,&quot;semester&quot;:&quot;113 學年度 夏季&quot;,&quot;unit&quot;:&quot;班級戲劇&quot;,&quot;domain&quot;:&quot;自然主課&quot;,&quot;teacher&quot;:&quot;王琬婷&quot;,&quot;overview&quot;:&quot;琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。&#92;n因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。&quot;},&quot;en-US&quot;:{&quot;title&quot;:&quot;Mt. Nenggao (Class Drama)&quot;,&quot;grade&quot;:&quot;Grade 2, Class 2A Lingguang&quot;,&quot;semester&quot;:&quot;Academic Year 113, Summer&quot;,&quot;unit&quot;:&quot;Class Drama&quot;,&quot;domain&quot;:&quot;Main Lesson - Nature&quot;,&quot;teacher&quot;:&quot;Wang Wan-Ting&quot;,&quot;overview&quot;:&quot;Teacher Wan-Ting explained that the &#39;Mt. Nenggao&#39; drama is part of her Nature main lesson. The previous year&#39;s nature class used &#39;The Wonderful Adventures of Nils,&#39; which has great storytelling and prose, but the setting is distant and not rooted in Taiwan.&#92;n&#92;nTherefore, this season she began experimenting with indigenous stories—not necessarily traditional tales, but also picture books created by contemporary authors. Last season&#39;s nature class featured &#39;Fish in the Trees,&#39; a picture book about Amis plants and animals. This season, she chose the classic picture book &#39;Mt. Nenggao.&#39; She discovered that many indigenous songs use pentatonic scales, making them simple and repetitive—easy patterns to imitate. She also sourced songs online, such as children&#39;s songs about ants and fireflies, which enriched the originally brief storyline.&quot;}}'>
+                能高山（班級戲劇）
+              </option>
+            
+              <option value="/course-site-starter/courses/3a-sunshot-113-summer/description/"
+                      
+                      data-course-switcher-i18n='{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;射日傳說（班級戲劇）&quot;,&quot;grade&quot;:&quot;三年級 3A 雲朵班&quot;,&quot;semester&quot;:&quot;113 學年度 夏季&quot;,&quot;unit&quot;:&quot;班級戲劇&quot;,&quot;domain&quot;:&quot;藝術課程&quot;,&quot;teacher&quot;:&quot;林倩詒&quot;,&quot;overview&quot;:&quot;常有家長問：「為什麼慈心的戲劇課程這麼多？」這個提問，也常成為老師們反思的起點──在華德福學校裡，戲劇到底扮演了什麼角色？&#92;n對老師而言，戲劇不只是藝術表達，更是一段深具教育性的學習歷程。透過將課程內容轉化為戲劇展演，孩子不僅深化了對課程的理解，更能藉由肢體、聲音與情感的參與，整合內在的經驗與外在的表達。今年三年級的戲劇課，我們選擇了台灣原住民的《射日傳說》，並嘗試以台語音樂劇的方式演出。&quot;},&quot;en-US&quot;:{&quot;title&quot;:&quot;The Legend of Shooting the Suns (Class Drama)&quot;,&quot;grade&quot;:&quot;Grade 3, Class 3A Yunduo&quot;,&quot;semester&quot;:&quot;Academic Year 113, Summer&quot;,&quot;unit&quot;:&quot;Class Drama&quot;,&quot;domain&quot;:&quot;Arts Program&quot;,&quot;teacher&quot;:&quot;Lin Qian-Yi&quot;,&quot;overview&quot;:&quot;Parents often ask: &#39;Why does Cixin have so many drama courses?&#39; This question frequently becomes a starting point for teachers&#39; reflection—what role does drama actually play in a Waldorf school?&#92;n&#92;nFor teachers, drama is not just artistic expression; it&#39;s a deeply educational learning journey. By transforming curriculum content into dramatic performance, children not only deepen their understanding of the material but also integrate internal experience with external expression through physical movement, voice, and emotion. This year&#39;s third-grade drama class features the Taiwanese indigenous legend &#39;Shooting the Suns,&#39; presented as a Taiwanese-language musical.&quot;}}'>
+                射日傳說（班級戲劇）
+              </option>
+            
+              <option value="/course-site-starter/courses/4a-journey-to-the-west-114-autumn/description/"
+                      
+                      data-course-switcher-i18n='{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;西遊記（語文主課）&quot;,&quot;grade&quot;:&quot;四年級 4A 雲朵班&quot;,&quot;semester&quot;:&quot;114 學年度 秋季&quot;,&quot;unit&quot;:&quot;語文主課&quot;,&quot;domain&quot;:&quot;語文&quot;,&quot;teacher&quot;:&quot;林倩詒&quot;,&quot;overview&quot;:&quot;本課程旨在深化四年級學生的語文理解、表達與書寫能力。透過《西遊記》的故事，培養學生獨立書寫、自由書寫的能力，並積累語感、詞彙與語言節奏。課程強調閱讀深化，學習整理段落大意、找出佳句、寫下感想，並將生活經驗轉化為文字。學生將透過小組討論與全班分享，練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見。課程設計採用「故事推進」與「主題書寫」雙軌並行，讓學生在收斂與擴展的語文學習中，看見勇敢、智慧與堅持等特質的對照，並在挑戰中選擇正向價值。&quot;,&quot;learningObjectives&quot;:[&quot;深化語文理解、表達與書寫能力&quot;,&quot;培養獨立書寫與自由書寫能力&quot;,&quot;積累語感、詞彙與語言節奏&quot;,&quot;學習整理段落大意、找出佳句、寫下感想&quot;,&quot;將生活經驗轉化為文字&quot;,&quot;練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見&quot;,&quot;看見勇敢與怠惰、智慧與愚鈍、堅定與搖擺等不同特質的對照&quot;,&quot;在生活的挑戰裡選擇勇敢、堅持與智慧&quot;,&quot;經驗「收斂」與「擴展」的語文學習&quot;]},&quot;en-US&quot;:{&quot;title&quot;:&quot;Journey to the West&quot;,&quot;grade&quot;:&quot;Grade 4, Class 4A Yunduo&quot;,&quot;semester&quot;:&quot;Academic Year 114, Autumn&quot;,&quot;unit&quot;:&quot;Language Main Lesson&quot;,&quot;domain&quot;:&quot;Language Arts&quot;,&quot;teacher&quot;:&quot;Lin Qianyi&quot;,&quot;overview&quot;:&quot;This course aims to deepen fourth-grade students&#39; language comprehension, expression, and writing skills. Through the story of &#39;Journey to the West,&#39; students will develop independent and free writing abilities, and accumulate language sense, vocabulary, and linguistic rhythm. The curriculum emphasizes deepening reading, learning to summarize paragraph main ideas, identify excellent sentences, write reflections, and transform life experiences into text. Students will engage in group discussions and whole-class sharing to practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions. The course design adopts a &#39;story progression&#39; and &#39;thematic writing&#39; dual-track approach, allowing students to experience convergent and divergent language learning, observe contrasting qualities like bravery, wisdom, and perseverance, and choose positive values when facing challenges.&quot;,&quot;learningObjectives&quot;:[&quot;Deepen language comprehension, expression, and writing skills&quot;,&quot;Cultivate independent and free writing abilities&quot;,&quot;Accumulate language sense, vocabulary, and linguistic rhythm&quot;,&quot;Learn to summarize paragraph main ideas, identify excellent sentences, and write reflections&quot;,&quot;Transform life experiences into text&quot;,&quot;Practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions&quot;,&quot;Observe contrasting qualities such as bravery and laziness, wisdom and foolishness, steadfastness and wavering&quot;,&quot;Choose bravery, perseverance, and wisdom in life&#39;s challenges&quot;,&quot;Experience &#39;convergent&#39; and &#39;divergent&#39; language learning&quot;]}}'>
+                西遊記（語文主課）
+              </option>
+            
+              <option value="/course-site-starter/courses/9c-modern-history-114-autumn/description/"
+                      
+                      data-course-switcher-i18n='{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;現代史主課&quot;,&quot;grade&quot;:&quot;九年級 9C 心亮班&quot;,&quot;semester&quot;:&quot;114 學年度 秋季&quot;,&quot;unit&quot;:&quot;現代史主課&quot;,&quot;domain&quot;:&quot;歷史&quot;,&quot;teacher&quot;:&quot;林信宏&quot;,&quot;overview&quot;:&quot;這門現代史主課以十六堂課的節奏走過啟蒙、革命、工業到戰後世界，帶著九年級學生重新看見「歷史中的人」。課堂安排回顧、講述、辯論與筆記練習交織，學生每天閱讀史料並在工作本中建構自己的時間軸與概念圖。透過盧梭、拿破崙、羅伯·歐文到青年運動的案例，課程讓學生辨識自由與秩序、理想與代價的張力，也把自己視為正在形塑歷史的人。&quot;,&quot;learningObjectives&quot;:[&quot;了解近代至現代歷史的主要脈絡，掌握思想與制度發展的連貫性。&quot;,&quot;培養時間軸、人物關聯與概念分析能力，能以筆記與書寫統整歷史理解。&quot;,&quot;培養對歷史的敬意與反思，理解自己身為「歷史的承繼者與創造者」。&quot;]},&quot;en-US&quot;:{&quot;title&quot;:&quot;Modern History Main Lesson&quot;,&quot;grade&quot;:&quot;Grade 9, Class 9C Xinliang&quot;,&quot;semester&quot;:&quot;Academic Year 114, Autumn&quot;,&quot;unit&quot;:&quot;Modern History Main Lesson&quot;,&quot;domain&quot;:&quot;History&quot;,&quot;teacher&quot;:&quot;Lin Xin-Hong&quot;,&quot;overview&quot;:&quot;Across sixteen lessons this modern history block traces the path from the Enlightenment and revolutionary waves to the industrial age and postwar world, inviting students to keep asking who is acting inside history. Each morning we cycle through review, storytelling, debate, and deliberate note-making so learners read source material and build their own timelines and concept maps in the workbook. From Rousseau and Napoleon to Robert Owen and contemporary youth movements, students examine the tension between freedom and order, ideals and costs, and begin to see themselves as people actively shaping history.&quot;,&quot;learningObjectives&quot;:[&quot;Understand the major throughlines from early modern to contemporary history and how ideas and institutions evolve together.&quot;,&quot;Develop the ability to map timelines, relationships, and key concepts while using structured notes and writing to synthesize historical understanding.&quot;,&quot;Cultivate respect and reflection toward history, recognizing themselves as inheritors and creators within the historical stream.&quot;]}}'>
+                現代史主課
+              </option>
+            
+          </select>
+        </label>
+      </div>
+
+      
+      <nav aria-label="課程導覽">
+        <div class="course-nav-row">
+          
+          <div class="course-nav-left">
+            <a href="/course-site-starter/courses/2a-nenggao-113-summer/"
+               class="pill highlight"
+               aria-label="課程主頁">
+              課程主頁
+            </a>
+
+            <div class="course-materials-dropdown">
+              <select class="course-materials-select"
+                      onchange="if(this.value) location.href=this.value"
+                      aria-label="-- 課程素材 --">
+                <option value="" >
+                  -- 課程素材 --
+                </option>
+
+              
+
+              
+
+              
+
+              
+                <option value="/course-site-starter/courses/2a-nenggao-113-summer/play-script/"
+                        >
+                  劇本
+                </option>
+              
+
+              
+                <option value="/course-site-starter/courses/2a-nenggao-113-summer/workbook/"
+                        >
+                  工作本
+                </option>
+              
+
+              
+              <option value="/course-site-starter/courses/2a-nenggao-113-summer/photos/"
+                      >
+                照片集
+              </option>
+              
+
+              
+              <option value="/course-site-starter/courses/2a-nenggao-113-summer/blackboard/"
+                      >
+                黑板畫
+              </option>
+              
+
+              
+                <option value="/course-site-starter/courses/2a-nenggao-113-summer/scripts/"
+                        >
+                  劇照
+                </option>
+              
+
+              
+                <option value="/course-site-starter/courses/2a-nenggao-113-summer/songs/"
+                        >
+                  歌曲音檔
+                </option>
+              
+
+              
+
+              
+            </select>
+          </div>
+        </div>
+      </div>
+    </nav>
+    </div>
+  </div>
+
+
+
+
+
+<section class="space-y-6">
+  <header>
+    <h1 class="text-2xl md:text-3xl font-semibold"> - 課程說明</h1>
+    <p class="text-stone-600">・｜｜</p>
+  </header>
+
+  <article class="prose prose-stone max-w-none">
+    
+      
+      
+        113學年度2A嶺光班夏季班級戲劇 能高山<br><br><br>「能高山」戲劇的課程設計<br>•<br>課程主軸與靈感來源：<br><br><br>琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。<br><br><br>故事內容的豐富與改編： <br>由於繪本《能高山》的故事篇幅太短，若要處理三週的主課，琬婷老師自行加入內容。她從原住民的短篇故事中取材，例如布農族的神話。在「能高山」的主軸故事中，她融入了許多布農族關於動物的故事，例如台灣黑熊胸前為何有白毛。她也加入了創世的元素，作為三年級將教授東方和西方創世神話的鋪墊。 琬婷老師自己為故事的主角取名「那布」，使其更接近布農族的名字。在故事進展到「那布」帶著大家逃到山上後，她停下來描繪部落生活，然後開始講述部落裡的動物故事，如百步蛇、黑熊的故事，再將主線故事接回。<br><br><br>戲劇的創作過程與形式： <br>戲劇創作是邊講故事邊編寫的。原定三週完成，但因場地問題延長到第七週，中間曾一度卡關，但後來慶幸有更多時間處理。她根據孩子們的狀況進行重複情節的編排，原本是為了拉長時間，但後來發現重複其實有助於讓情節更連貫。她也鼓勵孩子進行自由書寫，戲劇中的一些口白就是孩子們寫出來的句子，例如「那布的身體變成了能高山」。她會讓孩子運用注音符號和會寫的字來自由書寫，並輔導他們將口語轉化為書面語。<br><br><br>戲劇演出形式： <br>「能高山」戲劇採用了圓圈形式進行，這是琬婷老師九年前在演出《法蘭西》時也使用過的形式。她認為這種形式非常適合低年級的孩子，因為它讓孩子們身處群體中，不必直接面對觀眾，大大減輕了他們上台的恐懼。雖然故事有時間性，圓圈形式削弱了線性時間感，但也清晰地表達故事內容。這次演出，由於孩子們表達能力強，有些台詞是由個別孩子講述，而非完全群體講述，孩子們甚至自己選擇角色並設計表演動作。她將每年的戲劇設定為學習的整合活動。<br>•<br>音樂與排練： <br>琬婷老師從網路上尋找原住民歌曲，有些會找到有拼音歌詞的影片。她也會根據戲劇需要對歌曲進行改編，例如只取歌曲重複的前半段，或將歌詞變得簡單重複。排練幾乎是每天晨圈進行的，有時會先練習歌曲，因為有些歌曲不是孩子們熟悉的語言，需要多次練習。她也會簡單解釋歌詞的意義。<br><br><br>自然課與語文課的教學理念<br><br><br>自然課的在地化與深度探究： <br>琬婷老師認為，在準備自然主課時，除了文本內容，老師更應該深入閱讀相關書籍，甚至親身去旅行，感受當地的文化和自然環境，例如閱讀關於台灣黑熊的研究，了解布農族與山林的關係。她強調，老師內在的「圖像與姿態」非常重要，這比收集大量前人的教學檔案更有效，因為它能讓故事更有靈魂，讓老師自己也能享受其中的學習過程。她自己九年前認為自然主題的無國界性，但經過這幾年的爬山、戶外挑戰等經驗，現在更傾向於融入本土的、台灣的內容。例如:她將颱風等台灣特有的自然現象融入故事，預備未來相關課程的銜接。<br><br><br>語文課的教學重點與自由書寫： <br>語文課的重點仍放在低年級的識字和注音符號教學。她會讓自然課有更多機會進行自由書寫，因為故事能讓孩子練習敘述事件或人物。她發現孩子們學會注音後，會有強烈的表達慾望，會自己寫卡片或日記。她鼓勵孩子們運用注音和國字進行自由書寫，不會的字可以畫圈，老師會協助補上或確認。她也嘗試過提供大量閱讀材料（例如類似羅北兒的簡單讀物），讓孩子們透過閱讀來熟悉文字，並理解注音的功用。琬婷老師也強調，她不再堅持每天寫工作本，如果當天進行自由書寫草稿，工作本可以隔天再寫。<br><br><br>教學與個人成長<br><br><br>琬婷老師發現，當她嘗試新的東西時，會感到教學活力和創造力。她不再預先設定非常詳細的計畫，而是抱持著好奇心，廣泛涉獵書籍、影片等，避免教學內容過於枯燥。<br><br><br>她認為，即使有經驗的老師，也需要勇於捨棄舊有模式，歸零重來，才能有新的動力。<br><br><br>她的班級的孩子們表達能力很強，幾乎每個人都能清晰地說話。她會順著孩子們的進度，例如注音學得差不多了，就會讓他們摸字典，了解注音的用途。<br><br><br>琬婷老師希望未來能更著重書寫的「結構性」，根據孩子的能力，逐步加入不同的寫作能力元素。<br><br><br>展望與建議 <br>詩閔老師建議琬婷老師可以將一、二年級學生的工作本和草稿本收集起來，作為未來討論寫作進程的資料。未來可以安排老師們分享各自在回顧和自由書寫方面的做法，以促進交流和看到不同做法的效果。她們都認同，像戲劇這樣具備整合性的學習活動，對孩子的學習記憶和表達能力有著強大的助益。
+      
+      <div class="mt-6 text-sm text-stone-500">
+        最後更新：2025-11-15 07:13
+      </div>
+    
+  </article>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC-SA 授權；照片含學生已取得公開授權。</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Language handler: loads synchronously to prevent FOUC -->
+  <script src="/course-site-starter/js/lang-dynamic.js"></script>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script src="/course-site-starter/js/video-playlist.js" defer></script>
+  <script>
+    (function() {
+      const toggle = document.querySelector('[data-menu-toggle]');
+      const panel = document.querySelector('[data-menu-panel]');
+      if (!toggle || !panel) return;
+      const openIcon = toggle.querySelector('[data-menu-icon]');
+      const closeIcon = toggle.querySelector('[data-menu-close-icon]');
+
+      function setMenuState(isOpen) {
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        panel.classList.toggle('hidden', !isOpen);
+        if (openIcon && closeIcon) {
+          openIcon.classList.toggle('hidden', isOpen);
+          closeIcon.classList.toggle('hidden', !isOpen);
+        }
+      }
+
+      toggle.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        setMenuState(!expanded);
+      });
+
+      document.addEventListener('click', function(event) {
+        if (panel.classList.contains('hidden')) return;
+        if (panel.contains(event.target) || toggle.contains(event.target)) return;
+        setMenuState(false);
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          setMenuState(false);
+        }
+      });
+
+      const mediaQuery = window.matchMedia('(min-width: 768px)');
+      function handleQuery(event) {
+        if (event.matches) {
+          setMenuState(false);
+        }
+      }
+      if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', handleQuery);
+      } else if (typeof mediaQuery.addListener === 'function') {
+        mediaQuery.addListener(handleQuery);
+      }
+    })();
+  </script>
+  <script>
+    window.__pagefindInstance = null;
+    window.__initPagefind = function() {
+      try {
+        if (!window.PagefindUI) return;
+
+        // Get user's language preference
+        const savedLang = localStorage.getItem('preferredLang') || 'zh-TW';
+
+        // Destroy existing instance if present
+        if (window.__pagefindInstance && typeof window.__pagefindInstance.destroy === 'function') {
+          window.__pagefindInstance.destroy();
+        }
+
+        // Get Pagefind translations for current language
+        const pagefindTranslations = window.__I18N_DATA__[savedLang]?.pagefind || {};
+
+        // Create new instance with full translations
+        // Note: Using --force-language zh creates a single multilingual index
+        // This allows both Chinese and English content to be searched together
+        window.__pagefindInstance = new PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          translations: pagefindTranslations
+        });
+      } catch(e) {
+        console.error('Pagefind init error:', e);
+      }
+    };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+
+  <!-- CommentBox.io initialization for reflections page -->
+  
+</body>
+</html>
