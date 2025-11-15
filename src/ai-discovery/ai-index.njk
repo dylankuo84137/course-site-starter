@@ -5,7 +5,26 @@ eleventyExcludeFromCollections: true
 {
   "site": {
     "name": "{{ site.title }}",
-    "description": "Waldorf education course materials including workbooks, blackboard drawings, photos, and audio recordings",
+    "description": {
+      "zh-TW": {{ i18n['zh-TW'].site.description | jsonstr | safe }},
+      "en-US": {{ i18n['en-US'].site.description | jsonstr | safe }}
+    },
+    "homepage": {
+      "zh-TW": {
+        "hero_title": {{ i18n['zh-TW'].homepage.hero_title | jsonstr | safe }},
+        "description": {{ i18n['zh-TW'].site.homepage_description | jsonstr | safe }},
+        "ethos_title": {{ i18n['zh-TW'].homepage.ethos_title | jsonstr | safe }},
+        "ethos_copy": {{ i18n['zh-TW'].homepage.ethos_copy | jsonstr | safe }},
+        "ethos_points": [{% for point in i18n['zh-TW'].homepage.ethos_points %}{{ point | jsonstr | safe }}{{ "," if not loop.last }}{% endfor %}]
+      },
+      "en-US": {
+        "hero_title": {{ i18n['en-US'].homepage.hero_title | jsonstr | safe }},
+        "description": {{ i18n['en-US'].site.homepage_description | jsonstr | safe }},
+        "ethos_title": {{ i18n['en-US'].homepage.ethos_title | jsonstr | safe }},
+        "ethos_copy": {{ i18n['en-US'].homepage.ethos_copy | jsonstr | safe }},
+        "ethos_points": [{% for point in i18n['en-US'].homepage.ethos_points %}{{ point | jsonstr | safe }}{{ "," if not loop.last }}{% endfor %}]
+      }
+    },
     "url": "{% if site.url %}{{ site.url }}{% endif %}",
     "baseUrl": "{{ '/' | url }}",
     "license": "{% if site.license_text %}{{ site.license_text }}{% else %}CC BY-NC-SA{% endif %}",
@@ -129,6 +148,17 @@ eleventyExcludeFromCollections: true
                 {%- for item in entry.items -%}
                   {%- set _ = allItems.push(item) -%}
                 {%- endfor -%}
+              {%- elif entry.type == "pdf" and entry.id -%}
+                {#- Handle direct PDF entries (syllabus, worksheet) -#}
+                {%- set pdfItem = {
+                  id: entry.id,
+                  name: entry.title or (materialKey | title),
+                  mimeType: "application/pdf",
+                  tags: entry.tags or [],
+                  downloadUrl: "https://drive.google.com/uc?export=download&id=" + entry.id,
+                  previewUrl: "https://drive.google.com/file/d/" + entry.id + "/preview"
+                } -%}
+                {%- set _ = allItems.push(pdfItem) -%}
               {%- endif -%}
             {%- endfor -%}
             {%- if (allItems | length) > 0 -%}
@@ -163,10 +193,36 @@ eleventyExcludeFromCollections: true
     {%- endfor -%}
   ],
   "statistics": {
-    "totalGrades": {{ coursesList | map('grade') | uniq | length }},
-    "totalDomains": {{ coursesList | map('domain') | uniq | length }},
-    "totalTeachers": {{ coursesList | map('teacher') | uniq | length }},
-    "uniqueTags": {{ coursesList | map('tags') | flatten | uniq | length }}
+    {%- set allGrades = [] -%}
+    {%- set allDomains = [] -%}
+    {%- set allTeachers = [] -%}
+    {%- set allTags = [] -%}
+    {%- for course in coursesList -%}
+      {%- if course.metadata.grade_level and allGrades.indexOf(course.metadata.grade_level) == -1 -%}
+        {%- set allGrades = allGrades.concat([course.metadata.grade_level]) -%}
+      {%- endif -%}
+      {%- if course.metadata.domain_category and allDomains.indexOf(course.metadata.domain_category) == -1 -%}
+        {%- set allDomains = allDomains.concat([course.metadata.domain_category]) -%}
+      {%- endif -%}
+      {%- if course.metadata.teacher_name and allTeachers.indexOf(course.metadata.teacher_name) == -1 -%}
+        {%- set allTeachers = allTeachers.concat([course.metadata.teacher_name]) -%}
+      {%- endif -%}
+      {%- if course.metadata.tags -%}
+        {%- for tag in course.metadata.tags -%}
+          {%- if allTags.indexOf(tag) == -1 -%}
+            {%- set allTags = allTags.concat([tag]) -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+    "totalGrades": {{ allGrades.length }},
+    "totalDomains": {{ allDomains.length }},
+    "totalTeachers": {{ allTeachers.length }},
+    "uniqueTags": {{ allTags.length }},
+    "grades": [{% for grade in allGrades %}"{{ grade }}"{{ "," if not loop.last }}{% endfor %}],
+    "domains": [{% for domain in allDomains %}"{{ domain }}"{{ "," if not loop.last }}{% endfor %}],
+    "teachers": [{% for teacher in allTeachers %}{{ teacher | jsonstr | safe }}{{ "," if not loop.last }}{% endfor %}],
+    "tags": [{% for tag in allTags %}{{ tag | jsonstr | safe }}{{ "," if not loop.last }}{% endfor %}]
   },
   "usage": {
     "description": "This AI-readable index provides structured access to all course data",
