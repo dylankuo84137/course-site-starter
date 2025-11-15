@@ -25,9 +25,10 @@ if (!fs.existsSync(PDF_CACHE_DIR)) {
   fs.mkdirSync(PDF_CACHE_DIR, { recursive: true });
 }
 
+// Material type categorization based on course JSON structure
 const MATERIAL_IMAGE_KEYS = new Set(["workbook_photos", "photos", "blackboard", "scripts_photos"]);
 const MATERIAL_AUDIO_KEYS = new Set(["songs_audio"]);
-const MATERIAL_PDF_KEYS = new Set(["sheet_music", "play_scripts", "worksheet", "workbook_pdfs"]);
+const MATERIAL_PDF_KEYS = new Set(["syllabus", "worksheet", "play_scripts", "sheet_music"]);
 
 function deriveCourseTags(course) {
   const tags = new Set();
