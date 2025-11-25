@@ -1,0 +1,664 @@
+
+
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Prevent FOUC: Check language preference before any rendering -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('preferredLang');
+        if (saved) {
+          const validLangs = { 'en-US': 'en-US', 'zh-TW': 'zh-Hant' };
+          const langAttr = validLangs[saved] || 'zh-Hant';
+          document.documentElement.setAttribute('lang', langAttr);
+          document.documentElement.setAttribute('data-user-lang', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>慈心課程織圖</title>
+  
+  <meta name="description" content="慈心華德福課程資料庫，串起課程目標、教學紀錄與媒體素材，支援備課、典藏與分享。">
+  
+  <meta name="keywords" content="Waldorf education, 華德福教育, course materials, teaching resources, 西遊記, 戲劇, 語文, 主課, 工作本">
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+
+  <!-- Embed i18n data for client-side language switching -->
+  <script>
+    window.__I18N_DATA__ = {"zh-TW":{"site":{"title":"慈心課程織圖","description":"慈心華德福課程資料庫，串起課程目標、教學紀錄與媒體素材，支援備課、典藏與分享。","homepage_description":"這是一座活的教學典藏館，收藏的不只是課程，更是師生共同創造的學習旅程。從台灣的故事到世界的詩篇，每堂課都以藝術為橋，串連人文與思想。\n您可以在這裡瀏覽工作本、黑板畫、戲劇、音樂，重溫學習的真實足跡。在這裡找到啟發與連結，讓教學在心中繼續綻放。"},"homepage":{"eyebrow":"課程織圖","hero_title":"課程成為故事，學習化為藝術","hero_primary_cta":"探索課程","hero_secondary_cta":"設計理念","course_section_title":"課程總覽","course_section_copy":"沿著華德福教學節奏，從黑板畫、戲劇到歌曲音檔，完整收藏師生共創的珍貴足跡。","tag_intro":"熱門標籤","category_section_title":"課程快速導航","category_section_copy":"快速導覽各領域課程，找到適合您的教學素材。","ethos_title":"讓學習成為生命的深刻體驗","ethos_copy":"在慈心，我們相信教育是一場陪伴孩子經驗、感受與創造的旅程。每一門課都從真實的生命情境出發，無論是走進文學、歷史，還是山林，我們都以藝術為橋樑，將知識轉化為深刻的內在力量。我們邀請您一同點燃孩子的好奇心，讓學習不只是記憶，而是一段段活出來的故事。","ethos_points":["以戲劇、故事與藝術整合學科，深化學習體驗","引導孩子從生活經驗出發，連結真實世界","鼓勵教師轉化教材，為孩子創造獨特的學習路徑"],"categories":[{"label":"藝術課程","description":"黑板畫、戲劇、音樂等整合創作。","anchor":"arts","icon":"🎨"},{"label":"自然主題","description":"山林、人文地景、節氣與環境。","anchor":"nature","icon":"🌿"},{"label":"主課程","description":"語文、歷史與跨領域主課紀錄。","anchor":"main-lesson","icon":"📖"},{"label":"歷史主課","description":"從神話到近代史的跨文化旅程。","anchor":"history","icon":"🕰️"}],"testimonials_title":"教師與學生推薦語","testimonials_copy":"典藏不只保存作品，更讓每次課程成為可延續的靈感。以下摘錄幾段來自教學現場的感謝與分享。","testimonials":[{"quote":"這是一段佔位推薦語，供未來內容使用。","author":"佔位作者 1"},{"quote":"這是第二段佔位推薦語，供未來內容使用。","author":"佔位作者 2"},{"quote":"這是第三段佔位推薦語，供未來內容使用。","author":"佔位作者 3"}]},"nav":{"home":"課程介紹","courses":"所有課程","ai_guide":"應用指引","reflections":"留言與交流"},"course":{"grade":"年級","semester":"學期","unit":"課程單元","teacher":"老師","overview":"課程簡介","learning_objectives":"學習目標","teacher_intro":"教師介紹","no_description":"（尚未填寫）","no_teacher_bio":"（尚未填寫教師介紹）","open_document":"開啟完整文件","downloads":"下載資源","syllabus":"課程大綱與教學紀錄","worksheet":"學習單","workbook":"工作本","workbook_content":"工作本內容","workbook_folder_default":"工作本資料夾","workbook_folder_toggle_hint":"點擊可展開或收合","workbook_subfolder_default":"子資料夾","workbook_subfolder_toggle_hint":"點擊可檢視此子資料夾的照片","workbook_subfolder_all_photos":"全部照片","workbook_expand_all":"全部展開","workbook_collapse_all":"全部收合","blackboard":"黑板","blackboard_drawings":"黑板畫","photos":"照片","photo_gallery":"照片集","audio":"音檔","songs":"歌曲音檔","performance":"劇照","play_script":"劇本","play_script_content":"劇本內容","story":"故事","story_content":"故事內容","songs_audio":"歌曲與音檔","sheet_music":"樂譜","video":"影片","video_performance":"演出影片","download_video":"下載影片","video_drive_note":"影片由 Google Drive 提供播放，若無法載入請改用「下載影片」。","video_mov_note":"此 MOV 檔案可能無法在所有瀏覽器播放，若播放失敗請直接下載觀看。","video_unsupported":"目前僅支援 YouTube 或 Google Drive 影片，請確認素材格式。","tags":"標籤","back_to_courses":"返回所有課程","no_content":"目前沒有內容。","course_home":"課程主頁","switch_course":"切換課程","course_navigation":"課程導覽","course_materials":"-- 課程素材 --"},"filters":{"search_placeholder":"搜尋課程...","search_lang_notice":"","all_grades":"所有年級","all_domains":"所有領域","all_teachers":"所有教師","grade_filter":"年級","domain_filter":"領域","teacher_filter":"教師","showing_results":"顯示 {count} 個課程","no_results":"沒有符合的課程","reset_filters":"重設篩選"},"pagefind":{"placeholder":"搜尋","clear_search":"清除","load_more":"載入更多結果","search_label":"搜尋此網站","filters_label":"篩選","zero_results":"沒有找到 [SEARCH_TERM] 的結果","many_results":"找到 [COUNT] 個 [SEARCH_TERM] 的結果","one_result":"找到 [COUNT] 個 [SEARCH_TERM] 的結果","alt_search":"沒有找到 [SEARCH_TERM] 的結果。改為顯示 [DIFFERENT_TERM] 的結果","search_suggestion":"沒有找到 [SEARCH_TERM] 的結果。試試以下搜尋：","searching":"搜尋 [SEARCH_TERM] 中..."},"gallery":{"filter_placeholder":"篩選照片...","no_results":"沒有符合的照片","loading":"載入中...","close":"關閉"},"footer":{"license":"本網站內容採 CC BY-NC-SA 授權；照片含學生已取得公開授權。","org":"2025 慈心華德福","email":"it@waldorf.ilc.edu.tw"},"metadata":{"keywords":"Waldorf education, 華德福教育, course materials, teaching resources"},"lang":{"current":"繁體中文","switch_to":"Switch to English"}},"en-US":{"site":{"title":"Cixin Course Weaver","description":"Ci-Xin Waldorf's bilingual course archive, connecting lesson goals with teaching artifacts, media folders, and downloads for planners and partners.","homepage_description":"This site is a living museum of teaching — a space where courses become stories and learning becomes art. It gathers journeys co-created by teachers and students, spanning from Taiwan's myths to the world's masterpieces. Browse through notebooks, blackboard art, performances, and melodies, and rediscover the living pulse of education that continues to bloom within."},"homepage":{"eyebrow":"Living Teaching Archive","hero_title":"Courses become stories. Learning becomes art.","hero_primary_cta":"Explore courses","hero_secondary_cta":"See our approach","course_section_title":"Featured Courses","course_section_copy":"Follow the Waldorf rhythm—from blackboard landscapes to drama performances and playlists—to see how teachers and students learn together.","tag_intro":"Popular tags","category_section_title":"Course categories","category_section_copy":"Jump into collections by grade, domain, or material and find the right inspiration.","ethos_title":"Making Learning a Profound Life Experience","ethos_copy":"At Ci-Xin, we believe education is a journey where we accompany children as they experience, feel, and create. Every course begins from real-life contexts—whether delving into literature, history, or nature—using art as a bridge to transform knowledge into profound inner strength. We invite you to join us in sparking children's curiosity, transforming learning from mere memorization into stories that are lived and told.","ethos_points":["Integrating subjects with drama, stories, and art to deepen the learning experience","Guiding children to start from their life experiences and connect with the real world","Encouraging teachers to transform materials and create unique learning paths for children"],"categories":[{"label":"Arts program","description":"Blackboard art, drama, music, and integrated creations.","anchor":"arts","icon":"🎨"},{"label":"Nature studies","description":"Mountains, field work, seasons, and ecological stories.","anchor":"nature","icon":"🌿"},{"label":"Main lesson","description":"Language arts, history blocks, and interdisciplinary main lessons.","anchor":"main-lesson","icon":"📖"},{"label":"History main lesson","description":"Journeys from myths to modern history.","anchor":"history","icon":"🕰️"}],"testimonials_title":"Voices from teachers & students","testimonials_copy":"Each archive keeps the warmth of the classroom alive. Here are a few notes shared by our community.","testimonials":[{"quote":"This is a placeholder testimonial for future content.","author":"Placeholder Author 1"},{"quote":"This is another placeholder testimonial for future content.","author":"Placeholder Author 2"},{"quote":"This is a third placeholder testimonial for future content.","author":"Placeholder Author 3"}]},"nav":{"home":"Course Introduction","courses":"All Courses","ai_guide":"Application Guide","reflections":"Comments & Discussions"},"course":{"grade":"Grade","semester":"Semester","unit":"unit","teacher":"Teacher","overview":"Course Overview","learning_objectives":"Learning Objectives","teacher_intro":"Teacher Introduction","no_description":"(Not yet provided)","no_teacher_bio":"(Teacher bio not yet provided)","open_document":"Open Full Document","downloads":"Downloads","syllabus":"Syllabus and Teaching Records","worksheet":"Worksheet","workbook":"Workbook","workbook_content":"Workbook Content","workbook_folder_default":"Workbook Folder","workbook_folder_toggle_hint":"Click to expand or collapse","workbook_subfolder_default":"Subfolder","workbook_subfolder_toggle_hint":"Click to view photos in this subfolder","workbook_subfolder_all_photos":"All Photos","workbook_expand_all":"Expand all","workbook_collapse_all":"Collapse all","blackboard":"Blackboard","blackboard_drawings":"Blackboard Drawings","photos":"Photos","photo_gallery":"Photo Gallery","audio":"Audio","songs":"Songs","performance":"Performance Photos","play_script":"Play Script","play_script_content":"Play Script Content","story":"Story","story_content":"Story Content","songs_audio":"Songs & Audio","sheet_music":"Sheet Music","video":"Video","video_performance":"Performance Video","download_video":"Download Video","video_drive_note":"Video playback is provided through Google Drive. Use the download link if it fails to load.","video_mov_note":"This MOV file may not play in every browser; download it if playback is unavailable.","video_unsupported":"Only YouTube or Google Drive videos are supported. Please verify the source format.","tags":"Tags","back_to_courses":"Back to All Courses","no_content":"No content available yet.","course_home":"Course Home","switch_course":"Switch Course","course_navigation":"Course Navigation","course_materials":"-- Course Material --"},"filters":{"search_placeholder":"Search courses...","search_lang_notice":"Note: Search is currently optimized for Traditional Chinese. For best results, please switch to 繁體中文 using the language selector above.","all_grades":"All Grades","all_domains":"All Domains","all_teachers":"All Teachers","grade_filter":"Grade","domain_filter":"Domain","teacher_filter":"Teacher","showing_results":"Showing {count} courses","no_results":"No matching courses","reset_filters":"Reset Filters"},"pagefind":{"placeholder":"Search","clear_search":"Clear","load_more":"Load more results","search_label":"Search this site","filters_label":"Filters","zero_results":"No results for [SEARCH_TERM]","many_results":"[COUNT] results for [SEARCH_TERM]","one_result":"[COUNT] result for [SEARCH_TERM]","alt_search":"No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead","search_suggestion":"No results for [SEARCH_TERM]. Try one of the following searches:","searching":"Searching for [SEARCH_TERM]..."},"gallery":{"filter_placeholder":"Filter photos...","no_results":"No matching photos","loading":"Loading...","close":"Close"},"footer":{"license":"This website content is licensed under CC BY-NC-SA; student photos are authorized for public display.","org":"2025 Cixin Waldorf","email":"it@waldorf.ilc.edu.tw"},"metadata":{"keywords":"Waldorf education, course materials, teaching resources"},"lang":{"current":"English","switch_to":"切換至繁體中文"}}};
+    window.__CURRENT_LANG__ = 'zh-TW';
+    window.__DEFAULT_LANG__ = 'zh-TW';
+    window.__BASE_PATH__ = '/course-site-starter/';
+    window.__LANG_SPECIFIC_PAGES__ = ["/ai-guide/"];
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4 relative">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-label="Primary navigation">
+        <ul class="flex gap-8 justify-center">
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/ai-guide/">應用指引</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a>
+            </li>
+            
+          </ul>
+        </nav>
+      <div class="flex items-center gap-3 ml-auto">
+        
+
+<div class="language-switcher">
+  <button
+    id="lang-toggle"
+    class="lang-button"
+    aria-label="Switch to English"
+    aria-expanded="false"
+    title="Switch to English">
+    <svg class="lang-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </svg>
+    <span class="lang-label">繁體中文</span>
+    <svg class="lang-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <div id="lang-menu" class="lang-menu" hidden>
+    
+    
+    <a
+      href="/course-site-starter/"
+      class="lang-option active"
+      data-lang="zh-TW">
+      <span class="lang-code">zh-TW</span>
+      <span class="lang-name">繁體中文</span>
+    </a>
+    
+    
+    <a
+      href="/course-site-starter/en-US/"
+      class="lang-option "
+      data-lang="en-US">
+      <span class="lang-code">en-US</span>
+      <span class="lang-name">English</span>
+    </a>
+    
+  </div>
+</div>
+
+<script>
+(function() {
+  const toggle = document.getElementById('lang-toggle');
+  const menu = document.getElementById('lang-menu');
+  const basePath = '/course-site-starter/';
+  const normBase = basePath.replace(/\/+$/, '');
+  const normalizePagePath = function(path) {
+    if (!path) {
+      return '/';
+    }
+    let normalized = path;
+    if (!normalized.startsWith('/')) {
+      normalized = '/' + normalized;
+    }
+    normalized = normalized.replace(/\/+$/, '');
+    return normalized === '' ? '/' : normalized;
+  };
+  const langSpecificPages = (window.__LANG_SPECIFIC_PAGES__ || []).map(normalizePagePath);
+
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isHidden = menu.hasAttribute('hidden');
+    if (isHidden) {
+      menu.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      menu.setAttribute('hidden', '');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('click', function() {
+    menu.setAttribute('hidden', '');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+
+  menu.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  // Save language preference when user clicks a language option
+  const langOptions = menu.querySelectorAll('.lang-option');
+  langOptions.forEach(function(option) {
+    option.addEventListener('click', function(e) {
+      const selectedLang = this.getAttribute('data-lang');
+      if (selectedLang) {
+        try {
+          localStorage.setItem('preferredLang', selectedLang);
+        } catch (err) {
+          // Silently fail if localStorage is unavailable
+        }
+
+        // Check if we're on a special page with language-specific versions
+        const currentPath = window.location.pathname;
+        const normPath = currentPath.replace(/\/+$/, '');
+
+        // Check if on homepage
+        const isHomepage = normPath === normBase ||
+                          normPath.match(new RegExp('^' + normBase.replace(/\//g, '\\/') + '/(en-US|zh-TW)$'));
+
+        // Normalize path relative to site base (supports subfolder deploys)
+        let relativePath = normPath;
+        if (normBase && normPath.startsWith(normBase)) {
+          relativePath = normPath.substring(normBase.length) || '/';
+        } else if (!relativePath) {
+          relativePath = '/';
+        }
+        if (!relativePath.startsWith('/')) {
+          relativePath = '/' + relativePath;
+        }
+        relativePath = relativePath.replace(/\/+$/, '') || '/';
+
+        // Determine if current page has a dedicated localized route
+        let canonicalPath = relativePath;
+        const englishPrefix = '/en-US';
+        if (canonicalPath.startsWith(englishPrefix)) {
+          canonicalPath = canonicalPath.substring(englishPrefix.length) || '/';
+          if (!canonicalPath.startsWith('/')) {
+            canonicalPath = '/' + canonicalPath;
+          }
+          canonicalPath = canonicalPath.replace(/\/+$/, '') || '/';
+        }
+
+        const matchedSpecialPage = langSpecificPages.find(function(page) {
+          return page === canonicalPath;
+        });
+
+        // For special pages with dedicated language versions, navigate to the correct URL
+        if (matchedSpecialPage && !isHomepage) {
+          e.preventDefault();
+          const pageSuffix = matchedSpecialPage === '/' ? '/' : matchedSpecialPage + '/';
+          let targetUrl;
+          if (selectedLang === 'en-US') {
+            // Navigate to English version
+            targetUrl = normBase + '/en-US' + pageSuffix;
+          } else {
+            // Navigate to Chinese version (default, no language prefix)
+            targetUrl = normBase + pageSuffix;
+          }
+          window.location.href = targetUrl;
+          return;
+        }
+
+        // For homepage and course pages, reload to apply language
+        e.preventDefault();
+        window.location.reload();
+      }
+    });
+  });
+})();
+</script>
+
+        <button
+          type="button"
+          class="mobile-menu-toggle md:hidden"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="mobile-nav-panel">
+          <span class="sr-only">Toggle navigation</span>
+          <svg class="mobile-menu-icon" data-menu-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+          </svg>
+          <svg class="mobile-menu-icon hidden" data-menu-close-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-nav-panel" class="mobile-menu-panel md:hidden hidden" data-menu-panel>
+      <div class="max-w-6xl mx-auto px-4 py-4">
+        <nav aria-label="Mobile navigation">
+          <ul class="flex flex-col gap-3">
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/">課程介紹</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/courses/">所有課程</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/ai-guide/">應用指引</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/reflections/">留言與交流</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  <div class="course-header-block">
+    
+    <div class="course-header-meta">
+      
+      
+      <div class="course-info-card course-info-card--has-hero" data-course-i18n="{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;西遊記（語文主課）&quot;,&quot;grade&quot;:&quot;四年級 4A 雲朵班&quot;,&quot;semester&quot;:&quot;114 學年度 秋季&quot;,&quot;unit&quot;:&quot;語文主課&quot;,&quot;domain&quot;:&quot;語文&quot;,&quot;teacher&quot;:&quot;林倩詒&quot;,&quot;overview&quot;:&quot;本課程旨在深化四年級學生的語文理解、表達與書寫能力。透過《西遊記》的故事，培養學生獨立書寫、自由書寫的能力，並積累語感、詞彙與語言節奏。課程強調閱讀深化，學習整理段落大意、找出佳句、寫下感想，並將生活經驗轉化為文字。學生將透過小組討論與全班分享，練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見。課程設計採用「故事推進」與「主題書寫」雙軌並行，讓學生在收斂與擴展的語文學習中，看見勇敢、智慧與堅持等特質的對照，並在挑戰中選擇正向價值。&quot;,&quot;learningObjectives&quot;:[&quot;深化語文理解、表達與書寫能力&quot;,&quot;培養獨立書寫與自由書寫能力&quot;,&quot;積累語感、詞彙與語言節奏&quot;,&quot;學習整理段落大意、找出佳句、寫下感想&quot;,&quot;將生活經驗轉化為文字&quot;,&quot;練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見&quot;,&quot;看見勇敢與怠惰、智慧與愚鈍、堅定與搖擺等不同特質的對照&quot;,&quot;在生活的挑戰裡選擇勇敢、堅持與智慧&quot;,&quot;經驗「收斂」與「擴展」的語文學習&quot;]},&quot;en-US&quot;:{&quot;title&quot;:&quot;Journey to the West&quot;,&quot;grade&quot;:&quot;Grade 4, Class 4A Yunduo&quot;,&quot;semester&quot;:&quot;Academic Year 114, Autumn&quot;,&quot;unit&quot;:&quot;Language Main Lesson&quot;,&quot;domain&quot;:&quot;Language Arts&quot;,&quot;teacher&quot;:&quot;Lin Qianyi&quot;,&quot;overview&quot;:&quot;This course aims to deepen fourth-grade students&#39; language comprehension, expression, and writing skills. Through the story of &#39;Journey to the West,&#39; students will develop independent and free writing abilities, and accumulate language sense, vocabulary, and linguistic rhythm. The curriculum emphasizes deepening reading, learning to summarize paragraph main ideas, identify excellent sentences, write reflections, and transform life experiences into text. Students will engage in group discussions and whole-class sharing to practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions. The course design adopts a &#39;story progression&#39; and &#39;thematic writing&#39; dual-track approach, allowing students to experience convergent and divergent language learning, observe contrasting qualities like bravery, wisdom, and perseverance, and choose positive values when facing challenges.&quot;,&quot;learningObjectives&quot;:[&quot;Deepen language comprehension, expression, and writing skills&quot;,&quot;Cultivate independent and free writing abilities&quot;,&quot;Accumulate language sense, vocabulary, and linguistic rhythm&quot;,&quot;Learn to summarize paragraph main ideas, identify excellent sentences, and write reflections&quot;,&quot;Transform life experiences into text&quot;,&quot;Practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions&quot;,&quot;Observe contrasting qualities such as bravery and laziness, wisdom and foolishness, steadfastness and wavering&quot;,&quot;Choose bravery, perseverance, and wisdom in life&#39;s challenges&quot;,&quot;Experience &#39;convergent&#39; and &#39;divergent&#39; language learning&quot;]}}">
+        <div class="course-info-card-inner">
+          
+          <figure class="course-info-card-media">
+            <img
+              src="https://drive.google.com/thumbnail?id=19xKvaXjXfNIkGF5zV4kCrf5FpynUZ_Ao&sz=w1200"
+              alt="西遊記（語文主課）"
+              loading="lazy"
+              decoding="async">
+          </figure>
+          
+          <div class="course-info-card-content">
+            <h2 class="course-info-title" data-i18n-course="title">西遊記（語文主課）</h2>
+            <div class="course-info-rows">
+              
+              <p class="course-info-row course-info-row--grade" data-i18n-course="grade">四年級 4A 雲朵班</p>
+              
+              
+              <p class="course-info-row course-info-row--semester" data-i18n-course="semester">114 學年度 秋季</p>
+              
+              
+              <p class="course-info-row course-info-row--unit-domain">
+                
+                <span data-i18n-course="unit">語文主課</span>
+                
+                
+                <span class="course-info-separator" aria-hidden="true">｜</span>
+                
+                
+                <span data-i18n-course="domain">語文</span>
+                
+              </p>
+              
+              
+              <p class="course-info-row course-info-row--teacher course-info-teacher">
+                <span class="course-info-teacher-label" data-i18n="course.teacher">老師</span>:
+                <span data-i18n-course="teacher">林倩詒</span>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="course-nav-wrapper">
+      
+      <div class="course-switcher">
+        <label class="text-sm text-stone-600">
+          切換課程
+          <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value" aria-label="切換課程">
+            
+              <option value="/course-site-starter/courses/2a-nenggao-113-summer/"
+                      
+                      data-course-switcher-i18n='{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;能高山（班級戲劇）&quot;,&quot;grade&quot;:&quot;二年級 2A 嶺光班&quot;,&quot;semester&quot;:&quot;113 學年度 夏季&quot;,&quot;unit&quot;:&quot;班級戲劇&quot;,&quot;domain&quot;:&quot;自然主課&quot;,&quot;teacher&quot;:&quot;王琬婷&quot;,&quot;overview&quot;:&quot;琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。&#92;n因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。&quot;},&quot;en-US&quot;:{&quot;title&quot;:&quot;Mt. Nenggao (Class Drama)&quot;,&quot;grade&quot;:&quot;Grade 2, Class 2A Lingguang&quot;,&quot;semester&quot;:&quot;Academic Year 113, Summer&quot;,&quot;unit&quot;:&quot;Class Drama&quot;,&quot;domain&quot;:&quot;Main Lesson - Nature&quot;,&quot;teacher&quot;:&quot;Wang Wan-Ting&quot;,&quot;overview&quot;:&quot;Teacher Wan-Ting explained that the &#39;Mt. Nenggao&#39; drama is part of her Nature main lesson. The previous year&#39;s nature class used &#39;The Wonderful Adventures of Nils,&#39; which has great storytelling and prose, but the setting is distant and not rooted in Taiwan.&#92;n&#92;nTherefore, this season she began experimenting with indigenous stories—not necessarily traditional tales, but also picture books created by contemporary authors. Last season&#39;s nature class featured &#39;Fish in the Trees,&#39; a picture book about Amis plants and animals. This season, she chose the classic picture book &#39;Mt. Nenggao.&#39; She discovered that many indigenous songs use pentatonic scales, making them simple and repetitive—easy patterns to imitate. She also sourced songs online, such as children&#39;s songs about ants and fireflies, which enriched the originally brief storyline.&quot;}}'>
+                能高山（班級戲劇）
+              </option>
+            
+              <option value="/course-site-starter/courses/3a-sunshot-113-summer/"
+                      
+                      data-course-switcher-i18n='{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;射日傳說（班級戲劇）&quot;,&quot;grade&quot;:&quot;三年級 3A 雲朵班&quot;,&quot;semester&quot;:&quot;113 學年度 夏季&quot;,&quot;unit&quot;:&quot;班級戲劇&quot;,&quot;domain&quot;:&quot;藝術課程&quot;,&quot;teacher&quot;:&quot;林倩詒&quot;,&quot;overview&quot;:&quot;常有家長問：「為什麼慈心的戲劇課程這麼多？」這個提問，也常成為老師們反思的起點──在華德福學校裡，戲劇到底扮演了什麼角色？&#92;n對老師而言，戲劇不只是藝術表達，更是一段深具教育性的學習歷程。透過將課程內容轉化為戲劇展演，孩子不僅深化了對課程的理解，更能藉由肢體、聲音與情感的參與，整合內在的經驗與外在的表達。今年三年級的戲劇課，我們選擇了台灣原住民的《射日傳說》，並嘗試以台語音樂劇的方式演出。&quot;},&quot;en-US&quot;:{&quot;title&quot;:&quot;The Legend of Shooting the Suns (Class Drama)&quot;,&quot;grade&quot;:&quot;Grade 3, Class 3A Yunduo&quot;,&quot;semester&quot;:&quot;Academic Year 113, Summer&quot;,&quot;unit&quot;:&quot;Class Drama&quot;,&quot;domain&quot;:&quot;Arts Program&quot;,&quot;teacher&quot;:&quot;Lin Qian-Yi&quot;,&quot;overview&quot;:&quot;Parents often ask: &#39;Why does Cixin have so many drama courses?&#39; This question frequently becomes a starting point for teachers&#39; reflection—what role does drama actually play in a Waldorf school?&#92;n&#92;nFor teachers, drama is not just artistic expression; it&#39;s a deeply educational learning journey. By transforming curriculum content into dramatic performance, children not only deepen their understanding of the material but also integrate internal experience with external expression through physical movement, voice, and emotion. This year&#39;s third-grade drama class features the Taiwanese indigenous legend &#39;Shooting the Suns,&#39; presented as a Taiwanese-language musical.&quot;}}'>
+                射日傳說（班級戲劇）
+              </option>
+            
+              <option value="/course-site-starter/courses/4a-journey-to-the-west-114-autumn/"
+                      selected
+                      data-course-switcher-i18n='{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;西遊記（語文主課）&quot;,&quot;grade&quot;:&quot;四年級 4A 雲朵班&quot;,&quot;semester&quot;:&quot;114 學年度 秋季&quot;,&quot;unit&quot;:&quot;語文主課&quot;,&quot;domain&quot;:&quot;語文&quot;,&quot;teacher&quot;:&quot;林倩詒&quot;,&quot;overview&quot;:&quot;本課程旨在深化四年級學生的語文理解、表達與書寫能力。透過《西遊記》的故事，培養學生獨立書寫、自由書寫的能力，並積累語感、詞彙與語言節奏。課程強調閱讀深化，學習整理段落大意、找出佳句、寫下感想，並將生活經驗轉化為文字。學生將透過小組討論與全班分享，練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見。課程設計採用「故事推進」與「主題書寫」雙軌並行，讓學生在收斂與擴展的語文學習中，看見勇敢、智慧與堅持等特質的對照，並在挑戰中選擇正向價值。&quot;,&quot;learningObjectives&quot;:[&quot;深化語文理解、表達與書寫能力&quot;,&quot;培養獨立書寫與自由書寫能力&quot;,&quot;積累語感、詞彙與語言節奏&quot;,&quot;學習整理段落大意、找出佳句、寫下感想&quot;,&quot;將生活經驗轉化為文字&quot;,&quot;練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見&quot;,&quot;看見勇敢與怠惰、智慧與愚鈍、堅定與搖擺等不同特質的對照&quot;,&quot;在生活的挑戰裡選擇勇敢、堅持與智慧&quot;,&quot;經驗「收斂」與「擴展」的語文學習&quot;]},&quot;en-US&quot;:{&quot;title&quot;:&quot;Journey to the West&quot;,&quot;grade&quot;:&quot;Grade 4, Class 4A Yunduo&quot;,&quot;semester&quot;:&quot;Academic Year 114, Autumn&quot;,&quot;unit&quot;:&quot;Language Main Lesson&quot;,&quot;domain&quot;:&quot;Language Arts&quot;,&quot;teacher&quot;:&quot;Lin Qianyi&quot;,&quot;overview&quot;:&quot;This course aims to deepen fourth-grade students&#39; language comprehension, expression, and writing skills. Through the story of &#39;Journey to the West,&#39; students will develop independent and free writing abilities, and accumulate language sense, vocabulary, and linguistic rhythm. The curriculum emphasizes deepening reading, learning to summarize paragraph main ideas, identify excellent sentences, write reflections, and transform life experiences into text. Students will engage in group discussions and whole-class sharing to practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions. The course design adopts a &#39;story progression&#39; and &#39;thematic writing&#39; dual-track approach, allowing students to experience convergent and divergent language learning, observe contrasting qualities like bravery, wisdom, and perseverance, and choose positive values when facing challenges.&quot;,&quot;learningObjectives&quot;:[&quot;Deepen language comprehension, expression, and writing skills&quot;,&quot;Cultivate independent and free writing abilities&quot;,&quot;Accumulate language sense, vocabulary, and linguistic rhythm&quot;,&quot;Learn to summarize paragraph main ideas, identify excellent sentences, and write reflections&quot;,&quot;Transform life experiences into text&quot;,&quot;Practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions&quot;,&quot;Observe contrasting qualities such as bravery and laziness, wisdom and foolishness, steadfastness and wavering&quot;,&quot;Choose bravery, perseverance, and wisdom in life&#39;s challenges&quot;,&quot;Experience &#39;convergent&#39; and &#39;divergent&#39; language learning&quot;]}}'>
+                西遊記（語文主課）
+              </option>
+            
+              <option value="/course-site-starter/courses/9c-modern-history-114-autumn/"
+                      
+                      data-course-switcher-i18n='{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;現代史主課&quot;,&quot;grade&quot;:&quot;九年級 9C 心亮班&quot;,&quot;semester&quot;:&quot;114 學年度 秋季&quot;,&quot;unit&quot;:&quot;現代史主課&quot;,&quot;domain&quot;:&quot;歷史&quot;,&quot;teacher&quot;:&quot;林信宏&quot;,&quot;overview&quot;:&quot;這門現代史主課以十六堂課的節奏走過啟蒙、革命、工業到戰後世界，帶著九年級學生重新看見「歷史中的人」。課堂安排回顧、講述、辯論與筆記練習交織，學生每天閱讀史料並在工作本中建構自己的時間軸與概念圖。透過盧梭、拿破崙、羅伯·歐文到青年運動的案例，課程讓學生辨識自由與秩序、理想與代價的張力，也把自己視為正在形塑歷史的人。&quot;,&quot;learningObjectives&quot;:[&quot;了解近代至現代歷史的主要脈絡，掌握思想與制度發展的連貫性。&quot;,&quot;培養時間軸、人物關聯與概念分析能力，能以筆記與書寫統整歷史理解。&quot;,&quot;培養對歷史的敬意與反思，理解自己身為「歷史的承繼者與創造者」。&quot;]},&quot;en-US&quot;:{&quot;title&quot;:&quot;Modern History Main Lesson&quot;,&quot;grade&quot;:&quot;Grade 9, Class 9C Xinliang&quot;,&quot;semester&quot;:&quot;Academic Year 114, Autumn&quot;,&quot;unit&quot;:&quot;Modern History Main Lesson&quot;,&quot;domain&quot;:&quot;History&quot;,&quot;teacher&quot;:&quot;Lin Xin-Hong&quot;,&quot;overview&quot;:&quot;Across sixteen lessons this modern history block traces the path from the Enlightenment and revolutionary waves to the industrial age and postwar world, inviting students to keep asking who is acting inside history. Each morning we cycle through review, storytelling, debate, and deliberate note-making so learners read source material and build their own timelines and concept maps in the workbook. From Rousseau and Napoleon to Robert Owen and contemporary youth movements, students examine the tension between freedom and order, ideals and costs, and begin to see themselves as people actively shaping history.&quot;,&quot;learningObjectives&quot;:[&quot;Understand the major throughlines from early modern to contemporary history and how ideas and institutions evolve together.&quot;,&quot;Develop the ability to map timelines, relationships, and key concepts while using structured notes and writing to synthesize historical understanding.&quot;,&quot;Cultivate respect and reflection toward history, recognizing themselves as inheritors and creators within the historical stream.&quot;]}}'>
+                現代史主課
+              </option>
+            
+          </select>
+        </label>
+      </div>
+
+      
+      <nav aria-label="課程導覽">
+        <div class="course-nav-row">
+          
+          <div class="course-nav-left">
+            <a href="/course-site-starter/courses/4a-journey-to-the-west-114-autumn/"
+               class="pill active"
+               aria-label="課程主頁">
+              課程主頁
+            </a>
+
+            <div class="course-materials-dropdown">
+              <select class="course-materials-select"
+                      onchange="if(this.value) location.href=this.value"
+                      aria-label="-- 課程素材 --">
+                <option value="" selected>
+                  -- 課程素材 --
+                </option>
+
+              
+
+              
+
+              
+
+              
+
+              
+                <option value="/course-site-starter/courses/4a-journey-to-the-west-114-autumn/workbook/"
+                        >
+                  工作本
+                </option>
+              
+
+              
+              <option value="/course-site-starter/courses/4a-journey-to-the-west-114-autumn/photos/"
+                      >
+                照片集
+              </option>
+              
+
+              
+
+              
+
+              
+
+              
+
+              
+              <option value="/course-site-starter/courses/4a-journey-to-the-west-114-autumn/videos/"
+                      >
+                影片
+              </option>
+              
+            </select>
+          </div>
+        </div>
+      </div>
+    </nav>
+    </div>
+  </div>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "description": "undefined - undefined",
+  "provider": {
+    "@type": "EducationalOrganization",
+    "name": "2025 慈心華德福",
+    "url": "https://dylankuo84137.github.io/course-site-starter"
+  },
+  "courseCode": "4a-journey-to-the-west-114-autumn",
+  "instructor": {
+    "@type": "Person"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "onsite"
+  },
+  "keywords": "西遊記, 戲劇, 語文, 主課, 工作本"
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+<section class="space-y-6" data-course-i18n="{&quot;zh-TW&quot;:{&quot;title&quot;:&quot;西遊記（語文主課）&quot;,&quot;grade&quot;:&quot;四年級 4A 雲朵班&quot;,&quot;semester&quot;:&quot;114 學年度 秋季&quot;,&quot;unit&quot;:&quot;語文主課&quot;,&quot;domain&quot;:&quot;語文&quot;,&quot;teacher&quot;:&quot;林倩詒&quot;,&quot;overview&quot;:&quot;本課程旨在深化四年級學生的語文理解、表達與書寫能力。透過《西遊記》的故事，培養學生獨立書寫、自由書寫的能力，並積累語感、詞彙與語言節奏。課程強調閱讀深化，學習整理段落大意、找出佳句、寫下感想，並將生活經驗轉化為文字。學生將透過小組討論與全班分享，練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見。課程設計採用「故事推進」與「主題書寫」雙軌並行，讓學生在收斂與擴展的語文學習中，看見勇敢、智慧與堅持等特質的對照，並在挑戰中選擇正向價值。&quot;,&quot;learningObjectives&quot;:[&quot;深化語文理解、表達與書寫能力&quot;,&quot;培養獨立書寫與自由書寫能力&quot;,&quot;積累語感、詞彙與語言節奏&quot;,&quot;學習整理段落大意、找出佳句、寫下感想&quot;,&quot;將生活經驗轉化為文字&quot;,&quot;練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見&quot;,&quot;看見勇敢與怠惰、智慧與愚鈍、堅定與搖擺等不同特質的對照&quot;,&quot;在生活的挑戰裡選擇勇敢、堅持與智慧&quot;,&quot;經驗「收斂」與「擴展」的語文學習&quot;]},&quot;en-US&quot;:{&quot;title&quot;:&quot;Journey to the West&quot;,&quot;grade&quot;:&quot;Grade 4, Class 4A Yunduo&quot;,&quot;semester&quot;:&quot;Academic Year 114, Autumn&quot;,&quot;unit&quot;:&quot;Language Main Lesson&quot;,&quot;domain&quot;:&quot;Language Arts&quot;,&quot;teacher&quot;:&quot;Lin Qianyi&quot;,&quot;overview&quot;:&quot;This course aims to deepen fourth-grade students&#39; language comprehension, expression, and writing skills. Through the story of &#39;Journey to the West,&#39; students will develop independent and free writing abilities, and accumulate language sense, vocabulary, and linguistic rhythm. The curriculum emphasizes deepening reading, learning to summarize paragraph main ideas, identify excellent sentences, write reflections, and transform life experiences into text. Students will engage in group discussions and whole-class sharing to practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions. The course design adopts a &#39;story progression&#39; and &#39;thematic writing&#39; dual-track approach, allowing students to experience convergent and divergent language learning, observe contrasting qualities like bravery, wisdom, and perseverance, and choose positive values when facing challenges.&quot;,&quot;learningObjectives&quot;:[&quot;Deepen language comprehension, expression, and writing skills&quot;,&quot;Cultivate independent and free writing abilities&quot;,&quot;Accumulate language sense, vocabulary, and linguistic rhythm&quot;,&quot;Learn to summarize paragraph main ideas, identify excellent sentences, and write reflections&quot;,&quot;Transform life experiences into text&quot;,&quot;Practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions&quot;,&quot;Observe contrasting qualities such as bravery and laziness, wisdom and foolishness, steadfastness and wavering&quot;,&quot;Choose bravery, perseverance, and wisdom in life&#39;s challenges&quot;,&quot;Experience &#39;convergent&#39; and &#39;divergent&#39; language learning&quot;]}}">
+  
+  
+  <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true" lang="en-US">
+    Journey to the West
+    Grade 4, Class 4A Yunduo Academic Year 114, Autumn
+    Language Main Lesson Language Arts
+    This course aims to deepen fourth-grade students&#39; language comprehension, expression, and writing skills. Through the story of &#39;Journey to the West,&#39; students will develop independent and free writing abilities, and accumulate language sense, vocabulary, and linguistic rhythm. The curriculum emphasizes deepening reading, learning to summarize paragraph main ideas, identify excellent sentences, write reflections, and transform life experiences into text. Students will engage in group discussions and whole-class sharing to practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions. The course design adopts a &#39;story progression&#39; and &#39;thematic writing&#39; dual-track approach, allowing students to experience convergent and divergent language learning, observe contrasting qualities like bravery, wisdom, and perseverance, and choose positive values when facing challenges.
+    Lin Qianyi
+  </div>
+  
+  <article class="prose prose-stone max-w-none">
+    <section id="course-overview" class="mb-8">
+      <h2>課程簡介</h2>
+      
+        
+        
+          <div class="course-description"><p>慈心華德福高中 114學年 秋冬 季 語文教學記錄</p><p>一、課程基本資料</p><p>課程名稱: 西遊記</p><p>二、教學前構思-目標與初衷</p><p>1. 在這次課程中，您希望學生從中獲得什麼樣的學習成果或能力表現?</p><p>2. 您原本預計安排哪些學習活動?希望學生從中產生什麼感受或理解?</p><p>3. 在準備該課程時，有沒有什麼靈感或思考出現呢?</p><p>	三年級透過故事聆聽、抄寫與基礎寫作，幫助孩子建立了閱讀與書寫的初步基礎。到了四年級，孩子的思考與表達力逐漸增長，語文課程的重點將轉向理解、表達與書寫能力的深化。</p><p>   在書寫發展上，四年級的孩子大多邁向「獨立書寫」的階段，能夠透過理解與記憶，將課程或故事內容以文字整理下來；部分孩子已經開始展現「自由書寫」的能力，能在課程記錄之外，將內在消化後的思考與感受轉化為文字。然而，「抄寫」依然是必要的養分來源，因為它能幫助孩子熟悉文法與語句結構，並累積優美詞彙（包括成語），成為語言學習的重要支撐。</p><p>這三個層次是一個漸進的發展歷程，同時也能並行存在、彼此支撐：</p><p>•        抄寫：幫助孩子積累語感、詞彙與語言節奏。</p><p>•        獨立書寫：培養理解與組織能力，將「聽到的內容」轉化為「自己的文字」。</p><p>•        自由書寫：展現內在消化與個人表達的力量。</p><p>   孩子會依自身的學習狀態，在不同層次之間交替練習，並逐步往下一個層次邁進。這樣的循序與並行，讓語文課程成為孩子逐漸從「聽與模仿」走向「理解與表達」的重要橋梁。</p><p>   除了書寫之外，四年級語文課程同時強調閱讀的深化與表達的練習。孩子將從單純的聽故事，進一步學習理解文本，能夠整理段落大意、找出佳句、寫下感想。課程也會安排探訪紀錄、動物觀察記錄與週記書寫，幫助孩子將生活經驗轉化為文字，學習在日常中表達觀察與思考。</p><p>   在表達與討論中，孩子會透過小組討論與全班分享，練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見。這樣的歷程不僅深化閱讀理解，也培養了思辨力與合作態度。</p><p>◆故事揀選: 西遊記</p><p>   《西遊記》是描寫孫悟空、豬八戒、沙和尚保護唐僧到西天取經的故事。整篇故事從石猴誕生開始，便充滿不凡的氣勢，自孫悟空誕生之後，歷經拜師學藝，大鬧天宮，以至後來保護唐三藏到西天取經，終於得成正果。 </p><p>    在取經的路途中，孫悟空上天下地，出生入死，唐僧歷經劫難，幾乎每次都靠他的智慧與本事而化險為夷，他表現出積極勤奮與勇敢；豬八戒正好相反，他常是好逸惡勞，膽小怕事，每當遇到困難時，總是第一個提議散夥，在他身上，我們可看到部分真實的人性，整篇故事中以孫悟空與豬八戒最具有鮮明的特色，他們之間的過招，也是書中最有趣、最吸引人的部分。唐三藏在西遊記之中，變成一個軟弱且毫無主見的人，總是較偏袒豬八戒，但一心向佛的心志卻始終堅定如一。</p><p>     四年級孩子的一些行為，某部分彷彿是孫悟空特質的投射，他們被這樣的形象深深吸引，能一同體會取經路途中的種種災難磨練，分享其中的喜怒哀樂。這部經典故事讓孩子看見勇敢與怠惰、智慧與愚鈍、堅定與搖擺等不同特質的對照，也在潛移默化中學會在生活的挑戰裡選擇勇敢、堅持與智慧。</p><p>     有趣的是，這種投射其實也帶著隱喻─唐三藏就像老師一般，無論潑猴多麼頑皮、調皮搗蛋，最終仍然逃不出唐三藏，或者說如來的手掌心。這也像極了孩子與老師的關係：縱然有叛逆與挑戰，學習的路途終究仍在守護與引導之中前行。</p><p>這次的語文學習方式，和以往有些不同。《西遊記》本身故事情節豐富，語言充滿張力，也包含許多生動的成語和形容詞，非常適合孩子在閱讀與書寫中發揮。因此，我讓「故事」和「回顧、書寫」走在兩條並行的軌道上：故事每天往前推進，而孩子們的書寫則以主題為單位逐篇完成。</p><p>每一篇主題分成兩個部分：</p><p>1. 回顧書寫：</p><p>這是孩子個人的回饋與表達，可以是文字、圖畫，或圖加字，由孩子當天的狀態與條件自由決定，長度從半頁到四頁不等。進入書寫前，孩子們常常會先有討論，有時是三人小組討論，有時是整組團體回顧創作。他們可能會表演某一段情節、定格「照片畫面」，或用口頭述說的方式來回想並表達故事情節。這樣的過程讓孩子在最後進入個人創作時更專注，也更清楚自己要呈現什麼。</p><p>回顧書寫強調自由表達與獨立書寫，讓孩子保有個人風格、想像與觀點；同時在回顧中練習用自己的語言整理故事、表達感受，逐步建立「自己能完成一篇作品」的信心與能力。</p><p>2. 老師提供的黑板內容或文本練習：</p><p>這部分是語文學習的另一個重點。有時我會提供一篇閱讀文本，孩子們在其中學習語句的寫法、標點的用法，並認識新的成語。接著，他們會嘗試做縮寫練習，把三百到七百字的文章擷取重點，摘要成簡短的文字。有時候，也會進行擴寫練習，把故事裡某些他們聽得特別投入的情節挑出來，透過討論加入更多細節與感受，再轉化成完整的書寫。</p><p>這樣的設計，讓孩子在語文學習中同時經驗「收斂」與「擴展」：縮寫培養他們抓重點的能力，而擴寫則引導他們更細膩地觀察與表達。文本練習也同時強化文本素養與技巧。在《西遊記》豐富題材的支持下，循序漸進地練習成語運用、語法與標點、摘要與結構化書寫；不定期也會接觸少量文言詩詞或古典語句，讓孩子在理解與模仿中感受語言的節奏與美感。</p><p>透過這兩條軌道，一方面保留孩子的個人聲音與想像，另一方面也穩步建立語文基本功。</p><p>這樣的書寫裡，有幾個我會比較緊密觀察與要求的地方：</p><p>• 訂正習慣：</p><p>孩子是否能養成檢查與修改的意識，並懂得翻閱字典查詢，這是我希望逐步建立的。</p><p>• 語句的完整性：</p><p>在朗讀時，句子是否通順、前後邏輯是否清楚，有沒有遺漏主詞或形容詞等，這些都是我觀察的重點。</p><p>• 標點符號的正確性：</p><p>孩子是否能在閱讀和書寫中熟練地使用標點。</p><p>至於字跡與版面的整潔度，因為孩子在靈感湧現、文思泉湧的時候，確實很難同時兼顧整齊，所以我目前採取「基本要求＋適度放鬆」的方式。如果孩子的書寫過於凌亂、難以辨認，我仍會請他重寫。事實上，已有幾位孩子在重寫後，下一篇就能以更整潔的方式完成。</p><p>至於字體練習，則會放在另一個軌道進行，近期的重點是讓孩子逐步建構「能夠獨立書寫」的能力。因此，字跡端正的強化，我會在接下來一兩週後，安排在語詞練習的專用本子上進行，不會干擾目前故事書寫的專注力。不過，在工作本上，我仍保持一定的要求，以幫助孩子在表達與整潔之間找到平衡。</p><p>	</p><p>三、教學反思或創新靈感-課堂觀察、修正與內在關照</p><p>1. 實際上課程進行節奏與學生反應是否如預期?是否出現意料之外的情況?</p><p>2. 哪些活動、媒材或教學引導最能引起學生參與和共鳴?</p><p>3. 工作本、黑板畫、或學生作品記錄(也可放在檔案最後)</p><p>4. 教學過程中，您有即時做了哪些調整?為什麼?</p><p>5. 回顧這堂課，有哪個片段讓您特別感動或感受到教學意義?</p><p>6. 再上一次這堂課，您會想做出什麼調整?為什麼?</p><p>7. 有沒有學生的行為、回饋，讓您意識到新的觀點或需要?</p><p>8. 這次教學帶給您哪些新的思考?是否影響您對孩子、課程或自己的理解?</p><p>	</p><p>課程反思紀錄（重述與書寫的嘗試）</p><p>一、重述方式的突破</p><p>這次課程中，我在「孩子回顧的重述」上突破了過往的框架。</p><p>以往的重述大多停留在單純的口語表達，但這次我嘗試了更多元的方式：</p><p>* 透過圖畫的重述</p><p>* 兩人或三人小組討論</p><p>* 5～6人的小團體討論</p><p>* 全班型的分享與交流</p><p>在這些反覆交錯的表達與聆聽中，孩子能夠交換想法，也展現了更多個別性特質。例如，有些孩子的領導特質就在團體互動中浮現出來。</p><p>________________</p><p>二、書寫與課程進度的雙軌並行</p><p>即使在重述與回顧的過程裡，我依然保持故事進度持續推進；同時，在孩子的工作本書寫中，我刻意經營「兩條軌道」：</p><p>1. 自由表達的空間：讓孩子能真實書寫自己的想法與感受。</p><p>2. 語文學習的定錨：教師在課程中仍保留必要的語文重點練習，確保書寫與學習不失焦。</p><p>這樣的安排，讓每一篇文本的學習中，既有孩子的創意與自由，也有教師的引導與專業目標。</p><p>________________</p><p>三、語文學習的多層次呈現</p><p>在後續的課程中，孩子的紀錄逐漸展現多樣化：</p><p>* 擴寫與縮寫：將故事延伸並書寫完整。</p><p>* 語文練習：加入大量形容詞的運用。</p><p>* 團體創作：共同完成劇本的編排與表達。</p><p>這使得語文不只是書寫的練習，更包括口頭表達的鍛鍊。孩子在團體裡學習：</p><p>* 如何在合適的時機說出恰當的話</p><p>* 如何給出引導或支持性的語言</p><p>* 如何聆聽、統整，並在團體合作中找到平衡</p><p>________________</p><p>四、劇本創作中的回顧與反思</p><p>在最後的劇本創作與討論中，孩子們不僅練習語言，更學習回顧整個過程：</p><p>* 討論時遇到哪些困難？</p><p>* 我們是如何跨越這些困難的？</p><p>* 讓我們順利前進的元素是什麼？</p><p>* 下一次可以如何調整？</p><p>這樣的「回顧討論」成為孩子行動中的新靈感，也讓課程不只是產出文本或劇本，更是一種學習如何自我觀察、調整與成長的歷程。</p><p>課程節奏與教學臨在</p><p>在這次課程的節奏安排上，與以往有很大的不同。我們不再是一日寫一個故事。故事仍然每天推進，但書寫的部分卻有不同的節奏：有時每天都有新的進度，有時是兩天一次，有時需要兩三天，甚至將近一週的時間，才能完成一個較完整的活動。整體來說，書寫的設定是以「一篇一篇」為單位來展開。</p><p>這樣的進行方式與過往很不一樣，但由於一開始便將規則與原則清楚告訴孩子們，他們也能在這樣的節奏中逐步調整自己，並且跟上進度。</p><p>我也發現在這樣的活動安排裡，孩子們在參與時展現了更多的共鳴。特別是對話與討論明顯增加，這些交流帶來了一種內在鮮活的能量，好像觸動了他們的自我，使其進入更深層的內在狀態。從外在觀察來看，他們的眼神明亮而有光澤，顯示出一種充滿生命力的狀態。</p><p>在這些討論過程中，每個孩子的意見都被採納到文章或回顧裡。不擅長書寫的孩子，能透過語言表述；擅長書寫的孩子，則能整理與呈現；而擅長寫字卻不一定能發想的孩子，也能藉由聆聽別人的建議得到支持。這種共同協作的過程，帶來孩子們內在活力的湧現，也讓每一個孩子在被聆聽的經驗中感受到彼此的連結。從他們眼神的明亮，可以清楚看到這股能量的煥發。</p><p>在工作本的呈現上，目前文字的比例明顯多於圖畫。但當有圖畫出現時，我也會盡可能用語言引導孩子，讓他們在圖畫裡如同語言表達一般，將細節最大化地展現出來。</p><p>在整個教學過程中，其實我一直在不斷調整。雖然一開始有一個大致的課程計畫，但隔天的課程安排常常會隨著孩子的工作狀況而即時變動。有時因為孩子在產出上遇到困難，我會加入新的討論或活動；有時因為孩子表現順利，我則會推動他們進一步深化學習。這些調整，讓我深刻感受到在教學活動裡，教師需要具備臨在的覺察與勇氣，能夠當下做出決定，隨時延伸、停止或轉換。</p><p>回顧這整個過程，最令我感動的，是看見孩子之間的連結。他們透過合作創造出新的東西，這種經驗鼓勵了不同特質的孩子，都能在團體中貢獻自己的力量。很多孩子在這個歷程中獲得支持，無論能力是否完全展現，都能帶著喜悅參與其中。更重要的是，許多靈感與創造力在這裡不斷湧現，帶來了更大的活力，以及推動前行的意志力。團體關係也因此在過程中有了明顯的進步。</p><p>	</p><p>四、創新或靈感-教學上新的嘗試</p><p>1. 這次課程中，您嘗試了哪些創新的教學方式或活動?效果如何?</p><p>2. 這次教學是否啟發新靈感，未來想在其他課程中實驗或延伸?</p><p>3. 如果可以與其他領域跨域合作，您有什麼構想?</p><p>	教學延伸與未來想像</p><p>1. 創新的嘗試與效果</p><p>在這次課程中，我嘗試了不同於以往的「重述」方式，不再侷限於單一的口語表達，而是讓孩子透過圖畫、兩三人小組、五六人的團體，甚至全班的分享來進行重述。這樣的嘗試讓更多孩子的聲音被聽見，也讓討論與對話的密度增加。實際觀察下來，孩子的眼神明亮，帶著生命力，顯示他們在這些過程中被激發了內在的活力與學習的渴望。</p><p>2. 新的靈感與未來延伸</p><p>這次教學也帶來新的靈感。特別是「雙軌並行」──故事每天推進，但書寫的節奏有快有慢，從一天到兩三天，甚至一週的完整活動。這樣的設計讓孩子更能沉澱與消化，並在集體討論與合作創作中找到自己在團體裡的角色。我希望未來能將這樣的方式延伸到其他文本與課程，例如動物觀察、探訪紀錄或跨學科的專題學習，讓孩子在多元表達與長時間的投入中獲得更深的理解。</p><p>3. 跨域合作的構想</p><p>如果有機會與其他領域跨域合作，我希望能結合其他藝術課程（如戲劇、音樂），深化孩子的學習，創造整合性的經驗。</p><p>	</p><p>五、差異化教學（若無，本欄可不必填寫）</p><p>   1. 在班級中若有明顯差異的孩子，您會如何調整教學?（如學習節奏、氣質類型不同的孩子)</p><p>   2. 您如何在教學設計中照顧這些差異，使每位孩子都能在自己的節奏中學習與成長？</p><p>	在班級裡，差異不僅存在於學習速度與理解力，也包含孩子的特質與氣質。有些孩子外顯、善於表達；有些孩子則安靜、需要更多時間；還有一些孩子因為學習障礙，可能在語文或書寫上面臨挑戰。這些差異若只是單純讓孩子各自完成任務，往往會使落差擴大，但若能放在團體合作與討論中，反而可能激發彼此的理解與學習。</p><p>因此，在設計課程時，我會刻意安排不同規模的合作方式：兩人、三人討論，小組（5～6人）合作，以及全班的分享。這樣的層層遞進，讓孩子有機會在多元的互動情境中找到自己的角色。過程中，老師最重要的任務不是直接介入，而是保持敏銳的觀察：哪些組別正在卡住？是意見分歧，還是缺乏方向？在需要時，我會不著痕跡地給予策略或引導，幫助他們找到新的突破口。這種即時支持，不僅讓討論能夠繼續前進，也讓孩子學會理解與接納彼此的不同特質。</p><p>我常看到孩子在討論裡為了「讓團體更好」而嘗試調整自己。當一個孩子願意安靜下來聽，另一個孩子學會了等待，或有人嘗試給出更具體的建議時，差異便不再是阻礙，而成了推動他們前進的力量。團體的學習歷程，也是孩子們很重要的教材。</p><p>在這次課程中，我雖然嘗試「雙軌並行」：</p><p>   1. 自由表達的空間──每位孩子都能依照自己的特質與想像，書寫或畫出他們的感受與理解。這給予孩子極大的彈性與尊重，讓他們的內在聲音能被看見。</p><p>   2. 語文學習的定錨──教師在每一篇課程中，仍會清楚設定語文學習的目標，例如：句子完整性、形容詞的運用、標點的正確性。這些目標成為孩子共同的「支架」，讓不同能力的孩子都有依循的方向。</p><p>但對於需要更多支持的孩子，我會準備清晰的閱讀文本或關鍵句子，讓他們能依靠文本進行書寫，而不是憑空發想。以這樣的支架來幫助他們在安全感中慢慢前進。相反地，對於已經具備一定能力的孩子，我會鼓勵他們嘗試擴寫、改寫，加入更多細節或個人感受，甚至嘗試自由創作。</p><p>在這樣的設計下，每個孩子都能在自己的節奏裡完成作品。有人作品簡短卻真摯，有人能寫得豐富而完整；有人在口頭表達中特別出色，有人則在書寫中展現深度。這種多樣性的成果，正是因為課程允許差異存在，並提供了適切的支架。</p><p>我似乎需要時刻覺察並轉化這些差異，把它們放進團體合作與個別支架中，孩子們才能在自己的位置上往下發展，而班級也才能成為一個真正的學習型組織。</p><p>	</p><p>五、教學資源</p><p>學習單、課堂作業或練習題等等，直接貼上內容，請勿以連結方式呈現</p><p>閱讀材料或工作本抄寫內容</p><p>	1</p><p>	縮寫練習</p><p>〈齊天大聖的崛起〉</p><p>花果山上，石猴一躍而出，自立水濂洞為王。萬猴歸心，他威風凜凜，如魚得水。可他不滿於安穩日子，意氣風發地闖入海龍宮，口出狂言，要龍王交出寶物。從此有了如意金箍棒，更是虎虎生風，無往不利。孫悟空一時得意忘形，翻天覆地地闖入天庭，惹得神仙手足無措，一場驚天動地的鬧天宮就此展開。</p><p>(上面為黑板教師書寫內容、另外提供一份閱讀文件)</p><p>	2</p><p>	擴寫練習</p><p>〈偷吃蟠桃〉</p><p>1.個人回顧</p><p>2.分組討論</p><p>◆五感</p><p>  看（視覺）： 桃子顏色、大小、果汁、晨霧、陽光、露珠</p><p>  聞（嗅覺）： 香氣撲鼻、甜味帶青草味</p><p>  聽（聽覺）： 樹葉沙沙、巡園仙女腳步輕響</p><p>  觸（觸覺）： 果皮滑潤、微微溫熱、手黏黏</p><p>  味（味覺）： 入口多汁、酸甜剛好、齒頰留香</p><p>◆動作＋心情</p><p>	3</p><p>	閱讀短文及縮寫練習</p><p>〈悟空惹禍:花果山激戰〉</p><p>孫悟空貪心不止，先在蟠桃園偷吃仙桃，又闖入兜率宮，把太上老君的金丹一顆顆吞下肚。接著他潛入盤桃盛會，把仙酒偷光，還用定身法困住七仙女。王母娘娘與眾仙氣得紛紛告狀，玉帝勃然大怒，命天兵天將圍剿花果山。</p><p>妖猴急忙通報，悟空卻還在酒酣耳熱，大聲唱道：「今朝有酒今朝醉！」不久，天兵破門殺入，他怒火中燒，手持金箍棒衝出，左右突擊，把眾仙打得眼冒金星，節節敗退。托塔天王再派四大天王與十八星宿助戰，雙方混戰一整日，天地變色。</p><p>眼見妖猴力弱，悟空便施展法術，化出千百個分身，各持金箍棒，將天兵再度擊退。天庭震動，觀音菩薩建議派惠岸行者下界。惠岸行者與悟空交鋒，火花四射，起初還能招架，但漸漸體力不支，只得虛晃一招，逃回陣營。</p><p>✏️ 縮寫練習</p><p>請用 60 字以內縮寫這段故事</p><p>👉 提示：抓三件大事就好。</p><p>✨ 思考(你的想法可以寫在故事後面)</p><p>1.        你覺得孫悟空為什麼不斷偷東西？</p><p>2.        如果你是玉帝，會怎麼處理悟空？</p><p>🌟 成語小幫手</p><p>   * 今朝有酒今朝醉：只顧眼前快樂，不顧後果。</p><p>   * 眼冒金星：形容被打得頭暈眼花。</p><p>   * 虛晃一招: 假裝出手，迷惑對方，自己趁機逃開。</p><p>縮寫示例</p><p>孫悟空先偷吃仙桃、金丹和仙酒，玉帝大怒派天兵圍攻。悟空奮戰，施展分身擊退敵軍。惠岸行者前來交鋒，不敵退走。</p><p>	4</p><p>	老師說故事前，分四組討論，請孩子查字典解釋古文，換孩子說故事。</p><p>古文閱讀               </p><p>〈苦行五百年〉</p><p>悟空鬧天宮，為天兵天將所擒，押至靈霄寶殿。玉帝叱曰：「潑猴狂妄，速下跪！」悟空不從。如來佛至，謂曰：「汝不知天高地厚，敢於宮中放肆。」</p><p>悟空笑曰：「老和尚欲奈我何？若有本事，試與比試。」佛曰：「汝若能出吾掌心之外，即為汝勝；若不能，當受降服。」悟空欣然應允。</p><p>遂駕筋斗雲，飛行萬里，見五根石柱，高聳雲端。心謂：「此乃天際矣。」即於柱上書「齊天大聖到此一遊」，又遺溺其間，以為記。既而返，謂佛曰：「我已至天邊，汝敗矣。」</p><p>佛微笑，伸掌示之。悟空視之，所書之字、所遺之溺，皆在佛指。乃驚愕，知終未出其掌也。</p><p>佛翻掌，以五行山鎮之，命土地監視。悟空困於山下，呼號不能脫。玉帝復立石碑，題曰：「齊天大聖，永壓此山。」</p><p>歲月荏苒，五百寒暑，悟空不得出。日受風霜雨露，心漸思己之狂妄，知禍由驕矜而起，遂含恨而待後緣。</p><p>★閱讀小幫手</p><p>•潑猴：調皮放肆之猴，比喻任性不馴之人。</p><p>• 叱：大聲斥責。</p><p>• 天高地厚：天地廣大無窮，形容規模、力量極大。</p><p>• 汝：你。古代第二人稱代詞。</p><p>• 矣：語助詞，表示事情已經完成或發生。</p><p>• 遺溺：撒尿。</p><p>• 荏苒：時間漸漸過去。</p><p>•  寒暑：冬夏交替，指一年。</p><p>•  驕矜：驕傲自大，目中無人。</p><p>• 遂：於是，就。</p><p>孩子學習任務:</p><p>用白話文，各自用自己的方式將故事寫出來。</p><p>	5</p><p>	故事劇本書寫練習(預計四天)</p><p>第一天</p><p>〈劇本書寫〉</p><p>說完一段故事，讓孩子回顧，討論劇本書寫。(30m)</p><p>◆團體討論原則及提醒:</p><p>1.每人可以貢獻的能力不同，彼此尊重發言，有人主動統整領導，留意效率。</p><p>2.選出領導人(確認每個人都有事做)、計時者、書寫者、發想者</p><p>◆老師引導書寫討論要點</p><p>1從整體到部分，先訂四段主標題，再談細節及內容。</p><p>2.討論四段內容</p><p>3.討論四段劇情細節 </p><p>4.進入細節，旁白台詞。</p><p>5.加強表達情緒表達與形容詞使用</p><p>6.精準標點符號，最後統整。</p><p>◆進行分組討論工</p><p>◆分組工作檢討</p><p>1.今日討論困難之處，想對同學說的話</p><p>2.具體建議、明日要改進的地方</p><p>3.給彼此的感謝</p><p>4.今日回家工作分配</p><p>◆團體分享</p><p>1.團體分享後，再次回各組進行今日回家工作任務分配確認</p><p>2.各組確認後下課</p><p>🌟反思:</p><p>最難的是支持他們討論，老師需要指令清晰，並一再反覆確認各組是否在軌道之中，尤其遇到困難的組別，要個別給出策略與建議支持。</p><p>第二天</p><p>🖍 黑板寫下工作提醒建議</p><p>一、架構清晰</p><p>   * 先有 四段主題（起因／發展／精彩之處／結尾）</p><p>   * 每段至少寫下三個重點（發生什麼？場景在哪裡？角色有誰？）</p><p>二、語言豐富</p><p>   * 旁白：交代場景（何時、何地、氛圍）</p><p>   * 台詞：角色怎麼說？帶什麼情緒？</p><p>   * 情緒詞：害怕、緊張、興奮、生氣、得意……</p><p>三、合作原則</p><p>   * 小組中每個人要有任務（領導、計時、記錄、發想）</p><p>   * 尊重與傾聽（不打斷、可以補充）</p><p>   * 效率：聚焦在「今天要完成的部分」</p><p>✨ 額外小提醒（老師口頭補充）</p><p>   1. 用畫面感：如果把這一段演出來，觀眾會看到什麼？聽到什麼？</p><p>   2. 台詞真實：想像角色真的站在你面前，他會怎麼講？</p><p>   3. 標點清楚：標點就像角色的呼吸和情緒，不要少掉。</p><p>學習資料:情緒詞庫</p><p>🌄 孫悟空被壓五行山時（苦刑五百年）</p><p>   * 悲痛欲絕：傷心到極點，幾乎承受不住。</p><p>   * 孤苦伶仃：孤單無助，沒有依靠。</p><p>   * 心如刀割：心裡痛苦得像被刀割一樣。</p><p>   * 懊悔不已：非常後悔，心裡不停在懊惱。</p><p>   * 度日如年：日子過得特別難熬，好像一天等於一年。</p><p>   * 無依無靠：沒有親友或力量可以依靠。</p><p>🌿 觀音現身、給予希望</p><p>   * 柳暗花明：在絕望中忽然出現轉機。</p><p>   * 欣然領受：高興地接受任務或安排。</p><p>   * 轉悲為喜：心情從悲傷變成快樂。</p><p>   * 心懷感激：心中充滿感謝之情。</p><p>   * 充滿希望：對未來充滿期待和信心。</p><p>🧘 唐三藏遇悟空（師徒相遇）</p><p>   * 既驚且喜：又驚訝又高興。</p><p>   * 誠惶誠恐：心裡非常敬畏、謹慎小心。</p><p>   * 歡天喜地：非常開心，像全世界都在慶賀一樣。</p><p>   * 欣喜若狂：高興得幾乎要失去理智。</p><p>   * 虔誠恭敬：非常專心和恭敬，態度莊重。</p><p>🔥 立下取經任務（決心與堅持）</p><p>   * 信心滿滿：充滿自信和把握。</p><p>   * 壯志凌雲：有遠大的志向，像雲一樣高。</p><p>   * 勇往直前：鼓起勇氣一直往前，不退縮。</p><p>   * 堅定不移：意志非常堅定，不會動搖。</p><p>   * 百折不撓：遇到再多挫折也不會屈服。</p><p>	</p><p>	第三天  </p><p>  </p><p>  </p><p>  </p><p>學生產出文本，錄音後各自排戲。老師將錄音檔整理後，放學前轉換成注音文本給孩子們討論、核對，以便調整(每組一份)。</p><p>放學前各組孩子要自行檢查各自文本，確認段落、語句是否有誤，找老師再次確認刪減。</p><p>第一排:</p><p>〈孫悟空被壓五行山，師徒相遇〉</p><p>第一組:少元、侑黎、品妍、許藌、徐綾</p><p>佛祖對孫悟空說：「你若能逃出我的手掌心，就算你贏；若是逃不出去，就要接受懲罰。」</p><p>悟空哈哈大笑，回答：「這麼簡單的事，我當然可以！」說完，他駕著筋斗雲，一口氣飛了十萬八千里遠。</p><p>然而，當他回來時，才驚訝地發現，自己始終沒有離開佛祖的手掌心。於是，佛祖將他壓在五行山下，告訴他：「五百年後，會有人來救你。」</p><p>觀音菩薩看不下去，便說：「五百年後，會有一位和尚來收你為徒。如果你願意，就能跟隨他去取經；若不願意，就只能繼續被壓在此山之下。」</p><p>五百年後，唐三藏果然來到山下。唐三藏看到悟空，悟空急忙大喊：「求你救我出去，我願意拜你為師！!」</p><p>和尚說：「好，那你便隨我去西天取經吧。」</p><p>於是悟空得以脫困，成為唐三藏的徒弟。</p><p>之後，他們又遇見了豬八戒。八戒原本是天河裡的天篷元帥，因為酒醉誤闖廣寒宮，被玉帝責罰，投胎到凡間卻錯入豬胎，變成了半人半豬的模樣。後來，他悔過自新，也加入了取經的行列。</p><p>再往前走，他們遇見了沙和尚。沙和尚原本是捲簾大將，因為在蟠桃會上不小心打破了玉琉璃盞，被貶到流沙河受苦。唐三藏慈悲收留他，讓他也皈依成徒。</p><p>從此，唐三藏帶著孫悟空、豬八戒、沙和尚，師徒四人踏上了西天取經的艱辛旅程。</p><p>第二排:</p><p>〈孫悟空被壓五行山，師徒相遇〉</p><p>第二組:昀霏、柏安、杰凱、予恩、楊宓、禾棋</p><p>悟空被抓後，在斬腰台上受罰。刀槍火雷都傷不了他一根毫毛。</p><p>這時太上老君說：「他吃了仙桃、仙丹和仙酒，已經練成了金鋼不壞之身。不如把他丟進八卦爐裡，七七四十九天，他自然會化成灰燼。」七七四十九天後，開了一條小縫，就出事了。悟空從八卦爐中跳了出來。</p><p>接著，在西天的如來佛來了。如來佛說：「你要是可以逃出我的手掌心，玉帝的位置就是你的了。」</p><p>「好啊！」悟空得意洋洋地說。</p><p>他縱身一跳，跳到如來佛的手掌上。他駕駛筋斗雲，飛行十萬八千里。悟空看見前方有五根粗壯的石柱，他拔下一根毫毛，呼的一聲，吹出一隻筆。牠在石柱上寫下「齊天大聖到此一遊」八個字，還撒了一泡尿在那，並留下證據。</p><p>悟空高興地駕著筋斗雲飛回去找如來佛。如來佛笑著伸出手掌給悟空看。悟空一看，大吃一驚，原來他寫的字都在如來佛的手指上，而手指上還有一股尿味。</p><p>當悟空想逃跑時，如來佛用手掌將他壓在下界，又將手掌化為一座山，以金木水火土鎮壓著。玉帝聽到消息後，又立了一塊石碑，上面寫著「齊天大聖，永壓此山」。這一壓，就是五百年。悟空後悔不已。</p><p>五百年後，觀音菩薩派唐僧到西天取經。這一天唐僧經過五行山，聽到山腳下有呼喊聲：「師父，來救我啊！」</p><p>唐僧說：「我沒有刀，怎麼救你出來呢？」</p><p>悟空說：「師父，你只要到山頂，把壓著的符咒撕掉，我自然會出來的。」</p><p>這一天晚上，唐僧和徒弟來到一個叫高老莊的村子。村子裡有一個高老太公，他有一個女兒，三年前被一隻豬妖給糾纏了。老太公每天都很傷腦筋。</p><p>悟空對高老太公說：「老太公，請您放心，今天我一定會抓住那個豬妖，把女兒還給您！」</p><p>於是當天晚上，悟空在房間裡，到了半夜，豬妖來了。悟空馬上變回原來的樣子。豬妖一眼就認出當年大鬧天宮的孫悟空！</p><p>豬妖轉身就逃，孫悟空立刻追了上去……</p><p>第三排:</p><p>〈手掌心的挑戰與八戒的加入〉</p><p>第三組:睿熙、孝恩、宇樂、橙星、芥瑀、敏芳</p><p>如來佛祖問悟空：「你有什麼法力，竟然如此狂妄？」</p><p>悟空回答：「我有筋斗雲，可以飛十萬八千里，還有七十二變，可以變出很多東西！」</p><p>佛祖對悟空發出挑戰：「你如果能跳出我的手掌心，我就把玉帝的權力讓給你！」悟空自不量力的回答:「區區如來神掌，我坐著筋斗雲就可以飛出你的手掌了！」佛祖說：「你要說到做到，不可反悔！」</p><p>悟空駕著筋斗雲，飛了很遠很遠，看到了五根石柱，高高超過雲端。他以為到了世界的邊緣，就在石柱上寫下：「齊天大聖到此一遊」，還撒了一泡尿，然後得意洋洋地回去對佛祖說：「我已經到天邊了，你失敗了！」</p><p>如來佛祖微笑著說：「你根本沒有跳出我的手掌心。」</p><p>悟空一看，大吃一驚，原來剛剛寫的字和尿跡都在佛祖的手掌上！悟空正想逃跑，就被佛祖用金木水火土五行壓在山下。</p><p>觀音菩薩給他改過自新的機會說:「不久後會有一位高僧要去西天取經。如果你願意改過，我會讓他收你為徒，但你必須保護他去西天取經。」最後，被解救的悟空終於得以重見天日，呼吸到久違的新鮮空氣，並發誓要保護唐僧。</p><p>有時候悟空一不小心就打死了妖怪，唐僧便責備他說：「我們不是要殺人，而是要教化眾生！」悟空惱羞成怒，就這樣走掉了。</p><p>唐僧繼續前行，遇到了一位仙女。仙女給了唐僧一個金箍兒，告訴他：「把這個戴到悟空頭上，他就會聽你的話。」這仙女其實是觀音菩薩變的。從此，悟空就被金箍兒制住，乖乖保護唐僧。</p><p>有一天，他們來到一個叫高老莊的地方。因為村裡大部分的人都姓高，所以叫做高老莊。天色已晚，悟空正在尋找住處，遇見了一位年輕人，看起來神色古怪。悟空把他攔下來問話，才知道這人是高員外家的僕人。</p><p>他說三年前，高員外本來要把女兒嫁出去，沒想到招來的卻是一個妖怪，會法術，沒有人能治得了他，所以員外才到處尋找高僧來降妖。</p><p>悟空一聽到「妖怪」兩字，精神立刻來了，跟著僕人去到高員外家。當晚妖怪果然出現，悟空變成員外女兒的模樣，等著與妖怪對峙。妖怪看見後說：「我本來是天蓬元帥，只是因為酒後戲弄嫦娥，才被貶到凡間，投錯了胎，變成了豬的樣子。」</p><p>最後，他求唐僧，要拜唐僧為師。唐僧很開心，給他取名為八戒。於是，唐僧、悟空、八戒三人，繼續往西天的路上走去。</p><p>第四排:</p><p>〈師徒相遇，踏上西天之路〉</p><p>第四組:品妤、翊涵、予澄、允博、語恩、若儀</p><p>悟空被壓制，靈霄寶殿也傷不了他。悟空大喊：「你們這群小人，竟敢在我背後偷襲，不配當佛祖！」</p><p>玉皇大帝大怒，喊道：「你這狂妄的傢伙，快給我跪下！」悟空冷笑著回道：「鬼才會聽你的話！」</p><p>於是，天兵天將將他壓制在斬腰台，用火燒、用雷劈，都毫髮無傷。最後太上老君提議：「把他放進煉丹爐裡，燒牠七七四十九天，就會變成灰燼。」</p><p>悟空就在爐子裡燒了七七四十九天。眾仙們打開爐子一看，以為悟空已經死了，結果悟空反而衝出來，亂打了一通！</p><p>就在這時，如來佛祖出手了。悟空逃出煉丹爐，正好遇上祂。如來佛說：「如果你能翻出我的手掌心，我就讓你當玉皇大帝。」</p><p>悟空駕起筋斗雲，一翻飛，飛到有五根高柱的地方。他拔下一根毫毛，在柱子上寫下：「齊天大聖到此一遊」，還撒了一泡尿，然後得意洋洋地回去對如來說：「你輸了！我有證據！」</p><p>如來佛笑著說：「不用什麼證據，看我的手掌就好。」</p><p>悟空一看，大吃一驚，原來自己一直都在如來佛的手掌心裡！</p><p>悟空正想逃，如來佛張手一揮，把他壓在山下，以金木水火土五行鎮壓，並立下一塊石碑，上面寫著「齊天大聖壓於此山」。</p><p>過了許多年，唐三藏走過來，聽到悟空大聲呼喊：「師父救命啊！我因為太無聊，闖下大禍，被如來佛壓在這座山下，我等你很久了！只要把上面的字親手拿下來，我就能出來！」唐三藏於是救了悟空。</p><p>之後，悟空與唐三藏走到高老莊，得知莊主的女兒，本來嫁給一個相貌堂堂的年輕人，但才結婚沒多久，那年輕人就越來越像豬，還能騰雲駕霧，只知道吃。莊主為此苦惱不已。</p><p>悟空就變成莊主女兒的樣子去引出妖怪，罵道：「妖精，你敢這樣胡作非為，小心我把你打得粉身碎骨！」</p><p>最後才知道，原來那妖怪本是天蓬元帥，因為酒後戲弄嫦娥，被貶下凡間，投錯了胎，變成了豬。觀音菩薩收服了他，讓他保護唐三藏。於是唐三藏給他取名「豬悟能」，三人繼續前往西天。</p><p>後來，他們來到流沙河。唐三藏看著河水那麼寬、那麼急，心裡發愁。悟空說：「我只要一跳就可以跳過去，但師父就不一樣了！」</p><p>忽然看見一個紅頭髮的妖怪從水裡探出頭來。豬八戒急忙叫囂：「小心！」</p><p>於是，他們和妖怪打了二十回合。悟空喊：「你去！你去！只要把那個妖怪收服，他就能上岸，跟著我們一起走！」</p><p>第四天</p><p>   1. 孩子排戲</p><p>   2. 演戲分享</p><p><a class="auto-link" href="https://drive.google.com/drive/folders/1bwQqCpH-1gkI2qCY9B9W4ALhvm49L7q3?usp=sharing" target="_blank" rel="noopener noreferrer">https://drive.google.com/drive/folders/1bwQqCpH-1gkI2qCY9B9W4ALhvm49L7q3?usp=sharing</a></p><p>   3. 團體討論(兩大組，12人一組)</p><p>團體討論題目:演出順利的部分，未來保留與下次需要改善之處。</p><p>選主席(管理會議，確保發言秩序)</p><p>  </p><p>周末作業:將各組文本印給孩子，自行決定記錄下方式，使用圖文完成此次文本。最後寫下心得。</p><p>心得提問: 請你回想這三天的劇本創作與排戲過程，選擇下面的問題來回答。</p><p>   1. 你最喜歡劇本裡的哪一段？為什麼？</p><p>   2. 在排戲的過程中，你遇到的最大挑戰是什麼？你怎麼面對的？</p><p>   3. 你覺得你在小組裡扮演了什麼角色？</p><p>（帶領大家的人、幫忙整理的人、還是安靜觀察的人？）</p><p>   4. 你看到同學身上有什麼特質或表現，是讓你很佩服或很感動的？</p><p>   5. 這三天的過程，你覺得自己學到了什麼？</p><p>   6. 在這個過程中，你有沒有發現自己原來也可以做到一些以前沒想過能做到的事情？</p><p>	6</p><p>	作業回顧</p><p>四排圍四圈分享回顧:拿個人工作本，輪流分享個人書寫與心得。</p><p>黑板關鍵語詞學習:</p><p>標題自訂〈三打白骨精〉〈寶象國語黃袍怪〉</p><p>提供成語關鍵字</p><p>第一天</p><p>又餓又累、頭昏眼花、虎視眈眈、不分青紅皂白、無緣無故、以防萬一、狡猾、故技重施、勉為其難、搧風點火、搬弄是非、波月洞、百花羞公主、黃袍怪、寶象國</p><p>第二天</p><p>自投羅網、相貌堂堂、挑撥離間、鬼鬼祟祟、垂頭喪氣、目中無人、暴跳如雷</p><p>小心翼翼</p><p>兩天節奏，故事一直往前，自行決定書寫標題及內容，為這一個主課程的成果驗收，提供的支架變少，僅有成語。課堂上老師跟孩子討論成語解釋，詢問適合放入那些故事情節，會後請孩子各自獨立書寫。</p><p>要求:段落，文句邏輯需通順，標點正確，少注音。</p><p>◆學習困難的孩子，請他們挑出三個成語，進行故事情情節的造句。</p><p>	7</p><p>	創造詩歌</p><p>1~3人為一組</p><p>老師範例:</p><p>西遊記 ‧ 詩</p><p>大聖出世</p><p>石裂聲，風呼嘯，金光照四方。</p><p>花果山的石卵，孕育靈氣的生命，</p><p>一聲長嘯，震動天與地。</p><p>石裂聲，風呼嘯，金光照四方。</p><p>瀑布飛流，猴群驚叫，</p><p>躍上山巔，眼似星火，</p><p>笑聲響徹九重天。</p><p>石裂聲，風呼嘯，金光照四方。</p><p>雲起處，筋斗翻，</p><p>十萬八千里，一瞬即至。</p><p>手握如意金箍棒，</p><p>石裂聲，風呼嘯，金光照四方。</p><p>鬧天宮，戰天兵，</p><p>刀槍不入，雷火難侵，</p><p>一顆石心，跳動如火，</p><p>不服天命，不畏神明。</p><p>石裂聲，風呼嘯，金光照四方。</p><p>如來展掌，天地靜止，</p><p>手心成山，鎮壓傲氣。</p><p>五百年後，風再起。</p><p>石裂聲，風呼嘯，金光照四方。</p><p>◆西遊記詩歌創作引導</p><p>一、喚醒畫面</p><p>先讓孩子閉眼回想：</p><p>      * 哪一幕最深刻？</p><p>      * 想為哪個角色寫詩？</p><p>      * 你聽見什麼聲音？看到什麼顏色？</p><p>二、找到節奏或音律</p><p>老師帶朗誦或拍手；老師敲擊鐵琴、吹笛子示範。</p><p>「風呼嘯，山崩裂，金光照四方。」</p><p>三、自由創作</p><p>請孩子選一種方式：</p><p>      1. 角色詩：寫悟空、八戒、唐三藏或觀音。</p><p>      2. 故事詩：寫出你最喜歡的一幕。</p><p>詩不一定要押韻，儘可能嘗試，找到一種節奏與音韻。</p><p>例：</p><p>火光閃，雲飛轉，</p><p>悟空的心，在山下跳。</p><p>創作原則:</p><p>1.節奏或音樂</p><p>2.詩歌標題</p><p>3.團體一起唱</p><p>四、朗誦</p><p>各組孩子朗讀自己的詩，可拍手、合誦或合唱。</p><p>◆各組詩歌創作初稿</p><p><a class="auto-link" href="https://drive.google.com/drive/folders/1YRrcVSE5Y6JNq_WYngxCi5FHx8RJvM5K?usp=sharing" target="_blank" rel="noopener noreferrer">https://drive.google.com/drive/folders/1YRrcVSE5Y6JNq_WYngxCi5FHx8RJvM5K?usp=sharing</a></p><p>◆各組詩歌創作分享</p><p><a class="auto-link" href="https://drive.google.com/drive/folders/1kamBVopKJ9MD6UfbQ6yfdmk7dWRNDDss?usp=sharing" target="_blank" rel="noopener noreferrer">https://drive.google.com/drive/folders/1kamBVopKJ9MD6UfbQ6yfdmk7dWRNDDss?usp=sharing</a></p><p>★主課程學生照片影片資料</p><p><a class="auto-link" href="https://drive.google.com/drive/folders/1sQ7JimSUH6NGVCw59GX2MGh_MKbaS3Rp?usp=sharing" target="_blank" rel="noopener noreferrer">https://drive.google.com/drive/folders/1sQ7JimSUH6NGVCw59GX2MGh_MKbaS3Rp?usp=sharing</a></p></div>
+        
+      
+    </section>
+
+    
+    <section id="learning-objectives" class="border-t border-stone-200 pt-6">
+      <h2>學習目標</h2>
+      <ul class="list-disc list-inside space-y-2" data-i18n-course-list="learningObjectives">
+        
+        <li>深化語文理解、表達與書寫能力</li>
+        
+        <li>培養獨立書寫與自由書寫能力</li>
+        
+        <li>積累語感、詞彙與語言節奏</li>
+        
+        <li>學習整理段落大意、找出佳句、寫下感想</li>
+        
+        <li>將生活經驗轉化為文字</li>
+        
+        <li>練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見</li>
+        
+        <li>看見勇敢與怠惰、智慧與愚鈍、堅定與搖擺等不同特質的對照</li>
+        
+        <li>在生活的挑戰裡選擇勇敢、堅持與智慧</li>
+        
+        <li>經驗「收斂」與「擴展」的語文學習</li>
+        
+      </ul>
+    </section>
+    
+
+    <section id="teacher-bio" class="border-t border-stone-200 pt-6">
+      <h2>教師介紹</h2>
+      <p>林倩詒</p>
+    </section>
+
+    
+  </article>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC-SA 授權；照片含學生已取得公開授權。</p>
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" style="margin-top: 0.5rem; display: inline-block;">
+            <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0" style="border: 0;">
+          </a>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Language handler: loads synchronously to prevent FOUC -->
+  <script src="/course-site-starter/js/lang-dynamic.js"></script>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script src="/course-site-starter/js/video-playlist.js" defer></script>
+  <script>
+    (function() {
+      const toggle = document.querySelector('[data-menu-toggle]');
+      const panel = document.querySelector('[data-menu-panel]');
+      if (!toggle || !panel) return;
+      const openIcon = toggle.querySelector('[data-menu-icon]');
+      const closeIcon = toggle.querySelector('[data-menu-close-icon]');
+
+      function setMenuState(isOpen) {
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        panel.classList.toggle('hidden', !isOpen);
+        if (openIcon && closeIcon) {
+          openIcon.classList.toggle('hidden', isOpen);
+          closeIcon.classList.toggle('hidden', !isOpen);
+        }
+      }
+
+      toggle.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        setMenuState(!expanded);
+      });
+
+      document.addEventListener('click', function(event) {
+        if (panel.classList.contains('hidden')) return;
+        if (panel.contains(event.target) || toggle.contains(event.target)) return;
+        setMenuState(false);
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          setMenuState(false);
+        }
+      });
+
+      const mediaQuery = window.matchMedia('(min-width: 768px)');
+      function handleQuery(event) {
+        if (event.matches) {
+          setMenuState(false);
+        }
+      }
+      if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', handleQuery);
+      } else if (typeof mediaQuery.addListener === 'function') {
+        mediaQuery.addListener(handleQuery);
+      }
+    })();
+  </script>
+  <script>
+    window.__pagefindInstance = null;
+    window.__initPagefind = function() {
+      try {
+        if (!window.PagefindUI) return;
+
+        // Get user's language preference
+        const savedLang = localStorage.getItem('preferredLang') || 'zh-TW';
+
+        // Destroy existing instance if present
+        if (window.__pagefindInstance && typeof window.__pagefindInstance.destroy === 'function') {
+          window.__pagefindInstance.destroy();
+        }
+
+        // Get Pagefind translations for current language
+        const pagefindTranslations = window.__I18N_DATA__[savedLang]?.pagefind || {};
+
+        // Create new instance with full translations
+        // Note: Using --force-language zh creates a single multilingual index
+        // This allows both Chinese and English content to be searched together
+        window.__pagefindInstance = new PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          translations: pagefindTranslations
+        });
+      } catch(e) {
+        console.error('Pagefind init error:', e);
+      }
+    };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+
+  <!-- CommentBox.io initialization for reflections page -->
+  
+</body>
+</html>
