@@ -132,8 +132,5 @@ permalink: "/courses/{{ c.slug }}/workbook/index.html"
 {% else %}
   <p class="text-stone-500">
     {{ i18n[currentLang].course.no_content }}
-    <span class="block text-sm text-stone-400">
-      請在 course JSON 的 <code>material.workbook_photos</code> 或 <code>material.workbook_pdfs</code> 中設定素材，並執行同步腳本。
-    </span>
   </p>
 {% endif %}

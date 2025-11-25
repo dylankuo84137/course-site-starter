@@ -40,8 +40,6 @@ permalink: "/courses/{{ c.slug }}/description/index.html"
     {% else %}
       <div class="bg-stone-100 border border-stone-200 rounded-lg p-6 text-center text-stone-600">
         <h3 class="text-lg font-medium mb-2">課程說明尚未載入</h3>
-        <p>請確認已在 <code>docs.course_description.id</code> 填入 Google 文件 ID 並執行同步腳本</p>
-        <code class="bg-stone-200 px-2 py-1 rounded text-sm">npm run sync:drive</code>
       </div>
     {% endif %}
   </article>

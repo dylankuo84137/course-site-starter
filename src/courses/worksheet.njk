@@ -25,8 +25,5 @@ permalink: "/courses/{{ c.slug }}/worksheet/index.html"
 {% else %}
   <p class="text-stone-500">
     {{ i18n[currentLang].course.no_content }}
-    <span class="block text-sm text-stone-400">
-      請在 course JSON 的 <code>material.worksheet</code> 中設定 PDF，並執行同步腳本。
-    </span>
   </p>
 {% endif %}

@@ -1,6 +1,6 @@
 {
   "slug": "9c-modern-history-114-autumn",
-  "hero_image": "1hzjZCO8wFMkl4czSGrZSh4rgcvg7WaX7",
+  "hero_image": "1Z4ykTOJ40B704ZrL_hKCPCz2Nq6W_Pb-",
   "metadata": {
     "grade_level": "9",
     "domain_category": "main-lesson",
@@ -54,17 +54,39 @@
     "workbook_photos": [
       {
         "type": "drive-folder",
-        "id": "1bngeOyepl2bgdBH9u3xSITvCLwMoykTj",
+        "id": "1f5__BLplGhnLEv6QdZNIAhxiwAsklpGw",
         "title": "",
         "items": []
       }
     ],
-    "photos": [],
-    "blackboard": [],
+    "photos": [
+      {
+        "type": "drive-folder",
+        "id": "17bt1nWggEAgKGLe9FBWvYs523hz05Z97",
+        "title": "",
+        "items": []
+      }
+    ],
+    "blackboard": [
+      {
+        "type": "drive-folder",
+        "id": "1gTA6mIvh4tfaF16m8dy1fOWF94a0oEZX",
+        "title": "",
+        "items": []
+      }
+    ],
     "worksheet": [
       {
         "type": "pdf",
         "id": "1Jv4ah9Ed6W8GHfroGV8PUMsW8HttI0QG",
+        "title": "",
+        "items": []
+      }
+    ],
+    "videos": [
+      {
+        "type": "drive-folder",
+        "id": "1J-hbJ9mZSGEVEXEnWRdFYGWL_9GvebOs",
         "title": "",
         "items": []
       }
