@@ -3,6 +3,7 @@ _site/
 .DS_Store
 .env*
 npm-debug.log*
+public/images/hero-test.jpg
 
 # Google Drive sync backups
 *.bak
