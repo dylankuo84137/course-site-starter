@@ -89,7 +89,11 @@
     "course_home": "課程主頁",
     "switch_course": "切換課程",
     "course_navigation": "課程導覽",
-    "course_materials": "-- 課程素材 --"
+    "course_materials": "-- 課程素材 --",
+    "innovation": "教學創新",
+    "no_innovation": "尚無教學創新內容",
+    "no_innovation_desc": "此課程尚未發布教學反思或創新內容。",
+    "back_to_course": "返回課程首頁"
   },
   "filters": {
     "search_placeholder": "搜尋課程...",

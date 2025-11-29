@@ -13,6 +13,28 @@ permalink: "/courses/{{ c.slug }}/index.html"
 {# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'home', currentLang, i18n) }}
 
+{# Innovation page link - shown prominently if available #}
+{% set innovation = courseInnovations[c.slug] %}
+{% if innovation %}
+<div class="mb-6 px-4 py-3 bg-amber-50 border-l-4 border-amber-600 rounded-r-md">
+  <div class="flex items-center justify-between gap-4 flex-wrap">
+    <div>
+      <a href="{{ '/courses/' | url }}{{ c.slug }}/innovation/"
+        class="inline-flex items-center gap-2 bg-amber-600 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors whitespace-nowrap text-sm font-medium">
+        {{ i18n[currentLang].course.innovation }}
+        <span aria-hidden="true">→</span>
+      </a>
+      <p class="text-sm text-amber-800">
+        {% if currentLang == 'en-US' %}
+          Explore the teaching innovations and pedagogical insights for this course.
+        {% else %}
+          探索本課程的教學反思與創新。
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 {# JSON-LD structured data for AI and search engines #}
 <script type="application/ld+json">

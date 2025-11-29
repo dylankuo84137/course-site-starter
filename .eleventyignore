@@ -1,0 +1,4 @@
+# Ignore course innovation markdown files
+# These are processed by courseInnovations.js data loader
+# and rendered through innovation.njk template
+**/course-innovations/**/*.md

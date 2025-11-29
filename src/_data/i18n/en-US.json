@@ -89,7 +89,11 @@
     "course_home": "Course Home",
     "switch_course": "Switch Course",
     "course_navigation": "Course Navigation",
-    "course_materials": "-- Course Material --"
+    "course_materials": "-- Course Material --",
+    "innovation": "Pedagogical Innovation",
+    "no_innovation": "No Innovation Content Available",
+    "no_innovation_desc": "This course has not yet published pedagogical innovation and reflection content.",
+    "back_to_course": "Back to Course Home"
   },
   "filters": {
     "search_placeholder": "Search courses...",

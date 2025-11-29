@@ -7,10 +7,11 @@
     "dev": "npx @11ty/eleventy --serve",
     "build": "npx @11ty/eleventy",
     "postbuild": "npx pagefind --site _site --force-language zh",
-    "prebuild": "node scripts/validation/validate-courses.js",
+    "prebuild": "node scripts/validation/validate-courses.js && node scripts/validation/validate-innovations.js",
     "deploy": "npm run build && npm run postbuild",
     "sync:drive": "node scripts/sync/fetch-drive.mjs",
-    "validate": "node scripts/validation/validate-courses.js",
+    "validate": "node scripts/validation/validate-courses.js && node scripts/validation/validate-innovations.js",
+    "validate:innovations": "node scripts/validation/validate-innovations.js",
     "validate:watch": "npx nodemon --watch src/_data/course_*.json --exec \"npm run validate\""
   },
   "devDependencies": {

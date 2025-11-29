@@ -23,7 +23,7 @@ In simple terms, we have compiled all the detailed information for **every cours
 
 **How does this benefit teachers?**
 
-You can provide this index file to Large Language Models (like ChatGPT, Claude, Gemini, etc.), turning the AI into your expert teaching assistant on the "Cixin Course Archive." You can:
+You can provide this index file to Large Language Models (like ChatGPT, Claude, Gemini, etc.), turning the AI into your expert teaching assistant on the "Cixin Course Weaver." You can:
 
 *   **Quickly Query and Integrate**: Search for teaching materials across different courses and grade levels.
 *   **In-depth Analysis and Comparison**: Analyze the teaching methods and content differences between various courses.

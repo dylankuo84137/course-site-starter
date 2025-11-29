@@ -90,6 +90,28 @@
 html:not([data-lang-ready]) body {
   visibility: hidden;
 }
+
+/* Innovation content language switching */
+.innovation-content {
+  display: none;
+}
+
+/* Show Chinese content by default or when zh-TW is selected */
+html:not([data-user-lang]) .innovation-content[data-lang="zh-TW"],
+html[data-user-lang="zh-TW"] .innovation-content[data-lang="zh-TW"] {
+  display: block;
+}
+
+/* Show English content when en-US is selected */
+html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
+  display: block;
+}
+
+/* Remove top margin from first element to avoid blank space */
+.innovation-content > *:first-child {
+  margin-top: 0 !important;
+}
+
 .pill{display:inline-flex;align-items:center;padding:.425rem .875rem;border-radius:9999px;background:var(--warm-100);color:var(--text-secondary);text-decoration:none;transition:all 0.2s ease;font-size:0.875rem;font-weight:500}
 .pill:hover{background:var(--warm-200);color:var(--text-primary)}
 .pill.active{background:var(--primary);color:var(--warm-50)}

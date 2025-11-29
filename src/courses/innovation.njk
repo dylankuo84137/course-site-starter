@@ -1,0 +1,103 @@
+---
+layout: layouts/base.njk
+hidePagefindSearch: true
+pagination:
+  data: coursesList
+  size: 1
+  alias: c
+permalink: "/courses/{{ c.slug }}/innovation/index.html"
+---
+{% import "components/course-breadcrumb.njk" as breadcrumb with context %}
+{% import "macros/i18n.njk" as i18nMacro %}
+
+{# Course navigation with innovation page highlighted #}
+{{ breadcrumb.breadcrumb(c, coursesList, 'innovation', currentLang, i18n) }}
+
+{% set innovation = courseInnovations[c.slug] %}
+{% set langInnovation = innovation[currentLang] if innovation else null %}
+{% set fallbackInnovation = innovation['zh-TW'] if innovation else null %}
+
+<section class="space-y-6">
+  {# Hidden English metadata for Pagefind search indexing #}
+  {% if innovation and innovation['en-US'] %}
+  <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true" lang="en-US">
+    Pedagogical Innovation Teaching Insights
+    {{ c.metadata.teacher_name }}
+  </div>
+  {% endif %}
+
+  <header data-course-i18n="{{ c.i18n | json }}">
+    <h1 class="text-2xl md:text-3xl font-semibold">
+      {{ i18n[currentLang].course.innovation }}
+    </h1>
+    {% if c.metadata.teacher_name %}
+    <p class="text-stone-600 mt-2">
+      <span>{{ c.metadata.teacher_name }}</span>
+    </p>
+    {% endif %}
+  </header>
+
+  <article class="prose-content" style="margin-left: 0; max-width: none;">
+    {% if innovation %}
+      {#
+        Single Language Per File Architecture with CSS Toggling:
+        - Each language stored in separate files: zh-TW/, en-US/
+        - Render both versions with data-lang attributes
+        - CSS shows/hides based on html[data-user-lang]
+        - Enables client-side language switching without page reload
+      #}
+
+      {# Chinese content (always present) #}
+      {% if innovation['zh-TW'] %}
+      <div class="innovation-content" data-lang="zh-TW">
+        {{ innovation['zh-TW'].content | markdown | safe }}
+      </div>
+      {% endif %}
+
+      {# English content (if available) #}
+      {% if innovation['en-US'] %}
+      <div class="innovation-content" data-lang="en-US">
+        {{ innovation['en-US'].content | markdown | safe }}
+      </div>
+      {% else %}
+      <div class="innovation-content" data-lang="en-US">
+        <div class="mb-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <p class="text-sm text-blue-700">
+            <strong>Note:</strong> This content is currently available in Traditional Chinese only.
+            English translation coming soon.
+          </p>
+        </div>
+        {% if innovation['zh-TW'] %}
+        {{ innovation['zh-TW'].content | markdown | safe }}
+        {% endif %}
+      </div>
+      {% endif %}
+    {% else %}
+      {# Fallback message when no reflection exists #}
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-6 text-center">
+        <h3 class="text-lg font-medium mb-2 text-amber-900">
+          {% if currentLang == 'en-US' %}
+            No Innovation Content Available
+          {% else %}
+            {{ i18n[currentLang].course.no_innovation }}
+          {% endif %}
+        </h3>
+        <p class="text-amber-700 mb-4">
+          {% if currentLang == 'en-US' %}
+            This course has not yet published pedagogical innovation and reflection content.
+          {% else %}
+            {{ i18n[currentLang].course.no_innovation_desc }}
+          {% endif %}
+        </p>
+        <a href="{{ '/courses/' | url }}{{ c.slug }}/"
+           class="inline-flex items-center gap-2 bg-amber-600 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors">
+          {% if currentLang == 'en-US' %}
+            Back to Course Home
+          {% else %}
+            {{ i18n[currentLang].course.back_to_course }}
+          {% endif %}
+        </a>
+      </div>
+    {% endif %}
+  </article>
+</section>

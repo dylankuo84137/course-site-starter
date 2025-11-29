@@ -1,4 +1,5 @@
 const i18n = require('eleventy-plugin-i18n');
+const markdownIt = require('markdown-it');
 const materialHelpers = require('./src/_data/materialHelpers.js');
 const courseHelpers = require('./src/_data/courseHelpers.js');
 const translations = {
@@ -122,6 +123,23 @@ module.exports = function(eleventyConfig) {
   Object.entries(utilityFilters).forEach(([name, fn]) => {
     eleventyConfig.addFilter(name, fn);
   });
+
+  // Markdown filter for rendering markdown in templates
+  const md = markdownIt({
+    html: true,
+    linkify: true,
+    typographer: true
+  });
+  eleventyConfig.addFilter("markdown", function(content) {
+    return md.render(content || "");
+  });
+
+  // Split filter for string splitting
+  eleventyConfig.addFilter("split", function(str, separator) {
+    if (typeof str !== "string") return [];
+    return str.split(separator);
+  });
+
   eleventyConfig.addGlobalData("buildTime", () => new Date().toISOString());
   eleventyConfig.addGlobalData("materialHelpers", materialHelpers);
   eleventyConfig.addGlobalData("courseHelpers", courseHelpers);
