@@ -10,15 +10,16 @@
  *     zh-TW/{course-slug}.md
  *     en-US/{course-slug}.md
  *
- * No frontmatter required - all metadata inferred from:
- *   - Language: from directory name (zh-TW or en-US)
- *   - Slug: from filename
- *   - Published: file presence = published
- *   - Other metadata: from course JSON
+ * Supports frontmatter for metadata:
+ *   - title: Innovation title
+ *   - author: Teacher name
+ *   - date: Publication date
+ *   - innovation_type: Category/type of innovation
  */
 
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 
 module.exports = function() {
   const innovationsDir = path.join(__dirname, '../course-innovations');
@@ -57,8 +58,11 @@ module.exports = function() {
       const filepath = path.join(langDir, filename);
 
       try {
-        // Read raw content (no frontmatter parsing needed)
-        const content = fs.readFileSync(filepath, 'utf-8').trim();
+        // Read file content
+        const fileContent = fs.readFileSync(filepath, 'utf-8');
+
+        // Parse frontmatter and body using gray-matter
+        const { data, content: body } = matter(fileContent);
 
         // Derive slug from filename
         const slug = path.basename(filename, '.md');
@@ -70,9 +74,10 @@ module.exports = function() {
           };
         }
 
-        // Add language-specific data
+        // Add language-specific data (frontmatter + body)
         innovations[slug][lang] = {
-          content: content,
+          ...data,
+          body: body.trim(),
           filename: filename
         };
 

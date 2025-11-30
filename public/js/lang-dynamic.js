@@ -376,6 +376,9 @@
     // Update navigation links based on language preference
     updateNavigationLinks(appliedLang);
 
+    // Set data-user-lang attribute for CSS-based content switching
+    document.documentElement.setAttribute('data-user-lang', appliedLang);
+
     // Mark language as ready on homepage
     document.documentElement.setAttribute('data-lang-ready', 'true');
   } else {
@@ -391,6 +394,9 @@
 
     // Update navigation links based on language preference
     updateNavigationLinks(appliedLang);
+
+    // Set data-user-lang attribute for CSS-based content switching
+    document.documentElement.setAttribute('data-user-lang', appliedLang);
 
     // Mark language as ready to show content
     document.documentElement.setAttribute('data-lang-ready', 'true');

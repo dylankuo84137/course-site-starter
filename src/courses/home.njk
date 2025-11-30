@@ -13,26 +13,38 @@ permalink: "/courses/{{ c.slug }}/index.html"
 {# Course navigation with home pill highlighted and materials dropdown #}
 {{ breadcrumb.breadcrumb(c, coursesList, 'home', currentLang, i18n) }}
 
-{# Innovation page link - shown prominently if available #}
+{# Innovation Teaser Card with Tags - appears below hero on all screen sizes #}
 {% set innovation = courseInnovations[c.slug] %}
 {% if innovation %}
-<div class="mb-6 px-4 py-3 bg-amber-50 border-l-4 border-amber-600 rounded-r-md">
-  <div class="flex items-center justify-between gap-4 flex-wrap">
-    <div>
-      <a href="{{ '/courses/' | url }}{{ c.slug }}/innovation/"
-        class="inline-flex items-center gap-2 bg-amber-600 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors whitespace-nowrap text-sm font-medium">
-        {{ i18n[currentLang].course.innovation }}
-        <span aria-hidden="true">→</span>
-      </a>
-      <p class="text-sm text-amber-800">
-        {% if currentLang == 'en-US' %}
-          Explore the teaching innovations and pedagogical insights for this course.
-        {% else %}
-          探索本課程的教學反思與創新。
-        {% endif %}
-      </p>
+<div class="innovation-with-tags-wrapper">
+  <aside class="innovation-teaser-card" aria-label="{{ i18n[currentLang].course.innovation_section_title }}" data-course-i18n="{{ c.i18n | json }}">
+    <div class="innovation-teaser-header">
+      <div class="innovation-teaser-icon" aria-hidden="true">💡</div>
+      <span class="innovation-section-title">{{ i18n[currentLang].course.innovation_section_title }}</span>
     </div>
-  </div>
+    <h3 class="innovation-teaser-question" data-i18n-course="innovation_question">
+      {{ i18nMacro.cf(c, 'innovation_question', currentLang) }}
+    </h3>
+    <p class="innovation-teaser-summary" data-i18n-course="innovation_summary">
+      {{ i18nMacro.cf(c, 'innovation_summary', currentLang) }}
+    </p>
+    <a href="{{ '/courses/' + c.slug + '/innovation/' | url }}"
+       class="innovation-teaser-cta">
+      {{ i18n[currentLang].course.innovation_cta }}
+    </a>
+  </aside>
+
+  {# Tags Section #}
+  {% if c.metadata and c.metadata.tags and c.metadata.tags.length > 0 %}
+  <aside class="innovation-tags-section">
+    <h4 class="innovation-tags-header">{{ i18n[currentLang].course.tags or '標籤' }}</h4>
+    <div class="innovation-tags-list">
+      {% for tag in c.metadata.tags %}
+      <span class="innovation-tag-pill">#{{ tag }}</span>
+      {% endfor %}
+    </div>
+  </aside>
+  {% endif %}
 </div>
 {% endif %}
 
@@ -75,7 +87,7 @@ permalink: "/courses/{{ c.slug }}/index.html"
           </a>
         {% endif %}
       {% else %}
-        <p>{{ courseOverview or i18n[currentLang].course.no_description }}</p>
+        <p data-i18n-course="overview">{{ courseOverview or i18n[currentLang].course.no_description }}</p>
       {% endif %}
     </section>
 
@@ -92,7 +104,7 @@ permalink: "/courses/{{ c.slug }}/index.html"
 
     <section id="teacher-bio" class="border-t border-stone-200 pt-6">
       <h2>{{ i18n[currentLang].course.teacher_intro }}</h2>
-      <p>{{ courseTeacher or i18n[currentLang].course.no_teacher_bio }}</p>
+      <p data-i18n-course="teacher">{{ courseTeacher or i18n[currentLang].course.no_teacher_bio }}</p>
     </section>
 
     {% if hasDownloadMaterials %}

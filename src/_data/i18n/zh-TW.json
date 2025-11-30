@@ -8,7 +8,7 @@
     "eyebrow": "課程織圖",
     "hero_title": "課程成為故事，學習化為藝術",
     "hero_primary_cta": "探索課程",
-    "hero_secondary_cta": "設計理念",
+    "hero_secondary_cta": "教學創新亮點",
     "course_section_title": "課程總覽",
     "course_section_copy": "沿著華德福教學節奏，從黑板畫、戲劇到歌曲音檔，完整收藏師生共創的珍貴足跡。",
     "tag_intro": "熱門標籤",
@@ -33,7 +33,17 @@
       { "quote": "這是一段佔位推薦語，供未來內容使用。", "author": "佔位作者 1" },
       { "quote": "這是第二段佔位推薦語，供未來內容使用。", "author": "佔位作者 2" },
       { "quote": "這是第三段佔位推薦語，供未來內容使用。", "author": "佔位作者 3" }
-    ]
+    ],
+    "innovation_section_title": "教學創新亮點",
+    "innovation_section_copy": "在這裡，我們不只記錄課程內容，更珍視每一位老師在教學現場的靈光乍現與反思。探索我們的教學實驗，看見課程背後的設計靈魂。",
+    "innovation_cta": "閱讀反思",
+    "innovation_prev": "上一個創新",
+    "innovation_next": "下一個創新",
+    "innovation_slider_label": "教學創新亮點",
+    "innovation_placeholder_meta": "即將推出",
+    "innovation_placeholder_title": "更多教學創新分享",
+    "innovation_placeholder_desc": "我們持續記錄老師們的教學實驗與反思，敬請期待更多精彩內容。",
+    "innovation_placeholder_author": "籌備中"
   },
   "nav": {
     "home": "課程介紹",
@@ -91,6 +101,11 @@
     "course_navigation": "課程導覽",
     "course_materials": "-- 課程素材 --",
     "innovation": "教學創新",
+    "innovation_page_title": "教學創新與反思",
+    "innovation_coming_soon": "教學省思內容即將推出",
+    "innovation_cta": "閱讀完整反思",
+    "innovation_section_title": "教學創新與反思",
+    "course_overview": "課程概覽",
     "no_innovation": "尚無教學創新內容",
     "no_innovation_desc": "此課程尚未發布教學反思或創新內容。",
     "back_to_course": "返回課程首頁"

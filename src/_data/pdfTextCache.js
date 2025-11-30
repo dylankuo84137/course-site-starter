@@ -6,6 +6,11 @@
  * for AI-friendly outputs like ai-index.json.
  *
  * Structure: { courseSlug: { materialKey: { fileId: { name, text, lastSynced } } } }
+ *
+ * Performance optimization:
+ * - Set SKIP_PDF_CACHE=1 to skip loading during development
+ * - PDF cache is only needed for ai-index.json generation
+ * - Can save significant time with large cache files (e.g., 358KB)
  */
 
 const fs = require("node:fs");
@@ -18,6 +23,12 @@ const PDF_CACHE_DIR = path.join(__dirname, "pdf-text-cache");
  * @returns {Object} Map of courseSlug to PDF text data
  */
 module.exports = function() {
+  // Skip loading if SKIP_PDF_CACHE is set (development optimization)
+  if (process.env.SKIP_PDF_CACHE === '1') {
+    console.log("[pdfTextCache] Skipping PDF cache (SKIP_PDF_CACHE=1)");
+    return {};
+  }
+
   const cache = {};
 
   // Check if cache directory exists

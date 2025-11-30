@@ -224,5 +224,10 @@
     commentBox('5698158134820864-proj');
   </script>
   {% endif %}
+
+  <!-- Innovation slider script (homepage only) -->
+  {% if page.url == '/' %}
+  <script src="{{ '/js/innovation-slider.js' | url }}"></script>
+  {% endif %}
 </body>
 </html>

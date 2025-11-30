@@ -44,7 +44,11 @@
         "tag1",
         "tag2",
         "tag3"
-      ]
+      ],
+      "_comment_innovation_summary": "教學創新簡述（2-3 句話，顯示於首頁創新亮點卡片）",
+      "innovation_summary": "這門課程的創新點在於...",
+      "_comment_innovation_question": "教學創新的核心提問（吸引人的標題問句，可選）",
+      "innovation_question": "如何...？"
     },
     "en-US": {
       "_comment_title": "Course title shown on the site",
@@ -74,7 +78,11 @@
         "tag1",
         "tag2",
         "tag3"
-      ]
+      ],
+      "_comment_innovation_summary": "Brief innovation summary (2-3 sentences for homepage innovation cards)",
+      "innovation_summary": "The innovation in this course lies in...",
+      "_comment_innovation_question": "Core pedagogical question (catchy headline question, optional)",
+      "innovation_question": "How do we...?"
     }
   },
   "material": {

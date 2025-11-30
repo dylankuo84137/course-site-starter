@@ -228,11 +228,69 @@ Create these machine-readable endpoints:
 <a href="{{ '/courses/2a-nenggao/workbook' | url }}">Click here</a>
 ```
 
+## Development Workflow
+
+### Available Commands
+
+```bash
+# Development
+npm run dev          # Standard dev mode (~45s build, with search)
+npm run dev:fast     # Fast dev mode (~18s initial, <1s rebuilds) - RECOMMENDED
+
+# Build
+npm run build        # Static build with validation
+npm run build:search # Search index only (requires build first)
+npm run build:full   # Complete build (static + search)
+
+# Deploy
+npm run deploy       # Equals build:full
+```
+
+### Fast Development Workflow (Recommended)
+
+**Daily development:**
+```bash
+npm run dev:fast     # Initial build ~18s
+# Edit files → auto-rebuild in <1s
+# Browser auto-reloads
+```
+
+**Before committing:**
+```bash
+npm run build:full   # Verify validation + search (~45s)
+```
+
+### Performance Comparison
+
+| Command | Initial Build | File Change | Search | Use Case |
+|---------|---------------|-------------|--------|----------|
+| `dev` | ~45s | ~45s | ✅ Yes | Test search functionality |
+| `dev:fast` | ~18s | <1s | ❌ No | **Daily development (recommended)** |
+| `build:full` | ~45s | - | ✅ Yes | Pre-commit validation |
+
+### Key Optimizations
+
+**dev:fast** uses:
+- `--incremental`: Only rebuilds changed files
+- `SKIP_PDF_CACHE=1`: Skips PDF text cache loading (saves memory/I/O)
+- No search indexing: Faster iteration
+
+**PDF Cache Notes:**
+- Only used for `/ai-index.json` generation
+- Not needed for daily template/style work
+- Use `dev` or `build` to test AI indexing
+
+**Search Index:**
+- `dev:fast` skips Pagefind indexing
+- Use `dev` or `build:full` to test search
+- Always run `build:full` before committing
+
 ## Quality Gates
 
 Every change must pass:
-- [ ] `npm run dev` works locally
-- [ ] `ELEVENTY_BASE="/repo/" npm run build` succeeds
+- [ ] `npm run dev:fast` works during development (or `npm run dev` if testing search)
+- [ ] `npm run build:full` succeeds before committing
+- [ ] `ELEVENTY_BASE="/repo/" npm run build` succeeds (subpath test)
 - [ ] All internal links work under subpath
 - [ ] Gallery keyboard navigation functions
 - [ ] Filter narrows thumbnails correctly
@@ -281,6 +339,8 @@ If any answer is no, redesign.
 - Use `materialHelpers` for all material/docs access in templates
 - Design for multiple courses
 - Favor small functions over complex configurations
+- Use `npm run dev:fast` for daily development (60-98% faster)
+- Run `npm run build:full` before committing (validates + builds search)
 - Validate course data with `npm run validate` before committing
 
 ## Commit Style

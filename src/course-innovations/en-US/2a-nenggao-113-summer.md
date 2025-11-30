@@ -1,52 +1,41 @@
-### Key Innovations
+---
+title: "Returning to the Land Beneath Our Feet: My Innovation and Reflection on the Nenggao Mountain Course"
+author: Wang Wan-Ting
+innovation_type: Interdisciplinary Teaching
+---
 
-In the Nenggao Mountain class drama course, we attempted to integrate local Taiwanese mountain stories into Waldorf drama pedagogy, allowing second-grade students to deeply experience the connection between humans and nature through physical performance, blackboard art creation, and song learning.
+I would like to share with you my attempts and insights from the "Nenggao Mountain" course. This was not just an adjustment to the curriculum, but a journey where the children and I truly "grounded" ourselves together.
 
-**Innovative strategies include:**
+#### **1\. Why did I make this change? Returning from "Classics" to "The Land Beneath Our Feet"**
 
-- **Localized Story Adaptation**: Transforming Nenggao Mountain's ecology, history, and indigenous culture into dramatic texts suitable for second-graders, enabling children to learn within a familiar geographical environment.
-- **Interdisciplinary Integration**: Combining nature main lesson, artistic creation (blackboard drawings), music (indigenous songs), and dramatic performance to create a complete learning experience.
-- **Workbook Documentation**: Having children use workbooks weekly to record character emotions and observe nature, cultivating inner reflection abilities.
+To be honest, I struggled at the beginning of my preparation. For the last nature study block, I taught the classic *The Wonderful Adventures of Nils*. It’s a great story with beautiful text. But this time, a voice inside me asked, "These scenes are so far away. Shouldn't we let the children hear stories from our own land?"
 
-### Implementation Process and Challenges
+So, I boldly set aside the foreign classics and chose an old local picture book, *Nenggao Mountain*. Because the book was short, it actually gave me a lot of space to "fill in the blanks." I started reading extensively about Bunun mythology, researching why the Formosan black bear has a white V on its chest, and learning stories about the hundred-pacer snake.
 
-The course spanned the entire summer semester, from story introduction and role-playing to rehearsals and the final public performance. Main challenges included:
+I discovered that when I infused these local elements—and even my own real feelings about typhoons and mountains from my hiking trips—into the narrative, the story gained a soul. It was no longer just text in a book.
 
-1. **Age Appropriateness**: Second-graders have limited attention spans; we needed to break long stories into short, focused scenes, with each rehearsal lasting no more than 30 minutes.
-2. **Role Distribution**: With 24 students in the class, how to ensure each child had sufficient performance opportunities? We adopted a "role rotation" system, allowing children to experience different emotional roles.
-3. **Prop Making**: Parents and children jointly participated in creating simple props and costumes, strengthening home-school connections.
+#### **2\. Flipping Literacy: Turning "Wanting to Say" into "Wanting to Write"**
 
-### Student Response and Outcomes
+We often worry that children aren't writing enough characters or that their workbooks aren't perfect. But this time, I tried to let go. I stopped insisting on writing in the workbook every day. I found that when children are moved by a story, they have a strong desire to express themselves.
 
-The children demonstrated engagement and creativity beyond expectations:
+While arranging the drama, I encouraged the children to engage in **"Free Writing."** The line in the play, *"Nabu's body turned into Nenggao Mountain,"* was actually written by a child using phonetic symbols (Zhuyin) and simple Chinese characters.
 
-- **Physical Expression Progress**: From initial shyness to confidently performing on stage, children's body language became much richer.
-- **Empathy Development**: By portraying different roles (animals, plants, humans), children learned to view life from different perspectives.
-- **Collective Cooperation**: During rehearsals, students learned to support each other, memorize lines, and remind each other of positions, demonstrating genuine teamwork.
-- **Workbook Records**: Many children's workbooks contained stunning observation records and emotional descriptions, showing rich inner world development.
+When they realized the sentences they wrote had become lines in the play, the look of achievement in their eyes was undeniable. I truly feel that rather than making them copy mechanically, letting them use text to capture the images in their minds—that is what literacy is supposed to be.
 
-**Unexpected Surprise Moment:**
-During an outdoor rehearsal, a usually introverted student spontaneously suggested incorporating observed firefly behavior, which became one of the most touching segments in the script.
+#### **3\. Adjusting the Drama Form: Regaining the Children's Sense of Safety**
 
-### Reflection and Future Outlook
+For this play, I went back to the **"Circular Formation"** I used nine years ago when directing *France*.
 
-This teaching innovation profoundly taught me that:
+For lower-grade children, the pressure of a proscenium stage facing an audience directly is too great. In a circle, we are within a group, telling a story together. That fear disappeared and was replaced by a sense of ease.
 
-1. **The Power of Local Stories**: When children's learning content directly relates to their living environment, their engagement and depth of understanding significantly increase.
-2. **Necessity of Arts Integration**: Pure knowledge transmission cannot deeply touch children's souls, but through drama, songs, and blackboard drawings' diverse expressions, knowledge becomes a living experience.
-3. **Process Matters More Than Results**: While the final performance was successful, what's truly precious is every discovery, attempt, and smile during the rehearsal process.
+Interestingly, due to venue issues, our rehearsal time was unexpectedly extended. I was anxious at first, but then I decided to use this time to let the plot happen "repetitively." I discovered that this repetition became a steady rhythm, deepening the children's physical memory of the story. They even started designing their own movements and choosing their own roles. This taught me that sometimes, "getting stuck" in teaching is actually a gift from the heavens.
 
-**Future Plans:**
-- Extend this model to other Taiwanese mountain or river themes
-- Collaborate with indigenous cultural workers to make course content more authentic
-- Establish cross-grade drama exchange mechanisms, allowing upper-grade students to serve as director assistants
+#### **4\. Sincere Words to Partners: The Teacher's "Image" and "Stance"**
 
-### Advice for Other Teachers
+My deepest realization from this course is this: **The teacher's internal "image and stance" are more important than any perfect lesson plan.**
 
-If you'd like to try similar localized drama teaching, I recommend:
+In recent years, I started hiking and challenging myself outdoors. These physical experiences gave me a completely different perspective on the story of *Nenggao Mountain*.
 
-1. **Start from Children's Life Experiences**: Choose environments and stories they're familiar with or have experienced.
-2. **Allow Sufficient Preparation Time**: Drama courses need time to mature; don't rush for results.
-3. **Value Process Documentation**: Workbooks, photos, and videos are precious learning traces and important references for future course improvement.
-4. **Parent Collaboration is Important**: Involving parents in prop making and costume design makes them key course supporters.
-5. **Maintain Flexibility and Creativity**: Course plans are just blueprints; real teaching inspiration often comes from children's spontaneous responses.
+I feel that even as experienced teachers, we must be brave enough to **"Zero Out" (Reset)** ourselves. Don't rely too much on past archives. Try to walk the scene yourself, read books you haven't read before. When we are full of curiosity and passion for the content we teach, the children will receive that vitality.
+
+The road ahead is still long, and I am still exploring. Next, I hope to refine the children's writing skills, allowing this energy of free expression to grow into a more solid structure.

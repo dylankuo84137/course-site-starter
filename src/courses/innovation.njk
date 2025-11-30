@@ -50,14 +50,14 @@ permalink: "/courses/{{ c.slug }}/innovation/index.html"
       {# Chinese content (always present) #}
       {% if innovation['zh-TW'] %}
       <div class="innovation-content" data-lang="zh-TW">
-        {{ innovation['zh-TW'].content | markdown | safe }}
+        {{ innovation['zh-TW'].body | markdown | safe }}
       </div>
       {% endif %}
 
       {# English content (if available) #}
       {% if innovation['en-US'] %}
       <div class="innovation-content" data-lang="en-US">
-        {{ innovation['en-US'].content | markdown | safe }}
+        {{ innovation['en-US'].body | markdown | safe }}
       </div>
       {% else %}
       <div class="innovation-content" data-lang="en-US">
@@ -68,7 +68,7 @@ permalink: "/courses/{{ c.slug }}/innovation/index.html"
           </p>
         </div>
         {% if innovation['zh-TW'] %}
-        {{ innovation['zh-TW'].content | markdown | safe }}
+        {{ innovation['zh-TW'].body | markdown | safe }}
         {% endif %}
       </div>
       {% endif %}

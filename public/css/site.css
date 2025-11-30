@@ -40,6 +40,14 @@
   --home-teal: #7FB8A4;
   --home-teal-dark: #6BA391;
   --home-coral: #E7A69F;
+
+  /* Innovation-specific accent colors */
+  --innovation-clay: #D4A373;
+  --innovation-clay-dark: #C29263;
+  --innovation-clay-light: #F5EBE0;
+  --innovation-teal: #4A9B8E;
+  --innovation-teal-dark: #3D8577;
+  --innovation-teal-light: #E8F4F1;
 }
 
 .sr-only {
@@ -112,10 +120,10 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   margin-top: 0 !important;
 }
 
-.pill{display:inline-flex;align-items:center;padding:.425rem .875rem;border-radius:9999px;background:var(--warm-100);color:var(--text-secondary);text-decoration:none;transition:all 0.2s ease;font-size:0.875rem;font-weight:500}
+.pill{display:inline-flex;flex-direction:row;align-items:center;padding:.425rem .875rem;border-radius:9999px;background:var(--warm-100);color:var(--text-secondary);text-decoration:none;transition:all 0.2s ease;font-size:0.875rem;font-weight:500;border:1px solid transparent;white-space:nowrap}
 .pill:hover{background:var(--warm-200);color:var(--text-primary)}
-.pill.active{background:var(--primary);color:var(--warm-50)}
-.pill.highlight{background:var(--accent-light);color:var(--accent-hover);font-weight:600;border:2px solid var(--accent)}
+.pill.active{background:var(--primary);color:var(--warm-50);border-color:var(--primary)}
+.pill-icon{display:inline-block;margin-right:0.25rem;font-size:1rem;line-height:1}
 .filter-input{border:1px solid var(--border-color);border-radius:.375rem;padding:.5rem .75rem;min-width:16rem;background:var(--bg-primary);color:var(--text-primary)}
 .filter-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light)}
 .download-link{display:inline-block;padding:.5rem 1rem;border-radius:.375rem;background:var(--accent);color:var(--warm-50);text-decoration:none;font-weight:500;transition:all 0.2s ease}
@@ -1533,6 +1541,26 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   }
 }
 
+/* Unit and Domain tags above title */
+.course-info-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.course-info-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--warm-400);
+  border-radius: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--warm-50);
+}
+
 .course-info-title {
   font-size: 1.25rem;
   font-weight: 700;
@@ -1566,12 +1594,6 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   font-weight: 600;
 }
 
-.course-info-row--unit-domain {
-  padding-top: 0.4rem;
-  margin-top: 0.25rem;
-  border-top: 1px solid var(--warm-200);
-}
-
 .course-info-row--teacher {
   padding-top: 0.5rem;
   margin-top: 0.5rem;
@@ -1601,12 +1623,25 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   align-items: center;
 }
 
-/* Course Navigation and Switcher Container */
-.course-nav-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* Course Navigation Pills - In header area (not sticky) */
+.course-nav-pills {
   margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Sticky Course Switcher Bar */
+.course-nav-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg-primary);
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(139, 75, 29, 0.08);
+  /* Full-width navigation - break out of container */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 }
 
 /* Course Navigation Row - Horizontal layout */
@@ -1615,6 +1650,7 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   flex-wrap: wrap;
   gap: 0.75rem;
   align-items: center;
+  flex: 1;
 }
 
 .course-nav-left {
@@ -1667,6 +1703,7 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .course-switcher label {
@@ -1781,6 +1818,136 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
     font-size: 1.625rem;
   }
 }
+
+/* Innovation Teaser Card */
+.innovation-teaser-card {
+  background: linear-gradient(135deg, var(--innovation-clay-light) 0%, #f0ebe5 100%);
+  border-left: 4px solid var(--innovation-clay);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(139, 75, 29, 0.12);
+}
+
+/* Innovation with tags layout */
+.innovation-with-tags-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin: 1.5rem 0;
+}
+
+.innovation-with-tags-wrapper .innovation-teaser-card {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+
+.innovation-tags-section {
+  flex: 0 0 auto;
+  min-width: 200px;
+  max-width: 280px;
+}
+
+.innovation-tags-header {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.innovation-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.innovation-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  background: var(--warm-100);
+  border: 1px solid var(--warm-300);
+  border-radius: 9999px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.innovation-tag-pill:hover {
+  background: var(--warm-200);
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+@media (max-width: 1023px) {
+  .innovation-with-tags-wrapper {
+    flex-direction: column;
+  }
+
+  .innovation-tags-section {
+    max-width: 100%;
+  }
+}
+
+.innovation-teaser-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.innovation-teaser-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.innovation-section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--innovation-clay-dark);
+}
+
+.innovation-teaser-question {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--innovation-clay-dark);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.innovation-teaser-summary {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.innovation-teaser-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1.25rem;
+  background: var(--innovation-clay);
+  color: white;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.innovation-teaser-cta:hover {
+  background: var(--innovation-clay-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 75, 29, 0.25);
+}
+
+/* Innovation card appears below hero on all screen sizes */
+.innovation-teaser-card {
+  margin: 1.5rem 0;
+}
+
 .gallery-section-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
 .gallery-section-header h2{margin:0}
 
@@ -2053,4 +2220,295 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
 
 .prose-toc::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
+}
+
+/* ===== Innovation Highlights Section ===== */
+
+.home-innovations {
+  margin: 4rem 0;
+}
+
+.home-innovation-slider-wrapper {
+  position: relative;
+  margin-top: 2rem;
+  padding-top: 3rem;
+}
+
+.home-innovation-slider {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(300px, 1fr);
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--innovation-clay) transparent;
+}
+
+.home-innovation-slider::-webkit-scrollbar {
+  height: 8px;
+}
+
+.home-innovation-slider::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.home-innovation-slider::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.home-innovation-slider:hover::-webkit-scrollbar-thumb {
+  background: var(--innovation-clay);
+}
+
+.home-innovation-slider::-webkit-scrollbar-thumb:hover {
+  background: var(--innovation-clay-dark);
+}
+
+@media (min-width: 768px) {
+  .home-innovation-slider {
+    grid-auto-columns: minmax(350px, calc(33.333% - 1rem));
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-innovation-slider {
+    grid-auto-columns: minmax(380px, calc(33.333% - 1rem));
+  }
+}
+
+.home-innovation-card {
+  scroll-snap-align: start;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.home-innovation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.home-innovation-card.placeholder {
+  opacity: 0.5;
+  pointer-events: none;
+  background: var(--warm-100);
+}
+
+.home-innovation-card-image {
+  position: relative;
+  height: 240px;
+  background: var(--warm-200);
+}
+
+.home-innovation-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-innovation-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--innovation-clay-dark);
+}
+
+.home-innovation-card-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-innovation-meta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.home-innovation-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.3;
+}
+
+.home-innovation-summary {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.home-innovation-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.home-innovation-teacher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.home-innovation-teacher-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--warm-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-innovation-cta {
+  color: var(--innovation-clay);
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.home-innovation-cta:hover {
+  color: var(--innovation-clay-dark);
+  text-decoration: underline;
+}
+
+/* Navigation buttons - positioned top-right of grid */
+.home-innovation-nav-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.home-innovation-nav {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-color);
+  color: var(--innovation-clay);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.home-innovation-nav:hover {
+  background: white;
+  border-color: var(--innovation-clay);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.home-innovation-nav:focus-visible {
+  outline: 2px solid var(--innovation-clay);
+  outline-offset: 2px;
+}
+
+.home-innovation-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Innovation pill in course nav */
+.pill-innovation {
+  background: var(--innovation-clay-light);
+  color: var(--innovation-clay-dark);
+  border-color: var(--innovation-clay);
+}
+
+.pill-innovation:hover {
+  background: var(--innovation-clay);
+  color: white;
+}
+
+.pill-innovation.active {
+  background: var(--innovation-clay);
+  color: white;
+}
+
+.pill-innovation.pill-placeholder {
+  opacity: 0.6;
+}
+
+.pill-icon {
+  margin-right: 0.25rem;
+}
+
+/* Innovation page content */
+.course-innovation-page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.innovation-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--innovation-clay-light);
+}
+
+.innovation-meta {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.innovation-author {
+  font-weight: 600;
+}
+
+.innovation-type-badge {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--innovation-clay-light);
+  color: var(--innovation-clay-dark);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.innovation-fallback-notice {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.innovation-body {
+  line-height: 1.8;
 }

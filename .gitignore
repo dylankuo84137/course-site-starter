@@ -24,6 +24,6 @@ logs/
 
 # Development reference files
 docs/CHANGELOG.md
-docs/development/design-style-guide.md
+docs/development/
 AGENTS.md
 

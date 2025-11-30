@@ -8,7 +8,7 @@
     "eyebrow": "Living Teaching Archive",
     "hero_title": "Courses become stories. Learning becomes art.",
     "hero_primary_cta": "Explore courses",
-    "hero_secondary_cta": "See our approach",
+    "hero_secondary_cta": "Pedagogical Innovations",
     "course_section_title": "Featured Courses",
     "course_section_copy": "Follow the Waldorf rhythm—from blackboard landscapes to drama performances and playlists—to see how teachers and students learn together.",
     "tag_intro": "Popular tags",
@@ -33,7 +33,17 @@
       { "quote": "This is a placeholder testimonial for future content.", "author": "Placeholder Author 1" },
       { "quote": "This is another placeholder testimonial for future content.", "author": "Placeholder Author 2" },
       { "quote": "This is a third placeholder testimonial for future content.", "author": "Placeholder Author 3" }
-    ]
+    ],
+    "innovation_section_title": "Teaching Innovation Highlights",
+    "innovation_section_copy": "Beyond the syllabus. We capture the moments of brilliance and reflection inherent in teaching. Dive into our experiments and see the soul of design behind every course.",
+    "innovation_cta": "Read Reflection",
+    "innovation_prev": "Previous innovation",
+    "innovation_next": "Next innovation",
+    "innovation_slider_label": "Teaching innovation highlights",
+    "innovation_placeholder_meta": "Coming Soon",
+    "innovation_placeholder_title": "More Teaching Innovations",
+    "innovation_placeholder_desc": "We continue to document our teachers' experiments and reflections. Stay tuned for more inspiring content.",
+    "innovation_placeholder_author": "In Preparation"
   },
   "nav": {
     "home": "Course Introduction",
@@ -91,6 +101,11 @@
     "course_navigation": "Course Navigation",
     "course_materials": "-- Course Material --",
     "innovation": "Pedagogical Innovation",
+    "innovation_page_title": "Teaching Innovation & Reflection",
+    "innovation_coming_soon": "Innovation and reflection content coming soon",
+    "innovation_cta": "Read Complete Reflection",
+    "innovation_section_title": "Teaching Reflection",
+    "course_overview": "Course Overview",
     "no_innovation": "No Innovation Content Available",
     "no_innovation_desc": "This course has not yet published pedagogical innovation and reflection content.",
     "back_to_course": "Back to Course Home"

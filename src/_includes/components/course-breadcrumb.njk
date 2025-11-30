@@ -45,6 +45,18 @@
           </figure>
           {% endif %}
           <div class="course-info-card-content">
+            {# Unit and Domain tags above title #}
+            {% if courseUnit or courseDomain %}
+            <div class="course-info-tags">
+              {% if courseUnit %}
+              <span class="course-info-tag" data-i18n-course="unit">{{ courseUnit }}</span>
+              {% endif %}
+              {% if courseDomain %}
+              <span class="course-info-tag" data-i18n-course="domain">{{ courseDomain }}</span>
+              {% endif %}
+            </div>
+            {% endif %}
+
             <h2 class="course-info-title" data-i18n-course="title">{{ courseTitle }}</h2>
             <div class="course-info-rows">
               {% if courseGrade %}
@@ -52,19 +64,6 @@
               {% endif %}
               {% if courseSemester %}
               <p class="course-info-row course-info-row--semester" data-i18n-course="semester">{{ courseSemester }}</p>
-              {% endif %}
-              {% if courseUnit or courseDomain %}
-              <p class="course-info-row course-info-row--unit-domain">
-                {% if courseUnit %}
-                <span data-i18n-course="unit">{{ courseUnit }}</span>
-                {% endif %}
-                {% if courseUnit and courseDomain %}
-                <span class="course-info-separator" aria-hidden="true">｜</span>
-                {% endif %}
-                {% if courseDomain %}
-                <span data-i18n-course="domain">{{ courseDomain }}</span>
-                {% endif %}
-              </p>
               {% endif %}
               {% if courseTeacher %}
               <p class="course-info-row course-info-row--teacher course-info-teacher">
@@ -78,42 +77,35 @@
       </div>
     </div>
 
-    {# Row 2: Navigation and Switcher Container #}
-    <div class="course-nav-wrapper">
-      {# Course Switcher (top on mobile, right on desktop) #}
-      <div class="course-switcher">
-        <label class="text-sm text-stone-600">
-          {{ i18n[lang].course.switch_course }}
-          <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value" aria-label="{{ i18n[lang].course.switch_course }}">
-            {% for other in allCourses %}
-              <option value="{{ courseUrl(other.slug, currentPage) }}"
-                      {% if other.slug == course.slug %}selected{% endif %}
-                      data-course-switcher-i18n='{{ other.i18n | json }}'>
-                {{ other.i18n[lang].title }}
+    {# Row 2: Navigation Pills (Course Home | Innovation | Materials) #}
+    <nav aria-label="{{ i18n[lang].course.course_navigation }}" class="course-nav-pills">
+      <div class="course-nav-row">
+        {# Course Home pill + Innovation pill + Materials dropdown #}
+        <div class="course-nav-left">
+          <a href="{{ courseUrl(course.slug, 'home') }}"
+             class="pill {% if currentPage == 'home' %}active{% endif %}"
+             aria-label="{{ i18n[lang].course.course_home }}">
+            {{ i18n[lang].course.course_home }}
+          </a>
+
+          {# Innovation pill (if available) #}
+          {% set hasInnovation = courseInnovations[course.slug] %}
+          {% if hasInnovation or currentPage == 'innovation' %}
+          <a href="{{ courseUrl(course.slug, 'innovation') }}"
+             class="pill {% if currentPage == 'innovation' %}active{% endif %}"
+             aria-label="{{ i18n[lang].course.innovation }}">
+            <span class="pill-icon" aria-hidden="true">💡</span>
+            {{ i18n[lang].course.innovation }}
+          </a>
+          {% endif %}
+
+          <div class="course-materials-dropdown">
+            <select class="course-materials-select"
+                    onchange="if(this.value) location.href=this.value"
+                    aria-label="{{ i18n[lang].course.course_materials }}">
+              <option value="" {% if currentPage == 'home' or currentPage == 'innovation' %}selected{% endif %}>
+                {{ i18n[lang].course.course_materials }}
               </option>
-            {% endfor %}
-          </select>
-        </label>
-      </div>
-
-      {# Navigation Row (bottom on mobile, left on desktop) #}
-      <nav aria-label="{{ i18n[lang].course.course_navigation }}">
-        <div class="course-nav-row">
-          {# Left side: Course Home pill + Materials dropdown #}
-          <div class="course-nav-left">
-            <a href="{{ courseUrl(course.slug, 'home') }}"
-               class="pill {% if currentPage == 'home' %}active{% else %}highlight{% endif %}"
-               aria-label="{{ i18n[lang].course.course_home }}">
-              {{ i18n[lang].course.course_home }}
-            </a>
-
-            <div class="course-materials-dropdown">
-              <select class="course-materials-select"
-                      onchange="if(this.value) location.href=this.value"
-                      aria-label="{{ i18n[lang].course.course_materials }}">
-                <option value="" {% if currentPage == 'home' %}selected{% endif %}>
-                  {{ i18n[lang].course.course_materials }}
-                </option>
 
               {% if hasSyllabus or currentPage == 'syllabus' %}
                 <option value="{{ courseUrl(course.slug, 'syllabus') }}"
@@ -196,6 +188,23 @@
         </div>
       </div>
     </nav>
+  </div>
+
+  {# Sticky Course Switcher Bar #}
+  <div class="course-nav-wrapper">
+    <div class="course-switcher">
+      <label class="text-sm text-stone-600">
+        {{ i18n[lang].course.switch_course }}
+        <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value" aria-label="{{ i18n[lang].course.switch_course }}">
+          {% for other in allCourses %}
+            <option value="{{ courseUrl(other.slug, currentPage) }}"
+                    {% if other.slug == course.slug %}selected{% endif %}
+                    data-course-switcher-i18n='{{ other.i18n | json }}'>
+              {{ other.i18n[lang].title }}
+            </option>
+          {% endfor %}
+        </select>
+      </label>
     </div>
   </div>
 {% endmacro %}
