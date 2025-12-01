@@ -8,10 +8,17 @@ pagination:
 permalink: "/courses/{{ c.slug }}/index.html"
 ---
 {% import "components/course-breadcrumb.njk" as breadcrumb with context %}
+{% import "components/course-info-card.njk" as courseCard with context %}
 {% import "macros/i18n.njk" as i18nMacro %}
 
-{# Course navigation with home pill highlighted and materials dropdown #}
-{{ breadcrumb.breadcrumb(c, coursesList, 'home', currentLang, i18n) }}
+{# Sticky navbar: Breadcrumbs + Course Switcher #}
+{{ breadcrumb.unifiedHeader(c, coursesList, 'home', currentLang, i18n) }}
+
+{# Hero Section - Full-width centered course information #}
+{{ courseCard.card(c, currentLang, i18n) }}
+
+{# Action Tabs - appears below hero #}
+{{ breadcrumb.actionTabs(c, 'home', currentLang, i18n) }}
 
 {# Innovation Teaser Card with Tags - appears below hero on all screen sizes #}
 {% set innovation = courseInnovations[c.slug] %}

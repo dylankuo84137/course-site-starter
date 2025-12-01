@@ -1,6 +1,6 @@
 {#
   Course Info Card Component
-  Displays course metadata in a compact card format with optional background image
+  Displays course metadata in a full-width hero section with centered content and optional hero image
 #}
 
 {% macro card(course, currentLang, i18nData) %}
@@ -15,51 +15,53 @@
   {% set courseDomain = i18nMacro.cf(course, 'domain', lang) %}
   {% set courseTeacher = i18nMacro.cf(course, 'teacher', lang) %}
 
-  {% set cardClasses = ['course-info-card'] %}
-  {% if course.hero_image %}{% set cardClasses = cardClasses.concat(['course-info-card--has-hero']) %}{% endif %}
-  <div class="{{ cardClasses | join(' ') }}" data-course-i18n="{{ course.i18n | json }}">
-    <div class="course-info-card-inner">
-      {% if course.hero_image %}
-      <figure class="course-info-card-media">
-        <img
-          src="https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w800"
-          alt="{{ courseTitle or courseGrade }}"
-          loading="lazy"
-          decoding="async">
-      </figure>
-      {% endif %}
-      <div class="course-info-card-content">
-        {% if courseTitle %}
-        <h3 class="course-info-title" data-i18n-course="title">{{ courseTitle }}</h3>
+  <section class="course-hero-section" data-course-i18n="{{ course.i18n | json }}">
+    {# Hero image if available #}
+    {% if course.hero_image %}
+    <div class="course-hero-image-wrapper">
+      <img
+        src="https://drive.google.com/thumbnail?id={{ course.hero_image }}&sz=w800"
+        alt="{{ courseTitle or courseGrade }}"
+        loading="lazy"
+        decoding="async"
+        class="course-hero-image">
+    </div>
+    {% endif %}
+
+    {# Content area with gradient background #}
+    <div class="course-hero-content">
+      {# Badges at top #}
+      {% if courseUnit or courseDomain %}
+      <div class="flex justify-center gap-2 mb-2">
+        {% if courseDomain %}
+        <span class="rounded-full px-3 py-1 text-sm font-medium bg-orange-100 text-orange-800" data-i18n-course="domain">{{ courseDomain }}</span>
         {% endif %}
-        <div class="course-info-rows">
-          {% if courseGrade %}
-          <p class="course-info-row course-info-row--grade" data-i18n-course="grade">{{ courseGrade }}</p>
-          {% endif %}
-          {% if courseSemester %}
-          <p class="course-info-row course-info-row--semester" data-i18n-course="semester">{{ courseSemester }}</p>
-          {% endif %}
-          {% if courseUnit or courseDomain %}
-          <p class="course-info-row course-info-row--unit-domain">
-            {% if courseUnit %}
-            <span data-i18n-course="unit">{{ courseUnit }}</span>
-            {% endif %}
-            {% if courseUnit and courseDomain %}
-            <span class="course-info-separator" aria-hidden="true">｜</span>
-            {% endif %}
-            {% if courseDomain %}
-            <span data-i18n-course="domain">{{ courseDomain }}</span>
-            {% endif %}
-          </p>
-          {% endif %}
-          {% if courseTeacher %}
-          <p class="course-info-row course-info-row--teacher course-info-teacher">
-            <span class="course-info-teacher-label">{{ i18n[lang].course.teacher }}:</span>
-            <span data-i18n-course="teacher">{{ courseTeacher }}</span>
-          </p>
-          {% endif %}
-        </div>
+        {% if courseUnit %}
+        <span class="rounded-full px-3 py-1 text-sm font-medium bg-stone-100 text-stone-600" data-i18n-course="unit">{{ courseUnit }}</span>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {# Title in middle #}
+      {% if courseTitle %}
+      <h1 class="course-hero-title" data-i18n-course="title">{{ courseTitle }}</h1>
+      {% endif %}
+
+      {# Metadata at bottom #}
+      <div class="course-hero-metadata">
+        {% if courseGrade %}
+        <p class="course-hero-meta-item course-hero-meta-grade" data-i18n-course="grade">{{ courseGrade }}</p>
+        {% endif %}
+        {% if courseSemester %}
+        <p class="course-hero-meta-item course-hero-meta-semester" data-i18n-course="semester">{{ courseSemester }}</p>
+        {% endif %}
+        {% if courseTeacher %}
+        <p class="course-hero-meta-item course-hero-meta-teacher">
+          <span class="course-hero-teacher-label" data-i18n="course.teacher">{{ i18n[lang].course.teacher }}</span>:
+          <span data-i18n-course="teacher">{{ courseTeacher }}</span>
+        </p>
+        {% endif %}
       </div>
     </div>
-  </div>
+  </section>
 {% endmacro %}

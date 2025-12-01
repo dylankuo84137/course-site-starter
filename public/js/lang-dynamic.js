@@ -98,7 +98,9 @@
           }
           // Skip language switcher to avoid replacing its label
           if (node.parentElement.closest('.language-switcher') ||
-              node.parentElement.closest('#lang-toggle')) {
+              node.parentElement.closest('#lang-toggle') ||
+              node.parentElement.closest('.lang-menu') ||
+              node.parentElement.closest('.lang-option')) {
             return NodeFilter.FILTER_REJECT;
           }
           // Only process nodes with actual text content
