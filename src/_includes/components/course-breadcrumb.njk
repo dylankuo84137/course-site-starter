@@ -214,9 +214,9 @@
 
 {% macro courseUrl(courseSlug, page) %}
   {%- if page == 'home' -%}
-    {{ '/courses/' | url }}{{ courseSlug }}/
+    {{ ('/courses/' + courseSlug + '/') | url }}
   {%- else -%}
-    {{ '/courses/' | url }}{{ courseSlug }}/{{ page }}/
+    {{ ('/courses/' + courseSlug + '/' + page + '/') | url }}
   {%- endif -%}
 {% endmacro %}
 

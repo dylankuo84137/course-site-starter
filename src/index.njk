@@ -170,7 +170,7 @@ currentLang: zh-TW
                 <span class="teacher-badge">{{ c.metadata.teacher_name }}</span>
               </div>
               {% endif %}
-              <a href="{{ '/courses/' | url }}{{ c.slug }}/innovation/" class="home-innovation-cta">
+              <a href="{{ ('/courses/' + c.slug + '/innovation/') | url }}" class="home-innovation-cta">
                 <span data-i18n="homepage.innovation_cta">{{ homepageStrings.innovation_cta or '閱讀反思' }}</span> →
               </a>
             </div>

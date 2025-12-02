@@ -89,7 +89,7 @@ permalink: "/courses/{{ c.slug }}/innovation/index.html"
             {{ i18n[currentLang].course.no_innovation_desc }}
           {% endif %}
         </p>
-        <a href="{{ '/courses/' | url }}{{ c.slug }}/"
+        <a href="{{ ('/courses/' + c.slug + '/') | url }}"
            class="inline-flex items-center gap-2 bg-amber-600 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors">
           {% if currentLang == 'en-US' %}
             Back to Course Home

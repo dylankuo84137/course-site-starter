@@ -35,7 +35,7 @@ permalink: "/courses/{{ c.slug }}/index.html"
     <p class="innovation-teaser-summary" data-i18n-course="innovation_summary">
       {{ i18nMacro.cf(c, 'innovation_summary', currentLang) }}
     </p>
-    <a href="{{ '/courses/' + c.slug + '/innovation/' | url }}"
+    <a href="{{ ('/courses/' + c.slug + '/innovation/') | url }}"
        class="innovation-teaser-cta">
       {{ i18n[currentLang].course.innovation_cta }}
     </a>

@@ -10,38 +10,38 @@
   {% set hasVideos = materialHelpers.hasMaterial(c, 'videos') %}
   <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-6">
     <ul class="flex flex-wrap gap-2 text-sm">
-      <li><a class="pill {% if current == 'home' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ i18n[lang].course.course_home }}</a></li>
+      <li><a class="pill {% if current == 'home' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/') | url }}">{{ i18n[lang].course.course_home }}</a></li>
       {% if docStory %}
-      <li><a class="pill {% if current == 'story' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/story/">{{ i18n[lang].course.story }}</a></li>
+      <li><a class="pill {% if current == 'story' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/story/') | url }}">{{ i18n[lang].course.story }}</a></li>
       {% endif %}
-      <li><a class="pill {% if current == 'play-script' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">{{ i18n[lang].course.play_script }}</a></li>
-      <li><a class="pill {% if current == 'workbook' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">{{ i18n[lang].course.workbook }}</a></li>
+      <li><a class="pill {% if current == 'play-script' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/play-script/') | url }}">{{ i18n[lang].course.play_script }}</a></li>
+      <li><a class="pill {% if current == 'workbook' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/workbook/') | url }}">{{ i18n[lang].course.workbook }}</a></li>
       {% if hasSyllabus %}
-      <li><a class="pill {% if current == 'syllabus' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/syllabus/">{{ i18n[lang].course.syllabus }}</a></li>
+      <li><a class="pill {% if current == 'syllabus' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/syllabus/') | url }}">{{ i18n[lang].course.syllabus }}</a></li>
       {% endif %}
       {% if hasWorksheet %}
-      <li><a class="pill {% if current == 'worksheet' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/worksheet/">{{ i18n[lang].course.worksheet }}</a></li>
+      <li><a class="pill {% if current == 'worksheet' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/worksheet/') | url }}">{{ i18n[lang].course.worksheet }}</a></li>
       {% endif %}
       {% if hasPhotos %}
-      <li><a class="pill {% if current == 'photos' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">{{ i18n[lang].course.photo_gallery }}</a></li>
+      <li><a class="pill {% if current == 'photos' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/photos/') | url }}">{{ i18n[lang].course.photo_gallery }}</a></li>
       {% endif %}
       {% if hasBlackboard %}
-      <li><a class="pill {% if current == 'blackboard' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">{{ i18n[lang].course.blackboard_drawings }}</a></li>
+      <li><a class="pill {% if current == 'blackboard' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/blackboard/') | url }}">{{ i18n[lang].course.blackboard_drawings }}</a></li>
       {% endif %}
-      <li><a class="pill {% if current == 'scripts' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">{{ i18n[lang].course.performance }}</a></li>
-      <li><a class="pill {% if current == 'songs' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">{{ i18n[lang].course.songs }}</a></li>
+      <li><a class="pill {% if current == 'scripts' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/scripts/') | url }}">{{ i18n[lang].course.performance }}</a></li>
+      <li><a class="pill {% if current == 'songs' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/songs/') | url }}">{{ i18n[lang].course.songs }}</a></li>
       {% if hasSheetMusic %}
-      <li><a class="pill {% if current == 'sheet-music' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/sheet-music/">{{ i18n[lang].course.sheet_music }}</a></li>
+      <li><a class="pill {% if current == 'sheet-music' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/sheet-music/') | url }}">{{ i18n[lang].course.sheet_music }}</a></li>
       {% endif %}
       {% if hasVideos %}
-      <li><a class="pill {% if current == 'videos' %}active{% endif %}" href="{{ '/courses/' | url }}{{ c.slug }}/videos/">{{ i18n[lang].course.video }}</a></li>
+      <li><a class="pill {% if current == 'videos' %}active{% endif %}" href="{{ ('/courses/' + c.slug + '/videos/') | url }}">{{ i18n[lang].course.video }}</a></li>
       {% endif %}
     </ul>
     <label class="text-sm text-stone-600 flex items-center gap-2">
       {{ i18n[lang].course.switch_course }}
       <select class="border rounded-md px-2 py-1" onchange="if(this.value) location.href=this.value">
         {% for other in coursesList %}
-          <option value="{{ '/courses/' | url }}{{ other.slug }}/{% if current != 'home' %}{{ current }}/{% endif %}" {% if other.slug == c.slug %}selected{% endif %} data-course-switcher-i18n='{{ other.i18n | json }}'>{{ other.i18n[lang].title }}</option>
+          <option value="{{ ('/courses/' + other.slug + '/' + (current if current != 'home' else '')) | url }}" {% if other.slug == c.slug %}selected{% endif %} data-course-switcher-i18n='{{ other.i18n | json }}'>{{ other.i18n[lang].title }}</option>
         {% endfor %}
       </select>
     </label>

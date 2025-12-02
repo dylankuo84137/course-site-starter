@@ -27,45 +27,45 @@ currentLang: en-US
       {% set hasSheetMusic = materialHelpers.hasMaterial(c, 'sheet_music') %}
       {% set hasStory = materialHelpers.getDoc(c, 'story') %}
       {% set hasVideos = materialHelpers.hasMaterial(c, 'videos') %}
-      <h2 class="text-xl font-semibold mb-2"><a class="hover:text-emerald-700" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ c.title }}</a></h2>
+      <h2 class="text-xl font-semibold mb-2"><a class="hover:text-emerald-700" href="{{ ('/courses/' + c.slug + '/') | url }}">{{ c.title }}</a></h2>
       <p class="text-sm text-stone-600 mb-3">{{ c.grade }} ・ {{ c.semester }} | {{ c.unit }} | {{ c.domain }}</p>
       <p class="mb-4 line-clamp-4">{{ c.overview or '' }}</p>
       <div class="flex gap-3 flex-wrap text-sm">
         {% if courseDescriptionDoc %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/">{{ i18n[currentLang].course.course_home }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/') | url }}">{{ i18n[currentLang].course.course_home }}</a>
         {% endif %}
         {% if hasWorkbook %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/workbook/">{{ i18n[currentLang].course.workbook }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/workbook/') | url }}">{{ i18n[currentLang].course.workbook }}</a>
         {% endif %}
         {% if hasSyllabus %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/syllabus/">{{ i18n[currentLang].course.syllabus }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/syllabus/') | url }}">{{ i18n[currentLang].course.syllabus }}</a>
         {% endif %}
         {% if hasWorksheet %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/worksheet/">{{ i18n[currentLang].course.worksheet }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/worksheet/') | url }}">{{ i18n[currentLang].course.worksheet }}</a>
         {% endif %}
         {% if hasBlackboard %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/blackboard/">{{ i18n[currentLang].course.blackboard_drawings }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/blackboard/') | url }}">{{ i18n[currentLang].course.blackboard_drawings }}</a>
         {% endif %}
         {% if hasPhotos %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/photos/">{{ i18n[currentLang].course.photo_gallery }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/photos/') | url }}">{{ i18n[currentLang].course.photo_gallery }}</a>
         {% endif %}
         {% if hasPlayScript %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/play-script/">{{ i18n[currentLang].course.play_script }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/play-script/') | url }}">{{ i18n[currentLang].course.play_script }}</a>
         {% endif %}
         {% if hasScripts %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/scripts/">{{ i18n[currentLang].course.performance }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/scripts/') | url }}">{{ i18n[currentLang].course.performance }}</a>
         {% endif %}
         {% if hasSongs %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/songs/">{{ i18n[currentLang].course.songs }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/songs/') | url }}">{{ i18n[currentLang].course.songs }}</a>
         {% endif %}
         {% if hasSheetMusic %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/sheet-music/">{{ i18n[currentLang].course.sheet_music }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/sheet-music/') | url }}">{{ i18n[currentLang].course.sheet_music }}</a>
         {% endif %}
         {% if hasStory %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/story/">{{ i18n[currentLang].course.story }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/story/') | url }}">{{ i18n[currentLang].course.story }}</a>
         {% endif %}
         {% if hasVideos %}
-        <a class="pill" href="{{ '/courses/' | url }}{{ c.slug }}/videos/">{{ i18n[currentLang].course.video }}</a>
+        <a class="pill" href="{{ ('/courses/' + c.slug + '/videos/') | url }}">{{ i18n[currentLang].course.video }}</a>
         {% endif %}
       </div>
     </article>
