@@ -228,7 +228,18 @@
         elements.forEach(function(el) {
           const field = el.getAttribute('data-i18n-course');
           if (translations[field]) {
-            el.textContent = translations[field];
+            let text = translations[field];
+
+            // Apply truncation if data-truncate attribute exists
+            const truncateLength = el.getAttribute('data-truncate');
+            if (truncateLength) {
+              const maxLength = parseInt(truncateLength, 10);
+              if (text.length > maxLength) {
+                text = text.substring(0, maxLength).trim() + '...';
+              }
+            }
+
+            el.textContent = text;
           }
         });
 

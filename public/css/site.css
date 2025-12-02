@@ -1756,14 +1756,17 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   color: var(--text-secondary);
 }
 
-.home-innovation-teacher-avatar {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
+.teacher-badge {
+  padding: 0.25rem 0.75rem;
   background: var(--warm-200);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 1rem;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.teacher-badge-placeholder {
+  opacity: 0.6;
 }
 
 .home-innovation-cta {

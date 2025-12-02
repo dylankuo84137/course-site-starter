@@ -60,6 +60,12 @@ eleventyExcludeFromCollections: true
           "domain": {{ zhTW.domain | jsonstr | safe }},
           "teacher": {{ zhTW.teacher | jsonstr | safe }},
           "overview": {{ zhTW.overview | jsonstr | safe }}
+          {%- if zhTW.innovation_summary -%}
+          ,"innovation_summary": {{ zhTW.innovation_summary | jsonstr | safe }}
+          {%- endif -%}
+          {%- if zhTW.innovation_question -%}
+          ,"innovation_question": {{ zhTW.innovation_question | jsonstr | safe }}
+          {%- endif -%}
         },
         "en-US": {
           "title": {{ enUS.title | jsonstr | safe }},
@@ -69,6 +75,12 @@ eleventyExcludeFromCollections: true
           "domain": {{ enUS.domain | jsonstr | safe }},
           "teacher": {{ enUS.teacher | jsonstr | safe }},
           "overview": {{ enUS.overview | jsonstr | safe }}
+          {%- if enUS.innovation_summary -%}
+          ,"innovation_summary": {{ enUS.innovation_summary | jsonstr | safe }}
+          {%- endif -%}
+          {%- if enUS.innovation_question -%}
+          ,"innovation_question": {{ enUS.innovation_question | jsonstr | safe }}
+          {%- endif -%}
         }
       },
       "metadata": {
@@ -84,6 +96,37 @@ eleventyExcludeFromCollections: true
       {% else -%}
       "learningObjectives": [],
       {% endif -%}
+      {%- set courseInnovation = courseInnovations[course.slug] -%}
+      {%- if courseInnovation -%}
+      "innovations": {
+        {%- if courseInnovation['zh-TW'] -%}
+        "zh-TW": {
+          {%- set zhInnovation = courseInnovation['zh-TW'] -%}
+          "title": {{ zhInnovation.title | jsonstr | safe }},
+          {%- if zhInnovation.author -%}
+          "author": {{ zhInnovation.author | jsonstr | safe }},
+          {%- endif -%}
+          {%- if zhInnovation.innovation_type -%}
+          "innovation_type": {{ zhInnovation.innovation_type | jsonstr | safe }},
+          {%- endif -%}
+          "body": {{ zhInnovation.body | jsonstr | safe }}
+        }{{ "," if courseInnovation['en-US'] }}
+        {%- endif -%}
+        {%- if courseInnovation['en-US'] -%}
+        "en-US": {
+          {%- set enInnovation = courseInnovation['en-US'] -%}
+          "title": {{ enInnovation.title | jsonstr | safe }},
+          {%- if enInnovation.author -%}
+          "author": {{ enInnovation.author | jsonstr | safe }},
+          {%- endif -%}
+          {%- if enInnovation.innovation_type -%}
+          "innovation_type": {{ enInnovation.innovation_type | jsonstr | safe }},
+          {%- endif -%}
+          "body": {{ enInnovation.body | jsonstr | safe }}
+        }
+        {%- endif -%}
+      },
+      {%- endif -%}
       "pages": {
         "home": "{{ site.url }}{{ ('/courses/' + course.slug + '/') | url }}"
         {%- if docStory -%}
@@ -138,7 +181,7 @@ eleventyExcludeFromCollections: true
       },
       "driveContent": {
         {%- if course.material -%}
-        {%- set materialKeys = ["workbook_photos", "photos", "blackboard", "scripts_photos", "songs_audio", "sheet_music", "workbook_pdfs", "play_scripts", "worksheet", "syllabus"] -%}
+        {%- set materialKeys = ["workbook_photos", "photos", "blackboard", "scripts_photos", "songs_audio", "sheet_music", "workbook_pdfs", "play_scripts", "worksheet", "syllabus", "videos"] -%}
         {%- set materialEntries = [] -%}
         {%- for materialKey in materialKeys -%}
           {%- if course.material[materialKey] -%}
@@ -159,6 +202,16 @@ eleventyExcludeFromCollections: true
                   previewUrl: "https://drive.google.com/file/d/" + entry.id + "/preview"
                 } -%}
                 {%- set _ = allItems.push(pdfItem) -%}
+              {%- elif entry.type == "youtube" and entry.id -%}
+                {#- Handle YouTube video entries -#}
+                {%- set youtubeItem = {
+                  type: "youtube",
+                  id: entry.id,
+                  title: entry.title or "Video",
+                  url: "https://www.youtube.com/watch?v=" + entry.id,
+                  embedUrl: "https://www.youtube.com/embed/" + entry.id
+                } -%}
+                {%- set _ = allItems.push(youtubeItem) -%}
               {%- endif -%}
             {%- endfor -%}
             {%- if (allItems | length) > 0 -%}
@@ -170,6 +223,13 @@ eleventyExcludeFromCollections: true
         "{{ matEntry.key }}": [
           {%- for item in matEntry.items -%}
           {
+            {%- if item.type == "youtube" -%}
+            "type": "youtube",
+            "id": "{{ item.id }}",
+            "title": {{ item.title | jsonstr | safe }},
+            "url": "{{ item.url }}",
+            "embedUrl": "{{ item.embedUrl }}"
+            {%- else -%}
             "id": "{{ item.id }}",
             "name": "{{ item.name | replace('"', '\\"') }}",
             "mimeType": "{{ item.mimeType }}",
@@ -182,6 +242,7 @@ eleventyExcludeFromCollections: true
             {%- set pdfCache = pdfTextCache[course.slug][matEntry.key][item.id] -%}
             ,"pdfText": {{ pdfCache.text | jsonstr | safe }}
             ,"pdfTextLastSynced": "{{ pdfCache.lastSynced }}"
+            {%- endif -%}
             {%- endif -%}
           }{{ "," if not loop.last }}
           {%- endfor -%}

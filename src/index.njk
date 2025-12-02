@@ -160,15 +160,14 @@ currentLang: zh-TW
             <h3 class="home-innovation-title" data-i18n-course="innovation_question">
               {{ innovationQuestion or i18nMacro.cf(c, 'title', currentLang) }}
             </h3>
-            <p class="home-innovation-summary" data-i18n-course="innovation_summary">
-              {{ innovationSummary or (i18nMacro.cf(c, 'overview', currentLang) | truncate(150)) }}
+            <p class="home-innovation-summary" data-i18n-course="innovation_summary" data-truncate="54">
+              {{ (innovationSummary or i18nMacro.cf(c, 'overview', currentLang)) | truncate(54) }}
             </p>
 
             <div class="home-innovation-footer">
               {% if c.metadata.teacher_name %}
               <div class="home-innovation-teacher">
-                <span class="home-innovation-teacher-avatar" aria-hidden="true">👤</span>
-                <span>{{ c.metadata.teacher_name }}</span>
+                <span class="teacher-badge">{{ c.metadata.teacher_name }}</span>
               </div>
               {% endif %}
               <a href="{{ '/courses/' | url }}{{ c.slug }}/innovation/" class="home-innovation-cta">
@@ -192,8 +191,7 @@ currentLang: zh-TW
               <p class="home-innovation-summary" data-i18n="homepage.innovation_placeholder_desc">{{ i18n[currentLang].homepage.innovation_placeholder_desc or '我們持續記錄老師們的教學實驗與反思，敬請期待更多精彩內容。' }}</p>
               <div class="home-innovation-footer">
                 <div class="home-innovation-teacher">
-                  <span class="home-innovation-teacher-avatar" aria-hidden="true">⏳</span>
-                  <span data-i18n="homepage.innovation_placeholder_author">{{ i18n[currentLang].homepage.innovation_placeholder_author or '籌備中' }}</span>
+                  <span class="teacher-badge teacher-badge-placeholder" data-i18n="homepage.innovation_placeholder_author">{{ i18n[currentLang].homepage.innovation_placeholder_author or '籌備中' }}</span>
                 </div>
               </div>
             </div>
