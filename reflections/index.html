@@ -1,0 +1,440 @@
+
+
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Prevent FOUC: Check language preference before any rendering -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('preferredLang');
+        if (saved) {
+          const validLangs = { 'en-US': 'en-US', 'zh-TW': 'zh-Hant' };
+          const langAttr = validLangs[saved] || 'zh-Hant';
+          document.documentElement.setAttribute('lang', langAttr);
+          document.documentElement.setAttribute('data-user-lang', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>留言與交流</title>
+  
+  <meta name="description" content="慈心華德福課程資料庫，串起課程目標、教學紀錄與媒體素材，支援備課、典藏與分享。">
+  
+  <meta name="keywords" content="Waldorf education, 華德福教育, course materials, teaching resources">
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+
+  <!-- Embed i18n data for client-side language switching -->
+  <script>
+    window.__I18N_DATA__ = {"zh-TW":{"site":{"title":"慈心課程織圖","description":"慈心華德福課程資料庫，串起課程目標、教學紀錄與媒體素材，支援備課、典藏與分享。","homepage_description":"這是一座活的教學典藏館，收藏的不只是課程，更是師生共同創造的學習旅程。從台灣的故事到世界的詩篇，每堂課都以藝術為橋，串連人文與思想。\n您可以在這裡瀏覽工作本、黑板畫、戲劇、音樂，重溫學習的真實足跡。在這裡找到啟發與連結，讓教學在心中繼續綻放。"},"homepage":{"eyebrow":"活的典藏館","hero_title":"課程成為故事，學習化為藝術","hero_primary_cta":"探索課程","hero_secondary_cta":"教學創新亮點","course_section_title":"課程總覽","course_section_copy":"沿著華德福教學節奏，從黑板畫、戲劇到歌曲音檔，完整收藏師生共創的珍貴足跡。","tag_intro":"熱門標籤","category_section_title":"課程快速導航","category_section_copy":"快速導覽各領域課程，找到適合您的教學素材。","ethos_title":"讓學習成為生命的深刻體驗","ethos_copy":"在慈心，我們相信教育是一場陪伴孩子經驗、感受與創造的旅程。每一門課都從真實的生命情境出發，無論是走進文學、歷史，還是山林，我們都以藝術為橋樑，將知識轉化為深刻的內在力量。我們邀請您一同點燃孩子的好奇心，讓學習不只是記憶，而是一段段活出來的故事。","ethos_points":["以戲劇、故事與藝術整合學科，深化學習體驗","引導孩子從生活經驗出發，連結真實世界","鼓勵教師轉化教材，為孩子創造獨特的學習路徑"],"categories":[{"label":"藝術課程","description":"黑板畫、戲劇、音樂等整合創作。","anchor":"arts","icon":"🎨"},{"label":"自然主題","description":"山林、人文地景、節氣與環境。","anchor":"nature","icon":"🌿"},{"label":"主課程","description":"語文、歷史與跨領域主課紀錄。","anchor":"main-lesson","icon":"📖"},{"label":"歷史主課","description":"從神話到近代史的跨文化旅程。","anchor":"history","icon":"🕰️"}],"testimonials_title":"教師與學生推薦語","testimonials_copy":"典藏不只保存作品，更讓每次課程成為可延續的靈感。以下摘錄幾段來自教學現場的感謝與分享。","testimonials":[{"quote":"這是一段佔位推薦語，供未來內容使用。","author":"佔位作者 1"},{"quote":"這是第二段佔位推薦語，供未來內容使用。","author":"佔位作者 2"},{"quote":"這是第三段佔位推薦語，供未來內容使用。","author":"佔位作者 3"}],"innovation_section_title":"教學創新亮點","innovation_section_copy":"在這裡，我們不只記錄課程內容，更珍視每一位老師在教學現場的靈光乍現與反思。探索我們的教學實驗，看見課程背後的設計靈魂。","innovation_cta":"閱讀反思","innovation_prev":"上一個創新","innovation_next":"下一個創新","innovation_slider_label":"教學創新亮點","innovation_placeholder_meta":"即將推出","innovation_placeholder_title":"更多教學創新分享","innovation_placeholder_desc":"我們持續記錄老師們的教學實驗與反思，敬請期待更多精彩內容。","innovation_placeholder_author":"籌備中"},"nav":{"home":"課程介紹","courses":"所有課程","ai_guide":"應用指引","reflections":"留言與交流"},"course":{"grade":"年級","semester":"學期","unit":"課程單元","teacher":"老師","overview":"課程簡介","learning_objectives":"學習目標","teacher_intro":"教師介紹","no_description":"（尚未填寫）","no_teacher_bio":"（尚未填寫教師介紹）","open_document":"開啟完整文件","downloads":"下載資源","syllabus":"課程大綱與教學紀錄","worksheet":"學習單","workbook":"工作本","workbook_content":"工作本內容","workbook_folder_default":"工作本資料夾","workbook_folder_toggle_hint":"點擊可展開或收合","workbook_subfolder_default":"子資料夾","workbook_subfolder_toggle_hint":"點擊可檢視此子資料夾的照片","workbook_subfolder_all_photos":"全部照片","workbook_expand_all":"全部展開","workbook_collapse_all":"全部收合","blackboard":"黑板","blackboard_drawings":"黑板畫","photos":"照片","photo_gallery":"照片集","audio":"音檔","songs":"歌曲音檔","performance":"劇照","play_script":"劇本","play_script_content":"劇本內容","story":"故事","story_content":"故事內容","songs_audio":"歌曲與音檔","sheet_music":"樂譜","video":"影片","video_performance":"演出影片","download_video":"下載影片","video_drive_note":"影片由 Google Drive 提供播放，若無法載入請改用「下載影片」。","video_mov_note":"此 MOV 檔案可能無法在所有瀏覽器播放，若播放失敗請直接下載觀看。","video_unsupported":"目前僅支援 YouTube 或 Google Drive 影片，請確認素材格式。","tags":"標籤","back_to_courses":"返回所有課程","no_content":"目前沒有內容。","course_home":"課程主頁","switch_course":"切換課程","course_navigation":"課程導覽","course_materials":"-- 課程素材 --","innovation":"教學創新","innovation_page_title":"教學創新與反思","innovation_coming_soon":"教學省思內容即將推出","innovation_cta":"閱讀完整反思","innovation_section_title":"教學創新與反思","course_overview":"課程概覽","no_innovation":"尚無教學創新內容","no_innovation_desc":"此課程尚未發布教學反思或創新內容。","back_to_course":"返回課程首頁"},"filters":{"search_placeholder":"搜尋課程...","search_lang_notice":"","all_grades":"所有年級","all_domains":"所有領域","all_teachers":"所有教師","grade_filter":"年級","domain_filter":"領域","teacher_filter":"教師","showing_results":"顯示 {count} 個課程","no_results":"沒有符合的課程","reset_filters":"重設篩選"},"pagefind":{"placeholder":"搜尋","clear_search":"清除","load_more":"載入更多結果","search_label":"搜尋此網站","filters_label":"篩選","zero_results":"沒有找到 [SEARCH_TERM] 的結果","many_results":"找到 [COUNT] 個 [SEARCH_TERM] 的結果","one_result":"找到 [COUNT] 個 [SEARCH_TERM] 的結果","alt_search":"沒有找到 [SEARCH_TERM] 的結果。改為顯示 [DIFFERENT_TERM] 的結果","search_suggestion":"沒有找到 [SEARCH_TERM] 的結果。試試以下搜尋：","searching":"搜尋 [SEARCH_TERM] 中..."},"gallery":{"filter_placeholder":"篩選照片...","no_results":"沒有符合的照片","loading":"載入中...","close":"關閉"},"footer":{"license":"本網站內容採 CC BY-NC-SA 授權；照片含學生已取得公開授權。","org":"2025 慈心華德福","email":"it@waldorf.ilc.edu.tw"},"metadata":{"keywords":"Waldorf education, 華德福教育, course materials, teaching resources"},"lang":{"current":"繁體中文","switch_to":"Switch to English"}},"en-US":{"site":{"title":"Cixin Course Weaver","description":"Ci-Xin Waldorf's bilingual course archive, connecting lesson goals with teaching artifacts, media folders, and downloads for planners and partners.","homepage_description":"This site is a living museum of teaching — a space where courses become stories and learning becomes art. It gathers journeys co-created by teachers and students, spanning from Taiwan's myths to the world's masterpieces. Browse through notebooks, blackboard art, performances, and melodies, and rediscover the living pulse of education that continues to bloom within."},"homepage":{"eyebrow":"Living Teaching Archive","hero_title":"Courses become stories. Learning becomes art.","hero_primary_cta":"Explore courses","hero_secondary_cta":"Pedagogical Innovations","course_section_title":"Featured Courses","course_section_copy":"Follow the Waldorf rhythm—from blackboard landscapes to drama performances and playlists—to see how teachers and students learn together.","tag_intro":"Popular tags","category_section_title":"Course categories","category_section_copy":"Jump into collections by grade, domain, or material and find the right inspiration.","ethos_title":"Making Learning a Profound Life Experience","ethos_copy":"At Ci-Xin, we believe education is a journey where we accompany children as they experience, feel, and create. Every course begins from real-life contexts—whether delving into literature, history, or nature—using art as a bridge to transform knowledge into profound inner strength. We invite you to join us in sparking children's curiosity, transforming learning from mere memorization into stories that are lived and told.","ethos_points":["Integrating subjects with drama, stories, and art to deepen the learning experience","Guiding children to start from their life experiences and connect with the real world","Encouraging teachers to transform materials and create unique learning paths for children"],"categories":[{"label":"Arts program","description":"Blackboard art, drama, music, and integrated creations.","anchor":"arts","icon":"🎨"},{"label":"Nature studies","description":"Mountains, field work, seasons, and ecological stories.","anchor":"nature","icon":"🌿"},{"label":"Main lesson","description":"Language arts, history blocks, and interdisciplinary main lessons.","anchor":"main-lesson","icon":"📖"},{"label":"History main lesson","description":"Journeys from myths to modern history.","anchor":"history","icon":"🕰️"}],"testimonials_title":"Voices from teachers & students","testimonials_copy":"Each archive keeps the warmth of the classroom alive. Here are a few notes shared by our community.","testimonials":[{"quote":"This is a placeholder testimonial for future content.","author":"Placeholder Author 1"},{"quote":"This is another placeholder testimonial for future content.","author":"Placeholder Author 2"},{"quote":"This is a third placeholder testimonial for future content.","author":"Placeholder Author 3"}],"innovation_section_title":"Teaching Innovation Highlights","innovation_section_copy":"Beyond the syllabus. We capture the moments of brilliance and reflection inherent in teaching. Dive into our experiments and see the soul of design behind every course.","innovation_cta":"Read Reflection","innovation_prev":"Previous innovation","innovation_next":"Next innovation","innovation_slider_label":"Teaching innovation highlights","innovation_placeholder_meta":"Coming Soon","innovation_placeholder_title":"More Teaching Innovations","innovation_placeholder_desc":"We continue to document our teachers' experiments and reflections. Stay tuned for more inspiring content.","innovation_placeholder_author":"In Preparation"},"nav":{"home":"Course Introduction","courses":"All Courses","ai_guide":"Application Guide","reflections":"Comments & Discussions"},"course":{"grade":"Grade","semester":"Semester","unit":"unit","teacher":"Teacher","overview":"Course Overview","learning_objectives":"Learning Objectives","teacher_intro":"Teacher Introduction","no_description":"(Not yet provided)","no_teacher_bio":"(Teacher bio not yet provided)","open_document":"Open Full Document","downloads":"Downloads","syllabus":"Syllabus and Teaching Records","worksheet":"Worksheet","workbook":"Workbook","workbook_content":"Workbook Content","workbook_folder_default":"Workbook Folder","workbook_folder_toggle_hint":"Click to expand or collapse","workbook_subfolder_default":"Subfolder","workbook_subfolder_toggle_hint":"Click to view photos in this subfolder","workbook_subfolder_all_photos":"All Photos","workbook_expand_all":"Expand all","workbook_collapse_all":"Collapse all","blackboard":"Blackboard","blackboard_drawings":"Blackboard Drawings","photos":"Photos","photo_gallery":"Photo Gallery","audio":"Audio","songs":"Songs","performance":"Performance Photos","play_script":"Play Script","play_script_content":"Play Script Content","story":"Story","story_content":"Story Content","songs_audio":"Songs & Audio","sheet_music":"Sheet Music","video":"Video","video_performance":"Performance Video","download_video":"Download Video","video_drive_note":"Video playback is provided through Google Drive. Use the download link if it fails to load.","video_mov_note":"This MOV file may not play in every browser; download it if playback is unavailable.","video_unsupported":"Only YouTube or Google Drive videos are supported. Please verify the source format.","tags":"Tags","back_to_courses":"Back to All Courses","no_content":"No content available yet.","course_home":"Course Home","switch_course":"Switch Course","course_navigation":"Course Navigation","course_materials":"-- Course Material --","innovation":"Pedagogical Innovation","innovation_page_title":"Teaching Innovation & Reflection","innovation_coming_soon":"Innovation and reflection content coming soon","innovation_cta":"Read Complete Reflection","innovation_section_title":"Teaching Reflection","course_overview":"Course Overview","no_innovation":"No Innovation Content Available","no_innovation_desc":"This course has not yet published pedagogical innovation and reflection content.","back_to_course":"Back to Course Home"},"filters":{"search_placeholder":"Search courses...","search_lang_notice":"Note: Search is currently optimized for Traditional Chinese. For best results, please switch to 繁體中文 using the language selector above.","all_grades":"All Grades","all_domains":"All Domains","all_teachers":"All Teachers","grade_filter":"Grade","domain_filter":"Domain","teacher_filter":"Teacher","showing_results":"Showing {count} courses","no_results":"No matching courses","reset_filters":"Reset Filters"},"pagefind":{"placeholder":"Search","clear_search":"Clear","load_more":"Load more results","search_label":"Search this site","filters_label":"Filters","zero_results":"No results for [SEARCH_TERM]","many_results":"[COUNT] results for [SEARCH_TERM]","one_result":"[COUNT] result for [SEARCH_TERM]","alt_search":"No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead","search_suggestion":"No results for [SEARCH_TERM]. Try one of the following searches:","searching":"Searching for [SEARCH_TERM]..."},"gallery":{"filter_placeholder":"Filter photos...","no_results":"No matching photos","loading":"Loading...","close":"Close"},"footer":{"license":"This website content is licensed under CC BY-NC-SA; student photos are authorized for public display.","org":"2025 Cixin Waldorf","email":"it@waldorf.ilc.edu.tw"},"metadata":{"keywords":"Waldorf education, course materials, teaching resources"},"lang":{"current":"English","switch_to":"切換至繁體中文"}}};
+    window.__CURRENT_LANG__ = 'zh-TW';
+    window.__DEFAULT_LANG__ = 'zh-TW';
+    window.__BASE_PATH__ = '/course-site-starter/';
+    window.__LANG_SPECIFIC_PAGES__ = ["/ai-guide/"];
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-[100] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4 relative">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-label="Primary navigation">
+        <ul class="flex gap-8 justify-center">
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/ai-guide/">應用指引</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a>
+            </li>
+            
+          </ul>
+        </nav>
+      <div class="flex items-center gap-3 ml-auto">
+        
+
+<div class="language-switcher">
+  <button
+    id="lang-toggle"
+    class="lang-button"
+    aria-label="Switch to English"
+    aria-expanded="false"
+    title="Switch to English">
+    <svg class="lang-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </svg>
+    <span class="lang-label">繁體中文</span>
+    <svg class="lang-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <div id="lang-menu" class="lang-menu" hidden>
+    
+    
+    <a
+      href="/course-site-starter/"
+      class="lang-option active"
+      data-lang="zh-TW">
+      <span class="lang-name">繁體中文</span>
+    </a>
+    
+    
+    <a
+      href="/course-site-starter/en-US/"
+      class="lang-option "
+      data-lang="en-US">
+      <span class="lang-name">English</span>
+    </a>
+    
+  </div>
+</div>
+
+<script>
+(function() {
+  const toggle = document.getElementById('lang-toggle');
+  const menu = document.getElementById('lang-menu');
+  const basePath = '/course-site-starter/';
+  const normBase = basePath.replace(/\/+$/, '');
+  const normalizePagePath = function(path) {
+    if (!path) {
+      return '/';
+    }
+    let normalized = path;
+    if (!normalized.startsWith('/')) {
+      normalized = '/' + normalized;
+    }
+    normalized = normalized.replace(/\/+$/, '');
+    return normalized === '' ? '/' : normalized;
+  };
+  const langSpecificPages = (window.__LANG_SPECIFIC_PAGES__ || []).map(normalizePagePath);
+
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isHidden = menu.hasAttribute('hidden');
+    if (isHidden) {
+      menu.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      menu.setAttribute('hidden', '');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('click', function() {
+    menu.setAttribute('hidden', '');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+
+  menu.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  // Save language preference when user clicks a language option
+  const langOptions = menu.querySelectorAll('.lang-option');
+  langOptions.forEach(function(option) {
+    option.addEventListener('click', function(e) {
+      const selectedLang = this.getAttribute('data-lang');
+      if (selectedLang) {
+        try {
+          localStorage.setItem('preferredLang', selectedLang);
+        } catch (err) {
+          // Silently fail if localStorage is unavailable
+        }
+
+        // Check if we're on a special page with language-specific versions
+        const currentPath = window.location.pathname;
+        const normPath = currentPath.replace(/\/+$/, '');
+
+        // Check if on homepage
+        const isHomepage = normPath === normBase ||
+                          normPath.match(new RegExp('^' + normBase.replace(/\//g, '\\/') + '/(en-US|zh-TW)$'));
+
+        // Normalize path relative to site base (supports subfolder deploys)
+        let relativePath = normPath;
+        if (normBase && normPath.startsWith(normBase)) {
+          relativePath = normPath.substring(normBase.length) || '/';
+        } else if (!relativePath) {
+          relativePath = '/';
+        }
+        if (!relativePath.startsWith('/')) {
+          relativePath = '/' + relativePath;
+        }
+        relativePath = relativePath.replace(/\/+$/, '') || '/';
+
+        // Determine if current page has a dedicated localized route
+        let canonicalPath = relativePath;
+        const englishPrefix = '/en-US';
+        if (canonicalPath.startsWith(englishPrefix)) {
+          canonicalPath = canonicalPath.substring(englishPrefix.length) || '/';
+          if (!canonicalPath.startsWith('/')) {
+            canonicalPath = '/' + canonicalPath;
+          }
+          canonicalPath = canonicalPath.replace(/\/+$/, '') || '/';
+        }
+
+        const matchedSpecialPage = langSpecificPages.find(function(page) {
+          return page === canonicalPath;
+        });
+
+        // For special pages with dedicated language versions, navigate to the correct URL
+        if (matchedSpecialPage && !isHomepage) {
+          e.preventDefault();
+          const pageSuffix = matchedSpecialPage === '/' ? '/' : matchedSpecialPage + '/';
+          let targetUrl;
+          if (selectedLang === 'en-US') {
+            // Navigate to English version
+            targetUrl = normBase + '/en-US' + pageSuffix;
+          } else {
+            // Navigate to Chinese version (default, no language prefix)
+            targetUrl = normBase + pageSuffix;
+          }
+          window.location.href = targetUrl;
+          return;
+        }
+
+        // For homepage and course pages, reload to apply language
+        e.preventDefault();
+        window.location.reload();
+      }
+    });
+  });
+})();
+</script>
+
+        <button
+          type="button"
+          class="mobile-menu-toggle md:hidden"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="mobile-nav-panel">
+          <span class="sr-only">Toggle navigation</span>
+          <svg class="mobile-menu-icon" data-menu-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+          </svg>
+          <svg class="mobile-menu-icon hidden" data-menu-close-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-nav-panel" class="mobile-menu-panel md:hidden hidden" data-menu-panel>
+      <div class="max-w-6xl mx-auto px-4 py-4">
+        <nav aria-label="Mobile navigation">
+          <ul class="flex flex-col gap-3">
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/">課程介紹</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/courses/">所有課程</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/ai-guide/">應用指引</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/reflections/">留言與交流</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    
+<div data-pagefind-ignore>
+<h1 class="text-3xl font-bold mb-8" style="color: var(--text-primary);">留言與交流</h1>
+
+<!-- Submission Section -->
+<div class="section-card">
+  <h2>📝 內容投稿</h2>
+  <div class="mb-6">
+    <h3 class="text-lg font-semibold mb-3" style="color: var(--text-secondary);">投稿指引</h3>
+    <ol class="list-decimal list-inside space-y-2" style="color: var(--text-secondary);">
+      <li>請填入：年級、學期、主題單元、課程領域（作為標籤）</li>
+      <li>如含學生人像，請確認已取得公開授權</li>
+      <li>內容授權：一律採用 CC BY-NC-SA</li>
+      <li>檔案/資料夾權限設為「知道連結的任何人可檢視」</li>
+      <li><strong>重要：請在下方表單中提供您的 Google Drive 檔案連結</strong></li>
+    </ol>
+  </div>
+</div>
+
+<!-- Embedded Google Form -->
+<div class="google-form-container">
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLSd_kcRcnzKG3BOq7jg6ZwuJfpc_XmPP0Cvlo8VwRsB-oLBphw/viewform?embedded=true" 
+    class="google-form-iframe"
+    frameborder="0" 
+    marginheight="0" 
+    marginwidth="0">
+    載入中…
+  </iframe>
+</div>
+
+<!-- Comments Section -->
+<div class="section-card">
+  <h2>💬 討論與交流</h2>
+  <p class="mb-6">歡迎在此與其他教師交流心得、分享經驗，或對課程內容提出建議。</p>
+  
+  <!-- CommentBox.io widget -->
+  <div class="commentbox" data-commentbox="5698158134820864-proj"></div>
+</div>
+</div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC-SA 授權；照片含學生已取得公開授權。</p>
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" style="margin-top: 0.5rem; display: inline-block;">
+            <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0" style="border: 0;">
+          </a>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Language handler: loads synchronously to prevent FOUC -->
+  <script src="/course-site-starter/js/lang-dynamic.js"></script>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script src="/course-site-starter/js/video-playlist.js" defer></script>
+  <script>
+    (function() {
+      const toggle = document.querySelector('[data-menu-toggle]');
+      const panel = document.querySelector('[data-menu-panel]');
+      if (!toggle || !panel) return;
+      const openIcon = toggle.querySelector('[data-menu-icon]');
+      const closeIcon = toggle.querySelector('[data-menu-close-icon]');
+
+      function setMenuState(isOpen) {
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        panel.classList.toggle('hidden', !isOpen);
+        if (openIcon && closeIcon) {
+          openIcon.classList.toggle('hidden', isOpen);
+          closeIcon.classList.toggle('hidden', !isOpen);
+        }
+      }
+
+      toggle.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        setMenuState(!expanded);
+      });
+
+      document.addEventListener('click', function(event) {
+        if (panel.classList.contains('hidden')) return;
+        if (panel.contains(event.target) || toggle.contains(event.target)) return;
+        setMenuState(false);
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          setMenuState(false);
+        }
+      });
+
+      const mediaQuery = window.matchMedia('(min-width: 768px)');
+      function handleQuery(event) {
+        if (event.matches) {
+          setMenuState(false);
+        }
+      }
+      if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', handleQuery);
+      } else if (typeof mediaQuery.addListener === 'function') {
+        mediaQuery.addListener(handleQuery);
+      }
+    })();
+  </script>
+  <script>
+    window.__pagefindInstance = null;
+    window.__initPagefind = function() {
+      try {
+        if (!window.PagefindUI) return;
+
+        // Get user's language preference
+        const savedLang = localStorage.getItem('preferredLang') || 'zh-TW';
+
+        // Destroy existing instance if present
+        if (window.__pagefindInstance && typeof window.__pagefindInstance.destroy === 'function') {
+          window.__pagefindInstance.destroy();
+        }
+
+        // Get Pagefind translations for current language
+        const pagefindTranslations = window.__I18N_DATA__[savedLang]?.pagefind || {};
+
+        // Create new instance with full translations
+        // Note: Using --force-language zh creates a single multilingual index
+        // This allows both Chinese and English content to be searched together
+        window.__pagefindInstance = new PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          translations: pagefindTranslations
+        });
+      } catch(e) {
+        console.error('Pagefind init error:', e);
+      }
+    };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+
+  <!-- CommentBox.io initialization for reflections page -->
+  
+  <script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+  <script>
+    commentBox('5698158134820864-proj');
+  </script>
+  
+
+  <!-- Innovation slider script (homepage only) -->
+  
+</body>
+</html>
