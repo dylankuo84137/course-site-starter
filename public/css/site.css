@@ -1148,6 +1148,49 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   overflow: hidden;
 }
 
+.home-hero--with-eyebrow {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.home-hero--with-eyebrow .home-hero-media {
+  order: -1;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.home-hero--with-eyebrow .home-hero-media img {
+  border-radius: 1rem;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.home-hero--with-eyebrow .home-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-hero--with-eyebrow .home-cta-group {
+  justify-content: center;
+}
+
+.home-hero--with-eyebrow .home-search {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home-hero--with-eyebrow .home-search input,
+.home-hero--with-eyebrow .home-search .search-input {
+  text-align: left;
+}
+
 .home-hero::after {
   content: "";
   position: absolute;
@@ -1188,7 +1231,7 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
   font-weight: 700;
   line-height: 1.15;
   margin-bottom: 1.25rem;
-  color: var(--home-walnut);
+  color: var(--innovation-clay);
 }
 
 .home-hero-description {
@@ -1243,15 +1286,16 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
 }
 
 .home-cta-secondary {
-  border: 1px solid rgba(74, 63, 53, 0.3);
-  color: var(--home-walnut);
-  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--home-amber-darker);
+  color: #fff;
+  background: var(--home-amber-darker);
 }
 
 .home-cta-secondary:hover {
   transform: translateY(-2px);
-  border-color: var(--home-amber);
-  color: var(--home-amber);
+  border-color: var(--home-amber-darker);
+  background: #8A5538;
+  color: #fff;
 }
 
 .home-section-heading {
@@ -1268,7 +1312,7 @@ html[data-user-lang="en-US"] .innovation-content[data-lang="en-US"] {
 .home-section-heading h2 {
   font-size: clamp(1.5rem, 3.5vw, 1.75rem);
   font-weight: 700;
-  color: var(--home-walnut);
+  color: var(--innovation-clay);
   line-height: 1.2;
   margin: 0;
   letter-spacing: -0.01em;
