@@ -189,6 +189,13 @@
       "title": "故事稿",
       "content": null,
       "lastSynced": null
+    },
+    "course_innovation": {
+      "type": "google-doc",
+      "id": "GOOGLE_DOC_ID",
+      "title": "課程創新",
+      "content": null,
+      "lastSynced": null
     }
   }
 }

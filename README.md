@@ -189,6 +189,11 @@ course-site-starter/
       "type": "google-doc",
       "id": "DOC_ID",
       "title": "故事稿"
+    },
+    "course_innovation": {
+      "type": "google-doc",
+      "id": "DOC_ID",
+      "title": "課程創新"
     }
   },
   "overview": "課程簡介文字。"
