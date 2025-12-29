@@ -1,0 +1,118 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "慈心課程織圖 - Course Updates",
+  "home_page_url": "https://dylankuo84137.github.io/course-site-starter/course-site-starter/",
+  "feed_url": "https://dylankuo84137.github.io/course-site-starter/course-site-starter/feed.json",
+  "description": "Updates and changes to Waldorf education course materials",
+  "icon": "https://dylankuo84137.github.io/course-site-starter/course-site-starter/favicon.ico",
+  "language": "zh-Hant",
+  "items": [{
+      "id": "/course-site-starter/courses/2a-nenggao-113-summer/",
+      "url": "https://dylankuo84137.github.io/course-site-starter/course-site-starter/courses/2a-nenggao-113-summer/",
+      "title": "",
+      "content_html": "<p></p>",
+      "summary": " -  |  | ",
+      "date_published": "2025-12-29T15:42:39.598Z",
+      "date_modified": "2025-12-29T15:42:39.598Z",
+      "authors": [
+        {
+          "name": ""
+        }
+      ],
+      "tags": [&quot;戲劇&quot;,&quot;黑板畫&quot;,&quot;工作本&quot;,&quot;歌曲&quot;],
+      "_course_metadata": {
+        "slug": "2a-nenggao-113-summer",
+        "grade": "",
+        "semester": "",
+        "unit": "",
+        "domain": "",
+        "materials": {
+          "workbook": true,
+          "photos": true,
+          "blackboard": true,
+          "audio": true
+        }
+      }
+    },{
+      "id": "/course-site-starter/courses/3a-sunshot-113-summer/",
+      "url": "https://dylankuo84137.github.io/course-site-starter/course-site-starter/courses/3a-sunshot-113-summer/",
+      "title": "",
+      "content_html": "<p></p>",
+      "summary": " -  |  | ",
+      "date_published": "2025-12-29T15:42:39.598Z",
+      "date_modified": "2025-12-29T15:42:39.598Z",
+      "authors": [
+        {
+          "name": ""
+        }
+      ],
+      "tags": [&quot;戲劇&quot;,&quot;劇本&quot;,&quot;歌曲&quot;,&quot;表演&quot;],
+      "_course_metadata": {
+        "slug": "3a-sunshot-113-summer",
+        "grade": "",
+        "semester": "",
+        "unit": "",
+        "domain": "",
+        "materials": {
+          "workbook": true,
+          "photos": true,
+          "blackboard": false,
+          "audio": true
+        }
+      }
+    },{
+      "id": "/course-site-starter/courses/4a-journey-to-the-west-114-autumn/",
+      "url": "https://dylankuo84137.github.io/course-site-starter/course-site-starter/courses/4a-journey-to-the-west-114-autumn/",
+      "title": "",
+      "content_html": "<p></p>",
+      "summary": " -  |  | ",
+      "date_published": "2025-12-29T15:42:39.598Z",
+      "date_modified": "2025-12-29T15:42:39.598Z",
+      "authors": [
+        {
+          "name": ""
+        }
+      ],
+      "tags": [&quot;西遊記&quot;,&quot;戲劇&quot;,&quot;語文&quot;,&quot;主課&quot;,&quot;工作本&quot;],
+      "_course_metadata": {
+        "slug": "4a-journey-to-the-west-114-autumn",
+        "grade": "",
+        "semester": "",
+        "unit": "",
+        "domain": "",
+        "materials": {
+          "workbook": true,
+          "photos": true,
+          "blackboard": false,
+          "audio": false
+        }
+      }
+    },{
+      "id": "/course-site-starter/courses/9c-modern-history-114-autumn/",
+      "url": "https://dylankuo84137.github.io/course-site-starter/course-site-starter/courses/9c-modern-history-114-autumn/",
+      "title": "",
+      "content_html": "<p></p>",
+      "summary": " -  |  | ",
+      "date_published": "2025-12-29T15:42:39.598Z",
+      "date_modified": "2025-12-29T15:42:39.598Z",
+      "authors": [
+        {
+          "name": ""
+        }
+      ],
+      "tags": [&quot;現代史&quot;,&quot;工業革命&quot;,&quot;青年行動&quot;,&quot;學習筆記&quot;],
+      "_course_metadata": {
+        "slug": "9c-modern-history-114-autumn",
+        "grade": "",
+        "semester": "",
+        "unit": "",
+        "domain": "",
+        "materials": {
+          "workbook": true,
+          "photos": true,
+          "blackboard": true,
+          "audio": false
+        }
+      }
+    }]
+}

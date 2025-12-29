@@ -1,0 +1,569 @@
+
+
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Prevent FOUC: Check language preference before any rendering -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('preferredLang');
+        if (saved) {
+          const validLangs = { 'en-US': 'en-US', 'zh-TW': 'zh-Hant' };
+          const langAttr = validLangs[saved] || 'zh-Hant';
+          document.documentElement.setAttribute('lang', langAttr);
+          document.documentElement.setAttribute('data-user-lang', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>AI 應用指引</title>
+  
+  <meta name="description" content="慈心華德福課程資料庫，串起課程目標、教學紀錄與媒體素材，支援備課、典藏與分享。">
+  
+  <meta name="keywords" content="Waldorf education, 華德福教育, course materials, teaching resources">
+  <link href="/course-site-starter/css/site.css" rel="stylesheet">
+
+  <!-- Embed i18n data for client-side language switching -->
+  <script>
+    window.__I18N_DATA__ = {"zh-TW":{"site":{"title":"慈心課程織圖","description":"慈心華德福課程資料庫，串起課程目標、教學紀錄與媒體素材，支援備課、典藏與分享。","homepage_description":"這是一座活的教學典藏館，收藏的不只是課程，更是師生共同創造的學習旅程。從台灣的故事到世界的詩篇，每堂課都以藝術為橋，串連人文與思想。\n您可以在這裡瀏覽工作本、黑板畫、戲劇、音樂，重溫學習的真實足跡。在這裡找到啟發與連結，讓教學在心中繼續綻放。"},"homepage":{"eyebrow":"活的典藏館","hero_title":"課程成為故事，學習化為藝術","hero_primary_cta":"探索課程","hero_secondary_cta":"教學創新亮點","course_section_title":"課程總覽","course_section_copy":"沿著華德福教學節奏，從黑板畫、戲劇到歌曲音檔，完整收藏師生共創的珍貴足跡。","tag_intro":"熱門標籤","category_section_title":"課程快速導航","category_section_copy":"快速導覽各領域課程，找到適合您的教學素材。","ethos_title":"讓學習成為生命的深刻體驗","ethos_copy":"在慈心，我們相信教育是一場陪伴孩子經驗、感受與創造的旅程。每一門課都從真實的生命情境出發，無論是走進文學、歷史，還是山林，我們都以藝術為橋樑，將知識轉化為深刻的內在力量。我們邀請您一同點燃孩子的好奇心，讓學習不只是記憶，而是一段段活出來的故事。","ethos_points":["以戲劇、故事與藝術整合學科，深化學習體驗","引導孩子從生活經驗出發，連結真實世界","鼓勵教師轉化教材，為孩子創造獨特的學習路徑"],"categories":[{"label":"藝術課程","description":"黑板畫、戲劇、音樂等整合創作。","anchor":"arts","icon":"🎨"},{"label":"自然主題","description":"山林、人文地景、節氣與環境。","anchor":"nature","icon":"🌿"},{"label":"主課程","description":"語文、歷史與跨領域主課紀錄。","anchor":"main-lesson","icon":"📖"},{"label":"歷史主課","description":"從神話到近代史的跨文化旅程。","anchor":"history","icon":"🕰️"}],"testimonials_title":"教師與學生推薦語","testimonials_copy":"典藏不只保存作品，更讓每次課程成為可延續的靈感。以下摘錄幾段來自教學現場的感謝與分享。","testimonials":[{"quote":"這是一段佔位推薦語，供未來內容使用。","author":"佔位作者 1"},{"quote":"這是第二段佔位推薦語，供未來內容使用。","author":"佔位作者 2"},{"quote":"這是第三段佔位推薦語，供未來內容使用。","author":"佔位作者 3"}],"innovation_section_title":"教學創新亮點","innovation_section_copy":"在這裡，我們不只記錄課程內容，更珍視每一位老師在教學現場的靈光乍現與反思。探索我們的教學實驗，看見課程背後的設計靈魂。","innovation_cta":"閱讀反思","innovation_prev":"上一個創新","innovation_next":"下一個創新","innovation_slider_label":"教學創新亮點","innovation_placeholder_meta":"即將推出","innovation_placeholder_title":"更多教學創新分享","innovation_placeholder_desc":"我們持續記錄老師們的教學實驗與反思，敬請期待更多精彩內容。","innovation_placeholder_author":"籌備中"},"nav":{"home":"課程介紹","courses":"所有課程","ai_guide":"應用指引","reflections":"留言與交流"},"course":{"grade":"年級","semester":"學期","unit":"課程單元","teacher":"老師","overview":"課程簡介","learning_objectives":"學習目標","teacher_intro":"教師介紹","no_description":"（尚未填寫）","no_teacher_bio":"（尚未填寫教師介紹）","open_document":"開啟完整文件","downloads":"下載資源","syllabus":"課程大綱與教學紀錄","worksheet":"學習單","workbook":"工作本","workbook_content":"工作本內容","workbook_folder_default":"工作本資料夾","workbook_folder_toggle_hint":"點擊可展開或收合","workbook_subfolder_default":"子資料夾","workbook_subfolder_toggle_hint":"點擊可檢視此子資料夾的照片","workbook_subfolder_all_photos":"全部照片","workbook_expand_all":"全部展開","workbook_collapse_all":"全部收合","blackboard":"黑板","blackboard_drawings":"黑板畫","photos":"照片","photo_gallery":"照片集","audio":"音檔","songs":"歌曲音檔","performance":"劇照","play_script":"劇本","play_script_content":"劇本內容","story":"故事","story_content":"故事內容","songs_audio":"歌曲與音檔","sheet_music":"樂譜","video":"影片","video_performance":"演出影片","download_video":"下載影片","video_drive_note":"影片由 Google Drive 提供播放，若無法載入請改用「下載影片」。","video_mov_note":"此 MOV 檔案可能無法在所有瀏覽器播放，若播放失敗請直接下載觀看。","video_unsupported":"目前僅支援 YouTube 或 Google Drive 影片，請確認素材格式。","tags":"標籤","back_to_courses":"返回所有課程","no_content":"目前沒有內容。","course_home":"課程主頁","switch_course":"切換課程","course_navigation":"課程導覽","course_materials":"-- 課程素材 --","innovation":"教學創新","innovation_page_title":"教學創新與反思","innovation_coming_soon":"教學省思內容即將推出","innovation_cta":"閱讀完整反思","innovation_section_title":"教學創新與反思","course_overview":"課程概覽","no_innovation":"尚無教學創新內容","no_innovation_desc":"此課程尚未發布教學反思或創新內容。","back_to_course":"返回課程首頁"},"filters":{"search_placeholder":"搜尋課程...","search_lang_notice":"","all_grades":"所有年級","all_domains":"所有領域","all_teachers":"所有教師","grade_filter":"年級","domain_filter":"領域","teacher_filter":"教師","showing_results":"顯示 {count} 個課程","no_results":"沒有符合的課程","reset_filters":"重設篩選"},"pagefind":{"placeholder":"搜尋","clear_search":"清除","load_more":"載入更多結果","search_label":"搜尋此網站","filters_label":"篩選","zero_results":"沒有找到 [SEARCH_TERM] 的結果","many_results":"找到 [COUNT] 個 [SEARCH_TERM] 的結果","one_result":"找到 [COUNT] 個 [SEARCH_TERM] 的結果","alt_search":"沒有找到 [SEARCH_TERM] 的結果。改為顯示 [DIFFERENT_TERM] 的結果","search_suggestion":"沒有找到 [SEARCH_TERM] 的結果。試試以下搜尋：","searching":"搜尋 [SEARCH_TERM] 中..."},"gallery":{"filter_placeholder":"篩選照片...","no_results":"沒有符合的照片","loading":"載入中...","close":"關閉"},"footer":{"license":"本網站內容採 CC BY-NC-SA 授權；照片含學生已取得公開授權。","org":"2025 慈心華德福","email":"it@waldorf.ilc.edu.tw"},"metadata":{"keywords":"Waldorf education, 華德福教育, course materials, teaching resources"},"lang":{"current":"繁體中文","switch_to":"Switch to English"}},"en-US":{"site":{"title":"Cixin Course Weaver","description":"Ci-Xin Waldorf's bilingual course archive, connecting lesson goals with teaching artifacts, media folders, and downloads for planners and partners.","homepage_description":"This site is a living museum of teaching — a space where courses become stories and learning becomes art. It gathers journeys co-created by teachers and students, spanning from Taiwan's myths to the world's masterpieces. Browse through notebooks, blackboard art, performances, and melodies, and rediscover the living pulse of education that continues to bloom within."},"homepage":{"eyebrow":"Living Teaching Archive","hero_title":"Courses become stories. Learning becomes art.","hero_primary_cta":"Explore courses","hero_secondary_cta":"Pedagogical Innovations","course_section_title":"Featured Courses","course_section_copy":"Follow the Waldorf rhythm—from blackboard landscapes to drama performances and playlists—to see how teachers and students learn together.","tag_intro":"Popular tags","category_section_title":"Course categories","category_section_copy":"Jump into collections by grade, domain, or material and find the right inspiration.","ethos_title":"Making Learning a Profound Life Experience","ethos_copy":"At Ci-Xin, we believe education is a journey where we accompany children as they experience, feel, and create. Every course begins from real-life contexts—whether delving into literature, history, or nature—using art as a bridge to transform knowledge into profound inner strength. We invite you to join us in sparking children's curiosity, transforming learning from mere memorization into stories that are lived and told.","ethos_points":["Integrating subjects with drama, stories, and art to deepen the learning experience","Guiding children to start from their life experiences and connect with the real world","Encouraging teachers to transform materials and create unique learning paths for children"],"categories":[{"label":"Arts program","description":"Blackboard art, drama, music, and integrated creations.","anchor":"arts","icon":"🎨"},{"label":"Nature studies","description":"Mountains, field work, seasons, and ecological stories.","anchor":"nature","icon":"🌿"},{"label":"Main lesson","description":"Language arts, history blocks, and interdisciplinary main lessons.","anchor":"main-lesson","icon":"📖"},{"label":"History main lesson","description":"Journeys from myths to modern history.","anchor":"history","icon":"🕰️"}],"testimonials_title":"Voices from teachers & students","testimonials_copy":"Each archive keeps the warmth of the classroom alive. Here are a few notes shared by our community.","testimonials":[{"quote":"This is a placeholder testimonial for future content.","author":"Placeholder Author 1"},{"quote":"This is another placeholder testimonial for future content.","author":"Placeholder Author 2"},{"quote":"This is a third placeholder testimonial for future content.","author":"Placeholder Author 3"}],"innovation_section_title":"Teaching Innovation Highlights","innovation_section_copy":"Beyond the syllabus. We capture the moments of brilliance and reflection inherent in teaching. Dive into our experiments and see the soul of design behind every course.","innovation_cta":"Read Reflection","innovation_prev":"Previous innovation","innovation_next":"Next innovation","innovation_slider_label":"Teaching innovation highlights","innovation_placeholder_meta":"Coming Soon","innovation_placeholder_title":"More Teaching Innovations","innovation_placeholder_desc":"We continue to document our teachers' experiments and reflections. Stay tuned for more inspiring content.","innovation_placeholder_author":"In Preparation"},"nav":{"home":"Course Introduction","courses":"All Courses","ai_guide":"Application Guide","reflections":"Comments & Discussions"},"course":{"grade":"Grade","semester":"Semester","unit":"unit","teacher":"Teacher","overview":"Course Overview","learning_objectives":"Learning Objectives","teacher_intro":"Teacher Introduction","no_description":"(Not yet provided)","no_teacher_bio":"(Teacher bio not yet provided)","open_document":"Open Full Document","downloads":"Downloads","syllabus":"Syllabus and Teaching Records","worksheet":"Worksheet","workbook":"Workbook","workbook_content":"Workbook Content","workbook_folder_default":"Workbook Folder","workbook_folder_toggle_hint":"Click to expand or collapse","workbook_subfolder_default":"Subfolder","workbook_subfolder_toggle_hint":"Click to view photos in this subfolder","workbook_subfolder_all_photos":"All Photos","workbook_expand_all":"Expand all","workbook_collapse_all":"Collapse all","blackboard":"Blackboard","blackboard_drawings":"Blackboard Drawings","photos":"Photos","photo_gallery":"Photo Gallery","audio":"Audio","songs":"Songs","performance":"Performance Photos","play_script":"Play Script","play_script_content":"Play Script Content","story":"Story","story_content":"Story Content","songs_audio":"Songs & Audio","sheet_music":"Sheet Music","video":"Video","video_performance":"Performance Video","download_video":"Download Video","video_drive_note":"Video playback is provided through Google Drive. Use the download link if it fails to load.","video_mov_note":"This MOV file may not play in every browser; download it if playback is unavailable.","video_unsupported":"Only YouTube or Google Drive videos are supported. Please verify the source format.","tags":"Tags","back_to_courses":"Back to All Courses","no_content":"No content available yet.","course_home":"Course Home","switch_course":"Switch Course","course_navigation":"Course Navigation","course_materials":"-- Course Material --","innovation":"Pedagogical Innovation","innovation_page_title":"Teaching Innovation & Reflection","innovation_coming_soon":"Innovation and reflection content coming soon","innovation_cta":"Read Complete Reflection","innovation_section_title":"Teaching Reflection","course_overview":"Course Overview","no_innovation":"No Innovation Content Available","no_innovation_desc":"This course has not yet published pedagogical innovation and reflection content.","back_to_course":"Back to Course Home"},"filters":{"search_placeholder":"Search courses...","search_lang_notice":"Note: Search is currently optimized for Traditional Chinese. For best results, please switch to 繁體中文 using the language selector above.","all_grades":"All Grades","all_domains":"All Domains","all_teachers":"All Teachers","grade_filter":"Grade","domain_filter":"Domain","teacher_filter":"Teacher","showing_results":"Showing {count} courses","no_results":"No matching courses","reset_filters":"Reset Filters"},"pagefind":{"placeholder":"Search","clear_search":"Clear","load_more":"Load more results","search_label":"Search this site","filters_label":"Filters","zero_results":"No results for [SEARCH_TERM]","many_results":"[COUNT] results for [SEARCH_TERM]","one_result":"[COUNT] result for [SEARCH_TERM]","alt_search":"No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead","search_suggestion":"No results for [SEARCH_TERM]. Try one of the following searches:","searching":"Searching for [SEARCH_TERM]..."},"gallery":{"filter_placeholder":"Filter photos...","no_results":"No matching photos","loading":"Loading...","close":"Close"},"footer":{"license":"This website content is licensed under CC BY-NC-SA; student photos are authorized for public display.","org":"2025 Cixin Waldorf","email":"it@waldorf.ilc.edu.tw"},"metadata":{"keywords":"Waldorf education, course materials, teaching resources"},"lang":{"current":"English","switch_to":"切換至繁體中文"}}};
+    window.__CURRENT_LANG__ = 'zh-TW';
+    window.__DEFAULT_LANG__ = 'zh-TW';
+    window.__BASE_PATH__ = '/course-site-starter/';
+    window.__LANG_SPECIFIC_PAGES__ = ["/ai-guide/"];
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function(){
+      const BASE = "/course-site-starter/";
+      const CDN_JS  = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.js";
+      const CDN_CSS = "https://cdn.jsdelivr.net/npm/pagefind@1/dist/pagefind-ui.css";
+      const LOCAL_JS  = BASE + "pagefind/pagefind-ui.js";
+      const LOCAL_CSS = BASE + "pagefind/pagefind-ui.css";
+      function loadCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+      function loadJS(s,on){ const t=document.createElement('script'); t.src=s; t.defer=true; t.onload=on; t.onerror=function(){ if(s!==CDN_JS){ loadCSS(CDN_CSS); loadJS(CDN_JS,on);} }; document.head.appendChild(t); }
+      fetch(LOCAL_JS,{method:'HEAD'}).then(r=>{
+        if(r.ok){ loadCSS(LOCAL_CSS); loadJS(LOCAL_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+        else{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); }
+      }).catch(()=>{ loadCSS(CDN_CSS); loadJS(CDN_JS, ()=>{ if(window.PagefindUI) window.__initPagefind && window.__initPagefind(); }); });
+    })();
+  </script>
+</head>
+<body style="background-color: var(--bg-secondary); color: var(--text-primary);">
+  <header style="background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color);" class="sticky top-0 z-[100] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4 relative">
+      <a href="/course-site-starter/" class="font-bold text-xl" style="color: var(--primary);">慈心課程織圖</a>
+      <nav class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-label="Primary navigation">
+        <ul class="flex gap-8 justify-center">
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/">課程介紹</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/courses/">所有課程</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/ai-guide/">應用指引</a>
+            </li>
+            
+            <li>
+            <a style="color: var(--text-secondary);" class="hover:text-blue-600 transition-colors font-medium" href="/course-site-starter/reflections/">留言與交流</a>
+            </li>
+            
+          </ul>
+        </nav>
+      <div class="flex items-center gap-3 ml-auto">
+        
+
+<div class="language-switcher">
+  <button
+    id="lang-toggle"
+    class="lang-button"
+    aria-label="Switch to English"
+    aria-expanded="false"
+    title="Switch to English">
+    <svg class="lang-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </svg>
+    <span class="lang-label">繁體中文</span>
+    <svg class="lang-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <div id="lang-menu" class="lang-menu" hidden>
+    
+    
+    <a
+      href="/course-site-starter/"
+      class="lang-option active"
+      data-lang="zh-TW">
+      <span class="lang-name">繁體中文</span>
+    </a>
+    
+    
+    <a
+      href="/course-site-starter/en-US/"
+      class="lang-option "
+      data-lang="en-US">
+      <span class="lang-name">English</span>
+    </a>
+    
+  </div>
+</div>
+
+<script>
+(function() {
+  const toggle = document.getElementById('lang-toggle');
+  const menu = document.getElementById('lang-menu');
+  const basePath = '/course-site-starter/';
+  const normBase = basePath.replace(/\/+$/, '');
+  const normalizePagePath = function(path) {
+    if (!path) {
+      return '/';
+    }
+    let normalized = path;
+    if (!normalized.startsWith('/')) {
+      normalized = '/' + normalized;
+    }
+    normalized = normalized.replace(/\/+$/, '');
+    return normalized === '' ? '/' : normalized;
+  };
+  const langSpecificPages = (window.__LANG_SPECIFIC_PAGES__ || []).map(normalizePagePath);
+
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isHidden = menu.hasAttribute('hidden');
+    if (isHidden) {
+      menu.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      menu.setAttribute('hidden', '');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('click', function() {
+    menu.setAttribute('hidden', '');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+
+  menu.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  // Save language preference when user clicks a language option
+  const langOptions = menu.querySelectorAll('.lang-option');
+  langOptions.forEach(function(option) {
+    option.addEventListener('click', function(e) {
+      const selectedLang = this.getAttribute('data-lang');
+      if (selectedLang) {
+        try {
+          localStorage.setItem('preferredLang', selectedLang);
+        } catch (err) {
+          // Silently fail if localStorage is unavailable
+        }
+
+        // Check if we're on a special page with language-specific versions
+        const currentPath = window.location.pathname;
+        const normPath = currentPath.replace(/\/+$/, '');
+
+        // Check if on homepage
+        const isHomepage = normPath === normBase ||
+                          normPath.match(new RegExp('^' + normBase.replace(/\//g, '\\/') + '/(en-US|zh-TW)$'));
+
+        // Normalize path relative to site base (supports subfolder deploys)
+        let relativePath = normPath;
+        if (normBase && normPath.startsWith(normBase)) {
+          relativePath = normPath.substring(normBase.length) || '/';
+        } else if (!relativePath) {
+          relativePath = '/';
+        }
+        if (!relativePath.startsWith('/')) {
+          relativePath = '/' + relativePath;
+        }
+        relativePath = relativePath.replace(/\/+$/, '') || '/';
+
+        // Determine if current page has a dedicated localized route
+        let canonicalPath = relativePath;
+        const englishPrefix = '/en-US';
+        if (canonicalPath.startsWith(englishPrefix)) {
+          canonicalPath = canonicalPath.substring(englishPrefix.length) || '/';
+          if (!canonicalPath.startsWith('/')) {
+            canonicalPath = '/' + canonicalPath;
+          }
+          canonicalPath = canonicalPath.replace(/\/+$/, '') || '/';
+        }
+
+        const matchedSpecialPage = langSpecificPages.find(function(page) {
+          return page === canonicalPath;
+        });
+
+        // For special pages with dedicated language versions, navigate to the correct URL
+        if (matchedSpecialPage && !isHomepage) {
+          e.preventDefault();
+          const pageSuffix = matchedSpecialPage === '/' ? '/' : matchedSpecialPage + '/';
+          let targetUrl;
+          if (selectedLang === 'en-US') {
+            // Navigate to English version
+            targetUrl = normBase + '/en-US' + pageSuffix;
+          } else {
+            // Navigate to Chinese version (default, no language prefix)
+            targetUrl = normBase + pageSuffix;
+          }
+          window.location.href = targetUrl;
+          return;
+        }
+
+        // For homepage and course pages, reload to apply language
+        e.preventDefault();
+        window.location.reload();
+      }
+    });
+  });
+})();
+</script>
+
+        <button
+          type="button"
+          class="mobile-menu-toggle md:hidden"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="mobile-nav-panel">
+          <span class="sr-only">Toggle navigation</span>
+          <svg class="mobile-menu-icon" data-menu-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+          </svg>
+          <svg class="mobile-menu-icon hidden" data-menu-close-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-nav-panel" class="mobile-menu-panel md:hidden hidden" data-menu-panel>
+      <div class="max-w-6xl mx-auto px-4 py-4">
+        <nav aria-label="Mobile navigation">
+          <ul class="flex flex-col gap-3">
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/">課程介紹</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/courses/">所有課程</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/ai-guide/">應用指引</a>
+            </li>
+            
+            <li>
+              <a class="block font-medium" style="color: var(--text-secondary);" href="/course-site-starter/reflections/">留言與交流</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="prose-layout">
+  <aside class="prose-toc" id="prose-toc" aria-label="Table of Contents">
+    <nav class="toc-nav">
+      <ul class="toc-list" id="toc-list">
+        <!-- Generated by toc.js -->
+      </ul>
+    </nav>
+  </aside>
+  <article class="prose-content">
+    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true" lang="en-US">
+  AI Guide for Teachers: Using AI Tools with Course Archive
+  ChatGPT Claude Gemini NotebookLM ai-index.json structured data
+  Download index file, query courses, generate worksheets, teaching materials
+  Cross-course analysis, lesson planning, educational resources
+</div>
+<h1>慈心課程織圖 AI 應用技巧：教學指引</h1>
+<h2>1. 什麼是「AI 友善網站」?它如何幫助老師?</h2>
+<p>本網站不僅是課程資料的展示平台,更是一個為 AI 設計的「結構化資料庫」。</p>
+<p>簡單來說,我們將網站上<strong>所有課程的詳細資料</strong>——從課程簡介、教學大綱,到每一份學習單、劇本、故事文稿的<strong>完整文字內容</strong>——都整理成一個名為 <code>ai-index.json</code> 的「AI 索引檔」。</p>
+<p><strong>這對老師有什麼好處?</strong></p>
+<p>您可以將這個索引檔提供給大型語言模型(如 ChatGPT, Claude, Gemini 等),讓 AI 成為您最了解「慈心課程織圖」的教學助理。您可以:</p>
+<ul>
+<li><strong>快速查詢與整合</strong>:跨課程、跨年級搜尋特定主題的教材。</li>
+<li><strong>深度分析與比較</strong>:分析不同課程的教學方法、內容差異。</li>
+<li><strong>高效創造教學資源</strong>:讓 AI 根據現有教材,自動生成新的學習單、活動計畫、劇本等。</li>
+</ul>
+<hr>
+<h2>2. AI 能讀取網站上的哪些資料?</h2>
+<p>當您將 <code>ai-index.json</code> 檔案提供給 AI 後,它能立即掌握以下所有資訊:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">資料類型</th>
+<th style="text-align:left">包含內容範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>課程基本資料</strong></td>
+<td style="text-align:left">課程名稱、年級、學期、領域、授課教師</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>課程詳細內容</strong></td>
+<td style="text-align:left">課程簡介、教學目標、教師介紹</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>教材的完整文字</strong></td>
+<td style="text-align:left"><strong>所有 PDF 和 Google Docs 的全文</strong>,例如:<br> - 學習單 (Worksheet)<br> - 課程大綱 (Syllabus)<br> - 劇本 (Play Script)<br> - 故事文稿 (Story)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>所有教材清單</strong></td>
+<td style="text-align:left">工作本、照片、黑板畫、樂譜等檔案的<strong>名稱</strong>與<strong>標籤</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>多媒體檔案資訊</strong></td>
+<td style="text-align:left">歌曲音檔、影片的連結與描述</td>
+</tr>
+</tbody>
+</table>
+<p><strong>關鍵優勢</strong>:AI 不再是猜測,而是能<strong>直接讀取並理解</strong>您上傳的每一份 PDF 教材的<strong>內文</strong>,讓它產出的內容更加貼近您的實際教學。</p>
+<hr>
+<h2>3. 如何開始?兩種主要方法</h2>
+<p>您可以根據需求,選擇以下兩種方法來讓 AI 讀取網站資料。</p>
+<h3>方法一:下載索引檔 (最推薦,資訊最完整)</h3>
+<p>此方法讓 AI 獲得最完整的資料,包含所有課程的 PDF 全文,分析結果最準確。</p>
+<p><strong>步驟一:下載 AI 索引檔</strong></p>
+<ol>
+<li>在瀏覽器中開啟以下連結:
+<ul>
+<li><a href="https://dylankuo84137.github.io/course-site-starter/ai-index.json" target="_blank">https://dylankuo84137.github.io/course-site-starter/ai-index.json</a></li>
+</ul>
+</li>
+<li>瀏覽器會顯示一個 JSON 格式的頁面。請點擊右鍵,選擇「另存新檔」,將檔案儲存到您的電腦上。檔名會是 <code>ai-index.json</code>。</li>
+</ol>
+<p><strong>步驟二:上傳檔案到 AI 聊天室</strong></p>
+<ol>
+<li>打開您慣用的 AI 工具(例如 ChatGPT, Claude, Gemini 等)。</li>
+<li>在對話框中,找到<strong>附加檔案</strong>的按鈕(通常是一個迴紋針 📎 圖示)。</li>
+<li>選擇您剛剛下載的 <code>ai-index.json</code> 檔案並上傳。</li>
+</ol>
+<p><strong>步驟三:開始提問!</strong></p>
+<p>檔案上傳成功後,您就可以開始對 AI 下指令了。建議可以先用一句話讓 AI 了解這個檔案的內容:</p>
+<blockquote>
+<p>「這是我學校的課程資料庫,裡面包含了所有課程的介紹、教材清單,以及 PDF 教材的完整文字。請根據這個檔案的內容,回答我接下來的問題。」</p>
+</blockquote>
+<h3>方法二:使用 Google NotebookLM (最方便,適合快速分析)</h3>
+<p>如果您不想下載檔案,Google 的 NotebookLM 工具可以直接讀取網站上的公開資料,非常方便。</p>
+<p><strong>步驟一:進入 NotebookLM 並新增來源</strong></p>
+<ol>
+<li>前往 <a href="https://notebooklm.google.com/" target="_blank">Google NotebookLM</a> 網站。</li>
+<li>建立一個新的筆記本 (Notebook)。</li>
+<li>在左側的「來源」(Sources) 區塊,點擊「新增來源」(Add new source),然後選擇「網站」(Website)。</li>
+</ol>
+<p><strong>步驟二:貼上網址</strong></p>
+<p>在彈出的視窗中,貼上您想分析的網址。您可以選擇:</p>
+<ul>
+<li><strong>分析整個網站</strong>:貼上網站首頁 <code>https://dylankuo84137.github.io/course-site-starter/</code></li>
+<li><strong>分析特定課程</strong>:貼上單一課程的網址,例如 <code>https://dylankuo84137.github.io/course-site-starter/courses/2a-nenggao-113-summer/</code></li>
+</ul>
+<p>NotebookLM 會自動抓取網頁內容作為資料來源。</p>
+<p><strong>步驟三:開始提問!</strong></p>
+<p>資料來源處理完畢後,您就可以在下方的對話框開始提問。因為 NotebookLM 已經知道資料來源,您可以直接問:</p>
+<blockquote>
+<p>「根據來源,摘要這門課的教學目標。」
+「為這門課設計三個延伸討論問題。」
+「找出這門課使用的所有劇本或故事,並列出它們的標題。」</p>
+</blockquote>
+<hr>
+<h2>4. 提問範例:從查詢到創造</h2>
+<p>您可以直接複製或修改以下範例,來探索 AI 的強大功能。</p>
+<p>【角色設定提示詞】<br>
+「你是慈心華德福的資深課程顧問。請讀取我上傳的 ai-index.json，這是學校完整的課程資料庫，包含課程簡介、標籤 (tags)、授課教師與教材清單。請根據這個檔案的內容回答我的問題。」</p>
+<h2><strong>4-1. 初任教師 (Beginning Teacher)</strong></h2>
+<p>風格：尋求具體指引、依賴既有架構</p>
+<p><strong>AI 角色：</strong> 隨身助教 (Hand-holding Assistant)</p>
+<h3><strong>A. 快速上手陌生課程</strong></h3>
+<ul>
+<li>提示詞：<br>
+「我要教二年級的『能高山』，但我還沒完全抓到重點。請分析這門課的簡介與教材，用列點方式告訴我：這門課最核心的三個教學目標是什麼？如果要用一句話跟孩子介紹這堂課，我該怎麼說？」</li>
+<li>提示詞：<br>
+「請幫我列出『林信宏』老師這學期的所有教材清單。請特別標示出哪些是『必須閱讀的文本』，哪些是『給學生的講義』，並附上檔案下載連結，讓我能趕快下載備課。」</li>
+</ul>
+<h3><strong>B. 轉化教學內容</strong></h3>
+<ul>
+<li>提示詞：<br>
+「我正在讀『能高山』的劇本，但我怕講得太枯燥。請幫我設計一段開場白，要適合二年級小孩的語氣，充滿畫面感，用來引起他們對這個故事的好奇心。」</li>
+<li>提示詞：<br>
+「請根據這門課的故事內容，幫我生成一份回家作業。我要三個簡單的問答題（確認有沒有聽懂）和一個畫圖題（畫出印象最深的場景）。」</li>
+</ul>
+<h2><strong>4-2. 常任教師 (Regular Teacher)</strong></h2>
+<p>風格： 熟練、尋求突破、嘗試跨界連結</p>
+<p><strong>AI 角色：</strong> 靈感夥伴 (Brainstorming Partner)</p>
+<h3><strong>A. 尋找跨領域靈感</strong></h3>
+<ul>
+<li>提示詞：<br>
+「我正在規劃一門結合『歷史』與『地理』的課程。請搜尋資料庫，看看以前有沒有老師做過類似的嘗試？請列出相關的課程名稱，並告訴我他們是怎麼把這兩個概念串連起來的？」</li>
+<li>提示詞：<br>
+「我想在自然的課程裡加入藝術元素。請幫我找找看，有哪些自然主課程（如：動物、植物）是有用到『歌曲』或『戲劇』的？請列出曲目或劇本名稱給我參考。」</li>
+</ul>
+<h3><strong>B. 深化與創新</strong></h3>
+<ul>
+<li>提示詞：<br>
+「請分析『西遊記』這門課在資料庫裡的所有版本（不同年級或不同老師）。請比較一下，大家在處理『孫悟空』這個角色時，引導的重點有什麼不同？我想找出一個我還沒嘗試過的切入點。」</li>
+<li>提示詞：<br>
+「我想把『能高山』的故事改編成一個戶外大地遊戲。請根據劇本裡的關卡（如：森林、河流），幫我設計五個闖關活動的規則，要適合全班分組進行。」</li>
+</ul>
+<h2><strong>4-3. 資深教師 (Lead Teacher)</strong></h2>
+<p>風格： 宏觀、關注系統性、致力於提攜後進</p>
+<p><strong>AI 角色：</strong> 研發秘書 (Research &amp; Mentoring Secretary)</p>
+<h3><strong>A. 課程地圖與資產盤點</strong></h3>
+<ul>
+<li>提示詞：<br>
+「請掃描全校一到六年級的所有課程，幫我檢查一下『本土文化』這個主題的覆蓋率。請依年級列出相關課程，並告訴我哪個年級的相關課程最少，我們可能需要加強。」</li>
+<li>提示詞：<br>
+「請統計資料庫中所有數位教材（PDF、影片）的分佈狀況。哪一個科目的數位資源最豐富？哪一個科目最缺乏？請給我數據，我要用來規劃明年的教材開發重點。」</li>
+</ul>
+<h3><strong>B. 經驗傳承與指導 (Mentoring)</strong></h3>
+<ul>
+<li>提示詞：<br>
+「我正在指導一位剛接一年級的新老師。請幫我把資料庫裡所有一年級的『晨圈歌曲』和『故事大綱』整理出來，變成一份『首週教學懶人包』，讓他可以照著這份清單去準備。」</li>
+<li>提示詞：<br>
+「請分析『王琬婷』老師的教學風格。根據她的課程簡介和標籤，歸納出她最重視的三個教學核心價值（例如：意志力、美感...），並舉出對應的課程為例。我要用這個來跟實習老師討論什麼是慈心的教學風格。」</li>
+</ul>
+<hr>
+<h2>5. 重要注意事項</h2>
+<ul>
+<li><strong>內容授權</strong>:本站所有內容採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW" target="_blank">CC BY-NC-SA</a> 授權,您產出的資料若要分享,請以相同方式、註明出處且<strong>不得用於商業目的</strong>。</li>
+<li><strong>再次確認</strong>:AI 產出的內容雖然快速,但仍需由您這位專業教師進行最終的審核與調整,以確保其符合您的教學目標與學生需求。</li>
+</ul>
+<p>希望這份指引能幫助您開啟與 AI 協作的全新旅程,讓備課與教學設計變得更加輕鬆、有趣!</p>
+
+  </article>
+</div>
+<script src="/course-site-starter/js/toc.js" defer></script>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3 class="footer-title">慈心課程織圖</h3>
+          <p class="footer-license">本網站內容採 CC BY-NC-SA 授權；照片含學生已取得公開授權。</p>
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" style="margin-top: 0.5rem; display: inline-block;">
+            <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0" style="border: 0;">
+          </a>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-org">© 2025 慈心華德福</p>
+          <a class="footer-email" href="mailto:it@waldorf.ilc.edu.tw">it@waldorf.ilc.edu.tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Language handler: loads synchronously to prevent FOUC -->
+  <script src="/course-site-starter/js/lang-dynamic.js"></script>
+
+  <script src="/course-site-starter/js/gallery.js" defer></script>
+  <script src="/course-site-starter/js/video-playlist.js" defer></script>
+  <script>
+    (function() {
+      const toggle = document.querySelector('[data-menu-toggle]');
+      const panel = document.querySelector('[data-menu-panel]');
+      if (!toggle || !panel) return;
+      const openIcon = toggle.querySelector('[data-menu-icon]');
+      const closeIcon = toggle.querySelector('[data-menu-close-icon]');
+
+      function setMenuState(isOpen) {
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        panel.classList.toggle('hidden', !isOpen);
+        if (openIcon && closeIcon) {
+          openIcon.classList.toggle('hidden', isOpen);
+          closeIcon.classList.toggle('hidden', !isOpen);
+        }
+      }
+
+      toggle.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        setMenuState(!expanded);
+      });
+
+      document.addEventListener('click', function(event) {
+        if (panel.classList.contains('hidden')) return;
+        if (panel.contains(event.target) || toggle.contains(event.target)) return;
+        setMenuState(false);
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          setMenuState(false);
+        }
+      });
+
+      const mediaQuery = window.matchMedia('(min-width: 768px)');
+      function handleQuery(event) {
+        if (event.matches) {
+          setMenuState(false);
+        }
+      }
+      if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', handleQuery);
+      } else if (typeof mediaQuery.addListener === 'function') {
+        mediaQuery.addListener(handleQuery);
+      }
+    })();
+  </script>
+  <script>
+    window.__pagefindInstance = null;
+    window.__initPagefind = function() {
+      try {
+        if (!window.PagefindUI) return;
+
+        // Get user's language preference
+        const savedLang = localStorage.getItem('preferredLang') || 'zh-TW';
+
+        // Destroy existing instance if present
+        if (window.__pagefindInstance && typeof window.__pagefindInstance.destroy === 'function') {
+          window.__pagefindInstance.destroy();
+        }
+
+        // Get Pagefind translations for current language
+        const pagefindTranslations = window.__I18N_DATA__[savedLang]?.pagefind || {};
+
+        // Create new instance with full translations
+        // Note: Using --force-language zh creates a single multilingual index
+        // This allows both Chinese and English content to be searched together
+        window.__pagefindInstance = new PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          translations: pagefindTranslations
+        });
+      } catch(e) {
+        console.error('Pagefind init error:', e);
+      }
+    };
+    document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
+  </script>
+
+  <!-- CommentBox.io initialization for reflections page -->
+  
+
+  <!-- Innovation slider script (homepage only) -->
+  
+</body>
+</html>
