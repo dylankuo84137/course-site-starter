@@ -87,6 +87,104 @@ const utilityFilters = {
       const safeUrl = match.replace(/"/g, '&quot;');
       return `<a class="auto-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${match}</a>`;
     });
+  },
+
+  /**
+   * Format innovation content from plain text Google Docs
+   * Detects headings from plain text patterns and converts to semantic HTML
+   *
+   * Heading patterns:
+   * - H2: 一、 二、 1. 2. (main sections with punctuation)
+   * - H3: （一） (1) (parenthetical numbers)
+   * - H4: Short standalone lines (<40 chars) followed by empty line
+   */
+  formatInnovation: (str) => {
+    if (!str) return '';
+
+    // Normalize line endings
+    const text = str.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+    // Split into lines
+    const lines = text.split('\n');
+    const output = [];
+    let i = 0;
+
+    // Helper function to check if line is a heading
+    const isHeading = (line) => {
+      const trimmed = line.trim();
+      if (!trimmed) return false;
+      // H2: Chinese/Arabic numerals with顿号 or period (一、 二、 1. 2.)
+      if (/^[一二三四五六七八九十百千萬\d]+[、.]\s*.+/.test(trimmed)) return 'h2';
+      // H3: Parenthetical numbers (（一） (1) (a))
+      if (/^[（(][一二三四五六七八九十\d]+[）)]\s*.+/.test(trimmed)) return 'h3';
+      return false;
+    };
+
+    while (i < lines.length) {
+      const line = lines[i];
+      const trimmed = line.trim();
+      const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+
+      // Skip empty lines (they'll be used for paragraph spacing)
+      if (!trimmed) {
+        i++;
+        continue;
+      }
+
+      // Check for headings FIRST
+      const headingType = isHeading(line);
+      if (headingType === 'h2') {
+        output.push(`<h2>${trimmed}</h2>`);
+        i++;
+        continue;
+      }
+
+      if (headingType === 'h3') {
+        output.push(`<h3>${trimmed}</h3>`);
+        i++;
+        continue;
+      }
+
+      // H4: Short standalone line (<40 chars) followed by empty line
+      if (trimmed.length < 40 && nextLine === '' && i + 1 < lines.length) {
+        // Check if next non-empty line exists (not end of document)
+        let hasNextContent = false;
+        for (let j = i + 2; j < lines.length; j++) {
+          if (lines[j].trim()) {
+            hasNextContent = true;
+            break;
+          }
+        }
+        if (hasNextContent) {
+          output.push(`<h4>${trimmed}</h4>`);
+          i++;
+          continue;
+        }
+      }
+
+      // Regular paragraph: collect consecutive non-empty, non-heading lines
+      const paragraphLines = [];
+      while (i < lines.length) {
+        const currentLine = lines[i];
+        const currentTrimmed = currentLine.trim();
+
+        // Stop if we hit an empty line or a heading
+        if (!currentTrimmed || isHeading(currentLine)) {
+          break;
+        }
+
+        paragraphLines.push(currentTrimmed);
+        i++;
+      }
+
+      if (paragraphLines.length > 0) {
+        // Join lines with space for natural text flow
+        const paragraphText = paragraphLines.join(' ');
+        output.push(`<p>${paragraphText}</p>`);
+      }
+    }
+
+    return output.join('\n');
   }
 };
 

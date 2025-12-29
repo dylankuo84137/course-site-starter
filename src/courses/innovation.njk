@@ -40,24 +40,31 @@ permalink: "/courses/{{ c.slug }}/innovation/index.html"
   <article class="prose-content" style="margin-left: 0; max-width: none;">
     {% if innovation %}
       {#
-        Single Language Per File Architecture with CSS Toggling:
-        - Each language stored in separate files: zh-TW/, en-US/
-        - Render both versions with data-lang attributes
-        - CSS shows/hides based on html[data-user-lang]
-        - Enables client-side language switching without page reload
+        Hybrid Content Architecture:
+        - Google Docs: Plain text with formatInnovation filter
+        - Legacy Markdown: Processed with markdown filter
+        - Bilingual content with CSS toggling based on html[data-user-lang]
       #}
 
       {# Chinese content (always present) #}
       {% if innovation['zh-TW'] %}
       <div class="innovation-content" data-lang="zh-TW">
-        {{ innovation['zh-TW'].body | markdown | safe }}
+        {% if innovation['zh-TW'].source == 'google-doc' %}
+          {{ innovation['zh-TW'].body | formatInnovation | autoLink | safe }}
+        {% else %}
+          {{ innovation['zh-TW'].body | markdown | safe }}
+        {% endif %}
       </div>
       {% endif %}
 
       {# English content (if available) #}
       {% if innovation['en-US'] %}
       <div class="innovation-content" data-lang="en-US">
-        {{ innovation['en-US'].body | markdown | safe }}
+        {% if innovation['en-US'].source == 'google-doc' %}
+          {{ innovation['en-US'].body | formatInnovation | autoLink | safe }}
+        {% else %}
+          {{ innovation['en-US'].body | markdown | safe }}
+        {% endif %}
       </div>
       {% else %}
       <div class="innovation-content" data-lang="en-US">
@@ -68,7 +75,11 @@ permalink: "/courses/{{ c.slug }}/innovation/index.html"
           </p>
         </div>
         {% if innovation['zh-TW'] %}
-        {{ innovation['zh-TW'].body | markdown | safe }}
+          {% if innovation['zh-TW'].source == 'google-doc' %}
+            {{ innovation['zh-TW'].body | formatInnovation | autoLink | safe }}
+          {% else %}
+            {{ innovation['zh-TW'].body | markdown | safe }}
+          {% endif %}
         {% endif %}
       </div>
       {% endif %}

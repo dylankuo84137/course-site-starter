@@ -112,10 +112,12 @@ currentLang: zh-TW
   {% endif %}
 
   {# ==================== INNOVATION HIGHLIGHTS SLIDER ==================== #}
+  {# Include courses that have innovation_summary or innovation_question in i18n #}
   {% set featuredInnovations = [] %}
   {% for c in coursesList %}
-    {% set hasInnovation = courseInnovations[c.slug] %}
-    {% if hasInnovation %}
+    {% set innovationSummary = i18nMacro.cf(c, 'innovation_summary', currentLang) %}
+    {% set innovationQuestion = i18nMacro.cf(c, 'innovation_question', currentLang) %}
+    {% if innovationSummary or innovationQuestion %}
       {% set featuredInnovations = (featuredInnovations.push(c), featuredInnovations) %}
     {% endif %}
   {% endfor %}
@@ -142,8 +144,15 @@ currentLang: zh-TW
         {% for c in featuredInnovations %}
         {% set innovationSummary = i18nMacro.cf(c, 'innovation_summary', currentLang) %}
         {% set innovationQuestion = i18nMacro.cf(c, 'innovation_question', currentLang) %}
+        {% set hasInnovationContent = courseInnovations[c.slug] %}
 
-        <article class="home-innovation-card" data-course-i18n="{{ c.i18n | json }}">
+        <article class="home-innovation-card"
+                 data-course-i18n="{{ c.i18n | json }}"
+                 data-course-url="{{ ('/courses/' + c.slug + '/') | url }}"
+                 style="cursor: pointer;"
+                 role="link"
+                 tabindex="0"
+                 aria-label="{{ i18nMacro.cf(c, 'title', currentLang) }} - {{ i18n[currentLang].course.course_home }}">
           {% if c.hero_image %}
           <div class="home-innovation-card-image">
             <img src="https://drive.google.com/thumbnail?id={{ c.hero_image }}&sz=w1200"
@@ -170,9 +179,13 @@ currentLang: zh-TW
                 <span class="teacher-badge">{{ c.metadata.teacher_name }}</span>
               </div>
               {% endif %}
-              <a href="{{ ('/courses/' + c.slug + '/innovation/') | url }}" class="home-innovation-cta">
+              {% if hasInnovationContent %}
+              <a href="{{ ('/courses/' + c.slug + '/innovation/') | url }}"
+                 class="home-innovation-cta"
+                 onclick="event.stopPropagation()">
                 <span data-i18n="homepage.innovation_cta">{{ homepageStrings.innovation_cta or '閱讀反思' }}</span> →
               </a>
+              {% endif %}
             </div>
           </div>
         </article>

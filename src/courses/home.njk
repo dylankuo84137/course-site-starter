@@ -21,24 +21,34 @@ permalink: "/courses/{{ c.slug }}/index.html"
 {{ breadcrumb.actionTabs(c, 'home', currentLang, i18n) }}
 
 {# Innovation Teaser Card with Tags - appears below hero on all screen sizes #}
-{% set innovation = courseInnovations[c.slug] %}
-{% if innovation %}
+{# Show if course has innovation_summary or innovation_question in i18n #}
+{# But only show link if there's actual innovation content (Google Doc or markdown) #}
+{% set innovationSummary = i18nMacro.cf(c, 'innovation_summary', currentLang) %}
+{% set innovationQuestion = i18nMacro.cf(c, 'innovation_question', currentLang) %}
+{% set hasInnovationContent = courseInnovations[c.slug] %}
+{% if innovationSummary or innovationQuestion %}
 <div class="innovation-with-tags-wrapper">
   <aside class="innovation-teaser-card" aria-label="{{ i18n[currentLang].course.innovation_section_title }}" data-course-i18n="{{ c.i18n | json }}">
     <div class="innovation-teaser-header">
       <div class="innovation-teaser-icon" aria-hidden="true">💡</div>
       <span class="innovation-section-title">{{ i18n[currentLang].course.innovation_section_title }}</span>
     </div>
+    {% if innovationQuestion %}
     <h3 class="innovation-teaser-question" data-i18n-course="innovation_question">
-      {{ i18nMacro.cf(c, 'innovation_question', currentLang) }}
+      {{ innovationQuestion }}
     </h3>
+    {% endif %}
+    {% if innovationSummary %}
     <p class="innovation-teaser-summary" data-i18n-course="innovation_summary">
-      {{ i18nMacro.cf(c, 'innovation_summary', currentLang) }}
+      {{ innovationSummary }}
     </p>
+    {% endif %}
+    {% if hasInnovationContent %}
     <a href="{{ ('/courses/' + c.slug + '/innovation/') | url }}"
        class="innovation-teaser-cta">
       {{ i18n[currentLang].course.innovation_cta }}
     </a>
+    {% endif %}
   </aside>
 
   {# Tags Section #}

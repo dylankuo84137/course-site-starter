@@ -40,4 +40,27 @@
   });
 
   slider.setAttribute('tabindex', '0');
+
+  // Make innovation cards clickable - navigate to course home page
+  const cards = document.querySelectorAll('.home-innovation-card[data-course-url]');
+  cards.forEach(card => {
+    // Click handler
+    card.addEventListener('click', (e) => {
+      const courseUrl = card.getAttribute('data-course-url');
+      if (courseUrl) {
+        window.location.href = courseUrl;
+      }
+    });
+
+    // Keyboard accessibility (Enter key)
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const courseUrl = card.getAttribute('data-course-url');
+        if (courseUrl) {
+          window.location.href = courseUrl;
+        }
+      }
+    });
+  });
 })();
