@@ -37,14 +37,17 @@ Materials live under `course.material` (media assets) and `course.docs` (text do
 | `drive-file` | Single Google Drive file |
 | `manual` | Manually specified file/link |
 | `youtube` | YouTube video (id field holds video ID) |
+| `google-doc` | Google Doc — content synced via `fetch-drive.mjs` into `docs.*` entries |
 
 ## Accessing Materials in Templates
 
 Use `materialHelpers` (available as a global in all templates):
 
 ```nunjucks
-{# Check if a material section exists #}
+{# Check if a material section exists before rendering #}
 {% if materialHelpers.hasMaterial(course, 'songs') %}
+  {# ... render songs ... #}
+{% endif %}
 
 {# Get items from a material section #}
 {% set items = materialHelpers.getMaterialItems(course, 'workbook_photos') %}
