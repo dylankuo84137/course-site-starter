@@ -1,355 +1,116 @@
-# AI Assistant Guide: Cixin Course Weaver
+# CLAUDE.md
 
-> **Location:** This file is at the project root (`CLAUDE.md`) for project-wide AI assistant guidance.
-> **Companion:** See `AGENTS.md` for specialized agent workflows.
-> **Structure:** See `docs/development/STRUCTURE.md` for complete directory organization.
+This file is the **AI Layer** for this project: the always-loaded contract that tells
+Claude how to think, work, and verify here. Keep it lean (aim for under ~2.5k tokens); a bloated system
+prompt starts every session already degraded.
 
-**Core principle:** Build simple (unbraided) artifacts, not just easy (convenient) code.
+---
 
-## Project Facts
+## Smart Zone
 
-**Tech stack:** 11ty + Nunjucks + vanilla JS + Pagefind + Drive sync
-**Hosting:** GitHub Pages project subpath (e.g., `/course-site-starter/`)
-**Language:** Traditional Chinese UI, English docs/comments
-**Course Data:** JSON configs in `src/_data/course-configs/`
+LLMs have two hard limits this project is designed around:
 
-### Key constraints:
-- No external GitHub Actions allowed
-- Base path must use `{{ '/path' | url }}` for all internal links
-- Search via Pagefind (local first, CDN fallback)
-- Drive sync: `scripts/sync/fetch-drive.mjs` pulls public folders using `GOOGLE_API_KEY`
-- Course validation: `npm run validate` checks schema compliance
-- Images: thumbnail → lightbox gallery with text filter
-- Audio: inline playback + download links
+1. **Context decay** — an agent does its best work in roughly the first ~100k tokens of a
+   session. Past that, attention relationships overload and decisions get sloppy. A larger
+   context window does not fix this; it only buys more *dumb zone*.
+2. **Amnesia** — clearing context resets the agent entirely. Nothing survives a session
+   except what was written to a file.
 
-## Core Rules
+The working rules that follow from this:
 
-### 1. Separation of Concerns
-- **Data:** JSON files in `src/_data/course-configs/` + `scripts/sync/fetch-drive.mjs`
-- **Templates:** Pure Nunjucks (no JS logic)
-- **Behavior:** Small vanilla JS modules
-- **Styles:** `public/css/site.css`
+- **One job per session.** Plan, implement, and review are separate sessions (see
+  [PIV Loop](#piv-loop)). Don't review code in the same session that wrote it — the
+  reviewer would be a dumber version of the implementer.
+- **Prefer `/clear` over compaction.** Clearing returns you to a known baseline. Compaction
+  leaves sediment that destabilizes later behavior. Re-prime from files instead.
+- **Offload research to sub-agents.** Codebase exploration can burn hundreds of thousands
+  of tokens. Delegate it; pull back only the summary so the main context stays in the
+  smart zone.
+- **Files are the only durable memory.** The handoff between sessions is a written
+  artifact (a plan, a report), never the agent's recollection.
+- **Watch your own budget.** If a task is pushing you past the smart zone mid-build, write
+  a checkpoint file describing remaining work and stop cleanly rather than degrading.
 
-### 2. Base Path Correctness
-```javascript
-// .eleventy.js
-pathPrefix: process.env.ELEVENTY_BASE || '/'
-```
-```html
-<!-- All internal links -->
-<a href="{{ '/page' | url }}">Link</a>
-<link href="{{ '/css/site.css' | url }}">
-```
+## PIV Loop
 
-### 3. Drive Integration
-- Auto-tag images: grade/semester/unit/domain + `[tag]`/`#tag` from filenames
-- Sync script only mutates JSON, never templates
-- Handle shortcuts by resolving target ID
-- Fail gracefully in CI (warn, don't block)
+The per-task inner loop: **Plan → Implement → Validate**. Each phase is a *fresh session*;
+the plan file is the only interface between Plan and Implement. This separation is
+deliberate — it stops planning bias and context pollution from leaking into implementation.
 
-### 4. Gallery & Search
-- Gallery: one overlay, keyboard nav (←/→/ESC), simple filter
-- Search: build with `npx pagefind --site _site`, runtime fallback to CDN
-- Images: try thumbnail first, fallback to `uc?export=view`
+1. **Plan** (`/plan`) — New session. Load the Issue plus the relevant slice of the
+   codebase, explore (delegate heavy research to sub-agents), and emit a context-rich
+   plan to `.agents/plans/{name}.plan.md`. No code is written. The plan names the exact
+   `file:line` patterns to mirror, the files to change, an ordered task list, and the
+   validation strategy.
+2. **Implement** (`/implement`) — **Reopen a fresh session.** Read the plan, verify its
+   assumptions against the real code, then execute task by task. Run the project's checks
+   after every task and fix failures before moving on — never accumulate broken state.
+3. **Validate** (`/validate`) — **Own fresh session.** Runs the full gate (`.claude/validate.sh` +
+   the plan's E2E checklist), then hands to human review. Pass → merge. Problem →
+   drop into the [System Evolution](#system-evolution) outer loop via `/retroactive`.
 
-### 5. Multi-Language Support
-**Architecture:** Client-side dynamic translation with zero-FOUC (Flash of Unstyled Content)
+Anytime you find yourself prompting the same thing more than three times, promote it to a
+command or skill.
 
-#### Data Structure: Single Source of Truth
-**Course JSON** - All translatable content lives in `i18n` object only:
-```json
-{
-  "slug": "course-example",
-  "hero_image": "drive-file-id",
-  "metadata": {
-    "grade_level": "2",
-    "domain_category": "nature",
-    "teacher_name": "Teacher Name",
-    "tags": ["戲劇", "黑板畫"]
-  },
-  "i18n": {
-    "zh-TW": {
-      "title": "課程標題",
-      "grade": "年級",
-      "overview": "課程簡介..."
-    },
-    "en-US": {
-      "title": "Course Title",
-      "grade": "Grade Level",
-      "overview": "Course overview..."
-    }
-  },
-  "material": {
-    "workbook_photos": [
-      {
-        "type": "drive-folder",
-        "id": "folder-id",
-        "items": []
-      }
-    ],
-    "songs": [
-      {
-        "type": "drive-folder",
-        "id": "folder-id",
-        "items": []
-      }
-    ]
-  },
-  "docs": {
-    "syllabus": {
-      "type": "google-doc",
-      "id": "doc-id",
-      "content": "",
-      "downloadUrl": "",
-      "lastSynced": ""
-    }
-  }
-}
-```
+## System Evolution
 
-**Material types:** `drive-folder`, `drive-file`, `manual`, `youtube`
-**Legacy keys blocked:** `drive_folders`, `google_docs`, `files.*`, `youtube_videos`, root-level `tags`
+The outer loop. When a PIV Loop surfaces a bug or a miss, don't just patch the surface
+code — treat it as a signal that the **AI Layer itself** is incomplete. Run a *retroactive
+session*:
 
-**NEVER duplicate fields at root level** - eliminates maintenance burden.
+> "You let this problem reach the codebase. Look at your AI Layer — the rules, commands,
+> skills, and workflow — and find what we can change so this class of problem can't recur."
 
-#### Template Access: Unified Macros
-**Course field macro** - Use `cf()` for i18n access:
-```nunjucks
-{% import "macros/i18n.njk" as i18nMacro %}
-{{ i18nMacro.cf(course, 'title', currentLang) }}
-```
-Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` → `course[field]`
+Four places to look:
 
-**Material helpers** - Use `materialHelpers` for material/docs access:
-Always use these helpers instead of accessing `course.material` or `course.docs` directly.
+1. **Commands** — is the procedure itself missing a step?
+2. **On-demand context** — do `docs/development/` reference files need updating?
+3. **Global rules** (this file) — is an existing constraint too vague to bind?
+4. **Plan / PRD templates** — is a section structurally missing?
 
-#### Language Preference Flow
-1. **Early Detection** (`base.njk` inline `<script>` in `<head>`)
-   - Runs before ANY content renders
-   - Checks `localStorage.preferredLang`
-   - Sets `html[lang]` and `data-user-lang` attributes synchronously
+## Conventions
 
-2. **FOUC Prevention** (`site.css`)
-   ```css
-   html:not([data-lang-ready]) body {
-     visibility: hidden;
-   }
-   ```
-   - Hides body until translation completes
-   - Removed when `data-lang-ready="true"` is set
+Behavioral guardrails for every change. These bias toward caution over speed; for trivial
+tasks, use judgment.
 
-3. **Dynamic Translation** (`lang-dynamic.js`)
-   - Loads synchronously at end of `<body>`
-   - Uses TreeWalker to find/replace UI text nodes
-   - Parses `data-course-i18n` JSON for course content
-   - Skips language switcher elements to avoid recursion
-   - Marks page ready after translation
+**Think before coding.** State assumptions explicitly; if uncertain, ask. If multiple
+interpretations exist, surface them all — don't silently pick one. If something is unclear,
+stop and name what's confusing.
 
-#### Homepage Behavior
-- `/` → default (zh-TW)
-- `/zh-TW/` → Traditional Chinese
-- `/en-US/` → English
-- Auto-redirects based on saved preference
+**Simplicity first.** Write the minimum code that solves the problem. No speculative
+features, no abstractions for single-use code, no error handling for impossible scenarios.
+If 200 lines could be 50, rewrite it.
 
-#### Course Page Behavior
-- All course pages built once (default zh-TW)
-- Client-side translation if user prefers en-US
-- Preference persists across navigation
-- Page reload applies new language immediately
+**Surgical changes.** Touch only what the task requires. Don't "improve" adjacent code or
+reformat unrelated lines. Match existing style. Remove only the orphans *your* change
+created; leave pre-existing dead code (mention it instead). Every changed line should trace
+to the request.
 
-#### Performance Considerations
-- **No duplicate builds:** One set of course pages, not N × languages
-- **No duplication:** Each field exists once in `i18n` object
-- **Inline critical script:** Language detection in `<head>` (< 0.2 KB)
-- **Synchronous translation:** Executes before first paint
-- **CSS-based hiding:** More efficient than JS visibility toggle
-- **localStorage cache:** Instant preference recall
+**Goal-driven execution.** Turn each task into a verifiable success criterion before
+starting — "add validation" becomes "write tests for invalid inputs, then make them pass."
+Strong criteria let the agent loop independently; weak ones ("make it work") force constant
+clarification.
 
-#### Translation Data
-- **UI strings:** `_data/i18n/{zh-TW,en-US}.json`
-- **Course content:** `_data/course_*.json` inside `i18n` object
-- Embedded in page: `window.__I18N_DATA__` (UI), `data-course-i18n` (courses)
-- TreeWalker reverse lookup: Chinese text → key path → English text
-- No external API calls or async dependencies
+**Verification-led.** Rate of feedback is your speed limit. Define how you'll verify work
+*before* doing it. Run `.claude/validate.sh` after every meaningful change.
 
-#### Never Do
-- Don't build duplicate pages per language (breaks simplicity)
-- Don't use `defer` on `lang-dynamic.js` (causes FOUC)
-- Don't skip `data-lang-ready` marker (causes flash)
-- Don't translate language switcher labels (causes recursion)
-- **Don't duplicate translatable fields at course JSON root level**
-- **Don't access course fields directly** - always use `cf()` macro
-- **Don't access `course.material` or `course.docs` directly** - use `materialHelpers` methods
+---
 
-#### Always Do
-- Keep inline script minimal (localStorage check only)
-- Use CSS for visibility control (declarative)
-- Load translation script synchronously
-- Test with preference cleared and set
-- **Use `i18nMacro.cf(course, field, lang)` for i18n fields**
-- **Use `materialHelpers.getMaterialItems()`, `.hasMaterial()`, `.getDoc()` for material/docs**
-- **Add new course fields inside `i18n` object only**
+### Project Specifics
 
-### 6. AI Accessibility (Text-First Design)
-**Goal:** Make all content machine-readable for AI tools (NotebookLM, ChatGPT, Claude, etc.)
-
-#### Semantic Structure
-- Use proper HTML5 tags: `<article>`, `<section>`, `<nav>`, `<aside>`
-- Maintain strict heading hierarchy: h1 → h2 → h3 (no skips)
-- Add unique fragment IDs to all content blocks: `id="unit-2-lesson-3"`
-- Use `<time datetime="...">` for all dates
-- Meaningful alt text for all images (describe educational content)
-
-#### Structured Metadata
-- JSON-LD schema on all course pages (`@type: "Course"`)
-- Include: `name`, `description`, `provider`, `teaches`, `educationalLevel`
-- Add `learningObjectives` array to course JSON
-- Use `<meta name="description">` with 2-3 sentence summaries
-
-#### AI Discovery Files
-Create these machine-readable endpoints:
-- `/for-ai.html` - Human-readable guide to site structure
-- `/ai-index.json` - Complete course catalog in structured format
-- `/feed.json` - Course updates with ISO timestamps
-- `/sitemap.xml` - All pages with priority/changefreq
-
-#### Content Requirements
-- **Lesson summaries:** 2-3 sentences intro on every course page
-- **Alt text:** Educational context, not just description ("Week 3 blackboard: firefly lifecycle diagram")
-- **Audio transcripts:** Text descriptions for songs/narration
-- **Link context:** Use descriptive text, not "click here"
-
-#### Interlinking Standards
-```html
-<!-- Good: precise citations -->
-<a href="{{ '/courses/2a-nenggao/workbook' | url }}#week-3">Week 3 Firefly Study</a>
-
-<!-- Bad: vague references -->
-<a href="{{ '/courses/2a-nenggao/workbook' | url }}">Click here</a>
-```
-
-## Development Workflow
-
-### Available Commands
-
-```bash
-# Development
-npm run dev          # Standard dev mode (~45s build, with search)
-npm run dev:fast     # Fast dev mode (~18s initial, <1s rebuilds) - RECOMMENDED
-
-# Build
-npm run build        # Static build with validation
-npm run build:search # Search index only (requires build first)
-npm run build:full   # Complete build (static + search)
-
-# Deploy
-npm run deploy       # Equals build:full
-```
-
-### Fast Development Workflow (Recommended)
-
-**Daily development:**
-```bash
-npm run dev:fast     # Initial build ~18s
-# Edit files → auto-rebuild in <1s
-# Browser auto-reloads
-```
-
-**Before committing:**
-```bash
-npm run build:full   # Verify validation + search (~45s)
-```
-
-### Performance Comparison
-
-| Command | Initial Build | File Change | Search | Use Case |
-|---------|---------------|-------------|--------|----------|
-| `dev` | ~45s | ~45s | ✅ Yes | Test search functionality |
-| `dev:fast` | ~18s | <1s | ❌ No | **Daily development (recommended)** |
-| `build:full` | ~45s | - | ✅ Yes | Pre-commit validation |
-
-### Key Optimizations
-
-**dev:fast** uses:
-- `--incremental`: Only rebuilds changed files
-- `SKIP_PDF_CACHE=1`: Skips PDF text cache loading (saves memory/I/O)
-- No search indexing: Faster iteration
-
-**PDF Cache Notes:**
-- Only used for `/ai-index.json` generation
-- Not needed for daily template/style work
-- Use `dev` or `build` to test AI indexing
-
-**Search Index:**
-- `dev:fast` skips Pagefind indexing
-- Use `dev` or `build:full` to test search
-- Always run `build:full` before committing
-
-## Quality Gates
-
-Every change must pass:
-- [ ] `npm run dev:fast` works during development (or `npm run dev` if testing search)
-- [ ] `npm run build:full` succeeds before committing
-- [ ] `ELEVENTY_BASE="/repo/" npm run build` succeeds (subpath test)
-- [ ] All internal links work under subpath
-- [ ] Gallery keyboard navigation functions
-- [ ] Filter narrows thumbnails correctly
-- [ ] Audio plays inline with download option
-- [ ] No cross-layer coupling
-- [ ] Small, focused diffs
-
-**AI Accessibility Checks:**
-- [ ] All images have meaningful alt text
-- [ ] Heading hierarchy is valid (no h1→h3 jumps)
-- [ ] Course pages include JSON-LD schema
-- [ ] Content blocks have unique IDs for citation
-- [ ] Links use descriptive text, not generic phrases
-
-**Language Switching Checks:**
-- [ ] No flash of Chinese content on English preference
-- [ ] Language switcher shows correct current language
-- [ ] Preference persists across page navigation
-- [ ] Homepage redirects to preferred language
-- [ ] Course pages reload and translate correctly
-
-## Simple vs. Easy Test
-
-Before implementing, ask:
-1. **Independence:** Can each piece be understood alone?
-2. **Explicit boundaries:** Are data/template/behavior layers clear?
-3. **No coupling:** Did I avoid binding unrelated concerns?
-4. **Declarative first:** Could this be config instead of code?
-
-If any answer is no, redesign.
-
-## Never Do
-- Add frameworks (React/Vue/Webpack/bundlers)
-- Mix deployment logic with build logic
-- Use absolute paths (`/css/site.css`) - always use `{{ '/path' | url }}`
-- Add global mutable state
-- Hardcode specific course details
-- Use JS ternaries in Nunjucks templates
-- Use legacy course JSON keys: `drive_folders`, `google_docs`, `files.*`, `youtube_videos`
-- Access `course.material` or `course.docs` directly (use `materialHelpers` instead)
-
-## Always Do
-- Use `{{ '/path' | url }}` for internal references
-- Keep `gallery.js` minimal and focused
-- Reuse `components/course-breadcrumb.njk` and `components/drive.njk`
-- Use `materialHelpers` for all material/docs access in templates
-- Design for multiple courses
-- Favor small functions over complex configurations
-- Use `npm run dev:fast` for daily development (60-98% faster)
-- Run `npm run build:full` before committing (validates + builds search)
-- Validate course data with `npm run validate` before committing
-
-## Commit Style
-```
-feat(gallery): isolate overlay & add fallback URLs
-- removes DOM coupling to page layout  
-- consolidates keyboard handling
-- code size -0.6 KB, no new deps
-```
-
-## When Uncertain
-Choose **less**: fewer files, smaller surface area, clearer boundaries. Simplicity is a choice—make it consistently.
+- **Stack:** 11ty + Nunjucks + vanilla JS + Pagefind + Drive sync. GitHub Pages subpath `/course-site-starter/`.
+- **Verify commands:**
+  - dev: `npm run dev:fast`
+  - check: `npm run validate`
+  - full: `npm run build:full`
+  - subpath: `ELEVENTY_BASE="/course-site-starter/" npm run build`
+- **Architecture:** `src/_data/course-configs/*.json` (data) → `src/_includes/` (templates) → `public/js/` (behavior) → `public/css/site.css` (styles). See `docs/development/STRUCTURE.md`.
+- **Do-not:**
+  1. Absolute paths — always `{{ '/path' | url }}` (see `docs/development/base-path.md`)
+  2. Direct `course.material` / `course.docs` access — use `materialHelpers` (see `docs/development/material-system.md`)
+  3. Direct i18n field access — use `i18nMacro.cf(course, field, lang)` (see `docs/development/i18n-architecture.md`)
+  4. Translatable fields at JSON root — `i18n` object only
+  5. Legacy keys: `drive_folders`, `google_docs`, `files.*`, `youtube_videos`
+  6. `defer` on `lang-dynamic.js` — causes FOUC
+  7. JS ternaries in Nunjucks templates
+  8. Frameworks (React/Vue/Webpack/bundlers)
