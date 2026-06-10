@@ -16,8 +16,10 @@ src/_data/course-original/
 src/_data/pdf-text-cache/*.json
 !src/_data/pdf-text-cache/.gitkeep
 
-# Ignore .claude directory
-.claude/
+# Ignore most .claude files, but track specific scripts
+.claude/*
+!.claude/validate.sh
+!.claude/settings.json
 
 # Ignore logs
 logs/
