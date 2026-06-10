@@ -71,7 +71,7 @@ Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` →
 
 ## Route Behavior
 
-**Homepage:** `/` → zh-TW default; `/zh-TW/` and `/en-US/` redirect based on saved preference.
+**Homepage:** `/` → zh-TW default. `/zh-TW/` and `/en-US/` are statically-built language variants; the language switcher navigates to them or reloads the current page with the saved preference applied.
 
 **Course pages:** All built once (zh-TW). Client-side translation applies on load if preference is en-US.
 
@@ -90,7 +90,7 @@ Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` →
 - Skip `data-lang-ready` marker — causes flash
 - Translate language switcher labels — causes recursion
 - Duplicate translatable fields at JSON root level
-- Access `course.i18n[lang]` directly — use `i18nMacro.cf()`
+- Access `course.i18n` at any depth directly — always use `i18nMacro.cf()`
 
 **Always:**
 - Add new course fields inside `i18n` object only
