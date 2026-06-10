@@ -58,12 +58,14 @@ Goal: make all content machine-readable for AI tools (NotebookLM, ChatGPT, Claud
 
 **Metadata:**
 - JSON-LD schema on all course pages (`@type: "Course"`)
-- Required fields: `name`, `description`, `provider`, `teaches`, `educationalLevel`
+- Required fields: `name`, `description`, `provider`, `teaches`, `educationalLevel`, `learningObjectives` (array)
 - `<meta name="description">` with 2-3 sentence summary
 
 **Machine-readable endpoints (already built):**
 - `/for-ai.html` — human-readable site guide
 - `/ai-index.json` — complete course catalog
+- `/feed.json` — course updates with ISO timestamps
+- `/sitemap.xml` — all pages with priority/changefreq
 
 **Links:** use descriptive text, not generic phrases:
 ```html
