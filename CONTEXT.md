@@ -111,4 +111,3 @@ _Avoid_: reflection, article
 The site-wide page where visitors submit course materials (via a Google Form) and leave
 comments (via a CommentBox widget). Display label is 留言與交流 / "Comments & Discussions".
 Route: `/discussion/`.
-_Avoid_: reflections (the term means course-level Innovation, not this page)
