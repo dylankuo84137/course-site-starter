@@ -8,18 +8,6 @@ currentLang: zh-TW
 {% set langData = i18n[currentLang] %}
 {% if not langData %}{% set langData = i18n['zh-TW'] %}{% endif %}
 {% set homepageStrings = langData.homepage or {} %}
-{% set uniqueTags = [] %}
-
-{% for course in coursesList %}
-  {% for tag in course.tags or [] %}
-    {% if uniqueTags.indexOf(tag) == -1 %}
-      {% set uniqueTags = uniqueTags.concat([tag]) %}
-    {% endif %}
-  {% endfor %}
-{% endfor %}
-
-{% set featuredTags = uniqueTags.slice(0, 8) %}
-
 {% set domainSlugs = [] %}
 {% for course in coursesList %}
   {% set domainSlug = course.metadata.domain_category if course.metadata else '' %}

@@ -32,7 +32,7 @@
   {% else %}
   <meta name="description" content="{{ i18n[currentLang].site.description }}">
   {% endif %}
-  <meta name="keywords" content="{{ i18n[currentLang].metadata.keywords }}{% if c and c.tags %}, {{ c.tags | join(', ') }}{% endif %}">
+  <meta name="keywords" content="{{ i18n[currentLang].metadata.keywords }}{% if c %}{% set _ctags = tagHelpers.getCourseTags(c, currentLang) %}{% if _ctags and _ctags.length %}, {{ _ctags | join(', ') }}{% endif %}{% endif %}">
   <link href="{{ '/css/site.css' | url }}" rel="stylesheet">
 
   <!-- Embed i18n data for client-side language switching -->

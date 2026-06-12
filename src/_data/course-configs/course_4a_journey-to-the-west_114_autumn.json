@@ -5,13 +5,7 @@
     "grade_level": "4",
     "domain_category": "main-lesson",
     "teacher_name": "林倩詒/Lin Qian-Yi",
-    "tags": [
-      "西遊記",
-      "戲劇",
-      "語文",
-      "主課",
-      "工作本"
-    ]
+    "tags": []
   },
   "i18n": {
     "zh-TW": {
@@ -34,7 +28,8 @@
         "看見勇敢與怠惰、智慧與愚鈍、堅定與搖擺等不同特質的對照",
         "在生活的挑戰裡選擇勇敢、堅持與智慧",
         "經驗「收斂」與「擴展」的語文學習"
-      ]
+      ],
+      "tags": ["西遊記", "戲劇", "語文", "主課", "工作本"]
     },
     "en-US": {
       "title": "Journey to the West",
@@ -56,7 +51,8 @@
         "Observe contrasting qualities such as bravery and laziness, wisdom and foolishness, steadfastness and wavering",
         "Choose bravery, perseverance, and wisdom in life's challenges",
         "Experience 'convergent' and 'divergent' language learning"
-      ]
+      ],
+      "tags": ["Journey to the West", "drama", "language arts", "main lesson", "workbook"]
     }
   },
   "material": {

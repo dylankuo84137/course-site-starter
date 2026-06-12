@@ -29,7 +29,7 @@ eleventyExcludeFromCollections: true
           "name": "{{ course.teacher }}"
         }
       ],
-      "tags": {{ course.tags | json }},
+      "tags": {{ tagHelpers.getCourseTags(course, 'zh-TW') | json }},
       "_course_metadata": {
         "slug": "{{ course.slug }}",
         "grade": "{{ course.grade }}",

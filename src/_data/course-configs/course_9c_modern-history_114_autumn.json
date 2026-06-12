@@ -5,12 +5,7 @@
     "grade_level": "9",
     "domain_category": "main-lesson",
     "teacher_name": "林信宏/Lin Xin-Hong",
-    "tags": [
-      "現代史",
-      "工業革命",
-      "青年行動",
-      "學習筆記"
-    ]
+    "tags": []
   },
   "i18n": {
     "zh-TW": {
@@ -27,7 +22,8 @@
         "了解近代至現代歷史的主要脈絡，掌握思想與制度發展的連貫性。",
         "培養時間軸、人物關聯與概念分析能力，能以筆記與書寫統整歷史理解。",
         "培養對歷史的敬意與反思，理解自己身為「歷史的承繼者與創造者」。"
-      ]
+      ],
+      "tags": ["現代史", "工業革命", "青年行動", "學習筆記"]
     },
     "en-US": {
       "title": "Modern History Main Lesson",
@@ -43,7 +39,8 @@
         "Understand the major throughlines from early modern to contemporary history and how ideas and institutions evolve together.",
         "Develop the ability to map timelines, relationships, and key concepts while using structured notes and writing to synthesize historical understanding.",
         "Cultivate respect and reflection toward history, recognizing themselves as inheritors and creators within the historical stream."
-      ]
+      ],
+      "tags": ["modern history", "industrial revolution", "youth action", "study notes"]
     }
   },
   "material": {

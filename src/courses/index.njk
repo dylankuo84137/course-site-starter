@@ -104,9 +104,10 @@ currentLang: zh-TW
           <div class="home-card-body">
             <p data-i18n-course="overview">{{ i18nMacro.cf(c, 'overview', currentLang) or '' }}</p>
           </div>
-          {% if c.tags and c.tags.length %}
+          {% set _ctags = tagHelpers.getCourseTags(c, currentLang) %}
+          {% if _ctags and _ctags.length %}
           <div class="home-tag-list">
-            {% for tag in c.tags.slice(0, 3) %}
+            {% for tag in _ctags.slice(0, 3) %}
             <span class="home-tag-pill">#{{ tag }}</span>
             {% endfor %}
           </div>

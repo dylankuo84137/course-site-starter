@@ -2,6 +2,7 @@ const i18n = require('eleventy-plugin-i18n');
 const markdownIt = require('markdown-it');
 const materialHelpers = require('./src/_data/materialHelpers.js');
 const courseHelpers = require('./src/_data/courseHelpers.js');
+const tagHelpers = require('./src/_data/tagHelpers.js');
 const translations = {
   'zh-TW': require('./src/_data/i18n/zh-TW.json'),
   'en-US': require('./src/_data/i18n/en-US.json')
@@ -39,7 +40,7 @@ const utilityFilters = {
     return formatted;
   },
   
-  jsonLD: (course, site) => {
+  jsonLD: (course, site, lang = 'zh-TW') => {
     if (!course) return '';
     const baseUrl = site?.url || '';
     const schema = {
@@ -65,8 +66,9 @@ const utilityFilters = {
         "courseWorkload": course.semester
       }
     };
-    if (course.tags && course.tags.length > 0) {
-      schema.keywords = course.tags.join(', ');
+    const tags = tagHelpers.getCourseTags(course, lang);
+    if (tags.length > 0) {
+      schema.keywords = tags.join(', ');
     }
     return JSON.stringify(schema, null, 2);
   },
@@ -241,6 +243,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addGlobalData("buildTime", () => new Date().toISOString());
   eleventyConfig.addGlobalData("materialHelpers", materialHelpers);
   eleventyConfig.addGlobalData("courseHelpers", courseHelpers);
+  eleventyConfig.addGlobalData("tagHelpers", tagHelpers);
 
   return {
     dir: { input: "src", output: "_site", includes: "_includes" },
