@@ -40,11 +40,6 @@ The free-prose, per-language labels shown on a course card (`i18n.{lang}.domain`
 Domain and Teaching Format and are NOT the canonical facet keys.
 _Avoid_: treating these as filter keys
 
-> **Known conflation:** the legacy `metadata.domain_category` field mixes both axes —
-> values like `nature`/`arts` are Subject Domain while `main-lesson` is Teaching Format.
-> Canonically these are two separate concepts; the field should be split into Subject
-> Domain and Teaching Format.
-
 **Tags**:
 Free-form, **translatable** discovery keywords for a Course, used for search, the homepage
 tag cloud, and `<meta>` keywords. Tags exist **only per-language** (`i18n.{lang}.tags`): a
