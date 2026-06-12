@@ -3,6 +3,7 @@ permalink: /ai-index.json
 eleventyExcludeFromCollections: true
 ---
 {
+  "schemaVersion": "2",
   "site": {
     "name": "{{ site.title }}",
     "description": {
@@ -271,6 +272,11 @@ eleventyExcludeFromCollections: true
         {%- set allTeachers = allTeachers.concat([course.metadata.teacher_name]) -%}
       {%- endif -%}
       {%- for tag in tagHelpers.getCourseTags(course, 'zh-TW') -%}
+        {%- if allTags.indexOf(tag) == -1 -%}
+          {%- set allTags = allTags.concat([tag]) -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for tag in tagHelpers.getCourseTags(course, 'en-US') -%}
         {%- if allTags.indexOf(tag) == -1 -%}
           {%- set allTags = allTags.concat([tag]) -%}
         {%- endif -%}

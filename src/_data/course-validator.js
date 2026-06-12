@@ -184,6 +184,10 @@ function validateI18nStructure(i18n, addError, addWarning) {
         }
       }
     }
+
+    if ('tags' in i18n[lang] && !Array.isArray(i18n[lang].tags)) {
+      addError(`i18n.${lang}.tags must be an array`, `i18n.${lang}.tags`);
+    }
   }
 
   if (i18n['zh-TW'] && i18n['en-US']) {
