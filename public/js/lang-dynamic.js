@@ -253,6 +253,28 @@
               .join('');
           }
         });
+
+        // Re-render tag pills (/courses/ cards) to match the selected language
+        if (card.classList.contains('home-course-card')) {
+          const rawTags = Array.isArray(translations.tags) ? translations.tags : [];
+          const tags = Array.from(new Set(rawTags.filter(Boolean))).slice(0, 3);
+          let tagList = card.querySelector('.home-tag-list');
+          if (tags.length === 0) {
+            if (tagList) { tagList.remove(); }
+          } else {
+            if (!tagList) {
+              const link = card.querySelector('.course-card-link');
+              if (link) {
+                tagList = document.createElement('div');
+                tagList.className = 'home-tag-list';
+                link.appendChild(tagList);
+              }
+            }
+            if (tagList) {
+              tagList.innerHTML = tags.map(tag => `<span class="home-tag-pill">#${escapeHtml(tag)}</span>`).join('');
+            }
+          }
+        }
       } catch (e) {
         // Silently handle parsing errors
       }
