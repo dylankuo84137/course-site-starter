@@ -1,13 +1,8 @@
 ---
-status: accepted (not yet implemented)
+status: accepted (implemented)
 ---
 
 # Classify courses on two orthogonal axes, filter the public site on one
-
-> **Implementation status:** This is a decision, not a completed migration. As of `main`,
-> `metadata.domain_category` is still required by `course-validator.js` and still present in
-> every course JSON; no `subject` or `format` field exists yet. The past-tense wording below
-> describes the *intended* end state, not current code.
 
 
 A Course is classified along two independent axes — **Subject Domain** (語文, 數學, 自然,

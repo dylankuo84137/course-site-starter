@@ -24,8 +24,8 @@
     "categories": [
       { "label": "Arts program", "description": "Blackboard art, drama, music, and integrated creations.", "anchor": "arts", "icon": "🎨" },
       { "label": "Nature studies", "description": "Mountains, field work, seasons, and ecological stories.", "anchor": "nature", "icon": "🌿" },
-      { "label": "Main lesson", "description": "Language arts, history blocks, and interdisciplinary main lessons.", "anchor": "main-lesson", "icon": "📖" },
-      { "label": "History main lesson", "description": "Journeys from myths to modern history.", "anchor": "history", "icon": "🕰️" }
+      { "label": "Language Arts", "description": "Language arts, reading and expression main lesson blocks.", "anchor": "language", "icon": "📖" },
+      { "label": "Social Studies", "description": "Journeys from myths to modern history.", "anchor": "social", "icon": "🕰️" }
     ],
     "testimonials_title": "Voices from teachers & students",
     "testimonials_copy": "Each archive keeps the warmth of the classroom alive. Here are a few notes shared by our community.",
@@ -122,6 +122,23 @@
     "showing_results": "Showing {count} courses",
     "no_results": "No matching courses",
     "reset_filters": "Reset Filters"
+  },
+  "subject_labels": {
+    "language": "Language Arts",
+    "nature": "Nature",
+    "arts": "Arts",
+    "social": "Social Studies",
+    "math": "Math",
+    "physical-education": "Physical Education",
+    "counseling": "Counseling",
+    "special-education": "Special Education",
+    "other": "Other"
+  },
+  "format_labels": {
+    "main-lesson": "Main Lesson",
+    "specialist": "Specialist",
+    "elective": "Elective",
+    "class-drama": "Class Drama"
   },
   "pagefind": {
     "placeholder": "Search",

@@ -61,7 +61,7 @@ currentLang: zh-TW
         data-course-slug="{{ c.slug }}"
         data-course-i18n="{{ c.i18n | json }}"
         data-grade="{{ c.metadata.grade_level if c.metadata else '' }}"
-        data-domain="{{ c.metadata.domain_category if c.metadata else '' }}"
+        data-subject="{{ c.metadata.subject if c.metadata else '' }}"
         data-teacher="{{ c.metadata.teacher_name if c.metadata else '' }}"
       >
         {# Hidden English content for Pagefind indexing #}

@@ -70,7 +70,7 @@ permalink: /for-ai/
 
     <pre><code>{
   "slug": "unique-course-identifier",
-  "metadata": { "grade_level": "4", "domain_category": "main-lesson", "teacher_name": "lin-qianyi" },
+  "metadata": { "grade_level": "4", "subject": "language", "format": "main-lesson", "teacher_name": "lin-qianyi" },
   "i18n": {
     "zh-TW": { "title": "課程名稱", "overview": "..." },
     "en-US": { "title": "Course Name", "overview": "..." }
@@ -276,7 +276,8 @@ permalink: /for-ai/
     },
     "metadata": {
       "grade_level": "2",
-      "domain_category": "nature",
+      "subject": "nature",
+      "format": "class-drama",
       "teacher_name": "王琬婷/Wang Wan-Ting",
       "heroImage": "142A6mNx2zfmWdr__8VcSu_omjxuLZ_VR"
     },
@@ -303,7 +304,7 @@ permalink: /for-ai/
     <ul>
       <li>Access Chinese content: <code>course.i18n["zh-TW"].title</code></li>
       <li>Access English content: <code>course.i18n["en-US"].title</code></li>
-      <li>Use metadata for filtering: <code>course.metadata.grade_level</code>, <code>course.metadata.domain_category</code></li>
+      <li>Use metadata for filtering: <code>course.metadata.grade_level</code>, <code>course.metadata.subject</code>, <code>course.metadata.format</code></li>
     </ul>
   </section>
 
@@ -375,7 +376,7 @@ License: CC BY-NC-SA</code></pre>
           <li>Full Google Docs text content (course descriptions, play scripts)</li>
           <li>Complete Drive metadata (images, audio, PDFs with URLs and tags)</li>
           <li>Multi-language support (zh-TW and en-US via i18n object)</li>
-          <li>Structured metadata (grade_level, domain_category, teacher_name)</li>
+          <li>Structured metadata (grade_level, subject, format, teacher_name)</li>
           <li>Added worksheet and syllabus material types</li>
           <li><strong>Implemented PDF text extraction using pdf-parse library</strong></li>
           <li>Separate cache system for extracted PDF text</li>

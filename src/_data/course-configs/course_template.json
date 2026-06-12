@@ -4,8 +4,10 @@
   "metadata": {
     "_comment_grade_level": "年級（純數字），例：1、2、3",
     "grade_level": "1",
-    "_comment_domain_category": "課程領域分類，例：main-lesson、nature、language",
-    "domain_category": "main-lesson",
+    "_comment_subject": "主題領域（語言中立 slug），可選值：language | nature | arts | social | math | physical-education | counseling | special-education | other",
+    "subject": "nature",
+    "_comment_format": "教學型態（語言中立 slug），可選值：main-lesson | specialist | elective | class-drama",
+    "format": "main-lesson",
     "_comment_teacher_name": "教師姓名，若有多位教師可填寫字串描述",
     "teacher_name": "teacher-name",
     "_comment_tags": "中性逸出口，用於無法翻譯的標記（專有名詞縮寫、年份等）。大多數課程保持空陣列即可。",

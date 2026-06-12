@@ -31,6 +31,12 @@ const YOUTUBE_ID_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
 
 const ALLOWED_ROOT_KEYS = new Set(['slug', 'hero_image', 'metadata', 'i18n', 'material', 'docs']);
 
+const VALID_SUBJECTS = new Set([
+  'language', 'nature', 'arts', 'social', 'math',
+  'physical-education', 'counseling', 'special-education', 'other'
+]);
+const VALID_FORMATS = new Set(['main-lesson', 'specialist', 'elective', 'class-drama']);
+
 /**
  * Validation error class
  */
@@ -207,13 +213,24 @@ function validateI18nStructure(i18n, addError, addWarning) {
 }
 
 function validateMetadata(metadata, addError, addWarning) {
-  const requiredMetadata = ['grade_level', 'domain_category', 'teacher_name'];
-  
+  const requiredMetadata = ['grade_level', 'subject', 'format', 'teacher_name'];
+
   for (const field of requiredMetadata) {
     if (!metadata[field] || typeof metadata[field] !== 'string') {
       addWarning(`Missing or invalid metadata field: ${field}`, `metadata.${field}`);
     }
   }
+
+  if (metadata.subject && !VALID_SUBJECTS.has(metadata.subject)) {
+    addWarning(`Unknown subject slug: "${metadata.subject}"`, 'metadata.subject');
+  }
+  if (metadata.format && !VALID_FORMATS.has(metadata.format)) {
+    addWarning(`Unknown format slug: "${metadata.format}"`, 'metadata.format');
+  }
+  if (metadata.domain_category) {
+    addWarning('metadata.domain_category is deprecated; use subject + format instead', 'metadata.domain_category');
+  }
+
   if (metadata.tags && !Array.isArray(metadata.tags)) {
     addError('metadata.tags must be an array', 'metadata.tags');
   }
