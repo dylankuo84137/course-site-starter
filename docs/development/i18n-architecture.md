@@ -14,19 +14,20 @@ All translatable content lives inside the `i18n` object in course JSON — never
   "metadata": {
     "grade_level": "2",
     "domain_category": "nature",
-    "teacher_name": "Teacher Name",
-    "tags": ["戲劇", "黑板畫"]
+    "teacher_name": "Teacher Name"
   },
   "i18n": {
     "zh-TW": {
       "title": "課程標題",
       "grade": "年級",
-      "overview": "課程簡介..."
+      "overview": "課程簡介...",
+      "tags": ["戲劇", "黑板畫"]
     },
     "en-US": {
       "title": "Course Title",
       "grade": "Grade Level",
-      "overview": "Course overview..."
+      "overview": "Course overview...",
+      "tags": ["drama", "blackboard drawings"]
     }
   }
 }
@@ -69,6 +70,17 @@ Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` →
    - Skips language switcher elements to avoid recursion
    - Sets `data-lang-ready="true"` after translation
 
+## Payload Completeness Invariant
+
+`data-course-i18n` (the full `course.i18n` object) is the **only** data the client has when
+re-rendering on a language switch. Therefore: any rendered output that is expected to track
+the selected language must be derivable **solely** from `i18n.{lang}`. If a template computes
+language-tracking output from data outside `i18n` (e.g. a `metadata` field), the client
+cannot reproduce it and the output silently freezes in the build-time language — this exact
+bug class shipped once as issue #5 (tag pills computed from `metadata.tags` + `i18n` while
+the client saw only `i18n`). Anything rendered from non-`i18n` data is by definition
+build-time static and must not be expected to change on language switch.
+
 ## Route Behavior
 
 **Homepage:** `/` → zh-TW default. `/zh-TW/` and `/en-US/` are statically-built language variants; the language switcher navigates to them or reloads the current page with the saved preference applied.
@@ -91,6 +103,8 @@ Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` →
 - Translate language switcher labels — causes recursion
 - Duplicate translatable fields at JSON root level
 - Access `course.i18n` at any depth directly — always use `i18nMacro.cf()`
+- Render language-tracking output from data outside `i18n` — the client can't reproduce it
+  (see Payload Completeness Invariant)
 
 **Always:**
 - Add new course fields inside `i18n` object only

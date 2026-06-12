@@ -47,24 +47,18 @@ _Avoid_: treating these as filter keys
 
 **Tags**:
 Free-form, **translatable** discovery keywords for a Course, used for search, the homepage
-tag cloud, and `<meta>` keywords. Each locale shows its own tags — the en-US site shows
-English tags, the zh-TW site shows Chinese ones. Tags are fundamentally **per-language**
-(`i18n.{lang}.tags`); `metadata.tags` is a rarely-used neutral escape hatch for genuinely
-untranslatable tokens (a proper-noun slug, a year) and is empty for most Courses.
-_Avoid_: keywords, labels, categories; putting language-specific tags in `metadata.tags`
+tag cloud, and `<meta>` keywords. Tags exist **only per-language** (`i18n.{lang}.tags`): a
+tag is meaningful only in relation to the course content it describes, so there is no
+language-neutral tag layer. A genuinely untranslatable token (a proper noun, a year) is
+simply written into each locale's list. Each locale shows its own tags — the en-US site
+shows English tags, the zh-TW site shows Chinese ones.
+_Avoid_: keywords, labels, categories; `metadata.tags` (abolished — there are no
+language-neutral tags)
 
-> **Known gap (two coupled debts + a hard ordering):** Per-language tags require both a code
-> fix *and* a data move, shipped together, or the en-US site regresses.
-> 1. **Data:** today every Course's tags sit in `metadata.tags` written in Chinese, while
->    both `i18n.{lang}.tags` slots are empty. They must move: Chinese → `i18n.zh-TW.tags`,
->    and `i18n.en-US.tags` must be backfilled with English.
-> 2. **Code:** `deriveTags` *merges* `metadata.tags` + every locale's tags into one shared
->    list. It must instead *select* by current locale — `dedupe(metadata.tags ++
->    i18n.{lang}.tags)` — which means it can no longer run language-agnostically at
->    hydration (`coursesList.js` serves one array to both language builds); selection moves
->    to render time, where `currentLang` is known, via a `tagHelpers` helper threaded
->    through the ~7 consumers. (`deriveTags:18`'s root-level `course.tags` branch is dead —
->    the validator blocks that legacy key.)
+> **Abolition decided, not yet implemented:** `metadata.tags` is still in code as an (always
+> empty) merge input. Removal touches: `tagHelpers.js` (merge → pure per-locale selection),
+> `course-validator.js:217` (type-check → reject as legacy key), `course_template.json` +
+> the four course configs (delete the empty field).
 
 ### Content
 
