@@ -34,7 +34,7 @@
 
     courseCards.forEach(card => {
       const grade = card.dataset.grade;
-      const domain = card.dataset.domain;
+      const domain = card.dataset.subject;
       const teacher = card.dataset.teacher;
 
       if (grade) grades.add(grade);
@@ -99,7 +99,7 @@
 
       courseCards.forEach(card => {
         const cardGrade = card.dataset.grade || '';
-        const cardDomain = card.dataset.domain || '';
+        const cardDomain = card.dataset.subject || '';
         const cardTeacher = card.dataset.teacher || '';
 
         // Get searchable text from card content
