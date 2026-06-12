@@ -24,8 +24,8 @@
     "categories": [
       { "label": "藝術課程", "description": "黑板畫、戲劇、音樂等整合創作。", "anchor": "arts", "icon": "🎨" },
       { "label": "自然主題", "description": "山林、人文地景、節氣與環境。", "anchor": "nature", "icon": "🌿" },
-      { "label": "主課程", "description": "語文、歷史與跨領域主課紀錄。", "anchor": "main-lesson", "icon": "📖" },
-      { "label": "歷史主課", "description": "從神話到近代史的跨文化旅程。", "anchor": "history", "icon": "🕰️" }
+      { "label": "語文主課", "description": "語文、閱讀與表達的主課紀錄。", "anchor": "language", "icon": "📖" },
+      { "label": "歷史社會", "description": "從神話到近代史的跨文化旅程。", "anchor": "social", "icon": "🕰️" }
     ],
     "testimonials_title": "教師與學生推薦語",
     "testimonials_copy": "典藏不只保存作品，更讓每次課程成為可延續的靈感。以下摘錄幾段來自教學現場的感謝與分享。",
@@ -122,6 +122,23 @@
     "showing_results": "顯示 {count} 個課程",
     "no_results": "沒有符合的課程",
     "reset_filters": "重設篩選"
+  },
+  "subject_labels": {
+    "language": "語文",
+    "nature": "自然",
+    "arts": "藝術",
+    "social": "社會",
+    "math": "數學",
+    "physical-education": "體育",
+    "counseling": "輔導",
+    "special-education": "特教",
+    "other": "其他"
+  },
+  "format_labels": {
+    "main-lesson": "主課程",
+    "specialist": "專科",
+    "elective": "選修",
+    "class-drama": "班級戲劇"
   },
   "pagefind": {
     "placeholder": "搜尋",

@@ -13,7 +13,8 @@ All translatable content lives inside the `i18n` object in course JSON — never
   "hero_image": "drive-file-id",
   "metadata": {
     "grade_level": "2",
-    "domain_category": "nature",
+    "subject": "nature",
+    "format": "class-drama",
     "teacher_name": "Teacher Name"
   },
   "i18n": {

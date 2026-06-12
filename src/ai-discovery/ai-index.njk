@@ -85,7 +85,8 @@ eleventyExcludeFromCollections: true
       },
       "metadata": {
         "grade_level": "{{ metadata.grade_level }}",
-        "domain_category": "{{ metadata.domain_category }}",
+        "subject": "{{ metadata.subject }}",
+        "format": "{{ metadata.format }}",
         "teacher_name": "{{ metadata.teacher_name }}",
         "heroImage": {% if course.hero_image %}"{{ course.hero_image }}"{% else %}null{% endif %}
       },
@@ -265,8 +266,8 @@ eleventyExcludeFromCollections: true
       {%- if course.metadata.grade_level and allGrades.indexOf(course.metadata.grade_level) == -1 -%}
         {%- set allGrades = allGrades.concat([course.metadata.grade_level]) -%}
       {%- endif -%}
-      {%- if course.metadata.domain_category and allDomains.indexOf(course.metadata.domain_category) == -1 -%}
-        {%- set allDomains = allDomains.concat([course.metadata.domain_category]) -%}
+      {%- if course.metadata.subject and allDomains.indexOf(course.metadata.subject) == -1 -%}
+        {%- set allDomains = allDomains.concat([course.metadata.subject]) -%}
       {%- endif -%}
       {%- if course.metadata.teacher_name and allTeachers.indexOf(course.metadata.teacher_name) == -1 -%}
         {%- set allTeachers = allTeachers.concat([course.metadata.teacher_name]) -%}

@@ -10,7 +10,7 @@ currentLang: zh-TW
 {% set homepageStrings = langData.homepage or {} %}
 {% set domainSlugs = [] %}
 {% for course in coursesList %}
-  {% set domainSlug = course.metadata.domain_category if course.metadata else '' %}
+  {% set domainSlug = course.metadata.subject if course.metadata else '' %}
   {% if domainSlug and domainSlugs.indexOf(domainSlug) == -1 %}
     {% set domainSlugs = domainSlugs.concat([domainSlug]) %}
   {% endif %}
