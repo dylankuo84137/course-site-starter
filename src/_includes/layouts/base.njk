@@ -3,7 +3,7 @@
   { href: '/' | url, label: i18n[currentLang].nav.home },
   { href: '/courses/' | url, label: i18n[currentLang].nav.courses },
   { href: '/ai-guide/' | url, label: i18n[currentLang].nav.ai_guide },
-  { href: '/reflections/' | url, label: i18n[currentLang].nav.reflections }
+  { href: '/discussion/' | url, label: i18n[currentLang].nav.discussion }
 ] %}
 <!doctype html>
 <html lang="{{ locale.htmlLang[currentLang] or 'zh-Hant' }}">
@@ -217,8 +217,8 @@
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.setupGallery) window.setupGallery(); });
   </script>
 
-  <!-- CommentBox.io initialization for reflections page -->
-  {% if page.fileSlug == 'reflections' or title == '留言與交流' or title == 'Messages & Discussions' or includeCommentBox %}
+  <!-- CommentBox.io initialization for discussion page -->
+  {% if page.fileSlug == 'discussion' or title == '留言與交流' or includeCommentBox %}
   <script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
   <script>
     commentBox('5698158134820864-proj');

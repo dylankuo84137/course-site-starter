@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-Eleventy 3 compiles everything inside `src` into `_site`. Course metadata lives in `src/_data/course-configs/` (one `course_*.json` per offering) and is transformed by helpers in `src/_data/courseValidation.js` and `coursesList.js`. Reusable layouts are under `src/_includes/layouts` and `src/_includes/components`, while route-level views stay in `src/courses/`, `src/reflections/`, and `src/index.njk`. Static assets belong in `public/` (e.g., `public/css/site.css`, `public/js/lang-dynamic.js`). Automation scripts such as `scripts/fetch-drive.mjs` and `scripts/validate-courses.js` handle Drive sync and schema checks; skim `STRUCTURE.md` for a directory deep dive.
+Eleventy 3 compiles everything inside `src` into `_site`. Course metadata lives in `src/_data/course-configs/` (one `course_*.json` per offering) and is transformed by helpers in `src/_data/courseValidation.js` and `coursesList.js`. Reusable layouts are under `src/_includes/layouts` and `src/_includes/components`, while route-level views stay in `src/courses/`, `src/discussion/`, and `src/index.njk`. Static assets belong in `public/` (e.g., `public/css/site.css`, `public/js/lang-dynamic.js`). Automation scripts such as `scripts/fetch-drive.mjs` and `scripts/validate-courses.js` handle Drive sync and schema checks; skim `STRUCTURE.md` for a directory deep dive.
 
 ## Build, Test, and Development Commands
 - `npm install` - install Eleventy, Pagefind, and helper tooling.
