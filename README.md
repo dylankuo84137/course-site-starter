@@ -79,7 +79,7 @@ course-site-starter/
 │   │   ├── blackboard.njk    # 黑板畫
 │   │   ├── scripts.njk       # 劇本照片
 │   │   └── songs.njk         # 歌曲音檔
-│   ├── reflections/
+│   ├── discussion/
 │   │   └── index.njk         # 留言交流頁
 │   └── index.njk             # 網站首頁
 └── .github/workflows/

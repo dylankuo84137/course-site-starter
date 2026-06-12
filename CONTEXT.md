@@ -110,13 +110,5 @@ _Avoid_: reflection, article
 **Discussion** (留言與交流):
 The site-wide page where visitors submit course materials (via a Google Form) and leave
 comments (via a CommentBox widget). Display label is 留言與交流 / "Comments & Discussions".
+Route: `/discussion/`.
 _Avoid_: reflections (the term means course-level Innovation, not this page)
-
-> **Route rename (decided, not yet implemented):** this Discussion page is currently served
-> at `/reflections/` — a legacy slug that collides with the domain term *Reflection* (Teaching
-> Reflection, which lives on the Innovation page, not here). The decision is to rename the
-> route to `/discussion/` and the nav key `nav.reflections → nav.discussion`. Until that
-> lands, read `/reflections/` as the Discussion route. The migration touches the `src/reflections/`
-> dir, the `permalink`, the `base.njk` nav link + the CommentBox trigger (`page.fileSlug ==
-> 'reflections'`), `sitemap.njk`, `for-ai.njk`, and the i18n key — and should fold in the stale
-> CommentBox title check (`'Messages & Discussions'`, which no longer matches any real label).
