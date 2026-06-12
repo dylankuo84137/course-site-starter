@@ -88,7 +88,7 @@
 {# 
   Structured data utilities 
 #}
-{% macro jsonLD(course, site) -%}
+{% macro jsonLD(course, site, tags = []) -%}
   {%- if not course -%}
     {{- '' -}}
   {%- else -%}
@@ -116,8 +116,8 @@
         "courseWorkload": course.semester
       }
     } -%}
-    {%- if course.tags and course.tags.length > 0 -%}
-      {%- set schema = schema | set('keywords', course.tags.join(', ')) -%}
+    {%- if tags and tags.length > 0 -%}
+      {%- set schema = schema | set('keywords', tags.join(', ')) -%}
     {%- endif -%}
     {{- JSON.stringify(schema, null, 2) -}}
   {%- endif -%}

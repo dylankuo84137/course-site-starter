@@ -8,12 +8,8 @@
     "domain_category": "main-lesson",
     "_comment_teacher_name": "教師姓名，若有多位教師可填寫字串描述",
     "teacher_name": "teacher-name",
-    "_comment_tags": "用於關鍵字搜尋與篩選的標籤陣列",
-    "tags": [
-      "tag1",
-      "tag2",
-      "tag3"
-    ]
+    "_comment_tags": "Neutral escape hatch for untranslatable tokens (proper-noun slugs, years). Empty for most courses.",
+    "tags": []
   },
   "i18n": {
     "zh-TW": {
