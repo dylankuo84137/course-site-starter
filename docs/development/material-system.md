@@ -66,7 +66,7 @@ The validator rejects these keys — do not use them:
 - `google_docs` → use `docs`
 - `files.*` → use `material`
 - `youtube_videos` → use `material` with type `youtube`
-- Root-level `tags` → use `metadata.tags`
+- Root-level `tags` / `metadata.tags` → use `i18n.{lang}.tags` (tags are per-language only)
 
 ## Sync Script
 

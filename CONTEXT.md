@@ -50,11 +50,6 @@ shows English tags, the zh-TW site shows Chinese ones.
 _Avoid_: keywords, labels, categories; `metadata.tags` (abolished — there are no
 language-neutral tags)
 
-> **Abolition decided, not yet implemented:** `metadata.tags` is still in code as an (always
-> empty) merge input. Removal touches: `tagHelpers.js` (merge → pure per-locale selection),
-> `course-validator.js:217` (type-check → reject as legacy key), `course_template.json` +
-> the four course configs (delete the empty field).
-
 ### Content
 
 **Material**:

@@ -153,11 +153,7 @@ function migrateCourse(course) {
   newCourse.docs = migrateDocs(course);
 
   if (Array.isArray(course.tags) && course.tags.length > 0) {
-    const existingTags = Array.isArray(newCourse.metadata.tags) ? newCourse.metadata.tags : [];
-    const merged = Array.from(new Set([...existingTags, ...course.tags]));
-    if (merged.length > 0) {
-      newCourse.metadata.tags = merged;
-    }
+    console.warn(`[migrate-material-schema] Root-level tags found (${course.tags.join(", ")}); metadata.tags is abolished — add them to i18n.{lang}.tags manually.`);
   }
 
   return newCourse;
