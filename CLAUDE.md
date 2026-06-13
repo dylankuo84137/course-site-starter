@@ -114,3 +114,16 @@ clarification.
   6. `defer` on `lang-dynamic.js` — causes FOUC
   7. JS ternaries in Nunjucks templates
   8. Frameworks (React/Vue/Webpack/bundlers)
+
+---
+
+## Agent skills
+
+### Issue tracker
+GitHub Issues on `dylankuo84137/course-site-starter` via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+Five canonical roles, default strings (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+Single-context: `CONTEXT.md` + `docs/adr/` at repo root. See `docs/agents/domain.md`.
