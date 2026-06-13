@@ -231,8 +231,8 @@ function validateMetadata(metadata, addError, addWarning) {
     addWarning('metadata.domain_category is deprecated; use subject + format instead', 'metadata.domain_category');
   }
 
-  if (metadata.tags && !Array.isArray(metadata.tags)) {
-    addError('metadata.tags must be an array', 'metadata.tags');
+  if ('tags' in metadata) {
+    addError('metadata.tags is a legacy key — tags are per-language only; use i18n.{lang}.tags', 'metadata.tags');
   }
 }
 
