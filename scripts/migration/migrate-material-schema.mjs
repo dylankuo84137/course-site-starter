@@ -153,7 +153,8 @@ function migrateCourse(course) {
   newCourse.docs = migrateDocs(course);
 
   if (Array.isArray(course.tags) && course.tags.length > 0) {
-    console.warn(`[migrate-material-schema] Root-level tags found (${course.tags.join(", ")}); metadata.tags is abolished — add them to i18n.{lang}.tags manually.`);
+    console.error(`[migrate-material-schema] Root-level tags found (${course.tags.join(", ")}); metadata.tags is abolished. Add them to i18n.{lang}.tags in the source file, then re-run migration.`);
+    process.exit(1);
   }
 
   return newCourse;
