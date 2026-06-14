@@ -446,7 +446,7 @@ course_*.json            pdf-text-cache/*.json       ai-index.json
 | **課程摘要** | 每頁 2-3 句簡介 | 快速理解內容 |
 | **精確連結** | 內容區塊 ID: `#unit-2-lesson-3` | 精準引用 |
 | **更新追蹤** | `/feed.json` - ISO 時間戳 | 偵測內容變更 |
-| **使用指南** | `/for-ai.html` - 站台結構說明 | AI 工具入口 |
+| **AI 探索索引** | `/llms.txt` - 機器可讀的課程探索索引（Markdown；含 `/en-US/llms.txt`） | AI 工具探索入口 |
 
 ### AI 可存取的內容
 

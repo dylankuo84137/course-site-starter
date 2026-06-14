@@ -23,3 +23,20 @@
 {{ course[field] }}
 {%- endif -%}
 {%- endmacro %}
+
+{#
+  Raw (un-HTML-escaped) variant of cf() for plain-text / non-HTML outputs
+  (e.g. the llms.txt Markdown index). Same fallback order as cf(); emits the
+  field with | safe so apostrophes/&/< stay literal instead of becoming
+  &#39;/&amp;/&lt; under Nunjucks autoescape. Do NOT use in HTML templates —
+  there cf() is correct, as escaping guards against markup injection.
+#}
+{% macro cfRaw(course, field, lang = 'zh-TW') -%}
+{%- if course.i18n and course.i18n[lang] and course.i18n[lang][field] -%}
+{{ course.i18n[lang][field] | safe }}
+{%- elif course.i18n and course.i18n['zh-TW'] and course.i18n['zh-TW'][field] -%}
+{{ course.i18n['zh-TW'][field] | safe }}
+{%- elif course[field] -%}
+{{ course[field] | safe }}
+{%- endif -%}
+{%- endmacro %}

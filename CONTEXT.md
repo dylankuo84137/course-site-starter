@@ -122,9 +122,10 @@ _Avoid_: conflating with course content; routing UI strings through `i18nMacro.c
 
 **Course Field**:
 A per-Course translatable value (`title`, `overview`, `unit`, `domain`, tags, …) stored under
-`course.i18n.{lang}`. Resolved *only* through the `i18nMacro.cf(course, field, lang)` macro,
-which applies the zh-TW fallback chain. Reaching into `course.i18n[lang][field]` directly in a
-template is the footgun the AI Layer forbids — the sole sanctioned exception is the macro itself.
+`course.i18n.{lang}`. Resolved *only* through the `i18nMacro` macro family — `cf()` in HTML sinks, `cfRaw()` in
+plain-text/Markdown sinks — both applying the zh-TW fallback chain. Reaching into
+`course.i18n[lang][field]` directly in a template is the footgun the AI Layer forbids — the
+sole sanctioned exception is the macros themselves.
 _Avoid_: direct `course.i18n[...]` access outside `macros/i18n.njk`; calling these "UI strings"
 
 **Translation Hook**:

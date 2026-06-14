@@ -45,6 +45,20 @@ Use `cf()` for all i18n field access — never access `course.i18n` directly:
 
 Fallback order: `course.i18n[lang][field]` → `course.i18n['zh-TW'][field]` → `course[field]`
 
+**`cf()` vs `cfRaw()` — pick by output sink, not by preference.** Both share the fallback
+chain above; they differ only in HTML-escaping:
+
+- **`cf()`** — for **HTML sinks** (every `.njk` page). Nunjucks autoescape turns `'`/`&`/`<`
+  into `&#39;`/`&amp;`/`&lt;`, which is the injection-safe default and what you want inside
+  markup.
+- **`cfRaw()`** — for **plain-text sinks only** (`.txt`/`.md`/JSON emitters such as the
+  `llms.txt` index). Emits the field with `| safe` so apostrophes/`&`/`<` stay literal
+  instead of corrupting the plain text. Never use it in an HTML template — there escaping is
+  the correct behavior.
+
+The split is driven by the sink, not the data: the same Course Field renders escaped in HTML
+and raw in Markdown.
+
 - **UI strings:** `src/_data/i18n/{zh-TW,en-US}.json`
 - Embedded in page as: `window.__I18N_DATA__` (UI), `data-course-i18n` attribute (courses)
 - TreeWalker reverse lookup: Chinese text → key path → English text
@@ -103,7 +117,8 @@ build-time static and must not be expected to change on language switch.
 - Skip `data-lang-ready` marker — causes flash
 - Translate language switcher labels — causes recursion
 - Duplicate translatable fields at JSON root level
-- Access `course.i18n` at any depth directly — always use `i18nMacro.cf()`
+- Access `course.i18n` at any depth directly — always use `i18nMacro.cf()` (HTML) or
+  `i18nMacro.cfRaw()` (plain-text/Markdown sinks)
 - Render language-tracking output from data outside `i18n` — the client can't reproduce it
   (see Payload Completeness Invariant)
 

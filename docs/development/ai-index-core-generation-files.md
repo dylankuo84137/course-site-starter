@@ -34,10 +34,10 @@ Core Generation Files
     - Auto-extracts PDF text during sync
     - Rate-limited to avoid Drive API throttling (500ms delay)
 
-  4. src/ai-discovery/for-ai.njk (Documentation Page)
+  4. src/ai-discovery/llms-txt.njk (AI Discovery Index)
 
-  - Purpose: Human-readable guide for AI tools at /for-ai/
-  - Content: Explains data structure, machine-readable formats, usage examples
+  - Purpose: Machine-readable Markdown discovery index of the course corpus at /llms.txt (+ /en-US/llms.txt); supersedes /ai-index.json (retirement tracked in #17)
+  - Content: Localized preamble + per-course title, summary, metadata, and Markdown links to each course's HTML pages
 
   How It Works Together
 
