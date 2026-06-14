@@ -107,6 +107,9 @@ experiment, never from docs or reasoning alone.
   - check: `npm run validate`
   - full: `npm run build`
   - subpath: `ELEVENTY_BASE="/course-site-starter/" npm run build`
+- **Worktree setup:** After `git worktree add`, symlink instead of `npm install` (worktrees live as siblings: `../{repo}-{branch}`):
+  `ln -s $(dirname $(git rev-parse --git-common-dir))/node_modules ./node_modules`
+  Exception: if `package.json` has new dependencies in this branch, run `npm install` instead.
 - **Architecture:** `src/_data/course-configs/*.json` (data) → `src/_includes/` (templates) → `public/js/` (behavior) → `public/css/site.css` (styles). See `docs/development/STRUCTURE.md`.
 - **Do-not:**
   1. Absolute paths — always `{{ '/path' | url }}` (see `docs/development/base-path.md`)
