@@ -92,7 +92,10 @@ Strong criteria let the agent loop independently; weak ones ("make it work") for
 clarification.
 
 **Verification-led.** Rate of feedback is your speed limit. Define how you'll verify work
-*before* doing it. Run `.claude/validate.sh` after every meaningful change.
+*before* doing it. Run `.claude/validate.sh` after every meaningful change. A claim about
+how a third-party or external component behaves when integrated (idempotent, compatible,
+side-effect-free) is not grounded until a probe has run it — assert it only after the
+experiment, never from docs or reasoning alone.
 
 ---
 
