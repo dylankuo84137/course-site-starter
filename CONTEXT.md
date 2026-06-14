@@ -77,6 +77,17 @@ Photographs of a drama performance — NOT the script text. A Material category,
 from Play Script despite the shared "script" wording.
 _Avoid_: scripts, play scripts
 
+**Course Page**:
+A **page type** in a Course's fixed, ordered navigation — syllabus, worksheet, story,
+play-script, workbook, photo gallery, blackboard, performance, songs, sheet-music, video.
+Each type is realized as one 11ty page per Course via pagination (route
+`/courses/{slug}/{type}/`), so a Course Page *is* a kind of 11ty page — the term names the
+**type/slot**, not the per-Course instance or the runtime `page` object. A Course Page
+*appears* only when its backing content exists; visibility is driven by the presence of its
+Material category and/or Doc (so it may be Material-backed, Doc-backed, or a composite).
+_Avoid_: tab, section; conflating with the 11ty `page` runtime global (never shadow it —
+see the nav descriptor)
+
 ### Innovation
 
 **Innovation** (教學創新 / 教學反思):
@@ -99,6 +110,32 @@ The full long-form piece, synced from a Google Doc (`docs.course_innovation`, bi
 empty for every Course. When absent, the "read more" CTA is hidden and the innovation page
 degrades to an empty-state — the teaser never links to a dead end.
 _Avoid_: reflection, article
+
+### Localization
+
+**UI String**:
+A piece of static interface text (nav labels, button captions, section headings) that is
+the same for every Course. Lives in the site-wide locale dictionary and is read directly as
+`i18n[lang].<key>` in templates — direct access is the *correct* idiom here. Distinct from a
+Course Field: a UI String never varies by Course.
+_Avoid_: conflating with course content; routing UI strings through `i18nMacro.cf`
+
+**Course Field**:
+A per-Course translatable value (`title`, `overview`, `unit`, `domain`, tags, …) stored under
+`course.i18n.{lang}`. Resolved *only* through the `i18nMacro.cf(course, field, lang)` macro,
+which applies the zh-TW fallback chain. Reaching into `course.i18n[lang][field]` directly in a
+template is the footgun the AI Layer forbids — the sole sanctioned exception is the macro itself.
+_Avoid_: direct `course.i18n[...]` access outside `macros/i18n.njk`; calling these "UI strings"
+
+**Translation Hook**:
+A `data-i18n*` DOM attribute a template puts on an element to mark it for the client-side runtime
+translator (`lang-dynamic.js` / `course-filters.js`) to localize *after load* — its value names the
+i18n key or Course Field to apply. Variants carry distinct semantics: `data-i18n` (plain text),
+`data-i18n-placeholder` (an attribute), `data-i18n-template` (a string with `{count}`-style
+placeholders), `data-i18n-course*` (per-card JSON-seeded fields). The set of legal hooks is the
+**Translation Hook contract** — pinned in a registry and enforced on the emit side by a validator,
+so a typo'd or orphaned hook fails the build instead of failing silently.
+_Avoid_: data attribute, i18n tag, translation marker
 
 ### Community
 
