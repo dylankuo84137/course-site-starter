@@ -1,8 +1,14 @@
 ---
-status: accepted (planned)
+status: rejected
 ---
 
 # Handle the GitHub Pages subpath with HtmlBasePlugin, keep `| url` as the authoring idiom
+
+> **Status: REJECTED (2026-06-15).** The plugin route was abandoned during triage of
+> Issue #19 — see "Decision reversed" at the end of this file. The double-prefix fix in
+> sitemap/feed/ai-index (a genuine bug, independent of the plugin) shipped in Issue #12 and
+> stands. `| url` remains the single base-path idiom (Do-not #1). The body below is retained
+> as the original record.
 
 The site deploys to a subpath (`/course-site-starter/`), set via `pathPrefix` in
 `.eleventy.js`. Until now the *only* mechanism applying that prefix was the explicit `| url`
@@ -49,3 +55,25 @@ Alternatives considered:
   belt-and-suspenders check against any URL the transform misses.
 - This is the fix landed by Issue A; the route-rename miss (`/reflections/` → `/discussion/`)
   is fixed in the same issue but is independent of the base-path mechanism.
+
+## Decision reversed (2026-06-15, triage of Issue #19)
+
+The remaining half of this ADR — migrate HTML templates off `| url` so the plugin can be
+registered — was rejected. The reasoning (full record in
+[`.out-of-scope/htmlbaseplugin-auto-base-path.md`](../../.out-of-scope/htmlbaseplugin-auto-base-path.md)):
+
+- The plugin's only real benefit is auto-**fixing** a forgotten prefix, but that leak class
+  is **already detected at build time** by `.claude/validate.sh` Layer 1a (greps
+  `_site/**/*.html` for unprefixed `href`/`src` and fails the build; landed in #9 / #13).
+  Net new value over today is just "build silently correct" instead of "build fails, author
+  adds the prefix."
+- Adopting the plugin would **invert Do-not #1** from one uniform rule into a split rule
+  (bare `/path` in HTML, `| url` only in non-HTML emitters), and is **permanently fragile**:
+  the plugin and `| url` are mutually exclusive in HTML (see the implementation finding
+  above), so any future `| url` in an HTML template silently re-introduces the double-prefix.
+- The migration touches 121 `| url` call sites across 18 templates to buy a guard we already
+  have — contrary to *Simplicity first* / *Surgical changes*.
+
+`HtmlBasePlugin` is therefore **not** registered. `| url` stays the single base-path idiom.
+The double-prefix bug in the non-HTML emitters (sitemap/feed/ai-index) was a real defect and
+was fixed independently in Issue #12.
