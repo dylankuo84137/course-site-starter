@@ -69,7 +69,6 @@ jobs:
       - name: Build site
         run: |
           ELEVENTY_BASE="$BASE_PATH" npm run build
-          npx pagefind --site _site
 
       - name: Deploy to gh-pages
         run: |

@@ -30,6 +30,7 @@ const DRIVE_ID_PATTERN = /^[a-zA-Z0-9_-]{28,50}$/;
 const YOUTUBE_ID_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
 
 const ALLOWED_ROOT_KEYS = new Set(['slug', 'hero_image', 'metadata', 'i18n', 'material', 'docs']);
+const LEGACY_ROOT_KEYS = new Set(['drive_folders', 'google_docs', 'youtube_videos', 'files']);
 
 const VALID_SUBJECTS = new Set([
   'language', 'nature', 'arts', 'social', 'math',
@@ -102,8 +103,10 @@ function validateCourse(course, filename = 'unknown') {
     }
 
     for (const key of Object.keys(course)) {
-      if (!ALLOWED_ROOT_KEYS.has(key) && !key.startsWith('_comment')) {
-        addWarning(`Unknown root-level key: ${key}`, key);
+      if (LEGACY_ROOT_KEYS.has(key)) {
+        addError(`Legacy root key "${key}" is forbidden — see CLAUDE.md Do-not #5`, key);
+      } else if (!ALLOWED_ROOT_KEYS.has(key) && !key.startsWith('_comment')) {
+        addError(`Unknown root-level key: ${key} — translatable fields live in i18n only`, key);
       }
     }
 

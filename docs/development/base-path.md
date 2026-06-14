@@ -41,7 +41,7 @@ ELEVENTY_BASE="/course-site-starter/" npm run build
 - Keep `gallery.js` minimal and focused — no extra features
 
 **Search (Pagefind):**
-- Build index: `npx pagefind --site _site` (included in `npm run build:full`)
+- Build index: built automatically by the `postbuild` hook on `npm run build` (no separate step, no `--force-language`)
 - Runtime: load from local index first, CDN fallback if index missing
 - `npm run dev:fast` skips indexing — use `npm run dev` to test search
 
