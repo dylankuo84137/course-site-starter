@@ -11,7 +11,8 @@ eleventyExcludeFromCollections: true
 
 {{ i18n[lang].llms.intro | safe }}
 
-{{ i18n[lang].llms.full_corpus | safe }} {{ '/llms-full.txt' | url }}
+{%- set _fullUrl = ('/llms-full.txt' if lang == locale.default else '/' + lang + '/llms-full.txt') | url -%}
+{{ i18n[lang].llms.full_corpus | safe }} {{ _fullUrl }}
 
 {{ i18n[lang].llms.license | safe }}
 
