@@ -1,16 +1,17 @@
 Core Generation Files
 
-  1. src/ai-discovery/ai-index.njk (Main Template)
+  1. src/ai-discovery/llms-full.njk (Main Template)
 
-  - Purpose: The Nunjucks template that generates /ai-index.json
+  - Purpose: The Nunjucks template that generates /llms-full.txt (zh-TW) and /en-US/llms-full.txt (en-US)
   - What it does:
-    - Outputs structured JSON of all course data
-    - Includes i18n (zh-TW and en-US) content
-    - Embeds Google Docs full text from docs object
-    - Includes Drive file metadata (images, audio, PDFs)
-    - Injects PDF text from pdfTextCache (lines 181-184)
-    - Generates site statistics (grades, domains, teachers, tags)
-  - Key feature: Uses materialHelpers to access course materials consistently
+    - Paginates over locale.available (size 1, alias lang) to emit one file per language
+    - Outputs monolingual Markdown inlining the full course corpus
+    - Per course: title, metadata, overview, innovation fields, course-innovation body
+    - Documents: Google Doc prose via materialHelpers.getDoc (course_description, story, play_script, course_innovation)
+    - Materials: catalog via materialHelpers.getMaterialItems (all material keys)
+    - PDF text: inlines pdfTextCache text for PDF items
+    - Uses cfRaw() for plain-text safe output (Do-not #8), | url for links (Do-not #1), materialHelpers for all material/doc access (Do-not #2)
+  - Note: file name is "ai-index-core-generation-files.md" — a rename to "llms-full-core-generation-files.md" is optional but was not done to avoid churn
 
   2. src/_data/pdfTextCache.js (Data Loader)
 
@@ -36,8 +37,9 @@ Core Generation Files
 
   4. src/ai-discovery/llms-txt.njk (AI Discovery Index)
 
-  - Purpose: Machine-readable Markdown discovery index of the course corpus at /llms.txt (+ /en-US/llms.txt); supersedes /ai-index.json (retirement tracked in #17)
+  - Purpose: Machine-readable Markdown discovery index of the course corpus at /llms.txt (+ /en-US/llms.txt)
   - Content: Localized preamble + per-course title, summary, metadata, and Markdown links to each course's HTML pages
+  - Sibling: links to /llms-full.txt for whole-corpus fetches
 
   How It Works Together
 
@@ -46,16 +48,16 @@ Core Generation Files
       B --> C[Extract PDF Text]
       C --> D[Cache to pdf-text-cache/*.json]
       D --> E[pdfTextCache.js loads cache]
-      F[npm run build] --> G[ai-index.njk template]
+      F[npm run build] --> G[llms-full.njk template]
       E --> G
-      G --> H[/ai-index.json output]
+      G --> H[/llms-full.txt + /en-US/llms-full.txt output]
 
   Key Commands
 
   # Sync Drive content & extract PDF text
   GOOGLE_API_KEY=xxx npm run sync:drive
 
-  # Build with PDF cache (full ai-index.json)
+  # Build with PDF cache (full llms-full.txt with pdfText)
   npm run build
 
   # Fast dev mode (skips PDF cache loading)
@@ -64,8 +66,8 @@ Core Generation Files
   Performance Notes
 
   - PDF cache loading: ~2-5s for large courses (358KB cache)
-  - Skipping cache: Saves build time but omits pdfText from ai-index.json
+  - Skipping cache: Saves build time but omits pdfText from llms-full.txt
   - Fast mode: Use dev:fast for development, run build:full before committing
 
-  The ai-index.json file is generated at src/ai-discovery/ai-index.njk:2 with permalink
-  /ai-index.json.
+  The /llms-full.txt file is generated at src/ai-discovery/llms-full.njk with permalink
+  /llms-full.txt (zh-TW) and /en-US/llms-full.txt (en-US).

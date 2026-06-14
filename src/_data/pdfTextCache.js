@@ -3,13 +3,13 @@
  *
  * Loads extracted PDF text from separate cache directory.
  * This keeps course JSON files clean while making PDF text available
- * for AI-friendly outputs like ai-index.json.
+ * for AI-friendly outputs like llms-full.txt.
  *
  * Structure: { courseSlug: { materialKey: { fileId: { name, text, lastSynced } } } }
  *
  * Performance optimization:
  * - Set SKIP_PDF_CACHE=1 to skip loading during development
- * - PDF cache is only needed for ai-index.json generation
+ * - PDF cache is only needed for llms-full.txt generation
  * - Can save significant time with large cache files (e.g., 358KB)
  */
 

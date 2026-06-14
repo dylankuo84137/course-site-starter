@@ -19,7 +19,7 @@
 - **全文搜索**: 基於Pagefind的站內搜索功能
 - **快速篩選**: 相簿頁面的即時關鍵字篩選
 - **AI 友善設計**: 文字優先架構，支援 AI 工具分析與學習（NotebookLM、ChatGPT、Claude 等）
-  - 自動生成 `ai-index.json` 包含所有課程元數據與內容
+  - 自動生成 `llms-full.txt` 包含所有課程元數據與內容
   - PDF 文字提取系統（支援 Google Docs 格式）
   - 結構化 JSON-LD 語意標記
 
@@ -241,7 +241,7 @@ course-site-starter/
    - 使用 `pdf-parse@1.1.1` 提取文字（支援原生 PDF）
    - 使用 Drive API 匯出文字（支援 Google Docs 格式）
    - 文字快取儲存於 `src/_data/pdf-text-cache/{course-slug}.json`
-   - 建置時自動載入並包含於 `ai-index.json`
+   - 建置時自動載入並包含於 `llms-full.txt`
 
 > **提示**：`.orig` 只是備份，請勿提交；主要 JSON 檔案保存乾淨的課程元數據，提交前務必還原。
 > 若圖片無法顯示，請檢查 Drive 檔案/資料夾權限設為「知道連結的任何人可檢視」。
@@ -260,7 +260,7 @@ course-site-starter/
 **架構設計：**
 ```
 課程 JSON (僅元數據)  →  PDF 文字快取 (分離儲存)  →  AI 索引 (合併輸出)
-course_*.json            pdf-text-cache/*.json       ai-index.json
+course_*.json            pdf-text-cache/*.json       llms-full.txt
 ```
 
 **資料流程：**
@@ -269,11 +269,11 @@ course_*.json            pdf-text-cache/*.json       ai-index.json
 3. `pdfTextCache.js` 在建置時載入快取（可選）
    - 標準建置：自動載入快取
    - 快速開發模式：跳過快取 (`SKIP_PDF_CACHE=1`)
-4. `src/ai-discovery/ai-index.njk` 將文字合併至 `pdfText` 欄位
-5. AI 工具可透過 `ai-index.json` 直接讀取 PDF 內容
+4. `src/ai-discovery/llms-full.njk` 將文字合併至 `pdfText` 欄位
+5. AI 工具可透過 `llms-full.txt` 直接讀取 PDF 內容
 
 **效能最佳化：**
-- PDF 快取僅用於 `/ai-index.json` 生成，日常開發不需載入
+- PDF 快取僅用於 `/llms-full.txt` 生成，日常開發不需載入
 - `npm run dev:fast` 自動跳過快取載入，節省記憶體（部分課程快取可達 358KB）
 - 若需測試 AI 索引，使用 `npm run dev` 或 `npm run build`
 
@@ -442,7 +442,7 @@ course_*.json            pdf-text-cache/*.json       ai-index.json
 |------|----------|------|
 | **語義化 HTML** | `<article>`, `<section>`, 正確標題層級 | 易於解析結構 |
 | **結構化資料** | JSON-LD Schema.org (`@type: "Course"`) | 機器理解課程內容 |
-| **AI 索引** | `/ai-index.json` - 完整課程目錄 | 程式化存取 |
+| **AI 索引** | `/llms-full.txt` - 完整課程目錄 | 程式化存取 |
 | **課程摘要** | 每頁 2-3 句簡介 | 快速理解內容 |
 | **精確連結** | 內容區塊 ID: `#unit-2-lesson-3` | 精準引用 |
 | **更新追蹤** | `/feed.json` - ISO 時間戳 | 偵測內容變更 |
@@ -457,14 +457,14 @@ course_*.json            pdf-text-cache/*.json       ai-index.json
 
 2. **結構化資料**（JSON 格式）
    - `/_data/course-configs/course_*.json` - 課程元資料
-   - `/ai-index.json` - 完整課程索引（包含 Google Docs 文字內容）
+   - `/llms-full.txt` - 完整課程索引（包含 Google Docs 文字內容）
    - `/feed.json` - 更新時間軸
 
 3. **PDF 文字提取**
    - **原生 PDF 支援**：使用 `pdf-parse@1.1.1` 自動提取文字內容
    - **Google Docs 支援**：透過 Drive API 快速匯出純文字
    - **分離式快取**：提取的文字儲存於 `src/_data/pdf-text-cache/`
-   - **AI 整合**：完整文字內容包含於 `ai-index.json` 的 `pdfText` 欄位
+   - **AI 整合**：完整文字內容包含於 `llms-full.txt` 的 `pdfText` 欄位
    - **GitHub Actions 相容**：無原生相依套件，CI/CD 自動執行
    - **限制**：掃描型 PDF（無文字層）無法提取，需使用 OCR
 
@@ -476,7 +476,7 @@ course_*.json            pdf-text-cache/*.json       ai-index.json
 ### 使用範例
 
 **NotebookLM:**
-1. 上傳 `ai-index.json` 檔案（包含完整課程資料 + PDF 文字）
+1. 上傳 `llms-full.txt` 檔案（包含完整課程資料 + PDF 文字）
 2. 或提供網站 URL: `https://yourusername.github.io/course-site-starter/`
 3. 詢問範例：
    - 「二年級戲劇課程的教學目標是什麼？」
@@ -484,7 +484,7 @@ course_*.json            pdf-text-cache/*.json       ai-index.json
    - 「比較不同年級的黑板畫風格」
 
 **ChatGPT/Claude:**
-1. **方法 A（完整資料）**：下載並上傳 `/ai-index.json`
+1. **方法 A（完整資料）**：下載並上傳 `/llms-full.txt`
    - 優點：包含所有課程元數據、Google Docs 內容、PDF 文字
    - 適合：深度分析、跨課程比較、教學設計研究
 2. **方法 B（特定課程）**：分享課程頁面 URL
@@ -555,7 +555,7 @@ npm run build:full
 **注意事項：**
 - `dev:fast` 使用增量建置 (`--incremental`)，只重建變更的檔案
 - `dev:fast` 跳過 PDF 文字快取載入 (`SKIP_PDF_CACHE=1`)，節省記憶體與 I/O
-  - PDF 快取僅用於 `/ai-index.json` 生成
+  - PDF 快取僅用於 `/llms-full.txt` 生成
   - 若需測試 AI 索引，使用 `npm run dev` 或 `npm run build`
 - `dev:fast` 不會建立搜尋索引，如需測試 Pagefind 搜尋請使用 `npm run dev`
 - 提交前務必執行 `npm run build:full` 確保驗證通過且搜尋索引正常
