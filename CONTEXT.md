@@ -121,12 +121,20 @@ Course Field: a UI String never varies by Course.
 _Avoid_: conflating with course content; routing UI strings through `i18nMacro.cf`
 
 **Course Field**:
-A per-Course translatable value (`title`, `overview`, `unit`, `domain`, tags, …) stored under
-`course.i18n.{lang}`. Resolved *only* through the `i18nMacro` macro family — `cf()` in HTML sinks, `cfRaw()` in
-plain-text/Markdown sinks — both applying the zh-TW fallback chain. Reaching into
-`course.i18n[lang][field]` directly in a template is the footgun the AI Layer forbids — the
-sole sanctioned exception is the macros themselves.
-_Avoid_: direct `course.i18n[...]` access outside `macros/i18n.njk`; calling these "UI strings"
+A per-Course translatable value stored under `course.i18n.{lang}`. Most are **scalar**
+(`title`, `overview`, `unit`, `domain`, …); a few are **structured** (`learningObjectives` is
+an array). Resolved *only* through the sanctioned **resolver family**, never by reaching into
+`course.i18n[lang][field]` directly in a template (the footgun the AI Layer forbids):
+- `cf()` — scalar fields in HTML sinks (Nunjucks-escaped).
+- `cfRaw()` — scalar fields in plain-text / Markdown sinks (un-escaped).
+- `getI18nField()` (in `courseHelpers.js`) — **structured** fields, where a string-rendering
+  macro can't return the raw value to iterate. The JS sibling of the macros, not a rival twin.
+
+All three apply **one fallback semantic**: a value that is absent *or empty* (empty string,
+empty array) is "not authored in this locale" and falls back to the zh-TW canonical — one
+semantic for every Course Field, scalar or structured. (`Tags` are the deliberate exception:
+per-language, no fallback — see Tags.)
+_Avoid_: direct `course.i18n[...]` access outside the resolver family; calling these "UI strings"
 
 **Translation Hook**:
 A `data-i18n*` DOM attribute a template puts on an element to mark it for the client-side runtime

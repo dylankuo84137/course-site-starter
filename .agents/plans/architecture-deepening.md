@@ -17,7 +17,12 @@ Reference report (ephemeral, `/tmp`): `architecture-review-20260613-165349.html`
 ## A · Enforce the `cf()` seam — close the leaks, delete the dead twin
 
 - **Strength:** Strong · **Type:** AFK · **Related:** —
-- **Status:** `grilled — design settled` (2026-06-13)
+- **Status:** `promoted to #26` (2026-06-15) — **rescoped during the /to-issues grill.** The
+  body below is the *pre-grill* design and is partly falsified: moves #1–#2 assumed
+  `getI18nField()` was dead code (0 callers) and a deletable twin of `cf()`. It is **neither** —
+  it has a live caller (`home.njk`, `learningObjectives`) and is the *structured/array* resolver
+  `cf()` cannot replace. #26 keeps it, names it the third resolver, and aligns its fallback to
+  "absent **or empty** ⇒ zh-TW". See #26 and `CONTEXT.md` → "Course Field" for the authoritative design.
 - **Files:** `src/_includes/macros/i18n.njk` · `src/_data/courseHelpers.js` · `src/_data/tagHelpers.js`
   · `src/_includes/components/course-breadcrumb.njk` · `src/_data/coursesList.js` · `src/_data/course-validator.js`
 
@@ -54,7 +59,7 @@ warranted (local code decisions, not architectural shape). Ready for `/to-issues
 ## B · One nav descriptor for the Course Pages
 
 - **Strength:** Strong · **Type:** AFK · **Related:** C, D (same module)
-- **Status:** `grilled — design settled` (2026-06-13)
+- **Status:** `promoted to #27` (2026-06-15)
 - **Files:** `src/_data/materialHelpers.js` · `src/{zh-TW,en-US,courses}/index.njk`
   · `src/_includes/components/course-breadcrumb.njk` · `src/_includes/components/course_nav.njk`
   · `scripts/sync/fetch-drive.mjs` · `src/_data/course-validator.js`
@@ -108,7 +113,12 @@ Ready for `/to-issues`.
 ## C · Test the (already-pure) sync transform; lift the cache side-effect
 
 - **Strength:** Worth exploring · **Type:** AFK · **Related:** — (B dependency dissolved)
-- **Status:** `grilled — design settled` (2026-06-13)
+- **Status:** `promoted to #28` (2026-06-15) — **scope sharpened during the /to-issues grill.**
+  The body's "unit-testable today" claim is false: the pure mappers are **not exported** and the
+  script runs the full sync at module load (no main-guard), so importing it triggers a real sync.
+  #28 folds in "export the mappers + add a main-guard (import side-effect-free)" as the enabling
+  prerequisite before the tests. Cache-write "lift" = move the existing `cachePdfText` call out of
+  the loop, not extract a function.
 - **Files:** `scripts/sync/fetch-drive.mjs` (484 lines)
 
 **Problem (corrected after grill).** The premise "the transform can only be exercised end-to-end
@@ -171,7 +181,7 @@ as a constraint in the new PRD, not as a standalone item.
 
 - **Strength:** Worth exploring (upgraded from Speculative — a real, demonstrated defect, not a
   hunch) · **Type:** AFK for the contract work (the HITL module-split is excluded) · **Related:** —
-- **Status:** `grilled — design settled` (2026-06-14)
+- **Status:** `promoted to #29` (2026-06-15)
 - **Files:** `public/js/lang-dynamic.js` (441 lines) · `public/js/course-filters.js` ·
   `src/_includes/layouts/base.njk` (the sole global-injection site) · the 12 templates emitting
   `data-i18n*` attributes · a new `docs/development/` reference
