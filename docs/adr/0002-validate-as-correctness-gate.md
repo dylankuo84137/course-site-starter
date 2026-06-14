@@ -63,6 +63,11 @@ zh` from the hook: pages carry distinct `lang` attributes (`zh-Hant`, `en-US`), 
 per-page language auto-detection is correct, and forcing `zh` mis-indexed the English pages and
 disabled stemming. (This realigns local builds with what CI/production already did.)
 
+`build:search` is removed entirely rather than just stripping `--force-language zh`. The issue
+spec said to strip the flag, but once `build:full` is gone `build:search` has no caller — it
+becomes an orphan that an agent might accidentally invoke and re-introduce redundant Pagefind
+runs. Removing it is the correct consequence of the single-entry-point rule.
+
 This contradicts the surface reading of CLAUDE.md's "simplicity first / surgical" conventions
 (a gate that greps built HTML is more machinery than "does it build"), which is why it is
 recorded here: the trade-off is deliberate. The cost of a prod-only subpath bug reaching a

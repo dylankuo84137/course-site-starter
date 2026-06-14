@@ -1,6 +1,6 @@
 # PRD draft · AI-discovery format — from `ai-index.json` to `llms.txt`
 
-Status: **design settled** (2026-06-14) — ready to promote to a tracker issue via `/to-issues`.
+Status: **promoted to issues** (2026-06-14) — split into #16 (`/llms.txt` index + retire `/for-ai/`) and #17 (`/llms-full.txt` full payload + retire `ai-index.json` + repoint `/ai-guide/`) via `/to-issues`.
 Origin: split out of architecture-deepening candidate **D** mid-grill; D is now superseded by this.
 Decision record: **ADR-0004** (`docs/adr/0004-ai-discovery-as-llms-txt-markdown.md`) — the
 directional JSON→`llms.txt` commitment and its rejected alternatives.
