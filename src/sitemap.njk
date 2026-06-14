@@ -5,25 +5,25 @@ eleventyExcludeFromCollections: true
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ '/' | url }}</loc>
+    <loc>{{ site.url }}/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ '/courses/' | url }}</loc>
+    <loc>{{ site.url }}/courses/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ '/for-ai/' | url }}</loc>
+    <loc>{{ site.url }}/for-ai/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ '/discussion/' | url }}</loc>
+    <loc>{{ site.url }}/discussion/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -35,34 +35,34 @@ eleventyExcludeFromCollections: true
   {%- set hasSheetMusic = materialHelpers.hasMaterial(course, 'sheet_music') -%}
   {%- set hasVideos = materialHelpers.hasMaterial(course, 'videos') -%}
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   {%- if docStory -%}
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/story/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/story/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   {%- endif -%}
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/play-script/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/play-script/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/workbook/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/workbook/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   {%- if hasPhotos -%}
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/photos/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/photos/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -70,27 +70,27 @@ eleventyExcludeFromCollections: true
   {%- endif -%}
   {%- if hasBlackboard -%}
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/blackboard/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/blackboard/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   {%- endif -%}
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/scripts/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/scripts/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/songs/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/songs/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   {%- if hasSheetMusic -%}
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/sheet-music/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/sheet-music/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -98,7 +98,7 @@ eleventyExcludeFromCollections: true
   {%- endif -%}
   {%- if hasVideos -%}
   <url>
-    <loc>{% if site.url %}{{ site.url }}{% endif %}{{ ('/courses/' + course.slug + '/videos/') | url }}</loc>
+    <loc>{{ site.url }}/courses/{{ course.slug }}/videos/</loc>
     <lastmod>{{ buildTime }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

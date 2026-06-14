@@ -132,25 +132,25 @@ eleventyExcludeFromCollections: true
       },
       {%- endif -%}
       "pages": {
-        "home": "{{ site.url }}{{ ('/courses/' + course.slug + '/') | url }}"
+        "home": "{{ site.url }}/courses/{{ course.slug }}/"
         {%- if docStory -%}
-        ,"story": "{{ site.url }}{{ ('/courses/' + course.slug + '/story/') | url }}"
+        ,"story": "{{ site.url }}/courses/{{ course.slug }}/story/"
         {%- endif -%}
-        ,"play_script": "{{ site.url }}{{ ('/courses/' + course.slug + '/play-script/') | url }}"
-        ,"workbook": "{{ site.url }}{{ ('/courses/' + course.slug + '/workbook/') | url }}"
+        ,"play_script": "{{ site.url }}/courses/{{ course.slug }}/play-script/"
+        ,"workbook": "{{ site.url }}/courses/{{ course.slug }}/workbook/"
         {%- if hasPhotos -%}
-        ,"photos": "{{ site.url }}{{ ('/courses/' + course.slug + '/photos/') | url }}"
+        ,"photos": "{{ site.url }}/courses/{{ course.slug }}/photos/"
         {%- endif -%}
         {%- if hasBlackboard -%}
-        ,"blackboard": "{{ site.url }}{{ ('/courses/' + course.slug + '/blackboard/') | url }}"
+        ,"blackboard": "{{ site.url }}/courses/{{ course.slug }}/blackboard/"
         {%- endif -%}
-        ,"scripts": "{{ site.url }}{{ ('/courses/' + course.slug + '/scripts/') | url }}"
-        ,"songs": "{{ site.url }}{{ ('/courses/' + course.slug + '/songs/') | url }}"
+        ,"scripts": "{{ site.url }}/courses/{{ course.slug }}/scripts/"
+        ,"songs": "{{ site.url }}/courses/{{ course.slug }}/songs/"
         {%- if hasSheetMusic -%}
-        ,"sheet_music": "{{ site.url }}{{ ('/courses/' + course.slug + '/sheet-music/') | url }}"
+        ,"sheet_music": "{{ site.url }}/courses/{{ course.slug }}/sheet-music/"
         {%- endif -%}
         {%- if hasVideos -%}
-        ,"videos": "{{ site.url }}{{ ('/courses/' + course.slug + '/videos/') | url }}"
+        ,"videos": "{{ site.url }}/courses/{{ course.slug }}/videos/"
         {%- endif -%}
       },
       "materials": {
