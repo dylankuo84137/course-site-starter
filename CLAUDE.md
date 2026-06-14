@@ -105,7 +105,7 @@ experiment, never from docs or reasoning alone.
 - **Verify commands:**
   - dev: `npm run dev:fast`
   - check: `npm run validate`
-  - full: `npm run build:full`
+  - full: `npm run build`
   - subpath: `ELEVENTY_BASE="/course-site-starter/" npm run build`
 - **Architecture:** `src/_data/course-configs/*.json` (data) → `src/_includes/` (templates) → `public/js/` (behavior) → `public/css/site.css` (styles). See `docs/development/STRUCTURE.md`.
 - **Do-not:**
