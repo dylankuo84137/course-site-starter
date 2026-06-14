@@ -276,7 +276,7 @@
           }
         }
 
-        // Re-render innovation tag pills on course home pages
+        // Tags sit outside [data-course-i18n] and are unreachable by the generic re-render path
         if (card.classList.contains('innovation-teaser-card')) {
           const wrapper = card.closest('.innovation-with-tags-wrapper');
           if (wrapper) {
@@ -285,7 +285,9 @@
               const rawTags = Array.isArray(translations.tags) ? translations.tags : [];
               const tags = Array.from(new Set(rawTags.filter(Boolean)));
               const tagList = tagsSection.querySelector('.innovation-tags-list');
-              if (tagList) {
+              if (!tagList) {
+                console.warn('[lang-dynamic] .innovation-tags-list not found inside .innovation-tags-section');
+              } else {
                 tagList.innerHTML = tags.length > 0
                   ? tags.map(tag => `<span class="innovation-tag-pill">#${escapeHtml(tag)}</span>`).join('')
                   : '';
