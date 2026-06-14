@@ -66,7 +66,7 @@ src/
 │   └── pdfTextCache.js             # Eleventy data loader
 └── ai-discovery/                   # AI tool pages
     ├── ai-index.njk                # Template with pdfText inclusion
-    └── for-ai.njk                  # Documentation
+    └── llms-txt.njk                # Markdown discovery index
 
 scripts/
 └── sync/fetch-drive.mjs            # PDF extraction logic
@@ -440,4 +440,3 @@ Warning: loadFont - translateFont failed: "UnknownErrorException: Ensure that th
 - [scripts/sync/fetch-drive.mjs](../../scripts/sync/fetch-drive.mjs) - Extraction logic
 - [src/_data/pdfTextCache.js](../src/_data/pdfTextCache.js) - Cache loader
 - [src/ai-discovery/ai-index.njk](../../src/ai-discovery/ai-index.njk) - Template with pdfText
-- [src/ai-discovery/for-ai.njk](../../src/ai-discovery/for-ai.njk) - User-facing documentation
