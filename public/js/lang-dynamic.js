@@ -275,6 +275,25 @@
             }
           }
         }
+
+        // Re-render innovation tag pills on course home pages
+        if (card.classList.contains('innovation-teaser-card')) {
+          const wrapper = card.closest('.innovation-with-tags-wrapper');
+          if (wrapper) {
+            const tagsSection = wrapper.querySelector('.innovation-tags-section');
+            if (tagsSection) {
+              const rawTags = Array.isArray(translations.tags) ? translations.tags : [];
+              const tags = Array.from(new Set(rawTags.filter(Boolean)));
+              const tagList = tagsSection.querySelector('.innovation-tags-list');
+              if (tagList) {
+                tagList.innerHTML = tags.length > 0
+                  ? tags.map(tag => `<span class="innovation-tag-pill">#${escapeHtml(tag)}</span>`).join('')
+                  : '';
+              }
+              tagsSection.style.display = tags.length === 0 ? 'none' : '';
+            }
+          }
+        }
       } catch (e) {
         // Silently handle parsing errors
       }
