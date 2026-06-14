@@ -1,0 +1,82 @@
+---
+pagination:
+  data: locale.available
+  size: 1
+  alias: lang
+permalink: "{% if lang == locale.default %}/llms-full.txt{% else %}/{{ lang }}/llms-full.txt{% endif %}"
+eleventyExcludeFromCollections: true
+---
+{%- import "macros/i18n.njk" as i18nMacro -%}
+# {{ i18n[lang].site.title }}
+
+{{ i18n[lang].site.description | safe }}
+
+{% if lang == locale.default %}完整語料庫（內嵌所有課程文件、教材目錄與 PDF 文字）。探索索引：{{ '/llms.txt' | url }}{% else %}Full corpus (all course documents, material catalog, and PDF text inlined). Discovery index: {{ '/en-US/llms.txt' | url }}{% endif %}
+
+Build date: {{ buildTime }}
+
+{{ i18n[lang].llms.license | safe }}
+
+---
+{% for course in coursesList %}
+## {{ i18nMacro.cfRaw(course, 'title', lang) }}
+
+**{{ i18nMacro.cfRaw(course, 'grade', lang) }}** · {{ i18nMacro.cfRaw(course, 'semester', lang) }} · {{ i18nMacro.cfRaw(course, 'unit', lang) }} · {{ i18nMacro.cfRaw(course, 'domain', lang) }} · {{ i18nMacro.cfRaw(course, 'teacher', lang) }}
+
+{{ ('/courses/' + course.slug + '/') | url }}
+
+{{ i18nMacro.cfRaw(course, 'overview', lang) }}
+{%- set _innovSum -%}{{ i18nMacro.cfRaw(course, 'innovation_summary', lang) }}{%- endset -%}
+{%- if _innovSum | trim %}
+Innovation Summary: {{ _innovSum }}
+{%- endif -%}
+{%- set _innovQ -%}{{ i18nMacro.cfRaw(course, 'innovation_question', lang) }}{%- endset -%}
+{%- if _innovQ | trim %}
+Innovation Question: {{ _innovQ }}
+{%- endif -%}
+{%- set courseInnovation = courseInnovations[course.slug] -%}
+{%- if courseInnovation and courseInnovation[lang] -%}
+{%- set innovation = courseInnovation[lang] %}
+
+### {{ innovation.title | safe }}
+
+{{ innovation.body | safe }}
+{%- endif -%}
+
+{%- set docKeys = ["course_description", "story", "play_script", "course_innovation"] -%}
+{%- for docKey in docKeys -%}
+{%- set doc = materialHelpers.getDoc(course, docKey) -%}
+{%- if doc and doc.content %}
+
+### {{ doc.name | safe }}
+
+{{ doc.content | safe }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- set materialKeys = ["workbook_photos", "photos", "blackboard", "scripts_photos", "songs_audio", "sheet_music", "workbook_pdfs", "play_scripts", "worksheet", "syllabus", "videos"] -%}
+{%- for key in materialKeys -%}
+{%- set items = materialHelpers.getMaterialItems(course, key) -%}
+{%- if items | length %}
+
+#### {{ key }}
+
+{%- for item in items %}
+- {{ (item.name or item.title or item.sourceTitle or key) | safe }}
+{%- if item.type == "youtube" and item.id %} — https://www.youtube.com/watch?v={{ item.id }}
+{%- elif item.downloadUrl %} — {{ item.downloadUrl }}
+{%- elif item.id %} — https://drive.google.com/file/d/{{ item.id }}/view
+{%- endif %}
+{%- if item.tags and (item.tags | length) %} [{{ item.tags | join(", ") }}]
+{%- endif %}
+{%- if item.isPdf and pdfTextCache and pdfTextCache[course.slug] and pdfTextCache[course.slug][key] and pdfTextCache[course.slug][key][item.id] -%}
+{%- set pdfCache = pdfTextCache[course.slug][key][item.id] %}
+
+{{ pdfCache.text | safe }}
+{%- endif -%}
+{%- endfor %}
+{%- endif -%}
+{%- endfor %}
+
+---
+{% endfor %}

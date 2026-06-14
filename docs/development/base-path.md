@@ -62,8 +62,8 @@ Goal: make all content machine-readable for AI tools (NotebookLM, ChatGPT, Claud
 - `<meta name="description">` with 2-3 sentence summary
 
 **Machine-readable endpoints (already built):**
-- `/llms.txt` — machine-readable course discovery index (Markdown; + `/en-US/llms.txt`); supersedes `/ai-index.json`
-- `/ai-index.json` — complete course catalog (retirement tracked in #17)
+- `/llms.txt` — machine-readable course discovery index (Markdown; + `/en-US/llms.txt`)
+- `/llms-full.txt` — full-payload corpus: Doc prose + material catalog + PDF text inlined (Markdown; + `/en-US/llms-full.txt`)
 - `/feed.json` — course updates with ISO timestamps
 - `/sitemap.xml` — all pages with priority/changefreq
 

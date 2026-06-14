@@ -2,7 +2,7 @@
 
 ## Overview
 
-This system automatically extracts text from PDF documents during the Drive sync process and makes it available in `ai-index.json` for AI tools, while keeping course JSON files clean with only metadata.
+This system automatically extracts text from PDF documents during the Drive sync process and makes it available in `llms-full.txt` for AI tools, while keeping course JSON files clean with only metadata.
 
 **Current Status:** ✅ Implemented and working in production
 
@@ -11,25 +11,25 @@ This system automatically extracts text from PDF documents during the Drive sync
 - **Supported formats:** Native PDFs (text-based) + Google Docs
 - **GitHub Actions compatible:** No native dependencies required
 - **Tested:** 3 PDFs successfully extracted (51,830 total characters from 64 pages)
-- **Impact:** ai-index.json size increased 52% (265KB → 401KB)
+- **Impact:** llms-full.txt size increased significantly when pdfText is included
 
 ## Architecture
 
 ### Separation of Concerns
 
 ```
-Course JSON (metadata only)     PDF Text Cache (text content)     AI Index (combined)
-━━━━━━━━━━━━━━━━━━━━━━━       ━━━━━━━━━━━━━━━━━━━━━━━━━━       ━━━━━━━━━━━━━━━━━━
-course_*.json:                  pdf-text-cache/*.json:           ai-index.json:
-{                               {                                {
-  "material": {                   "worksheet": {                   "driveContent": {
-    "worksheet": [{                 "FILE_ID": {                     "worksheet": [{
-      "id": "FILE_ID",                "name": "...",                   "id": "FILE_ID",
-      "name": "...",                  "text": "...",                   "name": "...",
-      "mimeType": "pdf"               "lastSynced": "..."              "pdfText": "...",
-    }]                              }                                  "pdfTextLastSynced": "..."
-  }                               }                                }]
-}                               }                                }
+Course JSON (metadata only)     PDF Text Cache (text content)     Full Corpus (combined)
+━━━━━━━━━━━━━━━━━━━━━━━       ━━━━━━━━━━━━━━━━━━━━━━━━━━       ━━━━━━━━━━━━━━━━━━━━
+course_*.json:                  pdf-text-cache/*.json:           llms-full.txt:
+{                               {                                ## Course Title
+  "material": {                   "worksheet": {                 ...
+    "worksheet": [{                 "FILE_ID": {                 #### worksheet
+      "id": "FILE_ID",                "name": "...",             - filename — url
+      "name": "...",                  "text": "...",
+      "mimeType": "pdf"               "lastSynced": "..."          <pdfText inlined>
+    }]                              }
+  }                               }
+}                               }
 ```
 
 ### Data Flow
@@ -45,11 +45,11 @@ course_*.json:                  pdf-text-cache/*.json:           ai-index.json:
    ↓
    pdfTextCache.js loads cache
    ↓
-3. Template Rendering (src/ai-discovery/ai-index.njk)
+3. Template Rendering (src/ai-discovery/llms-full.njk)
    ↓
    Combines course JSON + PDF cache
    ↓
-4. Output: ai-index.json with pdfText fields
+4. Output: /llms-full.txt (and /en-US/llms-full.txt) with pdfText inlined
 ```
 
 ## File Structure
@@ -65,7 +65,7 @@ src/
 │   │   └── ...
 │   └── pdfTextCache.js             # Eleventy data loader
 └── ai-discovery/                   # AI tool pages
-    ├── ai-index.njk                # Template with pdfText inclusion
+    ├── llms-full.njk               # Full-payload Markdown template with pdfText
     └── llms-txt.njk                # Markdown discovery index
 
 scripts/
@@ -120,14 +120,13 @@ module.exports = function() {
 
 Makes cache available as `pdfTextCache` variable in templates.
 
-### 3. Template Inclusion (src/ai-discovery/ai-index.njk)
+### 3. Template Inclusion (src/ai-discovery/llms-full.njk)
 
 ```nunjucks
-{%- if item.mimeType == "application/pdf"
-    and pdfTextCache[course.slug][matEntry.key][item.id] -%}
-{%- set pdfCache = pdfTextCache[course.slug][matEntry.key][item.id] -%}
-,"pdfText": {{ pdfCache.text | jsonstr | safe }}
-,"pdfTextLastSynced": "{{ pdfCache.lastSynced }}"
+{%- if item.isPdf and pdfTextCache and pdfTextCache[course.slug]
+    and pdfTextCache[course.slug][key] and pdfTextCache[course.slug][key][item.id] -%}
+{%- set pdfCache = pdfTextCache[course.slug][key][item.id] %}
+{{ pdfCache.text | safe }}
 {%- endif -%}
 ```
 
@@ -188,7 +187,7 @@ async function extractPdfText(pdfId, pdfName) {
 - ✅ 3a play script: 2,408 chars from 6 pages
 - ✅ 3a sheet music: 1,971 chars from 4 pages
 - 📊 Total: 51,830 characters across 3 PDFs
-- 📈 ai-index.json size: 265KB → 401KB (+52%)
+- 📈 llms-full.txt grows proportionally when pdfText is included
 
 **Pros:**
 - ✅ Works with native PDFs (text-based)
@@ -276,38 +275,27 @@ cat src/_data/pdf-text-cache/your-course-slug.json
 5. Build and verify:
 ```bash
 npm run build
-python3 -c "import json; d=json.load(open('_site/ai-index.json')); print(d['courses'][0]['driveContent']['worksheet'][0].get('pdfText', 'NOT FOUND'))"
+grep -A5 "worksheet" _site/llms-full.txt | head -20
 ```
 
 ## Usage in AI Tools
 
-### Example: ai-index.json Output
+### Example: llms-full.txt Output (worksheet section)
 
-```json
-{
-  "courses": [{
-    "slug": "9c-modern-history-114-autumn",
-    "driveContent": {
-      "worksheet": [{
-        "id": "1Jv4ah9Ed6W8GHfroGV8PUMsW8HttI0QG",
-        "name": "9年級現代史：學生筆記格式",
-        "mimeType": "application/pdf",
-        "downloadUrl": "https://drive.google.com/...",
-        "pdfText": "學生筆記格式內容...",
-        "pdfTextLastSynced": "2025-11-13T08:00:00.000Z"
-      }]
-    }
-  }]
-}
+```markdown
+#### worksheet
+
+- 9年級現代史：學生筆記格式 — https://drive.google.com/file/d/1Jv4.../view
+
+  學生筆記格式內容...（全文 47,451 字元）
 ```
 
 ### AI Tool Access
 
 **NotebookLM / ChatGPT / Claude:**
-1. Download `ai-index.json`
-2. Upload to AI tool
-3. Ask: "Summarize the worksheet content for 9th grade Modern History"
-4. AI can now read `pdfText` field directly
+1. Share `{{ site.url }}/llms-full.txt` URL with the AI tool
+2. Ask: "Summarize the worksheet content for 9th grade Modern History"
+3. AI reads the inlined pdfText directly from the corpus
 
 ## Maintenance
 
@@ -357,13 +345,13 @@ npm run sync:drive 2>&1 | grep -E "(PDF|Extracting|Cached)"
 
 1. **Use Google Docs for text-heavy materials** (worksheets, syllabi, scripts)
 2. **Keep PDFs for visual-heavy materials** (sheet music, scanned artwork)
-3. **Monitor cache size** - Large text extracts can bloat ai-index.json
+3. **Monitor cache size** - Large text extracts grow llms-full.txt proportionally
 4. **Document source format** in course JSON comments
 5. **Test extraction** after adding new PDF materials
 
 ## Troubleshooting
 
-### Problem: No pdfText in ai-index.json
+### Problem: No pdfText in llms-full.txt
 
 **Check:**
 1. Is cache file created? `ls src/_data/pdf-text-cache/`
@@ -379,8 +367,8 @@ cat src/_data/pdf-text-cache/your-course-slug.json | jq .
 # Verify pdfTextCache is loaded during build
 npm run build 2>&1 | grep pdfTextCache
 
-# Check ai-index.json output
-cat _site/ai-index.json | jq '.courses[0].driveContent.worksheet[0].pdfText'
+# Check llms-full.txt output
+grep -A3 "worksheet" _site/llms-full.txt | head -10
 ```
 
 ### Problem: Module import errors with pdf-parse
@@ -439,4 +427,4 @@ Warning: loadFont - translateFont failed: "UnknownErrorException: Ensure that th
 
 - [scripts/sync/fetch-drive.mjs](../../scripts/sync/fetch-drive.mjs) - Extraction logic
 - [src/_data/pdfTextCache.js](../src/_data/pdfTextCache.js) - Cache loader
-- [src/ai-discovery/ai-index.njk](../../src/ai-discovery/ai-index.njk) - Template with pdfText
+- [src/ai-discovery/llms-full.njk](../../src/ai-discovery/llms-full.njk) - Full-payload Markdown template with pdfText

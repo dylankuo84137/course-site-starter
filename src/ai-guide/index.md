@@ -8,8 +8,8 @@ eleventyNavigation:
 
 <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true" lang="en-US">
   AI Guide for Teachers: Using AI Tools with Course Archive
-  ChatGPT Claude Gemini NotebookLM ai-index.json structured data
-  Download index file, query courses, generate worksheets, teaching materials
+  ChatGPT Claude Gemini NotebookLM llms-full.txt full corpus Markdown
+  Share corpus URL, query courses, generate worksheets, teaching materials
   Cross-course analysis, lesson planning, educational resources
 </div>
 
@@ -19,11 +19,11 @@ eleventyNavigation:
 
 本網站不僅是課程資料的展示平台,更是一個為 AI 設計的「結構化資料庫」。
 
-簡單來說,我們將網站上**所有課程的詳細資料**——從課程簡介、教學大綱,到每一份學習單、劇本、故事文稿的**完整文字內容**——都整理成一個名為 `ai-index.json` 的「AI 索引檔」。
+簡單來說,我們將網站上**所有課程的詳細資料**——從課程簡介、教學大綱,到每一份學習單、劇本、故事文稿的**完整文字內容**——都整理成一個名為 `llms-full.txt` 的「AI 完整語料庫」。
 
 **這對老師有什麼好處?**
 
-您可以將這個索引檔提供給大型語言模型(如 ChatGPT, Claude, Gemini 等),讓 AI 成為您最了解「慈心課程織圖」的教學助理。您可以:
+您只需要將這個語料庫的網址貼給大型語言模型(如 ChatGPT, Claude, Gemini 等),讓 AI 成為您最了解「慈心課程織圖」的教學助理。您可以:
 
 *   **快速查詢與整合**:跨課程、跨年級搜尋特定主題的教材。
 *   **深度分析與比較**:分析不同課程的教學方法、內容差異。
@@ -33,7 +33,7 @@ eleventyNavigation:
 
 ## 2. AI 能讀取網站上的哪些資料?
 
-當您將 `ai-index.json` 檔案提供給 AI 後,它能立即掌握以下所有資訊:
+當您將 `llms-full.txt` 的網址提供給 AI 後,它能立即掌握以下所有資訊:
 
 | 資料類型 | 包含內容範例 |
 | :--- | :--- |
@@ -43,7 +43,7 @@ eleventyNavigation:
 | **所有教材清單** | 工作本、照片、黑板畫、樂譜等檔案的**名稱**與**標籤** |
 | **多媒體檔案資訊** | 歌曲音檔、影片的連結與描述 |
 
-**關鍵優勢**:AI 不再是猜測,而是能**直接讀取並理解**您上傳的每一份 PDF 教材的**內文**,讓它產出的內容更加貼近您的實際教學。
+**關鍵優勢**:AI 不再是猜測,而是能**直接讀取並理解**語料庫中每一份 PDF 教材的**內文**,讓它產出的內容更加貼近您的實際教學。
 
 ---
 
@@ -51,27 +51,25 @@ eleventyNavigation:
 
 您可以根據需求,選擇以下兩種方法來讓 AI 讀取網站資料。
 
-### 方法一:下載索引檔 (最推薦,資訊最完整)
+### 方法一:使用完整語料庫網址 (最推薦,資訊最完整)
 
 此方法讓 AI 獲得最完整的資料,包含所有課程的 PDF 全文,分析結果最準確。
 
-**步驟一:下載 AI 索引檔**
+**步驟一:複製語料庫網址**
 
-1.  在瀏覽器中開啟以下連結:
-    *   <a href="{{ site.url }}/ai-index.json" target="_blank">{{ site.url }}/ai-index.json</a>
-2.  瀏覽器會顯示一個 JSON 格式的頁面。請點擊右鍵,選擇「另存新檔」,將檔案儲存到您的電腦上。檔名會是 `ai-index.json`。
+1.  複製以下連結:
+    *   <a href="{{ site.url }}/llms-full.txt" target="_blank">{{ site.url }}/llms-full.txt</a>
 
-**步驟二:上傳檔案到 AI 聊天室**
+**步驟二:將網址貼給 AI**
 
 1.  打開您慣用的 AI 工具(例如 ChatGPT, Claude, Gemini 等)。
-2.  在對話框中,找到**附加檔案**的按鈕(通常是一個迴紋針 📎 圖示)。
-3.  選擇您剛剛下載的 `ai-index.json` 檔案並上傳。
+2.  直接在對話框中貼上網址,讓 AI 自動抓取完整語料庫內容。
 
 **步驟三:開始提問!**
 
-檔案上傳成功後,您就可以開始對 AI 下指令了。建議可以先用一句話讓 AI 了解這個檔案的內容:
+AI 讀取內容後,您就可以開始下指令了。建議可以先用一句話讓 AI 了解這份資料的內容:
 
-> 「這是我學校的課程資料庫,裡面包含了所有課程的介紹、教材清單,以及 PDF 教材的完整文字。請根據這個檔案的內容,回答我接下來的問題。」
+> 「這是我學校的課程資料庫,裡面包含了所有課程的介紹、教材清單,以及 PDF 教材的完整文字。請根據這份資料的內容,回答我接下來的問題。」
 
 ### 方法二:使用 Google NotebookLM (最方便,適合快速分析)
 
@@ -106,7 +104,7 @@ NotebookLM 會自動抓取網頁內容作為資料來源。
 您可以直接複製或修改以下範例,來探索 AI 的強大功能。
 
 【角色設定提示詞】  
-「你是慈心華德福的資深課程顧問。請讀取我上傳的 ai-index.json，這是學校完整的課程資料庫，包含課程簡介、標籤 (tags)、授課教師與教材清單。請根據這個檔案的內容回答我的問題。」
+「你是慈心華德福的資深課程顧問。請讀取以下網址的內容：{{ site.url }}/llms-full.txt ——這是學校完整的課程語料庫，包含課程簡介、標籤 (tags)、授課教師、教材清單與 PDF 全文。請根據這份資料的內容回答我的問題。」
 
 ## **4-1\. 初任教師 (Beginning Teacher)**
 
