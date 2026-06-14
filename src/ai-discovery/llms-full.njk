@@ -11,8 +11,7 @@ eleventyExcludeFromCollections: true
 
 {{ i18n[lang].site.description | safe }}
 
-{%- set _discoveryUrl = ('/llms.txt' if lang == locale.default else '/' + lang + '/llms.txt') | url -%}
-{% if lang == locale.default %}完整語料庫（內嵌所有課程文件、教材目錄與 PDF 文字）。探索索引：{{ _discoveryUrl }}{% else %}Full corpus (all course documents, material catalog, and PDF text inlined). Discovery index: {{ _discoveryUrl }}{% endif %}
+{% if lang == locale.default %}完整語料庫（內嵌所有課程文件、教材目錄與 PDF 文字）。探索索引：{{ '/llms.txt' | url }}{% else %}Full corpus (all course documents, material catalog, and PDF text inlined). Discovery index: {{ ('/' + lang + '/llms.txt') | url }}{% endif %}
 
 Build date: {{ buildTime }}
 
