@@ -4,6 +4,11 @@
     "description": "Ci-Xin Waldorf's bilingual course archive, connecting lesson goals with teaching artifacts, media folders, and downloads for planners and partners.",
     "homepage_description": "This site is a living museum of teaching — a space where courses become stories and learning becomes art. It gathers journeys co-created by teachers and students, spanning from Taiwan's myths to the world's masterpieces. Browse through notebooks, blackboard art, performances, and melodies, and rediscover the living pulse of education that continues to bloom within."
   },
+  "llms": {
+    "intro": "Cixin Course Weaver is Ci-Xin Waldorf's bilingual course archive, connecting lesson goals with teaching records and media artifacts. This file is the machine-readable discovery index of the whole corpus: it lists every course with its title, summary, and per-language metadata, and links to each course's human-readable pages so AI tools can discover and cite the material without parsing HTML.",
+    "full_corpus": "For a whole-corpus fetch, see the full payload at",
+    "license": "Content is licensed under CC BY-NC-SA (Attribution-NonCommercial-ShareAlike) for educational research with attribution; commercial use requires prior written consent."
+  },
   "homepage": {
     "eyebrow": "Living Teaching Archive",
     "hero_title": "Courses become stories. Learning becomes art.",

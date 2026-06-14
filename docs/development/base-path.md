@@ -62,8 +62,8 @@ Goal: make all content machine-readable for AI tools (NotebookLM, ChatGPT, Claud
 - `<meta name="description">` with 2-3 sentence summary
 
 **Machine-readable endpoints (already built):**
-- `/for-ai.html` — human-readable site guide
-- `/ai-index.json` — complete course catalog
+- `/llms.txt` — machine-readable course discovery index (Markdown; + `/en-US/llms.txt`); supersedes `/ai-index.json`
+- `/ai-index.json` — complete course catalog (retirement tracked in #17)
 - `/feed.json` — course updates with ISO timestamps
 - `/sitemap.xml` — all pages with priority/changefreq
 

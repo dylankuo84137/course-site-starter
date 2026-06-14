@@ -1,0 +1,50 @@
+---
+pagination:
+  data: locale.available
+  size: 1
+  alias: lang
+permalink: "{% if lang == locale.default %}/llms.txt{% else %}/{{ lang }}/llms.txt{% endif %}"
+eleventyExcludeFromCollections: true
+---
+{%- import "macros/i18n.njk" as i18nMacro -%}
+# {{ i18n[lang].site.title }}
+
+{{ i18n[lang].llms.intro | safe }}
+
+{{ i18n[lang].llms.full_corpus | safe }} {{ '/llms-full.txt' | url }}
+
+{{ i18n[lang].llms.license | safe }}
+
+{% for course in coursesList %}
+{%- set base = '/courses/' + course.slug + '/' -%}
+{%- set hasWorkbook = materialHelpers.hasMaterial(course, 'workbook_photos') or materialHelpers.hasMaterial(course, 'workbook_pdfs') -%}
+{%- set hasSyllabus = materialHelpers.hasMaterial(course, 'syllabus') -%}
+{%- set hasWorksheet = materialHelpers.hasMaterial(course, 'worksheet') -%}
+{%- set hasBlackboard = materialHelpers.hasMaterial(course, 'blackboard') -%}
+{%- set hasPhotos = materialHelpers.hasMaterial(course, 'photos') -%}
+{%- set hasPlayScript = materialHelpers.getDoc(course, 'play_script') or materialHelpers.hasMaterial(course, 'play_scripts') -%}
+{%- set hasScripts = materialHelpers.hasMaterial(course, 'scripts_photos') -%}
+{%- set hasSongs = materialHelpers.hasMaterial(course, 'songs_audio') -%}
+{%- set hasSheetMusic = materialHelpers.hasMaterial(course, 'sheet_music') -%}
+{%- set hasStory = materialHelpers.getDoc(course, 'story') -%}
+{%- set hasVideos = materialHelpers.hasMaterial(course, 'videos') -%}
+## {{ i18nMacro.cfRaw(course, 'title', lang) }}
+
+{{ i18nMacro.cfRaw(course, 'grade', lang) }} · {{ i18nMacro.cfRaw(course, 'semester', lang) }} · {{ i18nMacro.cfRaw(course, 'unit', lang) }}
+
+{{ i18nMacro.cfRaw(course, 'overview', lang) }}
+
+- [{{ i18n[lang].course.course_home }}]({{ base | url }})
+{% if hasWorkbook %}- [{{ i18n[lang].course.workbook }}]({{ (base + 'workbook/') | url }})
+{% endif %}{% if hasSyllabus %}- [{{ i18n[lang].course.syllabus }}]({{ (base + 'syllabus/') | url }})
+{% endif %}{% if hasWorksheet %}- [{{ i18n[lang].course.worksheet }}]({{ (base + 'worksheet/') | url }})
+{% endif %}{% if hasBlackboard %}- [{{ i18n[lang].course.blackboard_drawings }}]({{ (base + 'blackboard/') | url }})
+{% endif %}{% if hasPhotos %}- [{{ i18n[lang].course.photo_gallery }}]({{ (base + 'photos/') | url }})
+{% endif %}{% if hasPlayScript %}- [{{ i18n[lang].course.play_script }}]({{ (base + 'play-script/') | url }})
+{% endif %}{% if hasScripts %}- [{{ i18n[lang].course.performance }}]({{ (base + 'scripts/') | url }})
+{% endif %}{% if hasSongs %}- [{{ i18n[lang].course.songs }}]({{ (base + 'songs/') | url }})
+{% endif %}{% if hasSheetMusic %}- [{{ i18n[lang].course.sheet_music }}]({{ (base + 'sheet-music/') | url }})
+{% endif %}{% if hasStory %}- [{{ i18n[lang].course.story }}]({{ (base + 'story/') | url }})
+{% endif %}{% if hasVideos %}- [{{ i18n[lang].course.video }}]({{ (base + 'videos/') | url }})
+{% endif %}
+{% endfor %}
