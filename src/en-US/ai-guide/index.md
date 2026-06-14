@@ -8,8 +8,8 @@ eleventyNavigation:
 
 <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true" lang="en-US">
   AI Guide for Teachers: Using AI Tools with Course Archive
-  ChatGPT Claude Gemini NotebookLM ai-index.json structured data
-  Download index file, query courses, generate worksheets, teaching materials
+  ChatGPT Claude Gemini NotebookLM llms-full.txt full corpus Markdown
+  Share corpus URL, query courses, generate worksheets, teaching materials
   Cross-course analysis, lesson planning, educational resources
 </div>
 
@@ -19,11 +19,11 @@ eleventyNavigation:
 
 This website is not just a platform for displaying course materials, but a "structured database" designed for AI.
 
-Simply put, we have organized **detailed data of all courses** on the website—from course introductions and syllabi to the **complete text content** of every worksheet, script, and story draft—into an "AI Index File" named `ai-index.json`.
+Simply put, we have organized **detailed data of all courses** on the website—from course introductions and syllabi to the **complete text content** of every worksheet, script, and story draft—into a full corpus file named `llms-full.txt`.
 
 **What are the benefits for teachers?**
 
-You can provide this index file to Large Language Models (such as ChatGPT, Claude, Gemini, etc.), turning AI into a teaching assistant that best understands the "CiXin Curriculum Map". You can:
+Simply share this corpus URL with Large Language Models (such as ChatGPT, Claude, Gemini, etc.), turning AI into a teaching assistant that best understands the "CiXin Curriculum Map". You can:
 
 *   **Quickly Query and Integrate:** Search for specific subject materials across courses and grade levels.
 *   **Deep Analysis and Comparison:** Analyze teaching methods and content differences between different courses.
@@ -33,7 +33,7 @@ You can provide this index file to Large Language Models (such as ChatGPT, Claud
 
 ## 2. What data can AI read from the website?
 
-Once you provide the `ai-index.json` file to the AI, it can immediately grasp the following information:
+Once you share the `llms-full.txt` URL with the AI, it can immediately grasp the following information:
 
 | Data Type | Content Examples |
 | :--- | :--- |
@@ -43,7 +43,7 @@ Once you provide the `ai-index.json` file to the AI, it can immediately grasp th
 | **Full Material List** | **Names** and **tags** of workbooks, photos, chalkboard drawings, sheet music, etc. |
 | **Multimedia File Info** | Links and descriptions of song audio files and videos |
 
-**Key Advantage:** AI no longer guesses, but can **directly read and understand** the **content** of every PDF material you upload, making its output much closer to your actual teaching needs.
+**Key Advantage:** AI no longer guesses, but can **directly read and understand** the **content** of every PDF material in the corpus, making its output much closer to your actual teaching needs.
 
 ---
 
@@ -51,27 +51,25 @@ Once you provide the `ai-index.json` file to the AI, it can immediately grasp th
 
 You can choose one of the following two methods to let AI read the website data according to your needs.
 
-### Method 1: Download the Index File (Recommended for most complete information)
+### Method 1: Share the Full Corpus URL (Recommended for most complete information)
 
 This method allows AI to obtain the most complete data, including the full text of all course PDFs, resulting in the most accurate analysis.
 
-**Step 1: Download the AI Index File**
+**Step 1: Copy the corpus URL**
 
-1.  Open the following link in your browser:
-    *   <a href="{{ site.url }}/ai-index.json" target="_blank">{{ site.url }}/ai-index.json</a>
-2.  The browser will display a page in JSON format. Please right-click and select "Save As" to save the file to your computer. The filename will be `ai-index.json`.
+1.  Copy the following link:
+    *   <a href="{{ site.url }}/en-US/llms-full.txt" target="_blank">{{ site.url }}/en-US/llms-full.txt</a>
 
-**Step 2: Upload the file to the AI Chatroom**
+**Step 2: Share the URL with your AI tool**
 
 1.  Open your preferred AI tool (e.g., ChatGPT, Claude, Gemini, etc.).
-2.  In the chat box, find the **Attach File** button (usually a paperclip 📎 icon).
-3.  Select the `ai-index.json` file you just downloaded and upload it.
+2.  Paste the URL directly into the chat box — the AI will fetch and read the full corpus.
 
 **Step 3: Start asking!**
 
-After the file is successfully uploaded, you can start giving instructions to the AI. It is recommended to first use a sentence to let the AI understand the content of this file:
+After the AI reads the corpus, you can start giving instructions. It is recommended to first use a sentence to let the AI understand the content:
 
-> "This is my school's course database, containing introductions for all courses, material lists, and the full text of PDF materials. Please answer my subsequent questions based on the content of this file."
+> "This is my school's course database, containing introductions for all courses, material lists, and the full text of PDF materials. Please answer my subsequent questions based on this content."
 
 ### Method 2: Use Google NotebookLM (Most convenient, suitable for quick analysis)
 
@@ -106,7 +104,7 @@ After the data source is processed, you can start asking questions in the chat b
 You can copy or modify the following examples to explore the powerful features of AI.
 
 【Role Setting Prompt】
-"You are a senior curriculum consultant at CiXin Waldorf School. Please read the ai-index.json I uploaded. This is the school's complete course database, including course introductions, tags, instructors, and material lists. Please answer my questions based on the content of this file."
+"You are a senior curriculum consultant at CiXin Waldorf School. Please read the content at: {{ site.url }}/en-US/llms-full.txt — this is the school's complete course corpus, including course introductions, tags, instructors, material lists, and full PDF text. Please answer my questions based on this content."
 
 ## **4-1. Beginning Teacher**
 
