@@ -6,7 +6,7 @@ Each candidate is refined in a grilling session; when its design settles, promot
 only that one) to a tracker issue via `/to-issues`.
 
 Vocabulary: **module / interface / implementation / depth / deep / shallow / seam / adapter /
-leverage / locality**. Domain terms from `CONTEXT.md`.
+leverage / locality**. Domain terms from `GLOSSARY.md`.
 
 Status legend: `draft — pending grill` → `grilled — design settled` → `promoted to #<issue>`.
 
@@ -22,7 +22,7 @@ Reference report (ephemeral, `/tmp`): `architecture-review-20260613-165349.html`
   `getI18nField()` was dead code (0 callers) and a deletable twin of `cf()`. It is **neither** —
   it has a live caller (`home.njk`, `learningObjectives`) and is the *structured/array* resolver
   `cf()` cannot replace. #26 keeps it, names it the third resolver, and aligns its fallback to
-  "absent **or empty** ⇒ zh-TW". See #26 and `CONTEXT.md` → "Course Field" for the authoritative design.
+  "absent **or empty** ⇒ zh-TW". See #26 and `GLOSSARY.md` → "Course Field" for the authoritative design.
 - **Files:** `src/_includes/macros/i18n.njk` · `src/_data/courseHelpers.js` · `src/_data/tagHelpers.js`
   · `src/_includes/components/course-breadcrumb.njk` · `src/_data/coursesList.js` · `src/_data/course-validator.js`
 
@@ -99,7 +99,7 @@ Format — not sections). ADR for B itself: not warranted — it's a template co
 hard-to-reverse architectural commitment.
 
 **Glossary.** Candidate was mis-titled "Material taxonomy." The modelled concept is the
-**Course Page** — landed in CONTEXT.md as a *page type / nav slot* (the 14 sub-page templates in
+**Course Page** — landed in GLOSSARY.md as a *page type / nav slot* (the 14 sub-page templates in
 `src/courses/` are 11ty pages realized one-per-Course via pagination; the term names the type, not
 the runtime `page`).
 
@@ -238,5 +238,5 @@ script (Do-not #6 intact).
 **Grill notes (2026-06-14).** Premises verified by code sweep. Scope cut to (乙). Mechanism =
 registry + emit-side validator (over macro / runtime-warn / doc-only). Orphans: delete dead emit,
 register-and-keep dead read, converge `data-i18n-template` (option B — kills the second-engine
-hard-coded key). Name settled: **Translation Hook** (landed in CONTEXT.md, Localization section,
+hard-coded key). Name settled: **Translation Hook** (landed in GLOSSARY.md, Localization section,
 beside UI String / Course Field). Ready for `/to-issues`.
