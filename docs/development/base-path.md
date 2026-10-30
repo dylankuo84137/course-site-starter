@@ -25,6 +25,18 @@ Test subpath correctness before every commit:
 ELEVENTY_BASE="/course-site-starter/" npm run build
 ```
 
+### Locale-aware URL variables
+
+When a URL changes by locale, derive it with Nunjucks inline-if and capture with `set` — **not** per-branch repetition:
+
+```njk
+{%- set _url = ('/path.txt' if lang == locale.default else '/' + lang + '/path.txt') | url -%}
+```
+
+The `| url` pipe applies to the resolved string (correct parenthesization is essential — pipe on the outside). Established precedent: `src/_includes/components/lang_switcher.njk:23`.
+
+*Do-not #7 reminder*: this is Nunjucks inline-if (`X if cond else Y`), not a JS ternary (`cond ? X : Y`). The rule only bans the JS form.
+
 ## Drive Integration
 
 - Auto-tag images from filenames: grade/semester/unit/domain + `[tag]`/`#tag` notation
