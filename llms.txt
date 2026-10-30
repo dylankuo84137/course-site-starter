@@ -1,0 +1,63 @@
+# 慈心課程織圖
+
+慈心華德福雙語課程典藏館，串起課程目標、教學紀錄與媒體素材。本檔案是整個課程語料庫的機器可讀探索索引：依課程列出標題、簡介與各語言中繼資料，並連結至每門課程的人類可讀頁面，方便 AI 工具探索與引用，無需解析 HTML。若需一次取得完整語料庫內容，請參考完整酬載 /course-site-starter/llms-full.txt
+
+內容採 CC BY-NC-SA（姓名標示—非商業性—相同方式分享）授權，僅供教育研究用途並須標示來源；商業使用須事先取得書面同意。
+
+## 能高山（班級戲劇）
+
+二年級 2A 嶺光班 · 113 學年度 夏季 · 班級戲劇
+
+琬婷老師說明，「能高山」戲劇是她自然主課的內容。上一屆的自然課本來是使用《尼爾斯騎鵝旅行記》，雖然故事和文字很棒，但場景遙遠且不屬於台灣。
+因此，這一季她開始嘗試使用原住民故事，不一定是傳統流傳的，有許多也是後人創作的繪本。上一季的自然課採用了講述阿美族植物和動物的繪本《樹上的魚》；而這一季，則選用了舊繪本《能高山》。 她發現原住民歌曲有很多是五音的，劇本創作可以很簡單、有重複性，模式易於模仿。她也從網路尋找歌曲，例如，兒童的歌曲（如小螞蟻、螢火蟲）融入故事中，豐富了原本過短的故事情節。
+
+- [課程主頁](/course-site-starter/courses/2a-nenggao-113-summer/)
+- [工作本](/course-site-starter/courses/2a-nenggao-113-summer/workbook/)
+- [黑板畫](/course-site-starter/courses/2a-nenggao-113-summer/blackboard/)
+- [照片集](/course-site-starter/courses/2a-nenggao-113-summer/photos/)
+- [劇本](/course-site-starter/courses/2a-nenggao-113-summer/play-script/)
+- [劇照](/course-site-starter/courses/2a-nenggao-113-summer/scripts/)
+- [歌曲音檔](/course-site-starter/courses/2a-nenggao-113-summer/songs/)
+
+## 射日傳說（班級戲劇）
+
+三年級 3A 雲朵班 · 113 學年度 夏季 · 班級戲劇
+
+常有家長問：「為什麼慈心的戲劇課程這麼多？」這個提問，也常成為老師們反思的起點──在華德福學校裡，戲劇到底扮演了什麼角色？
+對老師而言，戲劇不只是藝術表達，更是一段深具教育性的學習歷程。透過將課程內容轉化為戲劇展演，孩子不僅深化了對課程的理解，更能藉由肢體、聲音與情感的參與，整合內在的經驗與外在的表達。今年三年級的戲劇課，我們選擇了台灣原住民的《射日傳說》，並嘗試以台語音樂劇的方式演出。
+
+- [課程主頁](/course-site-starter/courses/3a-sunshot-113-summer/)
+- [工作本](/course-site-starter/courses/3a-sunshot-113-summer/workbook/)
+- [照片集](/course-site-starter/courses/3a-sunshot-113-summer/photos/)
+- [劇本](/course-site-starter/courses/3a-sunshot-113-summer/play-script/)
+- [歌曲音檔](/course-site-starter/courses/3a-sunshot-113-summer/songs/)
+- [樂譜](/course-site-starter/courses/3a-sunshot-113-summer/sheet-music/)
+- [故事](/course-site-starter/courses/3a-sunshot-113-summer/story/)
+- [影片](/course-site-starter/courses/3a-sunshot-113-summer/videos/)
+
+## 西遊記（語文主課）
+
+四年級 4A 雲朵班 · 114 學年度 秋季 · 語文主課
+
+本課程旨在深化四年級學生的語文理解、表達與書寫能力。透過《西遊記》的故事，培養學生獨立書寫、自由書寫的能力，並積累語感、詞彙與語言節奏。課程強調閱讀深化，學習整理段落大意、找出佳句、寫下感想，並將生活經驗轉化為文字。學生將透過小組討論與全班分享，練習提出問題、傾聽他人、表達觀點，並學習尊重不同意見。課程設計採用「故事推進」與「主題書寫」雙軌並行，讓學生在收斂與擴展的語文學習中，看見勇敢、智慧與堅持等特質的對照，並在挑戰中選擇正向價值。
+
+- [課程主頁](/course-site-starter/courses/4a-journey-to-the-west-114-autumn/)
+- [工作本](/course-site-starter/courses/4a-journey-to-the-west-114-autumn/workbook/)
+- [照片集](/course-site-starter/courses/4a-journey-to-the-west-114-autumn/photos/)
+- [影片](/course-site-starter/courses/4a-journey-to-the-west-114-autumn/videos/)
+
+## 現代史主課
+
+九年級 9C 心亮班 · 114 學年度 秋季 · 主課程
+
+這門現代史主課以十六堂課的節奏走過啟蒙、革命、工業到戰後世界，帶著九年級學生重新看見「歷史中的人」。課堂安排回顧、講述、辯論與筆記練習交織，學生每天閱讀史料並在工作本中建構自己的時間軸與概念圖。透過盧梭、拿破崙、羅伯·歐文到青年運動的案例，課程讓學生辨識自由與秩序、理想與代價的張力，也把自己視為正在形塑歷史的人。
+
+- [課程主頁](/course-site-starter/courses/9c-modern-history-114-autumn/)
+- [工作本](/course-site-starter/courses/9c-modern-history-114-autumn/workbook/)
+- [課程大綱與教學紀錄](/course-site-starter/courses/9c-modern-history-114-autumn/syllabus/)
+- [學習單](/course-site-starter/courses/9c-modern-history-114-autumn/worksheet/)
+- [黑板畫](/course-site-starter/courses/9c-modern-history-114-autumn/blackboard/)
+- [照片集](/course-site-starter/courses/9c-modern-history-114-autumn/photos/)
+- [影片](/course-site-starter/courses/9c-modern-history-114-autumn/videos/)
+
+

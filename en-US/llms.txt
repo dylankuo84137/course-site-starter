@@ -1,0 +1,65 @@
+# Cixin Course Weaver
+
+Cixin Course Weaver is Ci-Xin Waldorf's bilingual course archive, connecting lesson goals with teaching records and media artifacts. This file is the machine-readable discovery index of the whole corpus: it lists every course with its title, summary, and per-language metadata, and links to each course's human-readable pages so AI tools can discover and cite the material without parsing HTML.For a whole-corpus fetch, see the full payload at /course-site-starter/en-US/llms-full.txt
+
+Content is licensed under CC BY-NC-SA (Attribution-NonCommercial-ShareAlike) for educational research with attribution; commercial use requires prior written consent.
+
+## Mt. Nenggao (Class Drama)
+
+Grade 2, Class 2A Lingguang · Academic Year 113, Summer · Class Drama
+
+Teacher Wan-Ting explained that the 'Mt. Nenggao' drama is part of her Nature main lesson. The previous year's nature class used 'The Wonderful Adventures of Nils,' which has great storytelling and prose, but the setting is distant and not rooted in Taiwan.
+
+Therefore, this season she began experimenting with indigenous stories—not necessarily traditional tales, but also picture books created by contemporary authors. Last season's nature class featured 'Fish in the Trees,' a picture book about Amis plants and animals. This season, she chose the classic picture book 'Mt. Nenggao.' She discovered that many indigenous songs use pentatonic scales, making them simple and repetitive—easy patterns to imitate. She also sourced songs online, such as children's songs about ants and fireflies, which enriched the originally brief storyline.
+
+- [Course Home](/course-site-starter/courses/2a-nenggao-113-summer/)
+- [Workbook](/course-site-starter/courses/2a-nenggao-113-summer/workbook/)
+- [Blackboard Drawings](/course-site-starter/courses/2a-nenggao-113-summer/blackboard/)
+- [Photo Gallery](/course-site-starter/courses/2a-nenggao-113-summer/photos/)
+- [Play Script](/course-site-starter/courses/2a-nenggao-113-summer/play-script/)
+- [Performance Photos](/course-site-starter/courses/2a-nenggao-113-summer/scripts/)
+- [Songs](/course-site-starter/courses/2a-nenggao-113-summer/songs/)
+
+## The Legend of Shooting the Suns (Class Drama)
+
+Grade 3, Class 3A Yunduo · Academic Year 113, Summer · Class Drama
+
+Parents often ask: 'Why does Cixin have so many drama courses?' This question frequently becomes a starting point for teachers' reflection—what role does drama actually play in a Waldorf school?
+
+For teachers, drama is not just artistic expression; it's a deeply educational learning journey. By transforming curriculum content into dramatic performance, children not only deepen their understanding of the material but also integrate internal experience with external expression through physical movement, voice, and emotion. This year's third-grade drama class features the Taiwanese indigenous legend 'Shooting the Suns,' presented as a Taiwanese-language musical.
+
+- [Course Home](/course-site-starter/courses/3a-sunshot-113-summer/)
+- [Workbook](/course-site-starter/courses/3a-sunshot-113-summer/workbook/)
+- [Photo Gallery](/course-site-starter/courses/3a-sunshot-113-summer/photos/)
+- [Play Script](/course-site-starter/courses/3a-sunshot-113-summer/play-script/)
+- [Songs](/course-site-starter/courses/3a-sunshot-113-summer/songs/)
+- [Sheet Music](/course-site-starter/courses/3a-sunshot-113-summer/sheet-music/)
+- [Story](/course-site-starter/courses/3a-sunshot-113-summer/story/)
+- [Video](/course-site-starter/courses/3a-sunshot-113-summer/videos/)
+
+## Journey to the West
+
+Grade 4, Class 4A Yunduo · Academic Year 114, Autumn · Language Main Lesson
+
+This course aims to deepen fourth-grade students' language comprehension, expression, and writing skills. Through the story of 'Journey to the West,' students will develop independent and free writing abilities, and accumulate language sense, vocabulary, and linguistic rhythm. The curriculum emphasizes deepening reading, learning to summarize paragraph main ideas, identify excellent sentences, write reflections, and transform life experiences into text. Students will engage in group discussions and whole-class sharing to practice asking questions, listening to others, expressing viewpoints, and learning to respect diverse opinions. The course design adopts a 'story progression' and 'thematic writing' dual-track approach, allowing students to experience convergent and divergent language learning, observe contrasting qualities like bravery, wisdom, and perseverance, and choose positive values when facing challenges.
+
+- [Course Home](/course-site-starter/courses/4a-journey-to-the-west-114-autumn/)
+- [Workbook](/course-site-starter/courses/4a-journey-to-the-west-114-autumn/workbook/)
+- [Photo Gallery](/course-site-starter/courses/4a-journey-to-the-west-114-autumn/photos/)
+- [Video](/course-site-starter/courses/4a-journey-to-the-west-114-autumn/videos/)
+
+## Modern History Main Lesson
+
+Grade 9, Class 9C Xinliang · Academic Year 114, Autumn · Main Lesson
+
+Across sixteen lessons this modern history block traces the path from the Enlightenment and revolutionary waves to the industrial age and postwar world, inviting students to keep asking who is acting inside history. Each morning we cycle through review, storytelling, debate, and deliberate note-making so learners read source material and build their own timelines and concept maps in the workbook. From Rousseau and Napoleon to Robert Owen and contemporary youth movements, students examine the tension between freedom and order, ideals and costs, and begin to see themselves as people actively shaping history.
+
+- [Course Home](/course-site-starter/courses/9c-modern-history-114-autumn/)
+- [Workbook](/course-site-starter/courses/9c-modern-history-114-autumn/workbook/)
+- [Syllabus and Teaching Records](/course-site-starter/courses/9c-modern-history-114-autumn/syllabus/)
+- [Worksheet](/course-site-starter/courses/9c-modern-history-114-autumn/worksheet/)
+- [Blackboard Drawings](/course-site-starter/courses/9c-modern-history-114-autumn/blackboard/)
+- [Photo Gallery](/course-site-starter/courses/9c-modern-history-114-autumn/photos/)
+- [Video](/course-site-starter/courses/9c-modern-history-114-autumn/videos/)
+
+
