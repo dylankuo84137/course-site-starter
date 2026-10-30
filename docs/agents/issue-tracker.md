@@ -11,8 +11,6 @@ Issues and PRDs for this repo live as GitHub issues. Use the `gh` CLI for all op
 - **Apply / remove labels**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`
 - **Close**: `gh issue close <number> --comment "..."`
 
-This repo has two remotes — `origin` (GitHub, the issue tracker) and `gitlab` (self-hosted mirror). `gh` targets `origin` automatically when run inside the clone; pass `--repo dylankuo84137/course-site-starter` if it ever picks the wrong one.
-
 ## When a skill says "publish to the issue tracker"
 
 Create a GitHub issue.
